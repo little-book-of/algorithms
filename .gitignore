@@ -1,0 +1,16 @@
+/.quarto/
+**/*.quarto_ipynb
+
+book.aux
+book.toc
+texput.log
+
+.DS_Store
+
+# Ignore ONLY the top-level site_libs
+/site_libs/
+
+# Keep the one inside docs (optional safeguards if you already ignore broadly)
+!docs/
+!docs/site_libs/
+!docs/site_libs/**

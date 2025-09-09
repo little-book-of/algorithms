@@ -1,0 +1,85 @@
+# Roadmap
+
+The Little Book of Algorithms is a multi-volume project. Each volume has a clear sequence of chapters, and each chapter has three levels of depth (L0 beginner intuition, L1 practical techniques, L2 advanced systems/theory). This roadmap outlines the plan for development and publication.
+
+## Goals
+
+- Establish a consistent layered structure across all chapters.
+- Provide runnable implementations in Python, C, Go, Erlang, and Lean.
+- Ensure Quarto build supports HTML, PDF, EPUB, and LaTeX.
+- Deliver both pedagogy (L0) and production insights (L2).
+
+## Volumes
+
+### Volume I - Structures Linéaires
+
+- Chapter 0 - Foundations
+- Chapter 1 - Numbers
+- Chapter 2 - Arrays
+- Chapter 3 - Strings
+- Chapter 4 - Linked Lists
+- Chapter 5 - Stacks & Queues
+
+### Volume II - Algorithmes Fondamentaux
+
+- Chapter 6 - Searching
+- Chapter 7 - Selection
+- Chapter 8 - Sorting
+- Chapter 9 - Amortized Analysis
+
+### Volume III - Structures Hiérarchiques
+
+- Chapter 10 - Tree Fundamentals
+- Chapter 11 - Heaps & Priority Queues
+- Chapter 12 - Binary Search Trees
+- Chapter 13 - Balanced Trees & Ordered Maps
+- Chapter 14 - Range Queries
+- Chapter 15 - Vector Databases
+
+### Volume IV - Paradigmes Algorithmiques
+
+- Chapter 16 - Divide-and-Conquer
+- Chapter 17 - Greedy
+- Chapter 18 - Dynamic Programming
+- Chapter 19 - Backtracking & Search
+
+### Volume V - Graphes et Complexité
+
+- Chapter 20 - Graph Basics
+- Chapter 21 - DAGs & SCC
+- Chapter 22 - Shortest Paths
+- Chapter 23 - Flows & Matchings
+- Chapter 24 - Tree Algorithms
+- Chapter 25 - Complexity & Limits
+- Chapter 26 - External & Cache-Oblivious
+- Chapter 27 - Probabilistic & Streaming
+- Chapter 28 - Engineering
+
+## Milestones
+
+1. Complete detailed outlines for all chapters (L0, L1, L2).
+2. Write draft text for all L0 sections (intuition, analogies, simple examples).
+3. Expand each chapter with L1 content (implementations, correctness arguments, exercises).
+4. Add L2 content (systems insights, proofs, optimizations, advanced references).
+5. Develop and test runnable code in `src/` across Python, C, Go, Erlang, and Lean.
+6. Integrate diagrams, figures, and visual explanations.
+7. Finalize Quarto build setup for HTML, PDF, and EPUB.
+8. Release first public edition (HTML + PDF).
+9. Add LaTeX build, refine EPUB, and polish cross-references.
+10. Publish on GitHub Pages and archive DOI.
+11. Gather feedback, refine explanations, and expand exercises/problem sets.
+12. Long-term: maintain as a living reference with continuous updates and companion volumes.
+
+## Deliverables
+
+- Quarto project with 29 chapters (00–28).
+- Multi-language reference implementations.
+- Learning matrix in README for navigation.
+- ROADMAP.md (this file) to track progress.
+
+## Long-term Vision
+
+- Maintain the repository as a living reference.
+- Extend with exercises, problem sets, and quizzes.
+- Build a dependency map across volumes for prerequisites.
+- Connect to companion "Little Book" series (linear algebra, calculus, probability).

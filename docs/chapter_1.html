@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 1. Numbers – The Little Book of Algorithms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./chapter_2.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter_1.html"><span class="chapter-title">Chapter 1. Numbers</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The Little Book of Algorithms</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Roadmap</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter_1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 1. Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 2. Arrays</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 3. Strings</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter_4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 4. Linked Lists</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter_5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5. Stacks and Queues</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#representation" id="toc-representation" class="nav-link active" data-scroll-target="#representation">1.1 Representation</a>
+  <ul class="collapse">
+  <li><a href="#l0.-decimal-and-binary-basics" id="toc-l0.-decimal-and-binary-basics" class="nav-link" data-scroll-target="#l0.-decimal-and-binary-basics">1.1 L0. Decimal and Binary Basics</a></li>
+  <li><a href="#l1.-beyond-binary-octal-hex-and-twos-complement" id="toc-l1.-beyond-binary-octal-hex-and-twos-complement" class="nav-link" data-scroll-target="#l1.-beyond-binary-octal-hex-and-twos-complement">1.1 L1. Beyond Binary: Octal, Hex, and Two’s Complement</a></li>
+  <li><a href="#l2.-floating-point-and-precision-issues" id="toc-l2.-floating-point-and-precision-issues" class="nav-link" data-scroll-target="#l2.-floating-point-and-precision-issues">1.1 L2. Floating-Point and Precision Issues</a></li>
+  </ul></li>
+  <li><a href="#basic-operations" id="toc-basic-operations" class="nav-link" data-scroll-target="#basic-operations">1.2 Basic Operations</a>
+  <ul class="collapse">
+  <li><a href="#l0.-addition-subtraction-multiplication-division" id="toc-l0.-addition-subtraction-multiplication-division" class="nav-link" data-scroll-target="#l0.-addition-subtraction-multiplication-division">1.2 L0. Addition, Subtraction, Multiplication, Division</a></li>
+  <li><a href="#l1.-division-modulo-and-efficiency" id="toc-l1.-division-modulo-and-efficiency" class="nav-link" data-scroll-target="#l1.-division-modulo-and-efficiency">1.2 L1. Division, Modulo, and Efficiency</a></li>
+  <li><a href="#l2.-fast-arithmetic-algorithms" id="toc-l2.-fast-arithmetic-algorithms" class="nav-link" data-scroll-target="#l2.-fast-arithmetic-algorithms">1.2 L2. Fast Arithmetic Algorithms</a></li>
+  </ul></li>
+  <li><a href="#properties" id="toc-properties" class="nav-link" data-scroll-target="#properties">1.3 Properties</a>
+  <ul class="collapse">
+  <li><a href="#l0-simple-number-properties" id="toc-l0-simple-number-properties" class="nav-link" data-scroll-target="#l0-simple-number-properties">1.3 L0 — Simple Number Properties</a></li>
+  <li><a href="#l1-classical-number-theory-tools" id="toc-l1-classical-number-theory-tools" class="nav-link" data-scroll-target="#l1-classical-number-theory-tools">1.3 L1 — Classical Number Theory Tools</a></li>
+  <li><a href="#l2-advanced-number-theory-in-algorithms" id="toc-l2-advanced-number-theory-in-algorithms" class="nav-link" data-scroll-target="#l2-advanced-number-theory-in-algorithms">1.3 L2 — Advanced Number Theory in Algorithms</a></li>
+  </ul></li>
+  <li><a href="#overflow-precision" id="toc-overflow-precision" class="nav-link" data-scroll-target="#overflow-precision">1.4 Overflow &amp; Precision</a>
+  <ul class="collapse">
+  <li><a href="#l0---when-numbers-get-too-big-or-too-small" id="toc-l0---when-numbers-get-too-big-or-too-small" class="nav-link" data-scroll-target="#l0---when-numbers-get-too-big-or-too-small">1.4 L0 - When Numbers Get Too Big or Too Small</a></li>
+  <li><a href="#l1---detecting-and-managing-overflow-in-real-programs" id="toc-l1---detecting-and-managing-overflow-in-real-programs" class="nav-link" data-scroll-target="#l1---detecting-and-managing-overflow-in-real-programs">1.4 L1 - Detecting and Managing Overflow in Real Programs</a></li>
+  <li><a href="#l2.-under-the-hood" id="toc-l2.-under-the-hood" class="nav-link" data-scroll-target="#l2.-under-the-hood">1.4 L2. Under the Hood</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chapter 1. Numbers</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="representation" class="level2">
+<h2 class="anchored" data-anchor-id="representation">1.1 Representation</h2>
+<section id="l0.-decimal-and-binary-basics" class="level3">
+<h3 class="anchored" data-anchor-id="l0.-decimal-and-binary-basics">1.1 L0. Decimal and Binary Basics</h3>
+<p>A number representation is a way of writing numbers using symbols and positional rules. Humans typically use decimal notation, while computers rely on binary because it aligns with the two-state nature of electronic circuits. Understanding both systems is the first step in connecting mathematical intuition with machine computation.</p>
+<section id="numbers-in-everyday-life" class="level4">
+<h4 class="anchored" data-anchor-id="numbers-in-everyday-life">Numbers in Everyday Life</h4>
+<p>Humans work with the decimal system (base 10), which uses digits 0 through 9. Each position in a number has a place value that is a power of 10.</p>
+<p><span class="math display">\[
+427 = 4 \times 10^2 + 2 \times 10^1 + 7 \times 10^0
+\]</span></p>
+<p>This principle of <em>positional notation</em> is the same idea used in other bases.</p>
+</section>
+<section id="numbers-in-computers" class="level4">
+<h4 class="anchored" data-anchor-id="numbers-in-computers">Numbers in Computers</h4>
+<p>Computers, however, operate in binary (base 2). A binary digit (bit) can only be 0 or 1, matching the two stable states of electronic circuits (off/on). Each binary place value represents a power of 2.</p>
+<p><span class="math display">\[
+1011_2 = 1 \times 2^3 + 0 \times 2^2 + 1 \times 2^1 + 1 \times 2^0 = 11_{10}
+\]</span></p>
+<p>Just like in decimal where <span class="math inline">\(9 + 1 = 10\)</span>, in binary <span class="math inline">\(1 + 1 = 10_2\)</span>.</p>
+</section>
+<section id="conversion-between-decimal-and-binary" class="level4">
+<h4 class="anchored" data-anchor-id="conversion-between-decimal-and-binary">Conversion Between Decimal and Binary</h4>
+<p>To convert from decimal to binary, repeatedly divide the number by 2 and record the remainders. Then read the remainders from bottom to top.</p>
+<p>Example: Convert <span class="math inline">\(42_{10}\)</span> into binary.</p>
+<ul>
+<li>42 ÷ 2 = 21 remainder 0</li>
+<li>21 ÷ 2 = 10 remainder 1</li>
+<li>10 ÷ 2 = 5 remainder 0</li>
+<li>5 ÷ 2 = 2 remainder 1</li>
+<li>2 ÷ 2 = 1 remainder 0</li>
+<li>1 ÷ 2 = 0 remainder 1</li>
+</ul>
+<p>Reading upward: <span class="math inline">\(101010_2\)</span>.</p>
+<p>To convert from binary to decimal, expand into powers of 2 and sum:</p>
+<p><span class="math display">\[
+101010_2 = 1 \times 2^5 + 0 \times 2^4 + 1 \times 2^3 + 0 \times 2^2 + 1 \times 2^1 + 0 \times 2^0 = 42_{10}
+\]</span></p>
+</section>
+<section id="worked-example-python" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-python">Worked Example (Python)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Decimal:"</span>, n)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Binary :"</span>, <span class="bu">bin</span>(n))   <span class="co"># 0b101010</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># binary literal in Python</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bn">0b101010</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Binary literal:"</span>, b)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># converting binary string to decimal</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"From binary '1011':"</span>, <span class="bu">int</span>(<span class="st">"1011"</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Decimal:</span> 42</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Binary</span> : 0b101010</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Binary</span> literal: 42</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">From</span> binary <span class="st">'1011'</span>: 11</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="why-it-matters" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters">Why It Matters</h4>
+<ul>
+<li>All information inside a computer — numbers, text, images, programs — reduces to binary representation.</li>
+<li>Decimal and binary conversions are the first bridge between human-friendly math and machine-level data.</li>
+<li>Understanding binary is essential for debugging, low-level programming, and algorithms that depend on bit operations.</li>
+</ul>
+</section>
+<section id="exercises" class="level4">
+<h4 class="anchored" data-anchor-id="exercises">Exercises</h4>
+<ol type="1">
+<li>Write the decimal number 19 in binary.</li>
+<li>Convert the binary number <code>10101₂</code> into decimal.</li>
+<li>Show the repeated division steps to convert 27 into binary.</li>
+<li>Verify in Python that <code>0b111111</code> equals 63.</li>
+<li>Explain why computers use binary instead of decimal.</li>
+</ol>
+</section>
+</section>
+<section id="l1.-beyond-binary-octal-hex-and-twos-complement" class="level3">
+<h3 class="anchored" data-anchor-id="l1.-beyond-binary-octal-hex-and-twos-complement">1.1 L1. Beyond Binary: Octal, Hex, and Two’s Complement</h3>
+<p>Numbers are not always written in base-10 or even in base-2. For efficiency and compactness, programmers often use octal (base-8) and hexadecimal (base-16). At the same time, negative numbers must be represented reliably; modern computers use two’s complement for this purpose.</p>
+<section id="octal-and-hexadecimal" class="level4">
+<h4 class="anchored" data-anchor-id="octal-and-hexadecimal">Octal and Hexadecimal</h4>
+<p>Octal and hex are simply alternate numeral systems.</p>
+<ul>
+<li>Octal (base 8): digits <code>0</code>–<code>7</code>.</li>
+<li>Hexadecimal (base 16): digits <code>0</code>–<code>9</code> plus <code>A</code>–<code>F</code>.</li>
+</ul>
+<p>Why they matter:</p>
+<ul>
+<li>Hex is concise: one hex digit = 4 binary bits.</li>
+<li>Octal was historically convenient: one octal digit = 3 binary bits (useful on early 12-, 24-, or 36-bit machines).</li>
+</ul>
+<p>For example, the number 42 is written as:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Decimal</th>
+<th>Binary</th>
+<th>Octal</th>
+<th>Hex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>42</td>
+<td>101010</td>
+<td>52</td>
+<td>2A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="twos-complement" class="level4">
+<h4 class="anchored" data-anchor-id="twos-complement">Two’s Complement</h4>
+<p>To represent negative numbers, we cannot just “stick a minus sign” in memory. Instead, binary uses two’s complement:</p>
+<ol type="1">
+<li>Choose a fixed bit-width (say 8 bits).</li>
+<li>For a negative number <code>-x</code>, compute <code>2^bits - x</code>.</li>
+<li>Store the result as an ordinary binary integer.</li>
+</ol>
+<p>Example with 8 bits:</p>
+<ul>
+<li><code>+5</code> → <code>00000101</code></li>
+<li><code>-5</code> → <code>11111011</code></li>
+<li><code>-1</code> → <code>11111111</code></li>
+</ul>
+<p>Why two’s complement is powerful:</p>
+<ul>
+<li>Addition and subtraction “just work” with the same circuitry for signed and unsigned.</li>
+<li>There is only one representation of zero.</li>
+</ul>
+</section>
+<section id="working-example-python" class="level4">
+<h4 class="anchored" data-anchor-id="working-example-python">Working Example (Python)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Decimal 42 in different bases</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Decimal:"</span>, n)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Binary :"</span>, <span class="bu">bin</span>(n))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Octal  :"</span>, <span class="bu">oct</span>(n))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hex    :"</span>, <span class="bu">hex</span>(n))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Two's complement for -5 in 8 bits</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_twos_complement(x: <span class="bu">int</span>, bits: <span class="bu">int</span> <span class="op">=</span> <span class="dv">8</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&gt;=</span> <span class="dv">0</span>:</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">format</span>(x, <span class="ss">f"0</span><span class="sc">{</span>bits<span class="sc">}</span><span class="ss">b"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">format</span>((<span class="dv">1</span> <span class="op">&lt;&lt;</span> bits) <span class="op">+</span> x, <span class="ss">f"0</span><span class="sc">{</span>bits<span class="sc">}</span><span class="ss">b"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"+5:"</span>, to_twos_complement(<span class="dv">5</span>, <span class="dv">8</span>))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-5:"</span>, to_twos_complement(<span class="op">-</span><span class="dv">5</span>, <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output:</p>
+<pre><code>Decimal: 42
+Binary : 0b101010
+Octal  : 0o52
+Hex    : 0x2a
++5: 00000101
+-5: 11111011</code></pre>
+</section>
+<section id="why-it-matters-1" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-1">Why It Matters</h4>
+<ul>
+<li>Programmer convenience: Hex makes binary compact and human-readable.</li>
+<li>Hardware design: Two’s complement ensures arithmetic circuits are simple and unified.</li>
+<li>Debugging: Memory dumps, CPU registers, and network packets are usually shown in hex.</li>
+</ul>
+</section>
+<section id="exercises-1" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-1">Exercises</h4>
+<ol type="1">
+<li>Convert <code>100</code> into binary, octal, and hex.</li>
+<li>Write <code>-7</code> in 8-bit two’s complement.</li>
+<li>Verify that <code>0xFF</code> is equal to 255.</li>
+<li>Parse the bitstring <code>"11111001"</code> as an 8-bit two’s complement number.</li>
+<li>Explain why engineers prefer two’s complement over “sign-magnitude” representation.</li>
+</ol>
+</section>
+</section>
+<section id="l2.-floating-point-and-precision-issues" class="level3">
+<h3 class="anchored" data-anchor-id="l2.-floating-point-and-precision-issues">1.1 L2. Floating-Point and Precision Issues</h3>
+<p>Not all numbers are integers. To approximate fractions, scientific notation, and very large or very small values, computers use floating-point representation. The de-facto standard is IEEE-754, which defines how real numbers are encoded, how special values are handled, and what precision guarantees exist.</p>
+<section id="structure-of-floating-point-numbers" class="level4">
+<h4 class="anchored" data-anchor-id="structure-of-floating-point-numbers">Structure of Floating-Point Numbers</h4>
+<p>A floating-point value is composed of three fields:</p>
+<ol type="1">
+<li>Sign bit (s) — indicates positive (<code>0</code>) or negative (<code>1</code>).</li>
+<li>Exponent (e) — determines the scale or “magnitude.”</li>
+<li>Mantissa / significand (m) — contains the significant digits.</li>
+</ol>
+<p>The value is interpreted as:</p>
+<p><span class="math display">\[
+(-1)^s \times 1.m \times 2^{(e - \text{bias})}
+\]</span></p>
+<p>Example: IEEE-754 single precision (32 bits)</p>
+<ul>
+<li>1 sign bit</li>
+<li>8 exponent bits (bias = 127)</li>
+<li>23 mantissa bits</li>
+</ul>
+</section>
+<section id="exact-vs-approximate-representation" class="level4">
+<h4 class="anchored" data-anchor-id="exact-vs-approximate-representation">Exact vs Approximate Representation</h4>
+<p>Some numbers are represented exactly:</p>
+<ul>
+<li><code>1.0</code> has a clean binary form.</li>
+</ul>
+<p>Others cannot be represented precisely:</p>
+<ul>
+<li><code>0.1</code> in decimal is a repeating fraction in binary, so the closest approximation is stored.</li>
+</ul>
+<p>Python example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.2</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"0.1 + 0.2 ="</span>, a)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Equal to 0.3?"</span>, a <span class="op">==</span> <span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output:</p>
+<pre><code>0.1 + 0.2 = 0.30000000000000004
+Equal to 0.3? False</code></pre>
+</section>
+<section id="special-values" class="level4">
+<h4 class="anchored" data-anchor-id="special-values">Special Values</h4>
+<p>IEEE-754 reserves encodings for special cases:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Sign</th>
+<th>Exponent</th>
+<th>Mantissa</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0/1</td>
+<td>all 1s</td>
+<td>0</td>
+<td>+∞ / −∞</td>
+</tr>
+<tr class="even">
+<td>0/1</td>
+<td>all 1s</td>
+<td>nonzero</td>
+<td>NaN (Not a Number)</td>
+</tr>
+<tr class="odd">
+<td>0/1</td>
+<td>all 0s</td>
+<td>nonzero</td>
+<td>Denormals (gradual underflow)</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<ul>
+<li>Division by zero produces infinity: <code>1.0 / 0.0 = inf</code>.</li>
+<li><code>0.0 / 0.0</code> yields <code>NaN</code>, which propagates in computations.</li>
+<li>Denormals allow gradual precision near zero.</li>
+</ul>
+</section>
+<section id="arbitrary-precision" class="level4">
+<h4 class="anchored" data-anchor-id="arbitrary-precision">Arbitrary Precision</h4>
+<p>Languages like Python and libraries like GMP provide arbitrary-precision arithmetic:</p>
+<ul>
+<li>Integers (<code>int</code>) can grow as large as memory allows.</li>
+<li>Decimal libraries (<code>decimal.Decimal</code> in Python) allow exact decimal arithmetic.</li>
+<li>These are slower, but essential for cryptography, symbolic computation, and finance.</li>
+</ul>
+</section>
+<section id="worked-example-python-1" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-python-1">Worked Example (Python)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Infinity:"</span>, <span class="fl">1.0</span> <span class="op">/</span> <span class="fl">0.0</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"NaN:"</span>, <span class="fl">0.0</span> <span class="op">/</span> <span class="fl">0.0</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is NaN?"</span>, math.isnan(<span class="bu">float</span>(<span class="st">'nan'</span>)))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is Inf?"</span>, math.isinf(<span class="bu">float</span>(<span class="st">'inf'</span>)))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Arbitrary precision integer</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>big <span class="op">=</span> <span class="dv">2200</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"2200 ="</span>, big)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="why-it-matters-2" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-2">Why It Matters</h4>
+<ul>
+<li>Rounding surprises: Many decimal fractions cannot be represented exactly.</li>
+<li>Error propagation: Repeated arithmetic may accumulate tiny inaccuracies.</li>
+<li>Special values: NaN and infinity must be handled carefully.</li>
+<li>Domain correctness: Cryptography, finance, and symbolic algebra require exact precision.</li>
+</ul>
+</section>
+<section id="exercises-2" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-2">Exercises</h4>
+<ol type="1">
+<li>Write down the IEEE-754 representation (sign, exponent, mantissa) of <code>1.0</code>.</li>
+<li>Explain why <code>0.1</code> is not exactly representable in binary.</li>
+<li>Test in Python whether <code>float('nan') == float('nan')</code>. What happens, and why?</li>
+<li>Find the smallest positive number you can add to <code>1.0</code> before it changes (machine epsilon).</li>
+<li>Why is arbitrary precision slower but critical in some applications?</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="basic-operations" class="level2">
+<h2 class="anchored" data-anchor-id="basic-operations">1.2 Basic Operations</h2>
+<section id="l0.-addition-subtraction-multiplication-division" class="level3">
+<h3 class="anchored" data-anchor-id="l0.-addition-subtraction-multiplication-division">1.2 L0. Addition, Subtraction, Multiplication, Division</h3>
+<p>An arithmetic operation combines numbers to produce a new number. At this level we focus on four basics: addition, subtraction, multiplication, and division—first with decimal intuition, then a peek at how the same ideas look in binary. Mastering these is essential before moving to algorithms that build on them.</p>
+<section id="intuition-place-value-carryingborrowing" class="level4">
+<h4 class="anchored" data-anchor-id="intuition-place-value-carryingborrowing">Intuition: place value + carrying/borrowing</h4>
+<p>All four operations are versions of combining place values (ones, tens, hundreds …; or in binary: ones, twos, fours …).</p>
+<ul>
+<li>Addition: add column by column; if a column exceeds the base, carry 1 to the next column.</li>
+<li>Subtraction: subtract column by column; if a column is too small, borrow 1 from the next column.</li>
+<li>Multiplication: repeated addition; multiply by each digit and shift (place value), then add partial results.</li>
+<li>Division: repeated subtraction or sharing; find how many times a number “fits,” track the remainder.</li>
+</ul>
+<p>These rules are identical in any base. Only the place values change.</p>
+</section>
+<section id="decimal-examples-by-hand" class="level4">
+<h4 class="anchored" data-anchor-id="decimal-examples-by-hand">Decimal examples (by hand)</h4>
+<ol type="1">
+<li>Addition (carry)</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>   <span class="ex">478</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">+</span> 259</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">----</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>   <span class="ex">737</span>    <span class="er">(</span><span class="ex">8+9=17</span> → write 7, carry 1<span class="kw">;</span> <span class="ex">7+5+1=13</span> → write 3, carry 1<span class="kw">;</span> <span class="ex">4+2+1=7</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>Subtraction (borrow)</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>   <span class="ex">503</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">-</span>  78</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">----</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>   <span class="ex">425</span>    <span class="er">(</span><span class="ex">3-8</span> borrow → 13-8=5<span class="kw">;</span> <span class="ex">0</span> became <span class="at">-1</span> so borrow from 5 → 9-7=2<span class="kw">;</span> <span class="ex">4</span> stays 4<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="3" type="1">
+<li>Multiplication (partial sums)</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>   <span class="ex">214</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">×</span>   3</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">----</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>   <span class="ex">642</span>    <span class="er">(</span><span class="ex">214*3</span> = 642<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="4" type="1">
+<li>Long division (quotient + remainder)</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="ex">47</span> ÷ 5 → 9 remainder 2   <span class="er">(</span><span class="ex">because</span> 5<span class="pp">*</span>9 = 45, leftover 2<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="binary-peek-same-rules-base-2" class="level4">
+<h4 class="anchored" data-anchor-id="binary-peek-same-rules-base-2">Binary peek (same rules, base 2)</h4>
+<ul>
+<li><p>Add rules: 0+0=0, 0+1=1, 1+0=1, 1+1=10₂ (write 0, carry 1)</p></li>
+<li><p>Subtract rules: 0−0=0, 1−0=1, 1−1=0, 0−1 → borrow (becomes 10₂−1=1, borrow 1)</p></li>
+</ul>
+<p>Example: <span class="math inline">\(1011₂ + 0110₂\)</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>   <span class="ex">1011</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">+</span> 0110</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">------</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">10001</span>   <span class="er">(</span><span class="ex">1+0=1</span><span class="kw">;</span> <span class="ex">1+1=0</span> carry1<span class="kw">;</span> <span class="ex">0+1+carry=0</span> carry1<span class="kw">;</span> <span class="ex">1+0+carry=0</span> carry1 → carry out<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="worked-examples-python" class="level4">
+<h4 class="anchored" data-anchor-id="worked-examples-python">Worked examples (Python)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic arithmetic with integers</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="dv">478</span>, <span class="dv">259</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"a+b ="</span>, a <span class="op">+</span> b)      <span class="co"># 737</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"a-b ="</span>, a <span class="op">-</span> b)      <span class="co"># 219</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"a*b ="</span>, a <span class="op">*</span> b)      <span class="co"># 123,  478*259 = 123,  ... actually compute:</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"47//5 ="</span>, <span class="dv">47</span> <span class="op">//</span> <span class="dv">5</span>)  <span class="co"># integer division -&gt; 9</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"47%5  ="</span>, <span class="dv">47</span> <span class="op">%</span> <span class="dv">5</span>)   <span class="co"># remainder -&gt; 2</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Show carry/borrow intuition using binary strings</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> <span class="bn">0b1011</span>, <span class="bn">0b0110</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"x+y (binary):"</span>, <span class="bu">bin</span>(x), <span class="st">"+"</span>, <span class="bu">bin</span>(y), <span class="st">"="</span>, <span class="bu">bin</span>(s))</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Small helper: manual long division that returns (quotient, remainder)</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> long_divide(n: <span class="bu">int</span>, d: <span class="bu">int</span>):</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> d <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ZeroDivisionError</span>(<span class="st">"division by zero"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> n <span class="op">//</span> d</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> n <span class="op">%</span> d</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> q, r</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"long_divide(47,5):"</span>, long_divide(<span class="dv">47</span>, <span class="dv">5</span>))  <span class="co"># (9, 2)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>Note: <code>//</code> is integer division in Python; <code>%</code> is the remainder. For now we focus on integers (no decimals).</p>
+</blockquote>
+</section>
+<section id="why-it-matters-3" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-3">Why it matters</h4>
+<ul>
+<li>Every higher-level algorithm (searching, hashing, cryptography, numeric methods) relies on these operations.</li>
+<li>Understanding carry/borrow makes binary arithmetic and bit-level reasoning feel natural.</li>
+<li>Knowing integer division and remainder is vital for base conversions, hashing (<code>mod</code>), and many algorithmic patterns.</li>
+</ul>
+</section>
+<section id="exercises-3" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-3">Exercises</h4>
+<ol type="1">
+<li><p>Compute by hand, then verify in Python:</p>
+<ul>
+<li><span class="math inline">\(326 + 589\)</span></li>
+<li><span class="math inline">\(704 - 259\)</span></li>
+<li><span class="math inline">\(38 \times 12\)</span></li>
+<li><span class="math inline">\(123 \div 7\)</span> (give quotient and remainder)</li>
+</ul></li>
+<li><p>In binary, add <span class="math inline">\(10101₂ + 111₍₂₎\)</span>. Show carries.</p></li>
+<li><p>Write a short Python snippet that prints the quotient and remainder for <code>n=200</code> divided by <code>d=23</code>.</p></li>
+<li><p>Convert your remainder into a sentence: “200 = 23 × (quotient) + (remainder)”.</p></li>
+<li><p>Challenge: Multiply <span class="math inline">\(19 \times 23\)</span> by hand using partial sums; then check with Python.</p></li>
+</ol>
+</section>
+</section>
+<section id="l1.-division-modulo-and-efficiency" class="level3">
+<h3 class="anchored" data-anchor-id="l1.-division-modulo-and-efficiency">1.2 L1. Division, Modulo, and Efficiency</h3>
+<p>Beyond the simple four arithmetic operations, programmers need to think about division with remainder, the modulo operator, and how efficient these operations are on real machines. Addition and subtraction are almost always “constant time,” but division can be slower, and understanding modulo is essential for algorithms like hashing, cryptography, and scheduling.</p>
+<section id="integer-division-and-modulo" class="level4">
+<h4 class="anchored" data-anchor-id="integer-division-and-modulo">Integer Division and Modulo</h4>
+<p>For integers, division produces both a quotient and a remainder.</p>
+<ul>
+<li><p>Mathematical definition: for integers <span class="math inline">\(n, d\)</span> with <span class="math inline">\(d \neq 0\)</span>,</p>
+<p><span class="math display">\[
+n = d \times q + r, \quad 0 \leq r &lt; |d|
+\]</span></p>
+<p>where <span class="math inline">\(q\)</span> is the quotient, <span class="math inline">\(r\)</span> the remainder.</p></li>
+<li><p>Programming notation (Python):</p>
+<ul>
+<li><code>n // d</code> → quotient</li>
+<li><code>n % d</code> → remainder</li>
+</ul></li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li><code>47 // 5 = 9</code>, <code>47 % 5 = 2</code> because <span class="math inline">\(47 = 5 \times 9 + 2\)</span>.</li>
+<li><code>23 // 7 = 3</code>, <code>23 % 7 = 2</code> because <span class="math inline">\(23 = 7 \times 3 + 2\)</span>.</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>n</th>
+<th>d</th>
+<th>n // d</th>
+<th>n % d</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>47</td>
+<td>5</td>
+<td>9</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td>7</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>100</td>
+<td>9</td>
+<td>11</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="modulo-in-algorithms" class="level4">
+<h4 class="anchored" data-anchor-id="modulo-in-algorithms">Modulo in Algorithms</h4>
+<p>The modulo operation is a workhorse in programming:</p>
+<ul>
+<li><p>Hashing: To map a large integer into a table of size <code>m</code>, use <code>key % m</code>.</p></li>
+<li><p>Cyclic behavior: To loop back after <code>7</code> days in a week: <code>(day + shift) % 7</code>.</p></li>
+<li><p>Cryptography: Modular arithmetic underlies RSA, Diffie–Hellman, and many number-theoretic algorithms.</p></li>
+</ul>
+</section>
+<section id="efficiency-considerations" class="level4">
+<h4 class="anchored" data-anchor-id="efficiency-considerations">Efficiency Considerations</h4>
+<ul>
+<li>Addition and subtraction: generally 1 CPU cycle.</li>
+<li>Multiplication: slightly more expensive, but still fast on modern hardware.</li>
+<li>Division and modulo: slower, often an order of magnitude more costly than multiplication.</li>
+</ul>
+<p>Practical tricks:</p>
+<ul>
+<li><p>If <code>d</code> is a power of two, <code>n % d</code> can be computed by a bitmask.</p>
+<ul>
+<li>Example: <code>n % 8 == n &amp; 7</code> (since 8 = 2³).</li>
+</ul></li>
+<li><p>Some compilers automatically optimize modulo when the divisor is constant.</p></li>
+</ul>
+</section>
+<section id="worked-example-python-2" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-python-2">Worked Example (Python)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quotient and remainder</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>n, d <span class="op">=</span> <span class="dv">47</span>, <span class="dv">5</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Quotient:"</span>, n <span class="op">//</span> d)  <span class="co"># 9</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Remainder:"</span>, n <span class="op">%</span> d)  <span class="co"># 2</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Identity check: n == d*q + r</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>q, r <span class="op">=</span> <span class="bu">divmod</span>(n, d)  <span class="co"># built-in tuple return</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Check:"</span>, d<span class="op">*</span>q <span class="op">+</span> r <span class="op">==</span> n)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Modulo for cyclic behavior: days of week</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> [<span class="st">"Mon"</span>, <span class="st">"Tue"</span>, <span class="st">"Wed"</span>, <span class="st">"Thu"</span>, <span class="st">"Fri"</span>, <span class="st">"Sat"</span>, <span class="st">"Sun"</span>]</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> <span class="dv">5</span>  <span class="co"># Saturday</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>shift <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>future_day <span class="op">=</span> days[(start <span class="op">+</span> shift) <span class="op">%</span> <span class="dv">7</span>]</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Start Saturday + 4 days ="</span>, future_day)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimization: power-of-two modulo with bitmask</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> [<span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">20</span>]:</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> % 8 = </span><span class="sc">{</span>n <span class="op">%</span> <span class="dv">8</span><span class="sc">}</span><span class="ss">, bitmask </span><span class="sc">{</span>n <span class="op">&amp;</span> <span class="dv">7</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Quotient:</span> 9</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Remainder:</span> 2</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Check:</span> True</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Start</span> Saturday + 4 days = Wed</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">5</span> % 8 = 5, bitmask 5</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ex">12</span> % 8 = 4, bitmask 4</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="ex">20</span> % 8 = 4, bitmask 4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="why-it-matters-4" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-4">Why It Matters</h4>
+<ul>
+<li>Real programs rely heavily on modulo for indexing, hashing, and wrap-around logic.</li>
+<li>Division is computationally more expensive; knowing when to replace it with bit-level operations improves performance.</li>
+<li>Modular arithmetic introduces a new “world” where numbers wrap around — the foundation of many advanced algorithms.</li>
+</ul>
+</section>
+<section id="exercises-4" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-4">Exercises</h4>
+<ol type="1">
+<li><p>Compute by hand and confirm in Python:</p>
+<ul>
+<li><code>100 // 9</code> and <code>100 % 9</code></li>
+<li><code>123 // 11</code> and <code>123 % 11</code></li>
+</ul></li>
+<li><p>Write a function that simulates a clock: given <code>hour</code> and <code>shift</code>, return the new hour (24-hour cycle).</p></li>
+<li><p>Prove the identity: for any integers <code>n</code> and <code>d</code>,</p>
+<pre><code>n == d * (n // d) + (n % d)</code></pre>
+<p>by trying with random values.</p></li>
+<li><p>Show how to replace <code>n % 16</code> with a bitwise operation. Why does it work?</p></li>
+<li><p>Challenge: Write a short Python function to check if a number is divisible by 7 using only <code>%</code> and <code>//</code>.</p></li>
+</ol>
+</section>
+</section>
+<section id="l2.-fast-arithmetic-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="l2.-fast-arithmetic-algorithms">1.2 L2. Fast Arithmetic Algorithms</h3>
+<p>When numbers grow large, the naïve methods for multiplication and division become too slow. On paper, long multiplication takes <span class="math inline">\(O(n^2)\)</span> steps for <span class="math inline">\(n\)</span>-digit numbers. Computers face the same issue: multiplying two very large integers digit by digit can be expensive. Fast arithmetic algorithms reduce this cost, using clever divide-and-conquer techniques or transformations into other domains.</p>
+<section id="multiplication-beyond-the-school-method" class="level4">
+<h4 class="anchored" data-anchor-id="multiplication-beyond-the-school-method">Multiplication Beyond the School Method</h4>
+<p>Naïve long multiplication</p>
+<ul>
+<li>Treats an <span class="math inline">\(n\)</span>-digit number as a sequence of digits.</li>
+<li>Each digit of one number multiplies every digit of the other.</li>
+<li>Complexity: <span class="math inline">\(O(n^2)\)</span>.</li>
+<li>Works fine for small integers, but too slow for cryptography or big-number libraries.</li>
+</ul>
+<p>Karatsuba’s Algorithm</p>
+<ul>
+<li><p>Discovered in 1960 by Anatoly Karatsuba.</p></li>
+<li><p>Idea: split numbers into halves and reduce multiplications.</p></li>
+<li><p>Complexity: <span class="math inline">\(O(n^{\log_2 3}) \approx O(n^{1.585})\)</span>.</p></li>
+<li><p>Recursive strategy:</p>
+<ul>
+<li><p>For numbers <span class="math inline">\(x = x_1 \cdot B^m + x_0\)</span>, <span class="math inline">\(y = y_1 \cdot B^m + y_0\)</span>.</p></li>
+<li><p>Compute 3 multiplications instead of 4:</p>
+<ul>
+<li><span class="math inline">\(z_0 = x_0 y_0\)</span></li>
+<li><span class="math inline">\(z_2 = x_1 y_1\)</span></li>
+<li><span class="math inline">\(z_1 = (x_0+x_1)(y_0+y_1) - z_0 - z_2\)</span></li>
+</ul></li>
+<li><p>Result: <span class="math inline">\(z_2 \cdot B^{2m} + z_1 \cdot B^m + z_0\)</span>.</p></li>
+</ul></li>
+</ul>
+<p>FFT-based Multiplication (Schönhage–Strassen and successors)</p>
+<ul>
+<li>Represent numbers as polynomials of their digits.</li>
+<li>Multiply polynomials efficiently using Fast Fourier Transform.</li>
+<li>Complexity: near <span class="math inline">\(O(n \log n)\)</span>.</li>
+<li>Used in modern big-integer libraries (e.g.&nbsp;GNU MP, Java’s <code>BigInteger</code>).</li>
+</ul>
+</section>
+<section id="division-beyond-long-division" class="level4">
+<h4 class="anchored" data-anchor-id="division-beyond-long-division">Division Beyond Long Division</h4>
+<ul>
+<li>Naïve long division: <span class="math inline">\(O(n^2)\)</span> for <span class="math inline">\(n\)</span>-digit dividend.</li>
+<li>Newton’s method for reciprocal: approximate <span class="math inline">\(1/d\)</span> using Newton–Raphson iterations, then multiply by <span class="math inline">\(n\)</span>.</li>
+<li>Complexity: tied to multiplication — if multiplication is fast, so is division.</li>
+</ul>
+</section>
+<section id="modular-exponentiation" class="level4">
+<h4 class="anchored" data-anchor-id="modular-exponentiation">Modular Exponentiation</h4>
+<p>Fast arithmetic also matters in modular contexts (cryptography).</p>
+<ul>
+<li><p>Compute <span class="math inline">\(a^b \bmod m\)</span> efficiently.</p></li>
+<li><p>Square-and-multiply (binary exponentiation):</p>
+<ul>
+<li>Write <span class="math inline">\(b\)</span> in binary.</li>
+<li>For each bit: square result, multiply if bit=1.</li>
+<li>Complexity: <span class="math inline">\(O(\log b)\)</span> multiplications.</li>
+</ul></li>
+</ul>
+</section>
+<section id="worked-example-python-3" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-python-3">Worked Example (Python)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Naïve multiplication</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> naive_mul(x: <span class="bu">int</span>, y: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y  <span class="co"># Python already uses fast methods internally</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Karatsuba multiplication (recursive, simplified)</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> karatsuba(x: <span class="bu">int</span>, y: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># base case</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">10</span> <span class="kw">or</span> y <span class="op">&lt;</span> <span class="dv">10</span>:</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># split numbers</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">max</span>(x.bit_length(), y.bit_length())</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> n <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    high1, low1 <span class="op">=</span> <span class="bu">divmod</span>(x, <span class="dv">1</span> <span class="op">&lt;&lt;</span> m)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    high2, low2 <span class="op">=</span> <span class="bu">divmod</span>(y, <span class="dv">1</span> <span class="op">&lt;&lt;</span> m)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    z0 <span class="op">=</span> karatsuba(low1, low2)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    z2 <span class="op">=</span> karatsuba(high1, high2)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    z1 <span class="op">=</span> karatsuba(low1 <span class="op">+</span> high1, low2 <span class="op">+</span> high2) <span class="op">-</span> z0 <span class="op">-</span> z2</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (z2 <span class="op">&lt;&lt;</span> (<span class="dv">2</span><span class="op">*</span>m)) <span class="op">+</span> (z1 <span class="op">&lt;&lt;</span> m) <span class="op">+</span> z0</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Modular exponentiation (square-and-multiply)</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> modexp(a: <span class="bu">int</span>, b: <span class="bu">int</span>, m: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    base <span class="op">=</span> a <span class="op">%</span> m</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    exp <span class="op">=</span> b</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> exp <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> exp <span class="op">&amp;</span> <span class="dv">1</span>:</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>            result <span class="op">=</span> (result <span class="op">*</span> base) <span class="op">%</span> m</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>        base <span class="op">=</span> (base <span class="op">*</span> base) <span class="op">%</span> m</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>        exp <span class="op">&gt;&gt;=</span> <span class="dv">1</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Demo</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Karatsuba(1234, 5678) ="</span>, karatsuba(<span class="dv">1234</span>, <span class="dv">5678</span>))</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pow(7, 128, 13) ="</span>, modexp(<span class="dv">7</span>, <span class="dv">128</span>, <span class="dv">13</span>))  <span class="co"># fast modular exponentiation</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Output:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Karatsuba</span><span class="er">(</span><span class="ex">1234,</span> 5678<span class="kw">)</span> <span class="ex">=</span> 7006652</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pow</span><span class="er">(</span><span class="ex">7,</span> 128, 13<span class="kw">)</span> <span class="ex">=</span> 3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="why-it-matters-5" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-5">Why It Matters</h4>
+<ul>
+<li>Cryptography: RSA requires multiplying and dividing integers with thousands of digits.</li>
+<li>Computer algebra systems: symbolic computation depends on fast polynomial/integer arithmetic.</li>
+<li>Big data / simulation: arbitrary precision needed when floats are not exact.</li>
+</ul>
+</section>
+<section id="exercises-5" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-5">Exercises</h4>
+<ol type="1">
+<li><p>Multiply 31415926 × 27182818 using:</p>
+<ul>
+<li>Python’s <code>*</code></li>
+<li>Your Karatsuba implementation. Compare results.</li>
+</ul></li>
+<li><p>Implement <code>modexp(a, b, m)</code> for <span class="math inline">\(a=5, b=117, m=19\)</span>. Confirm with Python’s built-in <code>pow(a, b, m)</code>.</p></li>
+<li><p>Explain why Newton’s method for division depends on fast multiplication.</p></li>
+<li><p>Research: what is the current fastest known multiplication algorithm for large integers?</p></li>
+<li><p>Challenge: Modify Karatsuba to print intermediate <code>z0, z1, z2</code> values for small inputs to visualize the recursion.</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="properties" class="level2">
+<h2 class="anchored" data-anchor-id="properties">1.3 Properties</h2>
+<section id="l0-simple-number-properties" class="level3">
+<h3 class="anchored" data-anchor-id="l0-simple-number-properties">1.3 L0 — Simple Number Properties</h3>
+<p>Numbers have patterns that help us reason about algorithms without heavy mathematics. At this level we focus on basic properties: even vs odd, divisibility, and remainders. These ideas show up everywhere—from loop counters to data structure layouts.</p>
+<section id="even-and-odd" class="level4">
+<h4 class="anchored" data-anchor-id="even-and-odd">Even and Odd</h4>
+<p>A number is even if it ends with digit 0, 2, 4, 6, or 8 in decimal, and odd otherwise.</p>
+<ul>
+<li><p>In binary, checking parity is even easier: the last bit tells the story.</p>
+<ul>
+<li><code>…0</code> → even</li>
+<li><code>…1</code> → odd</li>
+</ul></li>
+</ul>
+<p>Example in Python:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_even(n: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_even(<span class="dv">10</span>))  <span class="co"># True</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_even(<span class="dv">7</span>))   <span class="co"># False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="divisibility" class="level4">
+<h4 class="anchored" data-anchor-id="divisibility">Divisibility</h4>
+<p>We often ask: does one number divide another?</p>
+<ul>
+<li><code>a</code> is divisible by <code>b</code> if there exists some integer <code>k</code> with <code>a = b * k</code>.</li>
+<li>In code: <code>a % b == 0</code>.</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li>12 is divisible by 3 → <code>12 % 3 == 0</code>.</li>
+<li>14 is not divisible by 5 → <code>14 % 5 == 4</code>.</li>
+</ul>
+</section>
+<section id="remainders-and-modular-thinking" class="level4">
+<h4 class="anchored" data-anchor-id="remainders-and-modular-thinking">Remainders and Modular Thinking</h4>
+<p>When dividing, the remainder is what’s left over.</p>
+<ul>
+<li><p>Example: <code>17 // 5 = 3</code>, remainder <code>2</code>.</p></li>
+<li><p>Modular arithmetic wraps around like a clock:</p>
+<ul>
+<li><code>(17 % 5) = 2</code> → same as “2 o’clock after going 17 steps around a 5-hour clock.”</li>
+</ul></li>
+</ul>
+<p>This “wrap-around” view is central in array indexing, hashing, and cryptography later on.</p>
+</section>
+<section id="why-it-matters-6" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-6">Why It Matters</h4>
+<ul>
+<li>Algorithms: Parity checks decide branching (e.g., even-odd optimizations).</li>
+<li>Data structures: Array indices often wrap around using <code>%</code>.</li>
+<li>Everyday: Calendars cycle days of the week; remainders formalize that.</li>
+</ul>
+</section>
+<section id="exercises-6" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-6">Exercises</h4>
+<ol type="1">
+<li>Write a function that returns <code>"even"</code> or <code>"odd"</code> for a given number.</li>
+<li>Check if 91 is divisible by 7.</li>
+<li>Compute the remainder of 100 divided by 9.</li>
+<li>Use <code>%</code> to simulate a 7-day week: if today is day 5 (Saturday) and you add 10 days, what day is it?</li>
+<li>Find the last digit of <code>2^15</code> without computing the full number (hint: check the remainder mod 10).</li>
+</ol>
+</section>
+</section>
+<section id="l1-classical-number-theory-tools" class="level3">
+<h3 class="anchored" data-anchor-id="l1-classical-number-theory-tools">1.3 L1 — Classical Number Theory Tools</h3>
+<p>Beyond simple parity and divisibility, algorithms often need deeper number properties. At this level we introduce a few “toolkit” ideas from elementary number theory: greatest common divisor (GCD), least common multiple (LCM), and modular arithmetic identities. These are lightweight but powerful concepts that show up in algorithm design, cryptography, and optimization.</p>
+<section id="greatest-common-divisor-gcd" class="level4">
+<h4 class="anchored" data-anchor-id="greatest-common-divisor-gcd">Greatest Common Divisor (GCD)</h4>
+<p>The GCD of two numbers is the largest number that divides both.</p>
+<ul>
+<li>Example: <code>gcd(20, 14) = 2</code>.</li>
+<li>Why useful: GCD simplifies fractions, ensures ratios are reduced, and appears in algorithm correctness proofs.</li>
+</ul>
+<p>Euclid’s Algorithm: Instead of trial division, we can compute GCD quickly:</p>
+<pre><code>gcd(a, b) = gcd(b, a % b)</code></pre>
+<p>This repeats until <code>b = 0</code>, at which point <code>a</code> is the answer.</p>
+<p>Python example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gcd(a: <span class="bu">int</span>, b: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> b:</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        a, b <span class="op">=</span> b, a <span class="op">%</span> b</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gcd(<span class="dv">20</span>, <span class="dv">14</span>))  <span class="co"># 2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="least-common-multiple-lcm" class="level4">
+<h4 class="anchored" data-anchor-id="least-common-multiple-lcm">Least Common Multiple (LCM)</h4>
+<p>The LCM of two numbers is the smallest positive number divisible by both.</p>
+<ul>
+<li><p>Example: <code>lcm(12, 18) = 36</code>.</p></li>
+<li><p>Connection to GCD:</p>
+<pre><code>lcm(a, b) = (a * b) // gcd(a, b)</code></pre></li>
+</ul>
+<p>This is useful in scheduling, periodic tasks, and synchronization problems.</p>
+</section>
+<section id="modular-arithmetic-identities" class="level4">
+<h4 class="anchored" data-anchor-id="modular-arithmetic-identities">Modular Arithmetic Identities</h4>
+<p>Remainders behave predictably under operations:</p>
+<ul>
+<li>Addition: <code>(a + b) % m = ((a % m) + (b % m)) % m</code></li>
+<li>Multiplication: <code>(a * b) % m = ((a % m) * (b % m)) % m</code></li>
+</ul>
+<p>Example:</p>
+<ul>
+<li><code>(123 + 456) % 7 = (123 % 7 + 456 % 7) % 7</code></li>
+<li>This property lets us work with small remainders instead of huge numbers, key in cryptography and hashing.</li>
+</ul>
+</section>
+<section id="why-it-matters-7" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-7">Why It Matters</h4>
+<ul>
+<li>Algorithms: GCD ensures efficiency in fraction reduction, graph algorithms, and number-theoretic algorithms.</li>
+<li>Systems: LCM models periodicity, e.g., aligning CPU scheduling intervals.</li>
+<li>Cryptography: Modular arithmetic underpins secure communication (RSA, Diffie-Hellman).</li>
+<li>Practical programming: Modular identities simplify computations with limited ranges (hash tables, cyclic arrays).</li>
+</ul>
+</section>
+<section id="exercises-7" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-7">Exercises</h4>
+<ol type="1">
+<li>Compute <code>gcd(252, 198)</code> by hand using Euclid’s algorithm.</li>
+<li>Write a function that returns the LCM of two numbers. Test it on (12, 18).</li>
+<li>Show that <code>(37 + 85) % 12</code> equals <code>((37 % 12) + (85 % 12)) % 12</code>.</li>
+<li>Reduce the fraction <code>84/126</code> using GCD.</li>
+<li>Find the smallest day <code>d</code> such that <code>d</code> is a multiple of both 12 and 18 (hint: LCM).</li>
+</ol>
+</section>
+</section>
+<section id="l2-advanced-number-theory-in-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="l2-advanced-number-theory-in-algorithms">1.3 L2 — Advanced Number Theory in Algorithms</h3>
+<p>At this level, we move beyond everyday divisibility and Euclid’s algorithm. Modern algorithms frequently rely on deep number theory to achieve efficiency. Topics such as modular inverses, Euler’s totient function, and primality tests are crucial foundations for cryptography, randomized algorithms, and competitive programming.</p>
+<section id="modular-inverses" class="level4">
+<h4 class="anchored" data-anchor-id="modular-inverses">Modular Inverses</h4>
+<p>The modular inverse of a number <code>a</code> (mod <code>m</code>) is an integer <code>x</code> such that:</p>
+<pre><code>(a * x) % m = 1</code></pre>
+<ul>
+<li>Example: the inverse of 3 modulo 7 is 5, because <code>(3*5) % 7 = 15 % 7 = 1</code>.</li>
+<li>Existence: an inverse exists if and only if <code>gcd(a, m) = 1</code>.</li>
+<li>Computation: using the Extended Euclidean Algorithm.</li>
+</ul>
+<p>This is the backbone of modular division and is heavily used in cryptography (RSA), hash functions, and matrix inverses mod <code>p</code>.</p>
+</section>
+<section id="eulers-totient-function-φ" class="level4">
+<h4 class="anchored" data-anchor-id="eulers-totient-function-φ">Euler’s Totient Function (φ)</h4>
+<p>The function <code>φ(n)</code> counts the number of integers between 1 and <code>n</code> that are coprime to <code>n</code>.</p>
+<ul>
+<li><p>Example: <code>φ(9) = 6</code> because {1, 2, 4, 5, 7, 8} are coprime to 9.</p></li>
+<li><p>Key property (Euler’s theorem):</p>
+<pre><code>a^φ(n) ≡ 1 (mod n)     if gcd(a, n) = 1</code></pre></li>
+<li><p>Special case: Fermat’s Little Theorem — for prime <code>p</code>,</p>
+<pre><code>a^(p-1) ≡ 1 (mod p)</code></pre></li>
+</ul>
+<p>This result is central in modular exponentiation and cryptosystems like RSA.</p>
+</section>
+<section id="primality-testing" class="level4">
+<h4 class="anchored" data-anchor-id="primality-testing">Primality Testing</h4>
+<p>Determining if a number is prime is easy for small inputs but hard for large ones. Efficient algorithms are essential:</p>
+<ul>
+<li>Trial division: works only for small <code>n</code>.</li>
+<li>Fermat primality test: uses Fermat’s Little Theorem to detect composites, but can be fooled by Carmichael numbers.</li>
+<li>Miller–Rabin test: a probabilistic algorithm widely used in practice (cryptographic key generation).</li>
+<li>AKS primality test: a deterministic polynomial-time method (theoretical importance).</li>
+</ul>
+<p>Example intuition:</p>
+<ul>
+<li>For large <code>n</code>, we don’t check all divisors; we test properties of <code>a^k mod n</code> for random bases <code>a</code>.</li>
+</ul>
+</section>
+<section id="why-it-matters-8" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-8">Why It Matters</h4>
+<ul>
+<li>Cryptography: Public-key systems depend on modular inverses, Euler’s theorem, and large primes.</li>
+<li>Algorithms: Modular inverses simplify solving equations in modular arithmetic (e.g., Chinese Remainder Theorem applications).</li>
+<li>Practical Computing: Randomized primality tests (like Miller–Rabin) balance correctness and efficiency in real-world systems.</li>
+</ul>
+</section>
+<section id="exercises-8" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-8">Exercises</h4>
+<ol type="1">
+<li>Find the modular inverse of 7 modulo 13.</li>
+<li>Compute φ(10) and verify Euler’s theorem for <code>a = 3</code>.</li>
+<li>Use Fermat’s test to check whether 341 is prime. (Hint: try <code>a = 2</code>.)</li>
+<li>Implement modular inverse using the Extended Euclidean Algorithm.</li>
+<li>Research: why do cryptographic protocols prefer Miller–Rabin over AKS, even though AKS is deterministic?</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="overflow-precision" class="level2">
+<h2 class="anchored" data-anchor-id="overflow-precision">1.4 Overflow &amp; Precision</h2>
+<section id="l0---when-numbers-get-too-big-or-too-small" class="level3">
+<h3 class="anchored" data-anchor-id="l0---when-numbers-get-too-big-or-too-small">1.4 L0 - When Numbers Get Too Big or Too Small</h3>
+<p>Numbers inside a computer are stored with a fixed number of bits. This means they can only represent values up to a certain limit. If a calculation produces a result larger than this limit, the value “wraps around,” much like the digits on an odometer rolling over after 999 to 000. This phenomenon is called overflow. Similarly, computers often cannot represent all decimal fractions exactly, leading to tiny errors called precision loss.</p>
+<section id="deep-dive" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive">Deep Dive</h4>
+<ol type="1">
+<li><p>Integer Overflow</p>
+<ul>
+<li>A computer uses a fixed number of bits (commonly 8, 16, 32, or 64) to store integers.</li>
+<li>An 8-bit unsigned integer can represent values from 0 to 255. Adding 1 to 255 causes the value to wrap back to 0.</li>
+<li>Signed integers use <em>two’s complement</em> representation. For an 8-bit signed integer, the range is −128 to +127. Adding 1 to 127 makes it overflow to −128.</li>
+</ul>
+<p>Example in binary:</p>
+<pre><code>11111111₂ (255) + 1 = 00000000₂ (0)
+01111111₂ (+127) + 1 = 10000000₂ (−128)</code></pre></li>
+<li><p>Floating-Point Precision</p>
+<ul>
+<li>Decimal fractions like 0.1 cannot always be represented exactly in binary.</li>
+<li>As a result, calculations may accumulate tiny errors.</li>
+<li>For example, repeatedly adding 0.1 may not exactly equal 1.0 due to precision limits.</li>
+</ul></li>
+</ol>
+</section>
+<section id="example" class="level4">
+<h4 class="anchored" data-anchor-id="example">Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Integer overflow simulation with 8-bit values</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_8bit(a, b):</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> (a <span class="op">+</span> b) <span class="op">%</span> <span class="dv">256</span>  <span class="co"># simulate wraparound</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(add_8bit(<span class="dv">250</span>, <span class="dv">10</span>))   <span class="co"># 260 wraps to 4</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(add_8bit(<span class="dv">255</span>, <span class="dv">1</span>))    <span class="co"># wraps to 0</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Floating-point precision issue</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.2</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)           <span class="co"># Expected 0.3, but gives 0.30000000000000004</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">==</span> <span class="fl">0.3</span>)    <span class="co"># False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="why-it-matters-9" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-9">Why It Matters</h4>
+<ul>
+<li>Unexpected results: A calculation may suddenly produce a negative number or wrap around to zero.</li>
+<li>Real-world impact:
+<ul>
+<li>Video games may show scores jumping strangely if counters overflow.</li>
+<li>Banking or financial systems must avoid losing cents due to floating-point errors.</li>
+<li>Engineers and scientists rely on careful handling of precision to ensure correct simulations.</li>
+</ul></li>
+<li>Foundation for algorithms: Understanding overflow and precision prepares you for later topics like hashing, cryptography, and numerical analysis.</li>
+</ul>
+</section>
+<section id="exercises-9" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-9">Exercises</h4>
+<ol type="1">
+<li>Simulate a 4-bit unsigned integer system. What happens if you start at 14 and keep adding 1?</li>
+<li>In Python, try adding <code>0.1</code> to itself ten times. Does it equal exactly <code>1.0</code>? Why or why not?</li>
+<li>Write a function that checks if an 8-bit signed integer addition would overflow.</li>
+<li>Imagine you are programming a digital clock that uses 2 digits for minutes (00–59). What happens when the value goes from 59 to 60? How would you handle this?</li>
+</ol>
+</section>
+</section>
+<section id="l1---detecting-and-managing-overflow-in-real-programs" class="level3">
+<h3 class="anchored" data-anchor-id="l1---detecting-and-managing-overflow-in-real-programs">1.4 L1 - Detecting and Managing Overflow in Real Programs</h3>
+<p>Computers don’t do math in the abstract. Integers live in fixed-width registers; floats follow IEEE-754. Robust software accounts for these limits up front: choose the right representation, detect overflow, and compare floats safely. The following sections explain how these issues show up in practice and how to design around them.</p>
+<section id="deep-dive-1" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-1">Deep Dive</h4>
+<section id="integer-arithmetic-in-practice" class="level5">
+<h5 class="anchored" data-anchor-id="integer-arithmetic-in-practice">1) Integer arithmetic in practice</h5>
+<p>Fixed width means wraparound at <span class="math inline">\(2^{n}\)</span>. Unsigned wrap is modular arithmetic; signed overflow (two’s complement) can flip signs. Developers often discover this the hard way when a counter suddenly goes negative or wraps back to zero in production logs.</p>
+<p>Bit width &amp; ranges This table reminds us of the hard limits baked into hardware. Once the range is exceeded, the value doesn’t “grow bigger”—it wraps.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 60%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Width</th>
+<th>Signed range</th>
+<th>Unsigned range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">32</td>
+<td>−2,147,483,648 … 2,147,483,647</td>
+<td>0 … 4,294,967,295</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">64</td>
+<td>−9,223,372,036,854,775,808 … 9,223,372,036,854,775,807</td>
+<td>0 … 18,446,744,073,709,551,615</td>
+</tr>
+</tbody>
+</table>
+<p>Overflow semantics by language Each language makes slightly different promises. This matters if you’re writing cross-language services or reading binary data across APIs.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 22%">
+<col style="width: 29%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Language</th>
+<th>Signed overflow</th>
+<th>Unsigned overflow</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C/C++</td>
+<td>UB (undefined)</td>
+<td>Modular wrap</td>
+<td>Use UBSan/<code>-fsanitize=undefined</code>; widen types or check before add.</td>
+</tr>
+<tr class="even">
+<td>Rust</td>
+<td>Traps in debug; defined APIs</td>
+<td><code>wrapping_add</code>, <code>checked_add</code>, <code>saturating_add</code></td>
+<td>Make intent explicit.</td>
+</tr>
+<tr class="odd">
+<td>Java/Kotlin</td>
+<td>Wraps (two’s complement)</td>
+<td>N/A (only signed types)</td>
+<td>Use <code>Math.addExact</code> to trap.</td>
+</tr>
+<tr class="even">
+<td>C#</td>
+<td>Wraps by default; <code>checked</code> to trap</td>
+<td><code>checked</code>/<code>unchecked</code> blocks</td>
+<td><code>decimal</code> type for money.</td>
+</tr>
+<tr class="odd">
+<td>Python</td>
+<td>Arbitrary precision</td>
+<td>Arbitrary precision</td>
+<td>Simulates fixed width if needed.</td>
+</tr>
+</tbody>
+</table>
+<p>A quick lesson: “wrap” may be safe in crypto or hashing, but it’s usually a bug in counters or indices. Always decide what you want up front.</p>
+</section>
+<section id="floating-point-you-can-depend-on" class="level5">
+<h5 class="anchored" data-anchor-id="floating-point-you-can-depend-on">2) Floating-point you can depend on</h5>
+<p>IEEE-754 doubles have ~15–16 decimal digits and huge dynamic range, but not exact decimal fractions. Think of floats as <em>convenient approximations</em>. They are perfect for physics simulations, but brittle when used to represent cents in a bank account.</p>
+<p>Where precision is lost These examples show why “0.1 + 0.2 != 0.3” isn’t a joke—it’s a direct consequence of binary storage.</p>
+<ul>
+<li>Scale mismatch: <span class="math inline">\(1\text{e}16 + 1 = 1\text{e}16\)</span>. The tiny <code>+1</code> gets lost.</li>
+<li>Cancellation: subtracting nearly equal numbers deletes significant digits.</li>
+<li>Decimal fractions (<code>0.1</code>) are repeating in binary.</li>
+</ul>
+<p>Comparing floats Never compare with <code>==</code>. Instead, use a mixed relative + absolute check:</p>
+<p><span class="math display">\[
+|x-y| \le \max(\text{rel}\cdot\max(|x|,|y|),\ \text{abs})
+\]</span></p>
+<p>This makes comparisons robust whether you’re near zero or far away.</p>
+<p>Rounding modes (when you explicitly care) Most of the time you don’t think about rounding—hardware defaults to “round to nearest, ties to even.” But when writing financial systems or interval arithmetic, you want to control it.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Round to nearest, ties to even (default)</td>
+<td>General numeric work; minimizes bias</td>
+</tr>
+<tr class="even">
+<td>Toward 0 / ±∞</td>
+<td>Bounds, interval arithmetic, conservative estimates</td>
+</tr>
+</tbody>
+</table>
+<p>Having explicit rounding modes is like having a steering wheel—you don’t always turn, but you’re glad it’s there when the road curves.</p>
+<p>Summation strategies The order of addition matters for floats. These options give you a menu of accuracy vs.&nbsp;speed.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Error</th>
+<th>Cost</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Naïve left-to-right</td>
+<td>Worst</td>
+<td>Low</td>
+<td>Never for sensitive sums</td>
+</tr>
+<tr class="even">
+<td>Pairwise / tree</td>
+<td>Better</td>
+<td>Med</td>
+<td>Parallel reductions, “good default”</td>
+</tr>
+<tr class="odd">
+<td>Kahan (compensated)</td>
+<td>Best</td>
+<td>Higher</td>
+<td>Financial-ish aggregates, small vectors</td>
+</tr>
+</tbody>
+</table>
+<p>You don’t need Kahan everywhere, but knowing it exists keeps you from blaming “mystery bugs” on hardware.</p>
+<p>Representation choices Sometimes the best answer is to avoid floats entirely. Money is the classic example.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Use case</th>
+<th>Recommended representation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Currency, invoicing</td>
+<td>Fixed-point (e.g., cents as <code>int64</code>) or <code>decimal</code>/<code>BigDecimal</code></td>
+</tr>
+<tr class="even">
+<td>Scientific compute</td>
+<td><code>float64</code>, compensated sums, stable algorithms</td>
+</tr>
+<tr class="odd">
+<td>IDs, counters</td>
+<td><code>uint64</code>/<code>int64</code>, detect overflow on boundaries</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="code-pythonportable-patterns" class="level4">
+<h4 class="anchored" data-anchor-id="code-pythonportable-patterns">Code (Python—portable patterns)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 32-bit checked add (raises on overflow)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_i32_checked(a: <span class="bu">int</span>, b: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s <span class="op">&lt;</span> <span class="op">-</span><span class="dv">2_147_483_648</span> <span class="kw">or</span> s <span class="op">&gt;</span> <span class="dv">2_147_483_647</span>:</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">OverflowError</span>(<span class="st">"int32 overflow"</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate 32-bit wrap (intentional modular arithmetic)</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_i32_wrapping(a: <span class="bu">int</span>, b: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> (a <span class="op">+</span> b) <span class="op">&amp;</span> <span class="bn">0xFFFFFFFF</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s <span class="op">-</span> <span class="bn">0x100000000</span> <span class="cf">if</span> s <span class="op">&amp;</span> <span class="bn">0x80000000</span> <span class="cf">else</span> s</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Relative+absolute epsilon float compare</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> almost_equal(x: <span class="bu">float</span>, y: <span class="bu">float</span>, rel<span class="op">=</span><span class="fl">1e-12</span>, abs_<span class="op">=</span><span class="fl">1e-12</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">abs</span>(x <span class="op">-</span> y) <span class="op">&lt;=</span> <span class="bu">max</span>(rel <span class="op">*</span> <span class="bu">max</span>(<span class="bu">abs</span>(x), <span class="bu">abs</span>(y)), abs_)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Kahan (compensated) summation</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kahan_sum(xs):</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> xs:</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> x <span class="op">-</span> c</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> s <span class="op">+</span> y</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>        c <span class="op">=</span> (t <span class="op">-</span> s) <span class="op">-</span> y</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> t</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Fixed-point cents (safe for ~±9e16 cents with int64)</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dollars_to_cents(d: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>    whole, _, frac <span class="op">=</span> d.partition(<span class="st">"."</span>)</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>    frac <span class="op">=</span> (frac <span class="op">+</span> <span class="st">"00"</span>)[:<span class="dv">2</span>]</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">int</span>(whole) <span class="op">*</span> <span class="dv">100</span> <span class="op">+</span> <span class="bu">int</span>(frac)</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cents_to_dollars(c: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>    sign <span class="op">=</span> <span class="st">"-"</span> <span class="cf">if</span> c <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">""</span></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> <span class="bu">abs</span>(c)</span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span>sign<span class="sc">}{</span>c<span class="op">//</span><span class="dv">100</span><span class="sc">}</span><span class="ss">.</span><span class="sc">{</span>c<span class="op">%</span><span class="dv">100</span><span class="sc">:02d}</span><span class="ss">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>These examples are in Python for clarity, but the same ideas exist in every major language.</p>
+</section>
+<section id="why-it-matters-10" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-10">Why it matters</h4>
+<ul>
+<li>Reliability: Silent wrap or float drift becomes data corruption under load or over time.</li>
+<li>Interoperability: Services in different languages disagree on overflow; define and document your contracts.</li>
+<li>Reproducibility: Deterministic numerics (same inputs → same bits) depend on summation order, rounding, and libraries.</li>
+<li>Security: UB-triggered overflows can turn into exploitable states.</li>
+</ul>
+<p>This is why “it worked on my laptop” is not enough. You want to be sure it works on every platform, every time.</p>
+</section>
+<section id="exercises-10" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-10">Exercises</h4>
+<ol type="1">
+<li>Overflow policy: For a metrics pipeline, decide where to use <code>checked</code>, <code>wrapping</code>, and <code>saturating</code> addition—and justify each with failure modes.</li>
+<li>ULP probe: Find the smallest <span class="math inline">\(\epsilon\)</span> such that <code>1.0 + ε != 1.0</code> in your language; explain how it relates to machine epsilon.</li>
+<li>Summation bake-off: Sum the first 1M terms of the harmonic series with naïve, pairwise, and Kahan methods; compare results and timings.</li>
+<li>Fixed-point ledger: Implement deposit/transfer/withdraw using <code>int64</code> cents; prove no rounding loss for two-decimal currencies.</li>
+<li>Boundary tests: Write property tests that <code>add_i32_checked</code> raises on <code>{INT_MAX,1}</code> and <code>{INT_MIN,-1}</code>, and equals modular add where documented.</li>
+<li>Cross-lang contract: Specify a JSON schema for monetary amounts and counters that avoids float types; include examples and edge cases.</li>
+</ol>
+<p>Great — let’s rework 1.4 Overflow &amp; Precision (L2) into a friendlier deep dive, using the same pattern: structured sections, tables, and added “bridge” sentences that guide the reader through complex, low-level material. This version should be dense enough to teach internals, but smooth enough to read without feeling like a spec sheet.</p>
+</section>
+</section>
+<section id="l2.-under-the-hood" class="level3">
+<h3 class="anchored" data-anchor-id="l2.-under-the-hood">1.4 L2. Under the Hood</h3>
+<p>At the lowest level, overflow and precision aren’t abstract concepts—they are consequences of how CPUs, compilers, and libraries actually implement arithmetic. Understanding these details makes debugging easier and gives you control over performance, reproducibility, and correctness.</p>
+<section id="deep-dive-2" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-2">Deep Dive</h4>
+<section id="hardware-semantics" class="level5">
+<h5 class="anchored" data-anchor-id="hardware-semantics">1) Hardware semantics</h5>
+<p>CPUs implement integer and floating-point arithmetic directly in silicon. When the result doesn’t fit, different flags or traps are triggered.</p>
+<ul>
+<li>Status flags (integers): Most architectures (x86, ARM, RISC-V) set overflow, carry, and zero flags after arithmetic. These flags drive branch instructions like <code>jo</code> (“jump if overflow”).</li>
+<li>Floating-point control: The FPU or SIMD unit maintains exception flags (inexact, overflow, underflow, invalid, divide-by-zero). These rarely trap by default; they silently set flags until explicitly checked.</li>
+</ul>
+<p>Architectural view</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 44%">
+<col style="width: 24%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Arch</th>
+<th>Integer overflow</th>
+<th>FP behavior</th>
+<th>Developer hooks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>x86-64</td>
+<td>Wraparound in 2’s complement; OF/CF bits set</td>
+<td>IEEE-754; flags in MXCSR</td>
+<td><code>jo</code>/<code>jno</code>, <code>fenv.h</code></td>
+</tr>
+<tr class="even">
+<td>ARM64</td>
+<td>Wraparound; NZCV flags</td>
+<td>IEEE-754; exception bits</td>
+<td>condition codes, <code>feset*</code></td>
+</tr>
+<tr class="odd">
+<td>RISC-V</td>
+<td>Wraparound; OV/CF optional</td>
+<td>IEEE-754; status regs</td>
+<td>CSRs, trap handlers</td>
+</tr>
+</tbody>
+</table>
+<p>Knowing what the CPU does lets you choose: rely on hardware wrap, trap explicitly, or add software checks.</p>
+</section>
+<section id="compiler-and-language-layers" class="level5">
+<h5 class="anchored" data-anchor-id="compiler-and-language-layers">2) Compiler and language layers</h5>
+<p>Even if hardware sets flags, your language may ignore them. Compilers often optimize based on the language spec.</p>
+<ul>
+<li>C/C++: Signed overflow is <em>undefined behavior</em>—the optimizer assumes it never happens, which can remove safety checks you thought were there.</li>
+<li>Rust: Catches overflow in debug builds, then forces you to pick: <code>checked_add</code>, <code>wrapping_add</code>, or <code>saturating_add</code>.</li>
+<li>JVM languages (Java, Kotlin, Scala): Always wrap, hiding UB but forcing you to detect overflow yourself.</li>
+<li>.NET (C#, F#): Defaults to wrapping; you can enable <code>checked</code> contexts to trap.</li>
+<li>Python: Emulates unbounded integers, but sometimes simulates C-like behavior for low-level modules.</li>
+</ul>
+<p>These choices aren’t arbitrary—they reflect trade-offs between speed, safety, and backward compatibility.</p>
+</section>
+<section id="precision-management-in-floating-point" class="level5">
+<h5 class="anchored" data-anchor-id="precision-management-in-floating-point">3) Precision management in floating point</h5>
+<p>Floating-point has more than just rounding errors. Engineers deal with gradual underflow, denormals, and fused operations.</p>
+<ul>
+<li>Subnormals: Numbers smaller than ~2.2e-308 in double precision become “denormalized,” losing precision but extending the range toward zero. Many CPUs handle these slowly.</li>
+<li>Flush-to-zero: Some systems skip subnormals entirely, treating them as zero to boost speed. Great for graphics; risky for scientific code.</li>
+<li>FMA (fused multiply-add): Computes <code>(a*b + c)</code> with one rounding, often improving precision and speed. However, it can break reproducibility across machines that do/don’t use FMA.</li>
+</ul>
+<p>Precision events</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 29%">
+<col style="width: 58%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Event</th>
+<th>What happens</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Overflow</td>
+<td>Becomes ±Inf</td>
+<td>Detectable via <code>isinf</code>, often safe</td>
+</tr>
+<tr class="even">
+<td>Underflow</td>
+<td>Becomes 0 or subnormal</td>
+<td>Performance hit, possible accuracy loss</td>
+</tr>
+<tr class="odd">
+<td>Inexact</td>
+<td>Result rounded</td>
+<td>Happens constantly; only matters if flagged</td>
+</tr>
+<tr class="even">
+<td>Invalid</td>
+<td>NaN produced</td>
+<td>Division 0/0, sqrt(-1), etc.</td>
+</tr>
+</tbody>
+</table>
+<p>When performance bugs show up in HPC or ML code, denormals and FMAs are often the hidden cause.</p>
+</section>
+<section id="debugging-and-testing-tools" class="level5">
+<h5 class="anchored" data-anchor-id="debugging-and-testing-tools">4) Debugging and testing tools</h5>
+<p>Low-level correctness requires instrumentation. Fortunately, toolchains give you options.</p>
+<ul>
+<li>Sanitizers: <code>-fsanitize=undefined</code> (Clang/GCC) traps on signed overflow.</li>
+<li>Valgrind / perf counters: Can catch denormal slowdowns.</li>
+<li>Unit-test utilities: Rust’s <code>assert_eq!(checked_add(…))</code>, Python’s <code>math.isclose</code>, Java’s <code>BigDecimal</code> reference checks.</li>
+<li>Reproducibility flags: <code>-ffast-math</code> (fast but non-deterministic), vs.&nbsp;<code>-frounding-math</code> (strict).</li>
+</ul>
+<p>Testing with multiple compilers and settings reveals assumptions you didn’t know you had.</p>
+</section>
+<section id="strategies-in-production-systems" class="level5">
+<h5 class="anchored" data-anchor-id="strategies-in-production-systems">5) Strategies in production systems</h5>
+<p>When deploying real systems, you pick policies that match domain needs.</p>
+<ul>
+<li>Databases: Use <code>DECIMAL(p,s)</code> to store fixed-point, preventing float drift in sums.</li>
+<li>Financial systems: Explicit fixed-point types (cents as <code>int64</code>) + saturating logic on overflow.</li>
+<li>Graphics / ML: Accept <code>float32</code> imprecision; gain throughput with fused ops and flush-to-zero.</li>
+<li>Low-level kernels: Exploit modular wraparound deliberately for hash tables, checksums, and crypto.</li>
+</ul>
+<p>Policy menu</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Scenario</th>
+<th>Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Money transfers</td>
+<td>Fixed-point, saturating arithmetic</td>
+</tr>
+<tr class="even">
+<td>Physics sim</td>
+<td><code>float64</code>, stable integrators, compensated summation</td>
+</tr>
+<tr class="odd">
+<td>Hashing / RNG</td>
+<td>Embrace wraparound modular math</td>
+</tr>
+<tr class="even">
+<td>Critical counters</td>
+<td><code>uint64</code> with explicit overflow trap</td>
+</tr>
+</tbody>
+</table>
+<p>Thinking in policies avoids one-off hacks. Document “why” once, then apply consistently.</p>
+</section>
+</section>
+<section id="code-examples" class="level4">
+<h4 class="anchored" data-anchor-id="code-examples">Code Examples</h4>
+<p>C (wrap vs check)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdbool.h&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;limits.h&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> add_checked_i32<span class="op">(</span><span class="dt">int32_t</span> a<span class="op">,</span> <span class="dt">int32_t</span> b<span class="op">,</span> <span class="dt">int32_t</span> <span class="op">*</span>out<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>b <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> a <span class="op">&gt;</span> INT32_MAX <span class="op">-</span> b<span class="op">)</span> <span class="op">||</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">(</span>b <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> a <span class="op">&lt;</span> INT32_MIN <span class="op">-</span> b<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span> <span class="co">// overflow</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>out <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Rust (explicit intent)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> demo() <span class="op">{</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x<span class="op">:</span> <span class="dt">i32</span> <span class="op">=</span> <span class="dt">i32</span><span class="pp">::</span><span class="cn">MAX</span><span class="op">;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{:?}"</span><span class="op">,</span> x<span class="op">.</span>wrapping_add(<span class="dv">1</span>))<span class="op">;</span>   <span class="co">// wrap</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{:?}"</span><span class="op">,</span> x<span class="op">.</span>checked_add(<span class="dv">1</span>))<span class="op">;</span>    <span class="co">// None</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{:?}"</span><span class="op">,</span> x<span class="op">.</span>saturating_add(<span class="dv">1</span>))<span class="op">;</span> <span class="co">// clamp</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Python (reproducibility check)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ulp_diff(a: <span class="bu">float</span>, b: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compares floats in terms of ULPs</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> struct</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    ai <span class="op">=</span> struct.unpack(<span class="st">'!q'</span>, struct.pack(<span class="st">'!d'</span>, a))[<span class="dv">0</span>]</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    bi <span class="op">=</span> struct.unpack(<span class="st">'!q'</span>, struct.pack(<span class="st">'!d'</span>, b))[<span class="dv">0</span>]</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">abs</span>(ai <span class="op">-</span> bi)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ulp_diff(<span class="fl">1.0</span>, math.nextafter(<span class="fl">1.0</span>, <span class="fl">2.0</span>)))  <span class="co"># 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>These snippets show how different languages force you to state your policy, rather than relying on “whatever the hardware does.”</p>
+</section>
+<section id="why-it-matters-11" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-11">Why it matters</h4>
+<ul>
+<li>Performance: Understanding denormals and FMAs can save orders of magnitude in compute-heavy workloads.</li>
+<li>Correctness: Database money columns or counters in billing systems can silently corrupt without fixed-point or overflow checks.</li>
+<li>Portability: Code that relies on UB may “work” on GCC Linux but fail on Clang macOS.</li>
+<li>Security: Integer overflow bugs (e.g., buffer length miscalculation) remain a classic vulnerability class.</li>
+</ul>
+<p>In short, overflow and precision are not “just math”—they are systems-level contracts that must be understood and enforced.</p>
+</section>
+<section id="exercises-11" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-11">Exercises</h4>
+<ol type="1">
+<li>Compiler behavior: Write a C function that overflows <code>int32_t</code>. Compile with and without <code>-fsanitize=undefined</code>. What changes?</li>
+<li>FMA investigation: Run a dot-product with and without <code>-ffast-math</code>. Measure result differences across compilers.</li>
+<li>Denormal trap: Construct a loop multiplying by <code>1e-308</code>. Time it with flush-to-zero enabled vs disabled.</li>
+<li>Policy design: For an in-memory database, define rules for counters, timestamps, and currency columns. Which use wrapping, which use fixed-point, which trap?</li>
+<li>Cross-language test: Implement <code>add_checked_i32</code> in C, Rust, and Python. Run edge-case inputs (<code>INT_MAX</code>, <code>INT_MIN</code>). Compare semantics.</li>
+<li>ULP meter: Write a function in your language to compute ULP distance between two floats. Use it to compare rounding differences between platforms.</li>
+</ol>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Roadmap">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Roadmap</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./chapter_2.html" class="pagination-link" aria-label="Chapter 2. Arrays">
+        <span class="nav-page-text"><span class="chapter-title">Chapter 2. Arrays</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

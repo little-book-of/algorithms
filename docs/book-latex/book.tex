@@ -1,0 +1,2615 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={The Little Book of Algorithms},
+  pdfauthor={Duc-Tam Nguyen},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{The Little Book of Algorithms}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Version 0.1.0}
+\author{Duc-Tam Nguyen}
+\date{2025-09-09}
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+\bookmarksetup{startatroot}
+
+\chapter{Roadmap}\label{roadmap}
+
+The Little Book of Algorithms is a multi-volume project. Each volume has
+a clear sequence of chapters, and each chapter has three levels of depth
+(L0 beginner intuition, L1 practical techniques, L2 advanced
+systems/theory). This roadmap outlines the plan for development and
+publication.
+
+\section{Goals}\label{goals}
+
+\begin{itemize}
+\tightlist
+\item
+  Establish a consistent layered structure across all chapters.
+\item
+  Provide runnable implementations in Python, C, Go, Erlang, and Lean.
+\item
+  Ensure Quarto build supports HTML, PDF, EPUB, and LaTeX.
+\item
+  Deliver both pedagogy (L0) and production insights (L2).
+\end{itemize}
+
+\section{Volumes}\label{volumes}
+
+\subsection{Volume I - Structures
+Linéaires}\label{volume-i---structures-linuxe9aires}
+
+\begin{itemize}
+\tightlist
+\item
+  Chapter 0 - Foundations
+\item
+  Chapter 1 - Numbers
+\item
+  Chapter 2 - Arrays
+\item
+  Chapter 3 - Strings
+\item
+  Chapter 4 - Linked Lists
+\item
+  Chapter 5 - Stacks \& Queues
+\end{itemize}
+
+\subsection{Volume II - Algorithmes
+Fondamentaux}\label{volume-ii---algorithmes-fondamentaux}
+
+\begin{itemize}
+\tightlist
+\item
+  Chapter 6 - Searching
+\item
+  Chapter 7 - Selection
+\item
+  Chapter 8 - Sorting
+\item
+  Chapter 9 - Amortized Analysis
+\end{itemize}
+
+\subsection{Volume III - Structures
+Hiérarchiques}\label{volume-iii---structures-hiuxe9rarchiques}
+
+\begin{itemize}
+\tightlist
+\item
+  Chapter 10 - Tree Fundamentals
+\item
+  Chapter 11 - Heaps \& Priority Queues
+\item
+  Chapter 12 - Binary Search Trees
+\item
+  Chapter 13 - Balanced Trees \& Ordered Maps
+\item
+  Chapter 14 - Range Queries
+\item
+  Chapter 15 - Vector Databases
+\end{itemize}
+
+\subsection{Volume IV - Paradigmes
+Algorithmiques}\label{volume-iv---paradigmes-algorithmiques}
+
+\begin{itemize}
+\tightlist
+\item
+  Chapter 16 - Divide-and-Conquer
+\item
+  Chapter 17 - Greedy
+\item
+  Chapter 18 - Dynamic Programming
+\item
+  Chapter 19 - Backtracking \& Search
+\end{itemize}
+
+\subsection{Volume V - Graphes et
+Complexité}\label{volume-v---graphes-et-complexituxe9}
+
+\begin{itemize}
+\tightlist
+\item
+  Chapter 20 - Graph Basics
+\item
+  Chapter 21 - DAGs \& SCC
+\item
+  Chapter 22 - Shortest Paths
+\item
+  Chapter 23 - Flows \& Matchings
+\item
+  Chapter 24 - Tree Algorithms
+\item
+  Chapter 25 - Complexity \& Limits
+\item
+  Chapter 26 - External \& Cache-Oblivious
+\item
+  Chapter 27 - Probabilistic \& Streaming
+\item
+  Chapter 28 - Engineering
+\end{itemize}
+
+\section{Milestones}\label{milestones}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Complete detailed outlines for all chapters (L0, L1, L2).
+\item
+  Write draft text for all L0 sections (intuition, analogies, simple
+  examples).
+\item
+  Expand each chapter with L1 content (implementations, correctness
+  arguments, exercises).
+\item
+  Add L2 content (systems insights, proofs, optimizations, advanced
+  references).
+\item
+  Develop and test runnable code in \texttt{src/} across Python, C, Go,
+  Erlang, and Lean.
+\item
+  Integrate diagrams, figures, and visual explanations.
+\item
+  Finalize Quarto build setup for HTML, PDF, and EPUB.
+\item
+  Release first public edition (HTML + PDF).
+\item
+  Add LaTeX build, refine EPUB, and polish cross-references.
+\item
+  Publish on GitHub Pages and archive DOI.
+\item
+  Gather feedback, refine explanations, and expand exercises/problem
+  sets.
+\item
+  Long-term: maintain as a living reference with continuous updates and
+  companion volumes.
+\end{enumerate}
+
+\section{Deliverables}\label{deliverables}
+
+\begin{itemize}
+\tightlist
+\item
+  Quarto project with 29 chapters (00--28).
+\item
+  Multi-language reference implementations.
+\item
+  Learning matrix in README for navigation.
+\item
+  ROADMAP.md (this file) to track progress.
+\end{itemize}
+
+\section{Long-term Vision}\label{long-term-vision}
+
+\begin{itemize}
+\tightlist
+\item
+  Maintain the repository as a living reference.
+\item
+  Extend with exercises, problem sets, and quizzes.
+\item
+  Build a dependency map across volumes for prerequisites.
+\item
+  Connect to companion ``Little Book'' series (linear algebra, calculus,
+  probability).
+\end{itemize}
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 1. Numbers}\label{chapter-1.-numbers}
+
+\section{1.1 Representation}\label{representation}
+
+\subsection{1.1 L0. Decimal and Binary
+Basics}\label{l0.-decimal-and-binary-basics}
+
+A number representation is a way of writing numbers using symbols and
+positional rules. Humans typically use decimal notation, while computers
+rely on binary because it aligns with the two-state nature of electronic
+circuits. Understanding both systems is the first step in connecting
+mathematical intuition with machine computation.
+
+\subsubsection{Numbers in Everyday Life}\label{numbers-in-everyday-life}
+
+Humans work with the decimal system (base 10), which uses digits 0
+through 9. Each position in a number has a place value that is a power
+of 10.
+
+\[
+427 = 4 \times 10^2 + 2 \times 10^1 + 7 \times 10^0
+\]
+
+This principle of \emph{positional notation} is the same idea used in
+other bases.
+
+\subsubsection{Numbers in Computers}\label{numbers-in-computers}
+
+Computers, however, operate in binary (base 2). A binary digit (bit) can
+only be 0 or 1, matching the two stable states of electronic circuits
+(off/on). Each binary place value represents a power of 2.
+
+\[
+1011_2 = 1 \times 2^3 + 0 \times 2^2 + 1 \times 2^1 + 1 \times 2^0 = 11_{10}
+\]
+
+Just like in decimal where \(9 + 1 = 10\), in binary \(1 + 1 = 10_2\).
+
+\subsubsection{Conversion Between Decimal and
+Binary}\label{conversion-between-decimal-and-binary}
+
+To convert from decimal to binary, repeatedly divide the number by 2 and
+record the remainders. Then read the remainders from bottom to top.
+
+Example: Convert \(42_{10}\) into binary.
+
+\begin{itemize}
+\tightlist
+\item
+  42 ÷ 2 = 21 remainder 0
+\item
+  21 ÷ 2 = 10 remainder 1
+\item
+  10 ÷ 2 = 5 remainder 0
+\item
+  5 ÷ 2 = 2 remainder 1
+\item
+  2 ÷ 2 = 1 remainder 0
+\item
+  1 ÷ 2 = 0 remainder 1
+\end{itemize}
+
+Reading upward: \(101010_2\).
+
+To convert from binary to decimal, expand into powers of 2 and sum:
+
+\[
+101010_2 = 1 \times 2^5 + 0 \times 2^4 + 1 \times 2^3 + 0 \times 2^2 + 1 \times 2^1 + 0 \times 2^0 = 42_{10}
+\]
+
+\subsubsection{Worked Example (Python)}\label{worked-example-python}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OperatorTok{=} \DecValTok{42}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Decimal:"}\NormalTok{, n)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Binary :"}\NormalTok{, }\BuiltInTok{bin}\NormalTok{(n))   }\CommentTok{\# 0b101010}
+
+\CommentTok{\# binary literal in Python}
+\NormalTok{b }\OperatorTok{=} \BaseNTok{0b101010}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Binary literal:"}\NormalTok{, b)}
+
+\CommentTok{\# converting binary string to decimal}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"From binary \textquotesingle{}1011\textquotesingle{}:"}\NormalTok{, }\BuiltInTok{int}\NormalTok{(}\StringTok{"1011"}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Output:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{Decimal:}\NormalTok{ 42}
+\ExtensionTok{Binary}\NormalTok{ : 0b101010}
+\ExtensionTok{Binary}\NormalTok{ literal: 42}
+\ExtensionTok{From}\NormalTok{ binary }\StringTok{\textquotesingle{}1011\textquotesingle{}}\NormalTok{: 11}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Why It Matters}\label{why-it-matters}
+
+\begin{itemize}
+\tightlist
+\item
+  All information inside a computer --- numbers, text, images, programs
+  --- reduces to binary representation.
+\item
+  Decimal and binary conversions are the first bridge between
+  human-friendly math and machine-level data.
+\item
+  Understanding binary is essential for debugging, low-level
+  programming, and algorithms that depend on bit operations.
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write the decimal number 19 in binary.
+\item
+  Convert the binary number \texttt{10101₂} into decimal.
+\item
+  Show the repeated division steps to convert 27 into binary.
+\item
+  Verify in Python that \texttt{0b111111} equals 63.
+\item
+  Explain why computers use binary instead of decimal.
+\end{enumerate}
+
+\subsection{1.1 L1. Beyond Binary: Octal, Hex, and Two's
+Complement}\label{l1.-beyond-binary-octal-hex-and-twos-complement}
+
+Numbers are not always written in base-10 or even in base-2. For
+efficiency and compactness, programmers often use octal (base-8) and
+hexadecimal (base-16). At the same time, negative numbers must be
+represented reliably; modern computers use two's complement for this
+purpose.
+
+\subsubsection{Octal and Hexadecimal}\label{octal-and-hexadecimal}
+
+Octal and hex are simply alternate numeral systems.
+
+\begin{itemize}
+\tightlist
+\item
+  Octal (base 8): digits \texttt{0}--\texttt{7}.
+\item
+  Hexadecimal (base 16): digits \texttt{0}--\texttt{9} plus
+  \texttt{A}--\texttt{F}.
+\end{itemize}
+
+Why they matter:
+
+\begin{itemize}
+\tightlist
+\item
+  Hex is concise: one hex digit = 4 binary bits.
+\item
+  Octal was historically convenient: one octal digit = 3 binary bits
+  (useful on early 12-, 24-, or 36-bit machines).
+\end{itemize}
+
+For example, the number 42 is written as:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Decimal & Binary & Octal & Hex \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+42 & 101010 & 52 & 2A \\
+\end{longtable}
+
+\subsubsection{Two's Complement}\label{twos-complement}
+
+To represent negative numbers, we cannot just ``stick a minus sign'' in
+memory. Instead, binary uses two's complement:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Choose a fixed bit-width (say 8 bits).
+\item
+  For a negative number \texttt{-x}, compute \texttt{2\^{}bits\ -\ x}.
+\item
+  Store the result as an ordinary binary integer.
+\end{enumerate}
+
+Example with 8 bits:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{+5} → \texttt{00000101}
+\item
+  \texttt{-5} → \texttt{11111011}
+\item
+  \texttt{-1} → \texttt{11111111}
+\end{itemize}
+
+Why two's complement is powerful:
+
+\begin{itemize}
+\tightlist
+\item
+  Addition and subtraction ``just work'' with the same circuitry for
+  signed and unsigned.
+\item
+  There is only one representation of zero.
+\end{itemize}
+
+\subsubsection{Working Example (Python)}\label{working-example-python}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Decimal 42 in different bases}
+\NormalTok{n }\OperatorTok{=} \DecValTok{42}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Decimal:"}\NormalTok{, n)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Binary :"}\NormalTok{, }\BuiltInTok{bin}\NormalTok{(n))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Octal  :"}\NormalTok{, }\BuiltInTok{oct}\NormalTok{(n))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Hex    :"}\NormalTok{, }\BuiltInTok{hex}\NormalTok{(n))}
+
+\CommentTok{\# Two\textquotesingle{}s complement for {-}5 in 8 bits}
+\KeywordTok{def}\NormalTok{ to\_twos\_complement(x: }\BuiltInTok{int}\NormalTok{, bits: }\BuiltInTok{int} \OperatorTok{=} \DecValTok{8}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
+    \ControlFlowTok{if}\NormalTok{ x }\OperatorTok{\textgreater{}=} \DecValTok{0}\NormalTok{:}
+        \ControlFlowTok{return} \BuiltInTok{format}\NormalTok{(x, }\SpecialStringTok{f"0}\SpecialCharTok{\{}\NormalTok{bits}\SpecialCharTok{\}}\SpecialStringTok{b"}\NormalTok{)}
+    \ControlFlowTok{return} \BuiltInTok{format}\NormalTok{((}\DecValTok{1} \OperatorTok{\textless{}\textless{}}\NormalTok{ bits) }\OperatorTok{+}\NormalTok{ x, }\SpecialStringTok{f"0}\SpecialCharTok{\{}\NormalTok{bits}\SpecialCharTok{\}}\SpecialStringTok{b"}\NormalTok{)}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"+5:"}\NormalTok{, to\_twos\_complement(}\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"{-}5:"}\NormalTok{, to\_twos\_complement(}\OperatorTok{{-}}\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Output:
+
+\begin{verbatim}
+Decimal: 42
+Binary : 0b101010
+Octal  : 0o52
+Hex    : 0x2a
++5: 00000101
+-5: 11111011
+\end{verbatim}
+
+\subsubsection{Why It Matters}\label{why-it-matters-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Programmer convenience: Hex makes binary compact and human-readable.
+\item
+  Hardware design: Two's complement ensures arithmetic circuits are
+  simple and unified.
+\item
+  Debugging: Memory dumps, CPU registers, and network packets are
+  usually shown in hex.
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Convert \texttt{100} into binary, octal, and hex.
+\item
+  Write \texttt{-7} in 8-bit two's complement.
+\item
+  Verify that \texttt{0xFF} is equal to 255.
+\item
+  Parse the bitstring \texttt{"11111001"} as an 8-bit two's complement
+  number.
+\item
+  Explain why engineers prefer two's complement over ``sign-magnitude''
+  representation.
+\end{enumerate}
+
+\subsection{1.1 L2. Floating-Point and Precision
+Issues}\label{l2.-floating-point-and-precision-issues}
+
+Not all numbers are integers. To approximate fractions, scientific
+notation, and very large or very small values, computers use
+floating-point representation. The de-facto standard is IEEE-754, which
+defines how real numbers are encoded, how special values are handled,
+and what precision guarantees exist.
+
+\subsubsection{Structure of Floating-Point
+Numbers}\label{structure-of-floating-point-numbers}
+
+A floating-point value is composed of three fields:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sign bit (s) --- indicates positive (\texttt{0}) or negative
+  (\texttt{1}).
+\item
+  Exponent (e) --- determines the scale or ``magnitude.''
+\item
+  Mantissa / significand (m) --- contains the significant digits.
+\end{enumerate}
+
+The value is interpreted as:
+
+\[
+(-1)^s \times 1.m \times 2^{(e - \text{bias})}
+\]
+
+Example: IEEE-754 single precision (32 bits)
+
+\begin{itemize}
+\tightlist
+\item
+  1 sign bit
+\item
+  8 exponent bits (bias = 127)
+\item
+  23 mantissa bits
+\end{itemize}
+
+\subsubsection{Exact vs Approximate
+Representation}\label{exact-vs-approximate-representation}
+
+Some numbers are represented exactly:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{1.0} has a clean binary form.
+\end{itemize}
+
+Others cannot be represented precisely:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{0.1} in decimal is a repeating fraction in binary, so the
+  closest approximation is stored.
+\end{itemize}
+
+Python example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OperatorTok{=} \FloatTok{0.1} \OperatorTok{+} \FloatTok{0.2}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"0.1 + 0.2 ="}\NormalTok{, a)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Equal to 0.3?"}\NormalTok{, a }\OperatorTok{==} \FloatTok{0.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Output:
+
+\begin{verbatim}
+0.1 + 0.2 = 0.30000000000000004
+Equal to 0.3? False
+\end{verbatim}
+
+\subsubsection{Special Values}\label{special-values}
+
+IEEE-754 reserves encodings for special cases:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Sign & Exponent & Mantissa & Meaning \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0/1 & all 1s & 0 & +∞ / −∞ \\
+0/1 & all 1s & nonzero & NaN (Not a Number) \\
+0/1 & all 0s & nonzero & Denormals (gradual underflow) \\
+\end{longtable}
+
+Examples:
+
+\begin{itemize}
+\tightlist
+\item
+  Division by zero produces infinity: \texttt{1.0\ /\ 0.0\ =\ inf}.
+\item
+  \texttt{0.0\ /\ 0.0} yields \texttt{NaN}, which propagates in
+  computations.
+\item
+  Denormals allow gradual precision near zero.
+\end{itemize}
+
+\subsubsection{Arbitrary Precision}\label{arbitrary-precision}
+
+Languages like Python and libraries like GMP provide arbitrary-precision
+arithmetic:
+
+\begin{itemize}
+\tightlist
+\item
+  Integers (\texttt{int}) can grow as large as memory allows.
+\item
+  Decimal libraries (\texttt{decimal.Decimal} in Python) allow exact
+  decimal arithmetic.
+\item
+  These are slower, but essential for cryptography, symbolic
+  computation, and finance.
+\end{itemize}
+
+\subsubsection{Worked Example (Python)}\label{worked-example-python-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ math}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Infinity:"}\NormalTok{, }\FloatTok{1.0} \OperatorTok{/} \FloatTok{0.0}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"NaN:"}\NormalTok{, }\FloatTok{0.0} \OperatorTok{/} \FloatTok{0.0}\NormalTok{)}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Is NaN?"}\NormalTok{, math.isnan(}\BuiltInTok{float}\NormalTok{(}\StringTok{\textquotesingle{}nan\textquotesingle{}}\NormalTok{)))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Is Inf?"}\NormalTok{, math.isinf(}\BuiltInTok{float}\NormalTok{(}\StringTok{\textquotesingle{}inf\textquotesingle{}}\NormalTok{)))}
+
+\CommentTok{\# Arbitrary precision integer}
+\NormalTok{big }\OperatorTok{=} \DecValTok{2200}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"2200 ="}\NormalTok{, big)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Why It Matters}\label{why-it-matters-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Rounding surprises: Many decimal fractions cannot be represented
+  exactly.
+\item
+  Error propagation: Repeated arithmetic may accumulate tiny
+  inaccuracies.
+\item
+  Special values: NaN and infinity must be handled carefully.
+\item
+  Domain correctness: Cryptography, finance, and symbolic algebra
+  require exact precision.
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write down the IEEE-754 representation (sign, exponent, mantissa) of
+  \texttt{1.0}.
+\item
+  Explain why \texttt{0.1} is not exactly representable in binary.
+\item
+  Test in Python whether
+  \texttt{float(\textquotesingle{}nan\textquotesingle{})\ ==\ float(\textquotesingle{}nan\textquotesingle{})}.
+  What happens, and why?
+\item
+  Find the smallest positive number you can add to \texttt{1.0} before
+  it changes (machine epsilon).
+\item
+  Why is arbitrary precision slower but critical in some applications?
+\end{enumerate}
+
+\section{1.2 Basic Operations}\label{basic-operations}
+
+\subsection{1.2 L0. Addition, Subtraction, Multiplication,
+Division}\label{l0.-addition-subtraction-multiplication-division}
+
+An arithmetic operation combines numbers to produce a new number. At
+this level we focus on four basics: addition, subtraction,
+multiplication, and division---first with decimal intuition, then a peek
+at how the same ideas look in binary. Mastering these is essential
+before moving to algorithms that build on them.
+
+\subsubsection{Intuition: place value +
+carrying/borrowing}\label{intuition-place-value-carryingborrowing}
+
+All four operations are versions of combining place values (ones, tens,
+hundreds \ldots; or in binary: ones, twos, fours \ldots).
+
+\begin{itemize}
+\tightlist
+\item
+  Addition: add column by column; if a column exceeds the base, carry 1
+  to the next column.
+\item
+  Subtraction: subtract column by column; if a column is too small,
+  borrow 1 from the next column.
+\item
+  Multiplication: repeated addition; multiply by each digit and shift
+  (place value), then add partial results.
+\item
+  Division: repeated subtraction or sharing; find how many times a
+  number ``fits,'' track the remainder.
+\end{itemize}
+
+These rules are identical in any base. Only the place values change.
+
+\subsubsection{Decimal examples (by
+hand)}\label{decimal-examples-by-hand}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Addition (carry)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+   \ExtensionTok{478}
+ \ExtensionTok{+}\NormalTok{ 259}
+ \ExtensionTok{{-}{-}{-}{-}}
+   \ExtensionTok{737}    \ErrorTok{(}\ExtensionTok{8+9=17}\NormalTok{ → write 7, carry 1}\KeywordTok{;} \ExtensionTok{7+5+1=13}\NormalTok{ → write 3, carry 1}\KeywordTok{;} \ExtensionTok{4+2+1=7}\KeywordTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Subtraction (borrow)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+   \ExtensionTok{503}
+ \ExtensionTok{{-}}\NormalTok{  78}
+ \ExtensionTok{{-}{-}{-}{-}}
+   \ExtensionTok{425}    \ErrorTok{(}\ExtensionTok{3{-}8}\NormalTok{ borrow → 13{-}8=5}\KeywordTok{;} \ExtensionTok{0}\NormalTok{ became }\AttributeTok{{-}1}\NormalTok{ so borrow from 5 → 9{-}7=2}\KeywordTok{;} \ExtensionTok{4}\NormalTok{ stays 4}\KeywordTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Multiplication (partial sums)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+   \ExtensionTok{214}
+ \ExtensionTok{×}\NormalTok{   3}
+ \ExtensionTok{{-}{-}{-}{-}}
+   \ExtensionTok{642}    \ErrorTok{(}\ExtensionTok{214*3}\NormalTok{ = 642}\KeywordTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Long division (quotient + remainder)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \ExtensionTok{47}\NormalTok{ ÷ 5 → 9 remainder 2   }\ErrorTok{(}\ExtensionTok{because}\NormalTok{ 5}\PreprocessorTok{*}\NormalTok{9 = 45, leftover 2}\KeywordTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Binary peek (same rules, base
+2)}\label{binary-peek-same-rules-base-2}
+
+\begin{itemize}
+\item
+  Add rules: 0+0=0, 0+1=1, 1+0=1, 1+1=10₂ (write 0, carry 1)
+\item
+  Subtract rules: 0−0=0, 1−0=1, 1−1=0, 0−1 → borrow (becomes 10₂−1=1,
+  borrow 1)
+\end{itemize}
+
+Example: \(1011₂ + 0110₂\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+   \ExtensionTok{1011}
+ \ExtensionTok{+}\NormalTok{ 0110}
+ \ExtensionTok{{-}{-}{-}{-}{-}{-}}
+  \ExtensionTok{10001}   \ErrorTok{(}\ExtensionTok{1+0=1}\KeywordTok{;} \ExtensionTok{1+1=0}\NormalTok{ carry1}\KeywordTok{;} \ExtensionTok{0+1+carry=0}\NormalTok{ carry1}\KeywordTok{;} \ExtensionTok{1+0+carry=0}\NormalTok{ carry1 → carry out}\KeywordTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Worked examples (Python)}\label{worked-examples-python}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Basic arithmetic with integers}
+\NormalTok{a, b }\OperatorTok{=} \DecValTok{478}\NormalTok{, }\DecValTok{259}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"a+b ="}\NormalTok{, a }\OperatorTok{+}\NormalTok{ b)      }\CommentTok{\# 737}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"a{-}b ="}\NormalTok{, a }\OperatorTok{{-}}\NormalTok{ b)      }\CommentTok{\# 219}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"a*b ="}\NormalTok{, a }\OperatorTok{*}\NormalTok{ b)      }\CommentTok{\# 123,  478*259 = 123,  ... actually compute:}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"47//5 ="}\NormalTok{, }\DecValTok{47} \OperatorTok{//} \DecValTok{5}\NormalTok{)  }\CommentTok{\# integer division {-}\textgreater{} 9}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"47\%5  ="}\NormalTok{, }\DecValTok{47} \OperatorTok{\%} \DecValTok{5}\NormalTok{)   }\CommentTok{\# remainder {-}\textgreater{} 2}
+
+\CommentTok{\# Show carry/borrow intuition using binary strings}
+\NormalTok{x, y }\OperatorTok{=} \BaseNTok{0b1011}\NormalTok{, }\BaseNTok{0b0110}
+\NormalTok{s }\OperatorTok{=}\NormalTok{ x }\OperatorTok{+}\NormalTok{ y}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"x+y (binary):"}\NormalTok{, }\BuiltInTok{bin}\NormalTok{(x), }\StringTok{"+"}\NormalTok{, }\BuiltInTok{bin}\NormalTok{(y), }\StringTok{"="}\NormalTok{, }\BuiltInTok{bin}\NormalTok{(s))}
+
+\CommentTok{\# Small helper: manual long division that returns (quotient, remainder)}
+\KeywordTok{def}\NormalTok{ long\_divide(n: }\BuiltInTok{int}\NormalTok{, d: }\BuiltInTok{int}\NormalTok{):}
+    \ControlFlowTok{if}\NormalTok{ d }\OperatorTok{==} \DecValTok{0}\NormalTok{:}
+        \ControlFlowTok{raise} \PreprocessorTok{ZeroDivisionError}\NormalTok{(}\StringTok{"division by zero"}\NormalTok{)}
+\NormalTok{    q }\OperatorTok{=}\NormalTok{ n }\OperatorTok{//}\NormalTok{ d}
+\NormalTok{    r }\OperatorTok{=}\NormalTok{ n }\OperatorTok{\%}\NormalTok{ d}
+    \ControlFlowTok{return}\NormalTok{ q, r}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"long\_divide(47,5):"}\NormalTok{, long\_divide(}\DecValTok{47}\NormalTok{, }\DecValTok{5}\NormalTok{))  }\CommentTok{\# (9, 2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+Note: \texttt{//} is integer division in Python; \texttt{\%} is the
+remainder. For now we focus on integers (no decimals).
+\end{quote}
+
+\subsubsection{Why it matters}\label{why-it-matters-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Every higher-level algorithm (searching, hashing, cryptography,
+  numeric methods) relies on these operations.
+\item
+  Understanding carry/borrow makes binary arithmetic and bit-level
+  reasoning feel natural.
+\item
+  Knowing integer division and remainder is vital for base conversions,
+  hashing (\texttt{mod}), and many algorithmic patterns.
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises-3}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Compute by hand, then verify in Python:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(326 + 589\)
+  \item
+    \(704 - 259\)
+  \item
+    \(38 \times 12\)
+  \item
+    \(123 \div 7\) (give quotient and remainder)
+  \end{itemize}
+\item
+  In binary, add \(10101₂ + 111₍₂₎\). Show carries.
+\item
+  Write a short Python snippet that prints the quotient and remainder
+  for \texttt{n=200} divided by \texttt{d=23}.
+\item
+  Convert your remainder into a sentence: ``200 = 23 × (quotient) +
+  (remainder)''.
+\item
+  Challenge: Multiply \(19 \times 23\) by hand using partial sums; then
+  check with Python.
+\end{enumerate}
+
+\subsection{1.2 L1. Division, Modulo, and
+Efficiency}\label{l1.-division-modulo-and-efficiency}
+
+Beyond the simple four arithmetic operations, programmers need to think
+about division with remainder, the modulo operator, and how efficient
+these operations are on real machines. Addition and subtraction are
+almost always ``constant time,'' but division can be slower, and
+understanding modulo is essential for algorithms like hashing,
+cryptography, and scheduling.
+
+\subsubsection{Integer Division and
+Modulo}\label{integer-division-and-modulo}
+
+For integers, division produces both a quotient and a remainder.
+
+\begin{itemize}
+\item
+  Mathematical definition: for integers \(n, d\) with \(d \neq 0\),
+
+  \[
+  n = d \times q + r, \quad 0 \leq r < |d|
+  \]
+
+  where \(q\) is the quotient, \(r\) the remainder.
+\item
+  Programming notation (Python):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{n\ //\ d} → quotient
+  \item
+    \texttt{n\ \%\ d} → remainder
+  \end{itemize}
+\end{itemize}
+
+Examples:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{47\ //\ 5\ =\ 9}, \texttt{47\ \%\ 5\ =\ 2} because
+  \(47 = 5 \times 9 + 2\).
+\item
+  \texttt{23\ //\ 7\ =\ 3}, \texttt{23\ \%\ 7\ =\ 2} because
+  \(23 = 7 \times 3 + 2\).
+\end{itemize}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+n & d & n // d & n \% d \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+47 & 5 & 9 & 2 \\
+23 & 7 & 3 & 2 \\
+100 & 9 & 11 & 1 \\
+\end{longtable}
+
+\subsubsection{Modulo in Algorithms}\label{modulo-in-algorithms}
+
+The modulo operation is a workhorse in programming:
+
+\begin{itemize}
+\item
+  Hashing: To map a large integer into a table of size \texttt{m}, use
+  \texttt{key\ \%\ m}.
+\item
+  Cyclic behavior: To loop back after \texttt{7} days in a week:
+  \texttt{(day\ +\ shift)\ \%\ 7}.
+\item
+  Cryptography: Modular arithmetic underlies RSA, Diffie--Hellman, and
+  many number-theoretic algorithms.
+\end{itemize}
+
+\subsubsection{Efficiency
+Considerations}\label{efficiency-considerations}
+
+\begin{itemize}
+\tightlist
+\item
+  Addition and subtraction: generally 1 CPU cycle.
+\item
+  Multiplication: slightly more expensive, but still fast on modern
+  hardware.
+\item
+  Division and modulo: slower, often an order of magnitude more costly
+  than multiplication.
+\end{itemize}
+
+Practical tricks:
+
+\begin{itemize}
+\item
+  If \texttt{d} is a power of two, \texttt{n\ \%\ d} can be computed by
+  a bitmask.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Example: \texttt{n\ \%\ 8\ ==\ n\ \&\ 7} (since 8 = 2³).
+  \end{itemize}
+\item
+  Some compilers automatically optimize modulo when the divisor is
+  constant.
+\end{itemize}
+
+\subsubsection{Worked Example (Python)}\label{worked-example-python-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Quotient and remainder}
+\NormalTok{n, d }\OperatorTok{=} \DecValTok{47}\NormalTok{, }\DecValTok{5}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Quotient:"}\NormalTok{, n }\OperatorTok{//}\NormalTok{ d)  }\CommentTok{\# 9}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Remainder:"}\NormalTok{, n }\OperatorTok{\%}\NormalTok{ d)  }\CommentTok{\# 2}
+
+\CommentTok{\# Identity check: n == d*q + r}
+\NormalTok{q, r }\OperatorTok{=} \BuiltInTok{divmod}\NormalTok{(n, d)  }\CommentTok{\# built{-}in tuple return}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Check:"}\NormalTok{, d}\OperatorTok{*}\NormalTok{q }\OperatorTok{+}\NormalTok{ r }\OperatorTok{==}\NormalTok{ n)}
+
+\CommentTok{\# Modulo for cyclic behavior: days of week}
+\NormalTok{days }\OperatorTok{=}\NormalTok{ [}\StringTok{"Mon"}\NormalTok{, }\StringTok{"Tue"}\NormalTok{, }\StringTok{"Wed"}\NormalTok{, }\StringTok{"Thu"}\NormalTok{, }\StringTok{"Fri"}\NormalTok{, }\StringTok{"Sat"}\NormalTok{, }\StringTok{"Sun"}\NormalTok{]}
+\NormalTok{start }\OperatorTok{=} \DecValTok{5}  \CommentTok{\# Saturday}
+\NormalTok{shift }\OperatorTok{=} \DecValTok{4}
+\NormalTok{future\_day }\OperatorTok{=}\NormalTok{ days[(start }\OperatorTok{+}\NormalTok{ shift) }\OperatorTok{\%} \DecValTok{7}\NormalTok{]}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Start Saturday + 4 days ="}\NormalTok{, future\_day)}
+
+\CommentTok{\# Optimization: power{-}of{-}two modulo with bitmask}
+\ControlFlowTok{for}\NormalTok{ n }\KeywordTok{in}\NormalTok{ [}\DecValTok{5}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{20}\NormalTok{]:}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{n}\SpecialCharTok{\}}\SpecialStringTok{ \% 8 = }\SpecialCharTok{\{}\NormalTok{n }\OperatorTok{\%} \DecValTok{8}\SpecialCharTok{\}}\SpecialStringTok{, bitmask }\SpecialCharTok{\{}\NormalTok{n }\OperatorTok{\&} \DecValTok{7}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Output:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{Quotient:}\NormalTok{ 9}
+\ExtensionTok{Remainder:}\NormalTok{ 2}
+\ExtensionTok{Check:}\NormalTok{ True}
+\ExtensionTok{Start}\NormalTok{ Saturday + 4 days = Wed}
+\ExtensionTok{5}\NormalTok{ \% 8 = 5, bitmask 5}
+\ExtensionTok{12}\NormalTok{ \% 8 = 4, bitmask 4}
+\ExtensionTok{20}\NormalTok{ \% 8 = 4, bitmask 4}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Why It Matters}\label{why-it-matters-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Real programs rely heavily on modulo for indexing, hashing, and
+  wrap-around logic.
+\item
+  Division is computationally more expensive; knowing when to replace it
+  with bit-level operations improves performance.
+\item
+  Modular arithmetic introduces a new ``world'' where numbers wrap
+  around --- the foundation of many advanced algorithms.
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises-4}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Compute by hand and confirm in Python:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{100\ //\ 9} and \texttt{100\ \%\ 9}
+  \item
+    \texttt{123\ //\ 11} and \texttt{123\ \%\ 11}
+  \end{itemize}
+\item
+  Write a function that simulates a clock: given \texttt{hour} and
+  \texttt{shift}, return the new hour (24-hour cycle).
+\item
+  Prove the identity: for any integers \texttt{n} and \texttt{d},
+
+\begin{verbatim}
+n == d * (n // d) + (n % d)
+\end{verbatim}
+
+  by trying with random values.
+\item
+  Show how to replace \texttt{n\ \%\ 16} with a bitwise operation. Why
+  does it work?
+\item
+  Challenge: Write a short Python function to check if a number is
+  divisible by 7 using only \texttt{\%} and \texttt{//}.
+\end{enumerate}
+
+\subsection{1.2 L2. Fast Arithmetic
+Algorithms}\label{l2.-fast-arithmetic-algorithms}
+
+When numbers grow large, the naïve methods for multiplication and
+division become too slow. On paper, long multiplication takes \(O(n^2)\)
+steps for \(n\)-digit numbers. Computers face the same issue:
+multiplying two very large integers digit by digit can be expensive.
+Fast arithmetic algorithms reduce this cost, using clever
+divide-and-conquer techniques or transformations into other domains.
+
+\subsubsection{Multiplication Beyond the School
+Method}\label{multiplication-beyond-the-school-method}
+
+Naïve long multiplication
+
+\begin{itemize}
+\tightlist
+\item
+  Treats an \(n\)-digit number as a sequence of digits.
+\item
+  Each digit of one number multiplies every digit of the other.
+\item
+  Complexity: \(O(n^2)\).
+\item
+  Works fine for small integers, but too slow for cryptography or
+  big-number libraries.
+\end{itemize}
+
+Karatsuba's Algorithm
+
+\begin{itemize}
+\item
+  Discovered in 1960 by Anatoly Karatsuba.
+\item
+  Idea: split numbers into halves and reduce multiplications.
+\item
+  Complexity: \(O(n^{\log_2 3}) \approx O(n^{1.585})\).
+\item
+  Recursive strategy:
+
+  \begin{itemize}
+  \item
+    For numbers \(x = x_1 \cdot B^m + x_0\),
+    \(y = y_1 \cdot B^m + y_0\).
+  \item
+    Compute 3 multiplications instead of 4:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(z_0 = x_0 y_0\)
+    \item
+      \(z_2 = x_1 y_1\)
+    \item
+      \(z_1 = (x_0+x_1)(y_0+y_1) - z_0 - z_2\)
+    \end{itemize}
+  \item
+    Result: \(z_2 \cdot B^{2m} + z_1 \cdot B^m + z_0\).
+  \end{itemize}
+\end{itemize}
+
+FFT-based Multiplication (Schönhage--Strassen and successors)
+
+\begin{itemize}
+\tightlist
+\item
+  Represent numbers as polynomials of their digits.
+\item
+  Multiply polynomials efficiently using Fast Fourier Transform.
+\item
+  Complexity: near \(O(n \log n)\).
+\item
+  Used in modern big-integer libraries (e.g.~GNU MP, Java's
+  \texttt{BigInteger}).
+\end{itemize}
+
+\subsubsection{Division Beyond Long
+Division}\label{division-beyond-long-division}
+
+\begin{itemize}
+\tightlist
+\item
+  Naïve long division: \(O(n^2)\) for \(n\)-digit dividend.
+\item
+  Newton's method for reciprocal: approximate \(1/d\) using
+  Newton--Raphson iterations, then multiply by \(n\).
+\item
+  Complexity: tied to multiplication --- if multiplication is fast, so
+  is division.
+\end{itemize}
+
+\subsubsection{Modular Exponentiation}\label{modular-exponentiation}
+
+Fast arithmetic also matters in modular contexts (cryptography).
+
+\begin{itemize}
+\item
+  Compute \(a^b \bmod m\) efficiently.
+\item
+  Square-and-multiply (binary exponentiation):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Write \(b\) in binary.
+  \item
+    For each bit: square result, multiply if bit=1.
+  \item
+    Complexity: \(O(\log b)\) multiplications.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Worked Example (Python)}\label{worked-example-python-3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Naïve multiplication}
+\KeywordTok{def}\NormalTok{ naive\_mul(x: }\BuiltInTok{int}\NormalTok{, y: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{int}\NormalTok{:}
+    \ControlFlowTok{return}\NormalTok{ x }\OperatorTok{*}\NormalTok{ y  }\CommentTok{\# Python already uses fast methods internally}
+
+\CommentTok{\# Karatsuba multiplication (recursive, simplified)}
+\KeywordTok{def}\NormalTok{ karatsuba(x: }\BuiltInTok{int}\NormalTok{, y: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{int}\NormalTok{:}
+    \CommentTok{\# base case}
+    \ControlFlowTok{if}\NormalTok{ x }\OperatorTok{\textless{}} \DecValTok{10} \KeywordTok{or}\NormalTok{ y }\OperatorTok{\textless{}} \DecValTok{10}\NormalTok{:}
+        \ControlFlowTok{return}\NormalTok{ x }\OperatorTok{*}\NormalTok{ y}
+    \CommentTok{\# split numbers}
+\NormalTok{    n }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(x.bit\_length(), y.bit\_length())}
+\NormalTok{    m }\OperatorTok{=}\NormalTok{ n }\OperatorTok{//} \DecValTok{2}
+\NormalTok{    high1, low1 }\OperatorTok{=} \BuiltInTok{divmod}\NormalTok{(x, }\DecValTok{1} \OperatorTok{\textless{}\textless{}}\NormalTok{ m)}
+\NormalTok{    high2, low2 }\OperatorTok{=} \BuiltInTok{divmod}\NormalTok{(y, }\DecValTok{1} \OperatorTok{\textless{}\textless{}}\NormalTok{ m)}
+\NormalTok{    z0 }\OperatorTok{=}\NormalTok{ karatsuba(low1, low2)}
+\NormalTok{    z2 }\OperatorTok{=}\NormalTok{ karatsuba(high1, high2)}
+\NormalTok{    z1 }\OperatorTok{=}\NormalTok{ karatsuba(low1 }\OperatorTok{+}\NormalTok{ high1, low2 }\OperatorTok{+}\NormalTok{ high2) }\OperatorTok{{-}}\NormalTok{ z0 }\OperatorTok{{-}}\NormalTok{ z2}
+    \ControlFlowTok{return}\NormalTok{ (z2 }\OperatorTok{\textless{}\textless{}}\NormalTok{ (}\DecValTok{2}\OperatorTok{*}\NormalTok{m)) }\OperatorTok{+}\NormalTok{ (z1 }\OperatorTok{\textless{}\textless{}}\NormalTok{ m) }\OperatorTok{+}\NormalTok{ z0}
+
+\CommentTok{\# Modular exponentiation (square{-}and{-}multiply)}
+\KeywordTok{def}\NormalTok{ modexp(a: }\BuiltInTok{int}\NormalTok{, b: }\BuiltInTok{int}\NormalTok{, m: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{int}\NormalTok{:}
+\NormalTok{    result }\OperatorTok{=} \DecValTok{1}
+\NormalTok{    base }\OperatorTok{=}\NormalTok{ a }\OperatorTok{\%}\NormalTok{ m}
+\NormalTok{    exp }\OperatorTok{=}\NormalTok{ b}
+    \ControlFlowTok{while}\NormalTok{ exp }\OperatorTok{\textgreater{}} \DecValTok{0}\NormalTok{:}
+        \ControlFlowTok{if}\NormalTok{ exp }\OperatorTok{\&} \DecValTok{1}\NormalTok{:}
+\NormalTok{            result }\OperatorTok{=}\NormalTok{ (result }\OperatorTok{*}\NormalTok{ base) }\OperatorTok{\%}\NormalTok{ m}
+\NormalTok{        base }\OperatorTok{=}\NormalTok{ (base }\OperatorTok{*}\NormalTok{ base) }\OperatorTok{\%}\NormalTok{ m}
+\NormalTok{        exp }\OperatorTok{\textgreater{}\textgreater{}=} \DecValTok{1}
+    \ControlFlowTok{return}\NormalTok{ result}
+
+\CommentTok{\# Demo}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Karatsuba(1234, 5678) ="}\NormalTok{, karatsuba(}\DecValTok{1234}\NormalTok{, }\DecValTok{5678}\NormalTok{))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"pow(7, 128, 13) ="}\NormalTok{, modexp(}\DecValTok{7}\NormalTok{, }\DecValTok{128}\NormalTok{, }\DecValTok{13}\NormalTok{))  }\CommentTok{\# fast modular exponentiation}
+\end{Highlighting}
+\end{Shaded}
+
+Output:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{Karatsuba}\ErrorTok{(}\ExtensionTok{1234,}\NormalTok{ 5678}\KeywordTok{)} \ExtensionTok{=}\NormalTok{ 7006652}
+\ExtensionTok{pow}\ErrorTok{(}\ExtensionTok{7,}\NormalTok{ 128, 13}\KeywordTok{)} \ExtensionTok{=}\NormalTok{ 3}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Why It Matters}\label{why-it-matters-5}
+
+\begin{itemize}
+\tightlist
+\item
+  Cryptography: RSA requires multiplying and dividing integers with
+  thousands of digits.
+\item
+  Computer algebra systems: symbolic computation depends on fast
+  polynomial/integer arithmetic.
+\item
+  Big data / simulation: arbitrary precision needed when floats are not
+  exact.
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises-5}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Multiply 31415926 × 27182818 using:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Python's \texttt{*}
+  \item
+    Your Karatsuba implementation. Compare results.
+  \end{itemize}
+\item
+  Implement \texttt{modexp(a,\ b,\ m)} for \(a=5, b=117, m=19\). Confirm
+  with Python's built-in \texttt{pow(a,\ b,\ m)}.
+\item
+  Explain why Newton's method for division depends on fast
+  multiplication.
+\item
+  Research: what is the current fastest known multiplication algorithm
+  for large integers?
+\item
+  Challenge: Modify Karatsuba to print intermediate
+  \texttt{z0,\ z1,\ z2} values for small inputs to visualize the
+  recursion.
+\end{enumerate}
+
+\section{1.3 Properties}\label{properties}
+
+\subsection{1.3 L0 --- Simple Number
+Properties}\label{l0-simple-number-properties}
+
+Numbers have patterns that help us reason about algorithms without heavy
+mathematics. At this level we focus on basic properties: even vs odd,
+divisibility, and remainders. These ideas show up everywhere---from loop
+counters to data structure layouts.
+
+\subsubsection{Even and Odd}\label{even-and-odd}
+
+A number is even if it ends with digit 0, 2, 4, 6, or 8 in decimal, and
+odd otherwise.
+
+\begin{itemize}
+\item
+  In binary, checking parity is even easier: the last bit tells the
+  story.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{…0} → even
+  \item
+    \texttt{…1} → odd
+  \end{itemize}
+\end{itemize}
+
+Example in Python:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ is\_even(n: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{bool}\NormalTok{:}
+    \ControlFlowTok{return}\NormalTok{ n }\OperatorTok{\%} \DecValTok{2} \OperatorTok{==} \DecValTok{0}
+
+\BuiltInTok{print}\NormalTok{(is\_even(}\DecValTok{10}\NormalTok{))  }\CommentTok{\# True}
+\BuiltInTok{print}\NormalTok{(is\_even(}\DecValTok{7}\NormalTok{))   }\CommentTok{\# False}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Divisibility}\label{divisibility}
+
+We often ask: does one number divide another?
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{a} is divisible by \texttt{b} if there exists some integer
+  \texttt{k} with \texttt{a\ =\ b\ *\ k}.
+\item
+  In code: \texttt{a\ \%\ b\ ==\ 0}.
+\end{itemize}
+
+Examples:
+
+\begin{itemize}
+\tightlist
+\item
+  12 is divisible by 3 → \texttt{12\ \%\ 3\ ==\ 0}.
+\item
+  14 is not divisible by 5 → \texttt{14\ \%\ 5\ ==\ 4}.
+\end{itemize}
+
+\subsubsection{Remainders and Modular
+Thinking}\label{remainders-and-modular-thinking}
+
+When dividing, the remainder is what's left over.
+
+\begin{itemize}
+\item
+  Example: \texttt{17\ //\ 5\ =\ 3}, remainder \texttt{2}.
+\item
+  Modular arithmetic wraps around like a clock:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{(17\ \%\ 5)\ =\ 2} → same as ``2 o'clock after going 17
+    steps around a 5-hour clock.''
+  \end{itemize}
+\end{itemize}
+
+This ``wrap-around'' view is central in array indexing, hashing, and
+cryptography later on.
+
+\subsubsection{Why It Matters}\label{why-it-matters-6}
+
+\begin{itemize}
+\tightlist
+\item
+  Algorithms: Parity checks decide branching (e.g., even-odd
+  optimizations).
+\item
+  Data structures: Array indices often wrap around using \texttt{\%}.
+\item
+  Everyday: Calendars cycle days of the week; remainders formalize that.
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises-6}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write a function that returns \texttt{"even"} or \texttt{"odd"} for a
+  given number.
+\item
+  Check if 91 is divisible by 7.
+\item
+  Compute the remainder of 100 divided by 9.
+\item
+  Use \texttt{\%} to simulate a 7-day week: if today is day 5 (Saturday)
+  and you add 10 days, what day is it?
+\item
+  Find the last digit of \texttt{2\^{}15} without computing the full
+  number (hint: check the remainder mod 10).
+\end{enumerate}
+
+\subsection{1.3 L1 --- Classical Number Theory
+Tools}\label{l1-classical-number-theory-tools}
+
+Beyond simple parity and divisibility, algorithms often need deeper
+number properties. At this level we introduce a few ``toolkit'' ideas
+from elementary number theory: greatest common divisor (GCD), least
+common multiple (LCM), and modular arithmetic identities. These are
+lightweight but powerful concepts that show up in algorithm design,
+cryptography, and optimization.
+
+\subsubsection{Greatest Common Divisor
+(GCD)}\label{greatest-common-divisor-gcd}
+
+The GCD of two numbers is the largest number that divides both.
+
+\begin{itemize}
+\tightlist
+\item
+  Example: \texttt{gcd(20,\ 14)\ =\ 2}.
+\item
+  Why useful: GCD simplifies fractions, ensures ratios are reduced, and
+  appears in algorithm correctness proofs.
+\end{itemize}
+
+Euclid's Algorithm: Instead of trial division, we can compute GCD
+quickly:
+
+\begin{verbatim}
+gcd(a, b) = gcd(b, a % b)
+\end{verbatim}
+
+This repeats until \texttt{b\ =\ 0}, at which point \texttt{a} is the
+answer.
+
+Python example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ gcd(a: }\BuiltInTok{int}\NormalTok{, b: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{int}\NormalTok{:}
+    \ControlFlowTok{while}\NormalTok{ b:}
+\NormalTok{        a, b }\OperatorTok{=}\NormalTok{ b, a }\OperatorTok{\%}\NormalTok{ b}
+    \ControlFlowTok{return}\NormalTok{ a}
+
+\BuiltInTok{print}\NormalTok{(gcd(}\DecValTok{20}\NormalTok{, }\DecValTok{14}\NormalTok{))  }\CommentTok{\# 2}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Least Common Multiple
+(LCM)}\label{least-common-multiple-lcm}
+
+The LCM of two numbers is the smallest positive number divisible by
+both.
+
+\begin{itemize}
+\item
+  Example: \texttt{lcm(12,\ 18)\ =\ 36}.
+\item
+  Connection to GCD:
+
+\begin{verbatim}
+lcm(a, b) = (a * b) // gcd(a, b)
+\end{verbatim}
+\end{itemize}
+
+This is useful in scheduling, periodic tasks, and synchronization
+problems.
+
+\subsubsection{Modular Arithmetic
+Identities}\label{modular-arithmetic-identities}
+
+Remainders behave predictably under operations:
+
+\begin{itemize}
+\tightlist
+\item
+  Addition:
+  \texttt{(a\ +\ b)\ \%\ m\ =\ ((a\ \%\ m)\ +\ (b\ \%\ m))\ \%\ m}
+\item
+  Multiplication:
+  \texttt{(a\ *\ b)\ \%\ m\ =\ ((a\ \%\ m)\ *\ (b\ \%\ m))\ \%\ m}
+\end{itemize}
+
+Example:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{(123\ +\ 456)\ \%\ 7\ =\ (123\ \%\ 7\ +\ 456\ \%\ 7)\ \%\ 7}
+\item
+  This property lets us work with small remainders instead of huge
+  numbers, key in cryptography and hashing.
+\end{itemize}
+
+\subsubsection{Why It Matters}\label{why-it-matters-7}
+
+\begin{itemize}
+\tightlist
+\item
+  Algorithms: GCD ensures efficiency in fraction reduction, graph
+  algorithms, and number-theoretic algorithms.
+\item
+  Systems: LCM models periodicity, e.g., aligning CPU scheduling
+  intervals.
+\item
+  Cryptography: Modular arithmetic underpins secure communication (RSA,
+  Diffie-Hellman).
+\item
+  Practical programming: Modular identities simplify computations with
+  limited ranges (hash tables, cyclic arrays).
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises-7}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Compute \texttt{gcd(252,\ 198)} by hand using Euclid's algorithm.
+\item
+  Write a function that returns the LCM of two numbers. Test it on (12,
+  18).
+\item
+  Show that \texttt{(37\ +\ 85)\ \%\ 12} equals
+  \texttt{((37\ \%\ 12)\ +\ (85\ \%\ 12))\ \%\ 12}.
+\item
+  Reduce the fraction \texttt{84/126} using GCD.
+\item
+  Find the smallest day \texttt{d} such that \texttt{d} is a multiple of
+  both 12 and 18 (hint: LCM).
+\end{enumerate}
+
+\subsection{1.3 L2 --- Advanced Number Theory in
+Algorithms}\label{l2-advanced-number-theory-in-algorithms}
+
+At this level, we move beyond everyday divisibility and Euclid's
+algorithm. Modern algorithms frequently rely on deep number theory to
+achieve efficiency. Topics such as modular inverses, Euler's totient
+function, and primality tests are crucial foundations for cryptography,
+randomized algorithms, and competitive programming.
+
+\subsubsection{Modular Inverses}\label{modular-inverses}
+
+The modular inverse of a number \texttt{a} (mod \texttt{m}) is an
+integer \texttt{x} such that:
+
+\begin{verbatim}
+(a * x) % m = 1
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Example: the inverse of 3 modulo 7 is 5, because
+  \texttt{(3*5)\ \%\ 7\ =\ 15\ \%\ 7\ =\ 1}.
+\item
+  Existence: an inverse exists if and only if \texttt{gcd(a,\ m)\ =\ 1}.
+\item
+  Computation: using the Extended Euclidean Algorithm.
+\end{itemize}
+
+This is the backbone of modular division and is heavily used in
+cryptography (RSA), hash functions, and matrix inverses mod \texttt{p}.
+
+\subsubsection{Euler's Totient Function
+(φ)}\label{eulers-totient-function-ux3c6}
+
+The function \texttt{φ(n)} counts the number of integers between 1 and
+\texttt{n} that are coprime to \texttt{n}.
+
+\begin{itemize}
+\item
+  Example: \texttt{φ(9)\ =\ 6} because \{1, 2, 4, 5, 7, 8\} are coprime
+  to 9.
+\item
+  Key property (Euler's theorem):
+
+\begin{verbatim}
+a^φ(n) ≡ 1 (mod n)     if gcd(a, n) = 1
+\end{verbatim}
+\item
+  Special case: Fermat's Little Theorem --- for prime \texttt{p},
+
+\begin{verbatim}
+a^(p-1) ≡ 1 (mod p)
+\end{verbatim}
+\end{itemize}
+
+This result is central in modular exponentiation and cryptosystems like
+RSA.
+
+\subsubsection{Primality Testing}\label{primality-testing}
+
+Determining if a number is prime is easy for small inputs but hard for
+large ones. Efficient algorithms are essential:
+
+\begin{itemize}
+\tightlist
+\item
+  Trial division: works only for small \texttt{n}.
+\item
+  Fermat primality test: uses Fermat's Little Theorem to detect
+  composites, but can be fooled by Carmichael numbers.
+\item
+  Miller--Rabin test: a probabilistic algorithm widely used in practice
+  (cryptographic key generation).
+\item
+  AKS primality test: a deterministic polynomial-time method
+  (theoretical importance).
+\end{itemize}
+
+Example intuition:
+
+\begin{itemize}
+\tightlist
+\item
+  For large \texttt{n}, we don't check all divisors; we test properties
+  of \texttt{a\^{}k\ mod\ n} for random bases \texttt{a}.
+\end{itemize}
+
+\subsubsection{Why It Matters}\label{why-it-matters-8}
+
+\begin{itemize}
+\tightlist
+\item
+  Cryptography: Public-key systems depend on modular inverses, Euler's
+  theorem, and large primes.
+\item
+  Algorithms: Modular inverses simplify solving equations in modular
+  arithmetic (e.g., Chinese Remainder Theorem applications).
+\item
+  Practical Computing: Randomized primality tests (like Miller--Rabin)
+  balance correctness and efficiency in real-world systems.
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises-8}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Find the modular inverse of 7 modulo 13.
+\item
+  Compute φ(10) and verify Euler's theorem for \texttt{a\ =\ 3}.
+\item
+  Use Fermat's test to check whether 341 is prime. (Hint: try
+  \texttt{a\ =\ 2}.)
+\item
+  Implement modular inverse using the Extended Euclidean Algorithm.
+\item
+  Research: why do cryptographic protocols prefer Miller--Rabin over
+  AKS, even though AKS is deterministic?
+\end{enumerate}
+
+\section{1.4 Overflow \& Precision}\label{overflow-precision}
+
+\subsection{1.4 L0 - When Numbers Get Too Big or Too
+Small}\label{l0---when-numbers-get-too-big-or-too-small}
+
+Numbers inside a computer are stored with a fixed number of bits. This
+means they can only represent values up to a certain limit. If a
+calculation produces a result larger than this limit, the value ``wraps
+around,'' much like the digits on an odometer rolling over after 999 to
+000. This phenomenon is called overflow. Similarly, computers often
+cannot represent all decimal fractions exactly, leading to tiny errors
+called precision loss.
+
+\subsubsection{Deep Dive}\label{deep-dive}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Integer Overflow
+
+  \begin{itemize}
+  \tightlist
+  \item
+    A computer uses a fixed number of bits (commonly 8, 16, 32, or 64)
+    to store integers.
+  \item
+    An 8-bit unsigned integer can represent values from 0 to 255. Adding
+    1 to 255 causes the value to wrap back to 0.
+  \item
+    Signed integers use \emph{two's complement} representation. For an
+    8-bit signed integer, the range is −128 to +127. Adding 1 to 127
+    makes it overflow to −128.
+  \end{itemize}
+
+  Example in binary:
+
+\begin{verbatim}
+11111111₂ (255) + 1 = 00000000₂ (0)
+01111111₂ (+127) + 1 = 10000000₂ (−128)
+\end{verbatim}
+\item
+  Floating-Point Precision
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Decimal fractions like 0.1 cannot always be represented exactly in
+    binary.
+  \item
+    As a result, calculations may accumulate tiny errors.
+  \item
+    For example, repeatedly adding 0.1 may not exactly equal 1.0 due to
+    precision limits.
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{Example}\label{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Integer overflow simulation with 8{-}bit values}
+\KeywordTok{def}\NormalTok{ add\_8bit(a, b):}
+\NormalTok{    result }\OperatorTok{=}\NormalTok{ (a }\OperatorTok{+}\NormalTok{ b) }\OperatorTok{\%} \DecValTok{256}  \CommentTok{\# simulate wraparound}
+    \ControlFlowTok{return}\NormalTok{ result}
+
+\BuiltInTok{print}\NormalTok{(add\_8bit(}\DecValTok{250}\NormalTok{, }\DecValTok{10}\NormalTok{))   }\CommentTok{\# 260 wraps to 4}
+\BuiltInTok{print}\NormalTok{(add\_8bit(}\DecValTok{255}\NormalTok{, }\DecValTok{1}\NormalTok{))    }\CommentTok{\# wraps to 0}
+
+\CommentTok{\# Floating{-}point precision issue}
+\NormalTok{x }\OperatorTok{=} \FloatTok{0.1} \OperatorTok{+} \FloatTok{0.2}
+\BuiltInTok{print}\NormalTok{(x)           }\CommentTok{\# Expected 0.3, but gives 0.30000000000000004}
+\BuiltInTok{print}\NormalTok{(x }\OperatorTok{==} \FloatTok{0.3}\NormalTok{)    }\CommentTok{\# False}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Why It Matters}\label{why-it-matters-9}
+
+\begin{itemize}
+\tightlist
+\item
+  Unexpected results: A calculation may suddenly produce a negative
+  number or wrap around to zero.
+\item
+  Real-world impact:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Video games may show scores jumping strangely if counters overflow.
+  \item
+    Banking or financial systems must avoid losing cents due to
+    floating-point errors.
+  \item
+    Engineers and scientists rely on careful handling of precision to
+    ensure correct simulations.
+  \end{itemize}
+\item
+  Foundation for algorithms: Understanding overflow and precision
+  prepares you for later topics like hashing, cryptography, and
+  numerical analysis.
+\end{itemize}
+
+\subsubsection{Exercises}\label{exercises-9}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Simulate a 4-bit unsigned integer system. What happens if you start at
+  14 and keep adding 1?
+\item
+  In Python, try adding \texttt{0.1} to itself ten times. Does it equal
+  exactly \texttt{1.0}? Why or why not?
+\item
+  Write a function that checks if an 8-bit signed integer addition would
+  overflow.
+\item
+  Imagine you are programming a digital clock that uses 2 digits for
+  minutes (00--59). What happens when the value goes from 59 to 60? How
+  would you handle this?
+\end{enumerate}
+
+\subsection{1.4 L1 - Detecting and Managing Overflow in Real
+Programs}\label{l1---detecting-and-managing-overflow-in-real-programs}
+
+Computers don't do math in the abstract. Integers live in fixed-width
+registers; floats follow IEEE-754. Robust software accounts for these
+limits up front: choose the right representation, detect overflow, and
+compare floats safely. The following sections explain how these issues
+show up in practice and how to design around them.
+
+\subsubsection{Deep Dive}\label{deep-dive-1}
+
+\paragraph{1) Integer arithmetic in
+practice}\label{integer-arithmetic-in-practice}
+
+Fixed width means wraparound at \(2^{n}\). Unsigned wrap is modular
+arithmetic; signed overflow (two's complement) can flip signs.
+Developers often discover this the hard way when a counter suddenly goes
+negative or wraps back to zero in production logs.
+
+Bit width \& ranges This table reminds us of the hard limits baked into
+hardware. Once the range is exceeded, the value doesn't ``grow
+bigger''---it wraps.
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0562}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6067}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3371}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Width
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Signed range
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Unsigned range
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+32 & −2,147,483,648 \ldots{} 2,147,483,647 & 0 \ldots{} 4,294,967,295 \\
+64 & −9,223,372,036,854,775,808 \ldots{} 9,223,372,036,854,775,807 & 0
+\ldots{} 18,446,744,073,709,551,615 \\
+\end{longtable}
+
+Overflow semantics by language Each language makes slightly different
+promises. This matters if you're writing cross-language services or
+reading binary data across APIs.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0692}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2201}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2956}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4151}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Language
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Signed overflow
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Unsigned overflow
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Notes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+C/C++ & UB (undefined) & Modular wrap & Use
+UBSan/\texttt{-fsanitize=undefined}; widen types or check before add. \\
+Rust & Traps in debug; defined APIs & \texttt{wrapping\_add},
+\texttt{checked\_add}, \texttt{saturating\_add} & Make intent
+explicit. \\
+Java/Kotlin & Wraps (two's complement) & N/A (only signed types) & Use
+\texttt{Math.addExact} to trap. \\
+C\# & Wraps by default; \texttt{checked} to trap &
+\texttt{checked}/\texttt{unchecked} blocks & \texttt{decimal} type for
+money. \\
+Python & Arbitrary precision & Arbitrary precision & Simulates fixed
+width if needed. \\
+\end{longtable}
+
+A quick lesson: ``wrap'' may be safe in crypto or hashing, but it's
+usually a bug in counters or indices. Always decide what you want up
+front.
+
+\paragraph{2) Floating-point you can depend
+on}\label{floating-point-you-can-depend-on}
+
+IEEE-754 doubles have \textasciitilde15--16 decimal digits and huge
+dynamic range, but not exact decimal fractions. Think of floats as
+\emph{convenient approximations}. They are perfect for physics
+simulations, but brittle when used to represent cents in a bank account.
+
+Where precision is lost These examples show why ``0.1 + 0.2 != 0.3''
+isn't a joke---it's a direct consequence of binary storage.
+
+\begin{itemize}
+\tightlist
+\item
+  Scale mismatch: \(1\text{e}16 + 1 = 1\text{e}16\). The tiny
+  \texttt{+1} gets lost.
+\item
+  Cancellation: subtracting nearly equal numbers deletes significant
+  digits.
+\item
+  Decimal fractions (\texttt{0.1}) are repeating in binary.
+\end{itemize}
+
+Comparing floats Never compare with \texttt{==}. Instead, use a mixed
+relative + absolute check:
+
+\[
+|x-y| \le \max(\text{rel}\cdot\max(|x|,|y|),\ \text{abs})
+\]
+
+This makes comparisons robust whether you're near zero or far away.
+
+Rounding modes (when you explicitly care) Most of the time you don't
+think about rounding---hardware defaults to ``round to nearest, ties to
+even.'' But when writing financial systems or interval arithmetic, you
+want to control it.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4396}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5604}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Mode
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Typical use
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Round to nearest, ties to even (default) & General numeric work;
+minimizes bias \\
+Toward 0 / ±∞ & Bounds, interval arithmetic, conservative estimates \\
+\end{longtable}
+
+Having explicit rounding modes is like having a steering wheel---you
+don't always turn, but you're glad it's there when the road curves.
+
+Summation strategies The order of addition matters for floats. These
+options give you a menu of accuracy vs.~speed.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2714}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0857}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0857}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.5571}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Method
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Error
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cost
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+When to use
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Naïve left-to-right & Worst & Low & Never for sensitive sums \\
+Pairwise / tree & Better & Med & Parallel reductions, ``good
+default'' \\
+Kahan (compensated) & Best & Higher & Financial-ish aggregates, small
+vectors \\
+\end{longtable}
+
+You don't need Kahan everywhere, but knowing it exists keeps you from
+blaming ``mystery bugs'' on hardware.
+
+Representation choices Sometimes the best answer is to avoid floats
+entirely. Money is the classic example.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2235}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7765}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Use case
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Recommended representation
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Currency, invoicing & Fixed-point (e.g., cents as \texttt{int64}) or
+\texttt{decimal}/\texttt{BigDecimal} \\
+Scientific compute & \texttt{float64}, compensated sums, stable
+algorithms \\
+IDs, counters & \texttt{uint64}/\texttt{int64}, detect overflow on
+boundaries \\
+\end{longtable}
+
+\subsubsection{Code (Python---portable
+patterns)}\label{code-pythonportable-patterns}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 32{-}bit checked add (raises on overflow)}
+\KeywordTok{def}\NormalTok{ add\_i32\_checked(a: }\BuiltInTok{int}\NormalTok{, b: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{int}\NormalTok{:}
+\NormalTok{    s }\OperatorTok{=}\NormalTok{ a }\OperatorTok{+}\NormalTok{ b}
+    \ControlFlowTok{if}\NormalTok{ s }\OperatorTok{\textless{}} \OperatorTok{{-}}\DecValTok{2\_147\_483\_648} \KeywordTok{or}\NormalTok{ s }\OperatorTok{\textgreater{}} \DecValTok{2\_147\_483\_647}\NormalTok{:}
+        \ControlFlowTok{raise} \PreprocessorTok{OverflowError}\NormalTok{(}\StringTok{"int32 overflow"}\NormalTok{)}
+    \ControlFlowTok{return}\NormalTok{ s}
+
+\CommentTok{\# Simulate 32{-}bit wrap (intentional modular arithmetic)}
+\KeywordTok{def}\NormalTok{ add\_i32\_wrapping(a: }\BuiltInTok{int}\NormalTok{, b: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{int}\NormalTok{:}
+\NormalTok{    s }\OperatorTok{=}\NormalTok{ (a }\OperatorTok{+}\NormalTok{ b) }\OperatorTok{\&} \BaseNTok{0xFFFFFFFF}
+    \ControlFlowTok{return}\NormalTok{ s }\OperatorTok{{-}} \BaseNTok{0x100000000} \ControlFlowTok{if}\NormalTok{ s }\OperatorTok{\&} \BaseNTok{0x80000000} \ControlFlowTok{else}\NormalTok{ s}
+
+\CommentTok{\# Relative+absolute epsilon float compare}
+\KeywordTok{def}\NormalTok{ almost\_equal(x: }\BuiltInTok{float}\NormalTok{, y: }\BuiltInTok{float}\NormalTok{, rel}\OperatorTok{=}\FloatTok{1e{-}12}\NormalTok{, abs\_}\OperatorTok{=}\FloatTok{1e{-}12}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{bool}\NormalTok{:}
+    \ControlFlowTok{return} \BuiltInTok{abs}\NormalTok{(x }\OperatorTok{{-}}\NormalTok{ y) }\OperatorTok{\textless{}=} \BuiltInTok{max}\NormalTok{(rel }\OperatorTok{*} \BuiltInTok{max}\NormalTok{(}\BuiltInTok{abs}\NormalTok{(x), }\BuiltInTok{abs}\NormalTok{(y)), abs\_)}
+
+\CommentTok{\# Kahan (compensated) summation}
+\KeywordTok{def}\NormalTok{ kahan\_sum(xs):}
+\NormalTok{    s }\OperatorTok{=} \FloatTok{0.0}
+\NormalTok{    c }\OperatorTok{=} \FloatTok{0.0}
+    \ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in}\NormalTok{ xs:}
+\NormalTok{        y }\OperatorTok{=}\NormalTok{ x }\OperatorTok{{-}}\NormalTok{ c}
+\NormalTok{        t }\OperatorTok{=}\NormalTok{ s }\OperatorTok{+}\NormalTok{ y}
+\NormalTok{        c }\OperatorTok{=}\NormalTok{ (t }\OperatorTok{{-}}\NormalTok{ s) }\OperatorTok{{-}}\NormalTok{ y}
+\NormalTok{        s }\OperatorTok{=}\NormalTok{ t}
+    \ControlFlowTok{return}\NormalTok{ s}
+
+\CommentTok{\# Fixed{-}point cents (safe for \textasciitilde{}±9e16 cents with int64)}
+\KeywordTok{def}\NormalTok{ dollars\_to\_cents(d: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{int}\NormalTok{:}
+\NormalTok{    whole, \_, frac }\OperatorTok{=}\NormalTok{ d.partition(}\StringTok{"."}\NormalTok{)}
+\NormalTok{    frac }\OperatorTok{=}\NormalTok{ (frac }\OperatorTok{+} \StringTok{"00"}\NormalTok{)[:}\DecValTok{2}\NormalTok{]}
+    \ControlFlowTok{return} \BuiltInTok{int}\NormalTok{(whole) }\OperatorTok{*} \DecValTok{100} \OperatorTok{+} \BuiltInTok{int}\NormalTok{(frac)}
+
+\KeywordTok{def}\NormalTok{ cents\_to\_dollars(c: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
+\NormalTok{    sign }\OperatorTok{=} \StringTok{"{-}"} \ControlFlowTok{if}\NormalTok{ c }\OperatorTok{\textless{}} \DecValTok{0} \ControlFlowTok{else} \StringTok{""}
+\NormalTok{    c }\OperatorTok{=} \BuiltInTok{abs}\NormalTok{(c)}
+    \ControlFlowTok{return} \SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{sign}\SpecialCharTok{\}\{}\NormalTok{c}\OperatorTok{//}\DecValTok{100}\SpecialCharTok{\}}\SpecialStringTok{.}\SpecialCharTok{\{}\NormalTok{c}\OperatorTok{\%}\DecValTok{100}\SpecialCharTok{:02d\}}\SpecialStringTok{"}
+\end{Highlighting}
+\end{Shaded}
+
+These examples are in Python for clarity, but the same ideas exist in
+every major language.
+
+\subsubsection{Why it matters}\label{why-it-matters-10}
+
+\begin{itemize}
+\tightlist
+\item
+  Reliability: Silent wrap or float drift becomes data corruption under
+  load or over time.
+\item
+  Interoperability: Services in different languages disagree on
+  overflow; define and document your contracts.
+\item
+  Reproducibility: Deterministic numerics (same inputs → same bits)
+  depend on summation order, rounding, and libraries.
+\item
+  Security: UB-triggered overflows can turn into exploitable states.
+\end{itemize}
+
+This is why ``it worked on my laptop'' is not enough. You want to be
+sure it works on every platform, every time.
+
+\subsubsection{Exercises}\label{exercises-10}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Overflow policy: For a metrics pipeline, decide where to use
+  \texttt{checked}, \texttt{wrapping}, and \texttt{saturating}
+  addition---and justify each with failure modes.
+\item
+  ULP probe: Find the smallest \(\epsilon\) such that
+  \texttt{1.0\ +\ ε\ !=\ 1.0} in your language; explain how it relates
+  to machine epsilon.
+\item
+  Summation bake-off: Sum the first 1M terms of the harmonic series with
+  naïve, pairwise, and Kahan methods; compare results and timings.
+\item
+  Fixed-point ledger: Implement deposit/transfer/withdraw using
+  \texttt{int64} cents; prove no rounding loss for two-decimal
+  currencies.
+\item
+  Boundary tests: Write property tests that \texttt{add\_i32\_checked}
+  raises on \texttt{\{INT\_MAX,1\}} and \texttt{\{INT\_MIN,-1\}}, and
+  equals modular add where documented.
+\item
+  Cross-lang contract: Specify a JSON schema for monetary amounts and
+  counters that avoids float types; include examples and edge cases.
+\end{enumerate}
+
+Great --- let's rework 1.4 Overflow \& Precision (L2) into a friendlier
+deep dive, using the same pattern: structured sections, tables, and
+added ``bridge'' sentences that guide the reader through complex,
+low-level material. This version should be dense enough to teach
+internals, but smooth enough to read without feeling like a spec sheet.
+
+\subsection{1.4 L2. Under the Hood}\label{l2.-under-the-hood}
+
+At the lowest level, overflow and precision aren't abstract
+concepts---they are consequences of how CPUs, compilers, and libraries
+actually implement arithmetic. Understanding these details makes
+debugging easier and gives you control over performance,
+reproducibility, and correctness.
+
+\subsubsection{Deep Dive}\label{deep-dive-2}
+
+\paragraph{1) Hardware semantics}\label{hardware-semantics}
+
+CPUs implement integer and floating-point arithmetic directly in
+silicon. When the result doesn't fit, different flags or traps are
+triggered.
+
+\begin{itemize}
+\tightlist
+\item
+  Status flags (integers): Most architectures (x86, ARM, RISC-V) set
+  overflow, carry, and zero flags after arithmetic. These flags drive
+  branch instructions like \texttt{jo} (``jump if overflow'').
+\item
+  Floating-point control: The FPU or SIMD unit maintains exception flags
+  (inexact, overflow, underflow, invalid, divide-by-zero). These rarely
+  trap by default; they silently set flags until explicitly checked.
+\end{itemize}
+
+Architectural view
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0606}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4444}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2424}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2525}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Arch
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Integer overflow
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+FP behavior
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Developer hooks
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+x86-64 & Wraparound in 2's complement; OF/CF bits set & IEEE-754; flags
+in MXCSR & \texttt{jo}/\texttt{jno}, \texttt{fenv.h} \\
+ARM64 & Wraparound; NZCV flags & IEEE-754; exception bits & condition
+codes, \texttt{feset*} \\
+RISC-V & Wraparound; OV/CF optional & IEEE-754; status regs & CSRs, trap
+handlers \\
+\end{longtable}
+
+Knowing what the CPU does lets you choose: rely on hardware wrap, trap
+explicitly, or add software checks.
+
+\paragraph{2) Compiler and language
+layers}\label{compiler-and-language-layers}
+
+Even if hardware sets flags, your language may ignore them. Compilers
+often optimize based on the language spec.
+
+\begin{itemize}
+\tightlist
+\item
+  C/C++: Signed overflow is \emph{undefined behavior}---the optimizer
+  assumes it never happens, which can remove safety checks you thought
+  were there.
+\item
+  Rust: Catches overflow in debug builds, then forces you to pick:
+  \texttt{checked\_add}, \texttt{wrapping\_add}, or
+  \texttt{saturating\_add}.
+\item
+  JVM languages (Java, Kotlin, Scala): Always wrap, hiding UB but
+  forcing you to detect overflow yourself.
+\item
+  .NET (C\#, F\#): Defaults to wrapping; you can enable \texttt{checked}
+  contexts to trap.
+\item
+  Python: Emulates unbounded integers, but sometimes simulates C-like
+  behavior for low-level modules.
+\end{itemize}
+
+These choices aren't arbitrary---they reflect trade-offs between speed,
+safety, and backward compatibility.
+
+\paragraph{3) Precision management in floating
+point}\label{precision-management-in-floating-point}
+
+Floating-point has more than just rounding errors. Engineers deal with
+gradual underflow, denormals, and fused operations.
+
+\begin{itemize}
+\tightlist
+\item
+  Subnormals: Numbers smaller than \textasciitilde2.2e-308 in double
+  precision become ``denormalized,'' losing precision but extending the
+  range toward zero. Many CPUs handle these slowly.
+\item
+  Flush-to-zero: Some systems skip subnormals entirely, treating them as
+  zero to boost speed. Great for graphics; risky for scientific code.
+\item
+  FMA (fused multiply-add): Computes \texttt{(a*b\ +\ c)} with one
+  rounding, often improving precision and speed. However, it can break
+  reproducibility across machines that do/don't use FMA.
+\end{itemize}
+
+Precision events
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1216}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2973}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5811}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Event
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What happens
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Why it matters
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Overflow & Becomes ±Inf & Detectable via \texttt{isinf}, often safe \\
+Underflow & Becomes 0 or subnormal & Performance hit, possible accuracy
+loss \\
+Inexact & Result rounded & Happens constantly; only matters if
+flagged \\
+Invalid & NaN produced & Division 0/0, sqrt(-1), etc. \\
+\end{longtable}
+
+When performance bugs show up in HPC or ML code, denormals and FMAs are
+often the hidden cause.
+
+\paragraph{4) Debugging and testing
+tools}\label{debugging-and-testing-tools}
+
+Low-level correctness requires instrumentation. Fortunately, toolchains
+give you options.
+
+\begin{itemize}
+\tightlist
+\item
+  Sanitizers: \texttt{-fsanitize=undefined} (Clang/GCC) traps on signed
+  overflow.
+\item
+  Valgrind / perf counters: Can catch denormal slowdowns.
+\item
+  Unit-test utilities: Rust's \texttt{assert\_eq!(checked\_add(…))},
+  Python's \texttt{math.isclose}, Java's \texttt{BigDecimal} reference
+  checks.
+\item
+  Reproducibility flags: \texttt{-ffast-math} (fast but
+  non-deterministic), vs.~\texttt{-frounding-math} (strict).
+\end{itemize}
+
+Testing with multiple compilers and settings reveals assumptions you
+didn't know you had.
+
+\paragraph{5) Strategies in production
+systems}\label{strategies-in-production-systems}
+
+When deploying real systems, you pick policies that match domain needs.
+
+\begin{itemize}
+\tightlist
+\item
+  Databases: Use \texttt{DECIMAL(p,s)} to store fixed-point, preventing
+  float drift in sums.
+\item
+  Financial systems: Explicit fixed-point types (cents as
+  \texttt{int64}) + saturating logic on overflow.
+\item
+  Graphics / ML: Accept \texttt{float32} imprecision; gain throughput
+  with fused ops and flush-to-zero.
+\item
+  Low-level kernels: Exploit modular wraparound deliberately for hash
+  tables, checksums, and crypto.
+\end{itemize}
+
+Policy menu
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2464}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7536}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Scenario
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Strategy
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Money transfers & Fixed-point, saturating arithmetic \\
+Physics sim & \texttt{float64}, stable integrators, compensated
+summation \\
+Hashing / RNG & Embrace wraparound modular math \\
+Critical counters & \texttt{uint64} with explicit overflow trap \\
+\end{longtable}
+
+Thinking in policies avoids one-off hacks. Document ``why'' once, then
+apply consistently.
+
+\subsubsection{Code Examples}\label{code-examples}
+
+C (wrap vs check)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdint.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdbool.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}limits.h\textgreater{}}
+
+\DataTypeTok{bool}\NormalTok{ add\_checked\_i32}\OperatorTok{(}\DataTypeTok{int32\_t}\NormalTok{ a}\OperatorTok{,} \DataTypeTok{int32\_t}\NormalTok{ b}\OperatorTok{,} \DataTypeTok{int32\_t} \OperatorTok{*}\NormalTok{out}\OperatorTok{)} \OperatorTok{\{}
+    \ControlFlowTok{if} \OperatorTok{((}\NormalTok{b }\OperatorTok{\textgreater{}} \DecValTok{0} \OperatorTok{\&\&}\NormalTok{ a }\OperatorTok{\textgreater{}}\NormalTok{ INT32\_MAX }\OperatorTok{{-}}\NormalTok{ b}\OperatorTok{)} \OperatorTok{||}
+        \OperatorTok{(}\NormalTok{b }\OperatorTok{\textless{}} \DecValTok{0} \OperatorTok{\&\&}\NormalTok{ a }\OperatorTok{\textless{}}\NormalTok{ INT32\_MIN }\OperatorTok{{-}}\NormalTok{ b}\OperatorTok{))} \OperatorTok{\{}
+        \ControlFlowTok{return} \KeywordTok{false}\OperatorTok{;} \CommentTok{// overflow}
+    \OperatorTok{\}}
+    \OperatorTok{*}\NormalTok{out }\OperatorTok{=}\NormalTok{ a }\OperatorTok{+}\NormalTok{ b}\OperatorTok{;}
+    \ControlFlowTok{return} \KeywordTok{true}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Rust (explicit intent)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fn}\NormalTok{ demo() }\OperatorTok{\{}
+    \KeywordTok{let}\NormalTok{ x}\OperatorTok{:} \DataTypeTok{i32} \OperatorTok{=} \DataTypeTok{i32}\PreprocessorTok{::}\ConstantTok{MAX}\OperatorTok{;}
+    \PreprocessorTok{println!}\NormalTok{(}\StringTok{"\{:?\}"}\OperatorTok{,}\NormalTok{ x}\OperatorTok{.}\NormalTok{wrapping\_add(}\DecValTok{1}\NormalTok{))}\OperatorTok{;}   \CommentTok{// wrap}
+    \PreprocessorTok{println!}\NormalTok{(}\StringTok{"\{:?\}"}\OperatorTok{,}\NormalTok{ x}\OperatorTok{.}\NormalTok{checked\_add(}\DecValTok{1}\NormalTok{))}\OperatorTok{;}    \CommentTok{// None}
+    \PreprocessorTok{println!}\NormalTok{(}\StringTok{"\{:?\}"}\OperatorTok{,}\NormalTok{ x}\OperatorTok{.}\NormalTok{saturating\_add(}\DecValTok{1}\NormalTok{))}\OperatorTok{;} \CommentTok{// clamp}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Python (reproducibility check)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ math}
+
+\KeywordTok{def}\NormalTok{ ulp\_diff(a: }\BuiltInTok{float}\NormalTok{, b: }\BuiltInTok{float}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{int}\NormalTok{:}
+    \CommentTok{\# Compares floats in terms of ULPs}
+    \ImportTok{import}\NormalTok{ struct}
+\NormalTok{    ai }\OperatorTok{=}\NormalTok{ struct.unpack(}\StringTok{\textquotesingle{}!q\textquotesingle{}}\NormalTok{, struct.pack(}\StringTok{\textquotesingle{}!d\textquotesingle{}}\NormalTok{, a))[}\DecValTok{0}\NormalTok{]}
+\NormalTok{    bi }\OperatorTok{=}\NormalTok{ struct.unpack(}\StringTok{\textquotesingle{}!q\textquotesingle{}}\NormalTok{, struct.pack(}\StringTok{\textquotesingle{}!d\textquotesingle{}}\NormalTok{, b))[}\DecValTok{0}\NormalTok{]}
+    \ControlFlowTok{return} \BuiltInTok{abs}\NormalTok{(ai }\OperatorTok{{-}}\NormalTok{ bi)}
+
+\BuiltInTok{print}\NormalTok{(ulp\_diff(}\FloatTok{1.0}\NormalTok{, math.nextafter(}\FloatTok{1.0}\NormalTok{, }\FloatTok{2.0}\NormalTok{)))  }\CommentTok{\# 1}
+\end{Highlighting}
+\end{Shaded}
+
+These snippets show how different languages force you to state your
+policy, rather than relying on ``whatever the hardware does.''
+
+\subsubsection{Why it matters}\label{why-it-matters-11}
+
+\begin{itemize}
+\tightlist
+\item
+  Performance: Understanding denormals and FMAs can save orders of
+  magnitude in compute-heavy workloads.
+\item
+  Correctness: Database money columns or counters in billing systems can
+  silently corrupt without fixed-point or overflow checks.
+\item
+  Portability: Code that relies on UB may ``work'' on GCC Linux but fail
+  on Clang macOS.
+\item
+  Security: Integer overflow bugs (e.g., buffer length miscalculation)
+  remain a classic vulnerability class.
+\end{itemize}
+
+In short, overflow and precision are not ``just math''---they are
+systems-level contracts that must be understood and enforced.
+
+\subsubsection{Exercises}\label{exercises-11}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Compiler behavior: Write a C function that overflows
+  \texttt{int32\_t}. Compile with and without
+  \texttt{-fsanitize=undefined}. What changes?
+\item
+  FMA investigation: Run a dot-product with and without
+  \texttt{-ffast-math}. Measure result differences across compilers.
+\item
+  Denormal trap: Construct a loop multiplying by \texttt{1e-308}. Time
+  it with flush-to-zero enabled vs disabled.
+\item
+  Policy design: For an in-memory database, define rules for counters,
+  timestamps, and currency columns. Which use wrapping, which use
+  fixed-point, which trap?
+\item
+  Cross-language test: Implement \texttt{add\_checked\_i32} in C, Rust,
+  and Python. Run edge-case inputs (\texttt{INT\_MAX},
+  \texttt{INT\_MIN}). Compare semantics.
+\item
+  ULP meter: Write a function in your language to compute ULP distance
+  between two floats. Use it to compare rounding differences between
+  platforms.
+\end{enumerate}
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 2. Arrays}\label{chapter-2.-arrays}
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 3. Strings}\label{chapter-3.-strings}
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 4. Linked Lists}\label{chapter-4.-linked-lists}
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 5. Stacks and
+Queues}\label{chapter-5.-stacks-and-queues}
+
+
+
+
+\end{document}
