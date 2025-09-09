@@ -8,7 +8,7 @@ This book covers algorithms: from linear data structures and fundamental techniq
 - [Download PDF](docs/book.pdf) — print-ready
 - [Download EPUB](docs/book.epub) — e-reader friendly
 - [View LaTeX](docs/book-latex/book.tex) — `.tex` source
-- [Read on GitHub Pages](https://little-book-of.github.io/multilinear-algebra/) — online website
+- [Read on GitHub Pages](https://little-book-of.github.io/algorithms/) — online website
 
 ## Quick Start (Quarto)
 
