@@ -49,7 +49,7 @@ By default, Quarto writes HTML to `_site/`. Adjust outputs in `_quarto.yml` as n
 Chapters live at the repo root as `chapter_XX.qmd` and are included in `_quarto.yml` in numeric order.
 `src/` contains runnable, tested implementations that mirror the chapters by `chXX_*` folder names for easy cross-navigation.
 
-## Labeling with Code
+## Learning with Code
 
 The book content is implemented across five languages:
 
