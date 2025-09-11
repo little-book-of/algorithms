@@ -1,2 +1,1654 @@
 # Chapter 2. Arrays 
 
+## 2.1 Static Arrays 
+
+### 2.2 L0 — Arrays That Grow
+
+A dynamic array is like a container that can expand and shrink as needed. Unlike static arrays, which must know their size in advance, a dynamic array adapts as elements are added or removed. You can think of it as a bookshelf where new shelves appear automatically when space runs out. The underlying idea is simple: keep the benefits of fast index-based access, while adding flexibility to change the size.
+
+#### Deep Dive
+
+A dynamic array begins with a fixed amount of space called its capacity. When the number of elements (the length) exceeds this capacity, the array grows. This is usually done by allocating a new, larger block of memory and copying the old elements into it. After this, new elements can be added until the new capacity is filled, at which point the process repeats.
+
+Despite this resizing process, the key properties remain:
+
+- Fast access and update: Elements can still be reached instantly using an index.
+- Append flexibility: New elements can be added at the end without worrying about fixed size.
+- Occasional resizing cost: Most appends are quick, but when resizing happens, it takes longer because all elements must be copied.
+
+The performance picture is intuitive:
+
+| Operation      | Time Complexity (Typical) | Notes                                  |
+| -------------- | ------------------------- | -------------------------------------- |
+| Access element | O(1)                      | Index maps directly to position        |
+| Update element | O(1)                      | Replace value in place                 |
+| Append element | O(1) amortized            | Occasionally O(n) when resizing occurs |
+| Pop element    | O(1)                      | Remove from end                        |
+| Insert/Delete  | O(n)                      | Elements must be shifted               |
+
+Dynamic arrays therefore trade predictability for flexibility. The occasional slow operation is outweighed by the ability to grow and shrink on demand, which makes them useful for most real-world tasks where the number of elements is not known in advance.
+
+#### Worked Example
+
+```python
+# Create a dynamic array using Python's built-in list
+arr = []
+
+# Append elements (array grows automatically)
+for i in range(5):
+    arr.append((i + 1) * 10)
+
+print("Array after appending:", arr)
+
+# Access and update elements
+print("Element at index 2:", arr[2])
+arr[2] = 99
+print("Updated array:", arr)
+
+# Remove last element
+last = arr.pop()
+print("Removed element:", last)
+print("Array after pop:", arr)
+
+# Traverse array
+for i in range(len(arr)):
+    print(f"Index {i}: {arr[i]}")
+```
+
+This short program shows how a dynamic array in Python resizes automatically with `append` and shrinks with `pop`. Access and updates remain instant, while resizing happens invisibly when more space is needed.
+
+#### Why it matters
+
+Dynamic arrays combine efficiency and flexibility. They allow programs to handle unknown or changing amounts of data without predefining sizes. They form the backbone of lists in high-level languages, balancing performance with usability. They also illustrate the idea of amortized cost: most operations are fast, but occasional expensive operations are averaged out over time.
+
+#### Exercises
+
+1. Create an array and append numbers 1 through 10. Print the final array.
+2. Replace the 3rd element with a new value.
+3. Remove the last two elements and print the result.
+4. Write a procedure that traverses a dynamic array and computes the average of its elements.
+5. Explain why appending one element might sometimes be much slower than appending another, even though both look the same in code.
+
+### 2.1 L1 — Static Arrays in Practice
+
+Static arrays are one of the simplest and most reliable ways of storing data. They are defined as collections of elements laid out in a fixed-size, contiguous block of memory. Unlike dynamic arrays, their size is determined at creation and cannot be changed later. This property makes them predictable, efficient, and easy to reason about, but also less flexible when dealing with varying amounts of data.
+
+#### Deep Dive
+
+At the heart of static arrays is their memory layout. When an array is created, the program reserves a continuous region of memory large enough to hold all its elements. Each element is stored right next to the previous one. This design allows very fast access because the position of any element can be computed directly:
+
+```
+address_of(arr[i]) = base_address + (i × element_size)
+```
+
+No searching or scanning is required, only simple arithmetic. This is why reading or writing to an element at a given index is considered O(1) — constant time regardless of the array size.
+
+The trade-offs emerge when considering insertion or deletion. Because elements are tightly packed, inserting a new element in the middle requires shifting all the subsequent elements by one position. Deleting works the same way in reverse. These operations are therefore O(n), linear in the size of the array.
+
+The cost summary is straightforward:
+
+| Operation      | Time Complexity | Notes                      |
+| -------------- | --------------- | -------------------------- |
+| Access element | O(1)            | Direct index calculation   |
+| Update element | O(1)            | Replace in place           |
+| Traverse       | O(n)            | Visit each element once    |
+| Insert/Delete  | O(n)            | Shifting elements required |
+
+##### Trade-offs.
+Static arrays excel when you know the size in advance. They guarantee fast access and compact memory usage because there is no overhead for resizing or metadata. However, they lack flexibility. If the array is too small, you must allocate a larger one and copy all elements over. If it is too large, memory is wasted. This is why languages like Python provide dynamic lists by default, while static arrays are used in performance-critical or resource-constrained contexts.
+
+##### Use cases.
+
+- Buffers: Fixed-size areas for network packets or hardware input.
+- Lookup tables: Precomputed constants or small ranges of values (e.g., ASCII character tables).
+- Static configuration data: Tables known at compile-time, where resizing is unnecessary.
+
+##### Pitfalls.
+Programmers must be careful of two common issues:
+
+1. Out-of-bounds errors: Trying to access an index outside the valid range, leading to exceptions (in safe languages) or undefined behavior (in low-level languages).
+2. Sizing problems: Underestimating leads to crashes, overestimating leads to wasted memory.
+
+Static arrays are common in many programming environments. In Python, the `array` module provides a fixed-type sequence that behaves more like a C-style array. Libraries like NumPy also provide fixed-shape arrays that offer efficient memory usage and fast computations. In C and C++, arrays are part of the language itself, and they form the foundation of higher-level containers like `std::vector`.
+
+#### Worked Example
+
+```python
+import array
+
+# Create a static array of integers (type 'i' = signed int)
+arr = array.array('i', [0] * 5)
+
+# Fill the array with values
+for i in range(len(arr)):
+    arr[i] = (i + 1) * 10
+
+# Access and update elements
+print("Element at index 2:", arr[2])
+arr[2] = 99
+print("Updated element at index 2:", arr[2])
+
+# Traverse the array
+print("All elements:")
+for i in range(len(arr)):
+    print(f"Index {i}: {arr[i]}")
+
+# Demonstrating the limitation: trying to insert beyond capacity
+try:
+    arr.insert(5, 60)  # This technically works in Python's array, but resizes internally
+    print("Inserted new element:", arr)
+except Exception as e:
+    print("Error inserting into static array:", e)
+```
+
+This code illustrates the strengths and weaknesses of static arrays. Access and updates are immediate, and traversal is simple. But the notion of a "fixed size" means that insertion and deletion are costly or, in some languages, unsupported.
+
+#### Why it matters
+
+Static arrays are the building blocks of data structures. They teach the trade-off between speed and flexibility. They remind us that memory is finite and that how data is laid out in memory directly impacts performance. Whether writing Python code, using NumPy, or implementing algorithms in C, understanding static arrays makes it easier to reason about cost, predict behavior, and avoid common errors.
+
+#### Exercises
+
+1. Create an array of size 8 and fill it with even numbers from 2 to 16. Then access the 4th element directly.
+2. Update the middle element of a fixed-size array with a new value.
+3. Write a procedure to traverse an array and find the maximum element.
+4. Explain why inserting a new value into the beginning of a static array requires shifting every other element.
+5. Give two examples of real-world systems where fixed-size arrays are a natural fit.
+
+### 2.1 L2 — Static Arrays and the System Beneath
+
+Static arrays are more than just a collection of values; they are a direct window into how computers store and access data. At the advanced level, understanding static arrays means looking at memory models, cache behavior, compiler optimizations, and the role of arrays in operating systems and production libraries. This perspective is critical for building high-performance software and for avoiding subtle, system-level bugs.
+
+#### Deep Dive
+
+At the lowest level, a static array is a contiguous block of memory. When an array is declared, the compiler calculates the required size as `length × element_size` and reserves that many bytes. Each element is addressed by simple arithmetic:
+
+```
+address_of(arr[i]) = base_address + (i × element_size)
+```
+
+This is why access and updates are constant time. The difference between static arrays and dynamically allocated ones often comes down to where the memory lives. Arrays declared inside a function may live on the stack, offering fast allocation and automatic cleanup. Larger arrays or arrays whose size isn't known at compile time are allocated on the heap, requiring runtime management via calls such as `malloc` and `free`.
+
+The cache hierarchy makes arrays especially efficient. Because elements are contiguous, accessing `arr[i]` loads not just one element but also its neighbors into a cache line (often 64 bytes). This property, known as spatial locality, means that scanning through an array is very fast. Prefetchers in modern CPUs exploit this by pulling in upcoming cache lines before they are needed. However, irregular access patterns (e.g., striding by 17) can defeat prefetching and lead to performance drops.
+
+Alignment and padding further influence performance. On most systems, integers must start at addresses divisible by 4, and doubles at addresses divisible by 8. If the compiler cannot guarantee alignment, it may add padding bytes to enforce it. Misaligned accesses can cause slowdowns or even hardware faults on strict architectures.
+
+Different programming languages expose these behaviors differently. In C, a declaration like `int arr[10];` on the stack creates exactly 40 bytes on a 32-bit system. In contrast, `malloc(10 * sizeof(int))` allocates memory on the heap. In C++, `std::array<int, 10>` is a safer wrapper around C arrays, while `std::vector<int>` adds resizing at the cost of indirection and metadata. In Fortran and NumPy, multidimensional arrays can be stored in column-major order rather than row-major, which changes how indices map to addresses and affects iteration performance.
+
+The operating system kernel makes heavy use of static arrays. For example, Linux defines fixed-size arrays in structures like `task_struct` for file descriptors, and uses arrays in page tables for managing memory mappings. Static arrays provide predictability and remove the need for runtime memory allocation in performance-critical or security-sensitive code.
+
+From a performance profiling standpoint, arrays reveal fundamental trade-offs. Shifting elements during insertion or deletion requires copying bytes across memory, and the cost grows linearly with the number of elements. Compilers attempt to optimize loops over arrays with vectorization, turning element-wise operations into SIMD instructions. They may also apply loop unrolling or bounds-check elimination (BCE) when it can be proven that indices remain safe.
+
+Static arrays also carry risks. In C and C++, accessing out-of-bounds memory leads to undefined behavior, often exploited in buffer overflow attacks. Languages like Java or Python mitigate this with runtime bounds checks, but at the expense of some performance.
+
+At this level, static arrays should be seen not only as a data structure but as a fundamental contract between code, compiler, and hardware.
+
+Worked Example (C)
+
+```c
+#include <stdio.h>
+
+int main() {
+    // Static array of 8 integers allocated on the stack
+    int arr[8];
+
+    // Initialize array
+    for (int i = 0; i < 8; i++) {
+        arr[i] = (i + 1) * 10;
+    }
+
+    // Access and update element
+    printf("Element at index 3: %d\n", arr[3]);
+    arr[3] = 99;
+    printf("Updated element at index 3: %d\n", arr[3]);
+
+    // Traverse with cache-friendly pattern
+    int sum = 0;
+    for (int i = 0; i < 8; i++) {
+        sum += arr[i];
+    }
+    printf("Sum of array: %d\n", sum);
+
+    // Dangerous: Uncommenting would cause undefined behavior
+    // printf("%d\n", arr[10]);
+
+    return 0;
+}
+```
+
+This C program demonstrates how static arrays live on the stack, how indexing works, and why out-of-bounds access is dangerous. On real hardware, iterating sequentially benefits from spatial locality, making the traversal very fast compared to random access.
+
+#### Why it matters
+
+Static arrays are the substrate upon which much of computing is built. They are simple in abstraction but complex in practice, touching compilers, operating systems, and hardware. Understanding them is essential for:
+
+- Writing cache-friendly and high-performance code.
+- Avoiding security vulnerabilities like buffer overflows.
+- Appreciating why higher-level data structures behave the way they do.
+- Building intuition for memory layout, alignment, and the interaction between code and the CPU.
+
+Arrays are not just "collections of values" — they are the foundation of efficient data processing.
+
+#### Exercises
+
+1. In C, declare a static array of size 16 and measure how long it takes to sum its elements sequentially versus accessing them in steps of 4. Explain the performance difference.
+2. Explain why iterating over a 2D array row by row is faster in C than column by column.
+3. Consider a struct with mixed types (e.g., `char`, `int`, `double`). Predict where padding bytes will be inserted if placed inside an array.
+4. Research and describe how the Linux kernel uses static arrays in managing processes or memory.
+5. Demonstrate with code how accessing beyond the end of a static array in C can cause undefined behavior, and explain why this is a serious risk in system programming.
+
+## 2.2 Dynamic Arrays 
+
+### 2.2 L0 — Arrays That Grow
+
+A dynamic array is like a container that can expand and shrink as needed. Unlike static arrays, which must know their size in advance, a dynamic array adapts as elements are added or removed. You can think of it as a bookshelf where new shelves appear automatically when space runs out. The underlying idea is simple: keep the benefits of fast index-based access, while adding flexibility to change the size.
+
+#### Deep Dive
+
+A dynamic array begins with a fixed amount of space called its capacity. When the number of elements (the length) exceeds this capacity, the array grows. This is usually done by allocating a new, larger block of memory and copying the old elements into it. After this, new elements can be added until the new capacity is filled, at which point the process repeats.
+
+Despite this resizing process, the key properties remain:
+
+- Fast access and update: Elements can still be reached instantly using an index.
+- Append flexibility: New elements can be added at the end without worrying about fixed size.
+- Occasional resizing cost: Most appends are quick, but when resizing happens, it takes longer because all elements must be copied.
+
+The performance picture is intuitive:
+
+| Operation      | Time Complexity (Typical) | Notes                                  |
+| -------------- | ------------------------- | -------------------------------------- |
+| Access element | O(1)                      | Index maps directly to position        |
+| Update element | O(1)                      | Replace value in place                 |
+| Append element | O(1) amortized            | Occasionally O(n) when resizing occurs |
+| Pop element    | O(1)                      | Remove from end                        |
+| Insert/Delete  | O(n)                      | Elements must be shifted               |
+
+Dynamic arrays therefore trade predictability for flexibility. The occasional slow operation is outweighed by the ability to grow and shrink on demand, which makes them useful for most real-world tasks where the number of elements is not known in advance.
+
+#### Worked Example
+
+```python
+# Create a dynamic array using Python's built-in list
+arr = []
+
+# Append elements (array grows automatically)
+for i in range(5):
+    arr.append((i + 1) * 10)
+
+print("Array after appending:", arr)
+
+# Access and update elements
+print("Element at index 2:", arr[2])
+arr[2] = 99
+print("Updated array:", arr)
+
+# Remove last element
+last = arr.pop()
+print("Removed element:", last)
+print("Array after pop:", arr)
+
+# Traverse array
+for i in range(len(arr)):
+    print(f"Index {i}: {arr[i]}")
+```
+
+This short program shows how a dynamic array in Python resizes automatically with `append` and shrinks with `pop`. Access and updates remain instant, while resizing happens invisibly when more space is needed.
+
+#### Why it matters
+
+Dynamic arrays combine efficiency and flexibility. They allow programs to handle unknown or changing amounts of data without predefining sizes. They form the backbone of lists in high-level languages, balancing performance with usability. They also illustrate the idea of amortized cost: most operations are fast, but occasional expensive operations are averaged out over time.
+
+#### Exercises
+
+1. Create an array and append numbers 1 through 10. Print the final array.
+2. Replace the 3rd element with a new value.
+3. Remove the last two elements and print the result.
+4. Write a procedure that traverses a dynamic array and computes the average of its elements.
+5. Explain why appending one element might sometimes be much slower than appending another, even though both look the same in code.
+
+### 2.2 L1 — Dynamic Arrays in Practice
+
+Dynamic arrays extend the idea of static arrays by making size flexible. They allow adding or removing elements without knowing the total number in advance. Under the hood, this flexibility is achieved through careful memory management: the array is stored in a contiguous block, but when more space is needed, a larger block is allocated, and all elements are copied over. This mechanism balances speed with adaptability and is the reason why dynamic arrays are the default sequence type in many languages.
+
+#### Deep Dive
+
+A dynamic array starts with a certain capacity, often larger than the initial number of elements. When the number of stored elements exceeds capacity, the array is resized. The common strategy is to double the capacity. For example, an array of capacity 4 that becomes full will reallocate to capacity 8. All existing elements are copied into the new block, and the old memory is freed.
+
+This strategy makes appending efficient on average. While an individual resize costs O(n) because of the copying, most appends are O(1). Across a long sequence of operations, the total cost averages out — this is called amortized analysis.
+
+Dynamic arrays retain the key advantages of static arrays:
+
+- Contiguous storage means fast random access with `O(1)` time.
+- Updates are also `O(1)` because they overwrite existing slots.
+
+The challenges appear with other operations:
+
+- Insertions or deletions in the middle require shifting elements, making them O(n).
+- Resizing events create temporary latency spikes, especially when arrays are large.
+
+A clear summary:
+
+| Operation      | Time Complexity | Notes                         |
+| -------------- | --------------- | ----------------------------- |
+| Access element | O(1)            | Direct index calculation      |
+| Update element | O(1)            | Replace value in place        |
+| Append element | O(1) amortized  | Occasional O(n) when resizing |
+| Pop element    | O(1)            | Remove from end               |
+| Insert/Delete  | O(n)            | Shifting elements required    |
+
+##### Trade-offs.
+Dynamic arrays sacrifice predictability for convenience. Resizing causes performance spikes, but the doubling strategy keeps the average cost low. Over-allocation wastes some memory, but it reduces the frequency of resizes. The key is that this trade-off is usually favorable in practice.
+
+##### Use cases.
+Dynamic arrays are well-suited for:
+
+- Lists whose size is not known in advance.
+- Workloads dominated by appending and reading values.
+- General-purpose data structures in high-level programming languages.
+
+##### Language implementations.
+
+- Python: `list` is a dynamic array, using an over-allocation strategy to reduce frequent resizes.
+- C++: `std::vector` doubles its capacity when needed, invalidating pointers/references after reallocation.
+- Java: `ArrayList` grows by about 1.5× when full, trading memory efficiency for fewer copies.
+
+##### Pitfalls.
+
+- In languages with pointers or references, resizes can invalidate existing references.
+- Large arrays may cause noticeable latency during reallocation.
+- Middle insertions and deletions remain inefficient compared to linked structures.
+
+#### Worked Example
+
+```python
+# Demonstrate dynamic array behavior using Python's list
+arr = []
+
+# Append elements to trigger resizing internally
+for i in range(12):
+    arr.append(i)
+    print(f"Appended {i}, length = {len(arr)}")
+
+# Access and update
+print("Element at index 5:", arr[5])
+arr[5] = 99
+print("Updated element at index 5:", arr[5])
+
+# Insert in the middle (expensive operation)
+arr.insert(6, 123)
+print("Array after middle insert:", arr)
+
+# Pop elements
+arr.pop()
+print("Array after pop:", arr)
+```
+
+This example illustrates appending, updating, inserting, and popping. While Python hides the resizing, the cost is there: occasionally the list must allocate more space and copy its contents.
+
+#### Why it matters
+
+Dynamic arrays balance flexibility and performance. They demonstrate the principle of amortized complexity, showing how expensive operations can be smoothed out over time. They also highlight trade-offs between memory usage and speed. Understanding them explains why high-level lists perform well in everyday coding but also where they can fail under stress.
+
+#### Exercises
+
+1. Create a dynamic array and append the numbers 1 to 20. Measure how many times resizing would have occurred if the growth factor were 2.
+2. Insert an element into the middle of a large array and explain why this operation is slower than appending at the end.
+3. Write a procedure to remove all odd numbers from a dynamic array.
+4. Compare Python's `list`, Java's `ArrayList`, and C++'s `std::vector` in terms of growth strategy.
+5. Explain why references to elements of a `std::vector` may become invalid after resizing.
+
+### 2.2 L2 — Dynamic Arrays Under the Hood
+
+Dynamic arrays reveal how high-level flexibility is built on top of low-level memory management. While they appear as resizable containers, underneath they are carefully engineered to balance performance, memory efficiency, and safety. Understanding their internals sheds light on allocators, cache behavior, and the risks of pointer invalidation.
+
+#### Deep Dive
+
+Dynamic arrays rely on heap allocation. When first created, they reserve a contiguous memory block with some capacity. As elements are appended and the array fills, the implementation must allocate a new, larger block, copy all existing elements, and free the old block.
+
+Most implementations use a geometric growth strategy, often doubling the capacity when space runs out. Some use a factor smaller than two, such as 1.5×, to reduce memory waste. The trade-off is between speed and efficiency:
+
+- Larger growth factors reduce the number of costly reallocations.
+- Smaller growth factors waste less memory but increase resize frequency.
+
+This leads to an amortized O(1) cost for append. Each resize is expensive, but they happen infrequently enough that the average cost remains constant across many operations.
+
+However, resizes have side effects:
+
+- Pointer invalidation: In C++ `std::vector`, any reference, pointer, or iterator into the old memory becomes invalid after reallocation.
+- Latency spikes: Copying thousands or millions of elements in one step can stall a program, especially in real-time or low-latency systems.
+- Allocator fragmentation: Repeated growth and shrink cycles can fragment the heap, reducing performance in long-running systems.
+
+Cache efficiency is one of the strengths of dynamic arrays. Because elements are stored contiguously, traversals are cache-friendly, and prefetchers can load entire blocks into cache lines. But reallocations can disrupt locality temporarily, as the array may move to a new region of memory.
+
+Different languages implement dynamic arrays with variations:
+
+- Python lists use over-allocation with a small growth factor (\~12.5% to 25% extra). This minimizes wasted memory while keeping amortized costs stable.
+- C++ `std::vector` typically doubles its capacity when needed. Developers can call `reserve()` to preallocate memory and avoid repeated reallocations.
+- Java `ArrayList` grows by \~1.5×, balancing heap usage with resize frequency.
+
+Dynamic arrays also face risks:
+
+- If resizing logic is incorrect, buffer overflows may occur.
+- Attackers can exploit repeated growth/shrink cycles to cause denial-of-service via frequent allocations.
+- Very large allocations can fail outright if memory is exhausted.
+
+From a profiling perspective, workloads matter. Append-heavy patterns perform extremely well due to amortization. Insert-heavy or middle-delete workloads perform poorly because of element shifting. Allocator-aware optimizations, like pre-reserving capacity, can dramatically improve performance.
+
+#### Worked Example (C++)
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v;
+    v.reserve(4);  // reserve space for 4 elements to reduce reallocations
+
+    for (int i = 0; i < 12; i++) {
+        v.push_back(i * 10);
+        std::cout << "Appended " << i*10
+                  << ", size = " << v.size()
+                  << ", capacity = " << v.capacity() << std::endl;
+    }
+
+    // Access and update
+    std::cout << "Element at index 5: " << v[5] << std::endl;
+    v[5] = 99;
+    std::cout << "Updated element at index 5: " << v[5] << std::endl;
+
+    // Demonstrate invalidation risk
+    int* ptr = &v[0];
+    v.push_back(12345); // may reallocate and move data
+    std::cout << "Old pointer may now be invalid: " << *ptr << std::endl; // UB if reallocated
+}
+```
+
+This program shows how `std::vector` manages capacity. The output reveals how capacity grows as more elements are appended. The pointer invalidation example highlights a subtle but critical risk: after a resize, old addresses into the array are no longer safe.
+
+#### Why it matters
+
+Dynamic arrays expose the tension between abstraction and reality. They appear simple, but internally they touch almost every layer of the system: heap allocators, caches, compiler optimizations, and safety checks. They are essential for understanding how high-level languages achieve both usability and performance, and they illustrate real-world engineering trade-offs between speed, memory, and safety.
+
+#### Exercises
+
+1. In C++, measure the capacity growth of a `std::vector<int>` as you append 1,000 elements. Plot size vs capacity.
+2. Explain why a program that repeatedly appends and deletes elements might fragment the heap over time.
+3. Compare the growth strategies of Python `list`, C++ `std::vector`, and Java `ArrayList`. Which wastes more memory? Which minimizes resize cost?
+4. Write a program that appends 1 million integers to a dynamic array and then times the traversal. Compare it with inserting 1 million integers at the beginning.
+5. Show how `reserve()` in `std::vector` or `ensureCapacity()` in Java `ArrayList` can eliminate costly reallocation spikes.
+
+## 2.3 Slices & Views 
+
+### 2.3 L0 — Looking Through a Window
+
+A slice or view is a way to look at part of an array without creating a new one. Instead of copying data, a slice points to the same underlying elements, just with its own start and end boundaries. This makes working with subarrays fast and memory-efficient. You can think of a slice as a window into a longer row of boxes, showing only the portion you care about.
+
+#### Deep Dive
+
+When you take a slice, you don't get a new array filled with copied elements. Instead, you get a new "view" that remembers where in the original array it starts and stops. This is useful because:
+
+- No copying means creating a slice is very fast.
+- Shared storage means changes in the slice also affect the original array (in languages like Go, Rust, or NumPy).
+- Reduced scope means you can focus on a part of the array without carrying the entire structure.
+
+Key properties of slices:
+
+1. They refer to the same memory as the original array.
+2. They have their own length (number of elements visible).
+3. They may also carry a capacity, which limits how far they can expand into the original array.
+
+In Python, list slicing (`arr[2:5]`) creates a new list with copies of the elements. This is not a true view. By contrast, NumPy arrays, Go slices, and Rust slices provide real views — updates to the slice affect the original array.
+
+A summary:
+
+| Feature       | Slice/View              | New Array (Copy)         |
+| ------------- | ----------------------- | ------------------------ |
+| Memory usage  | Shares existing storage | Allocates new storage    |
+| Creation cost | O(1)                    | O(n) for copied elements |
+| Updates       | Affect original array   | Independent              |
+| Safety        | Risk of aliasing issues | No shared changes        |
+
+Slices are especially valuable when working with large datasets, where copying would be too expensive.
+
+#### Worked Example
+
+```python
+# Python slicing creates a copy, but useful to illustrate concept
+arr = [10, 20, 30, 40, 50]
+
+# Slice of middle part
+sub = arr[1:4]
+print("Original array:", arr)
+print("Slice (copy in Python):", sub)
+
+# Modifying the slice does not affect the original (Python behavior)
+sub[0] = 99
+print("Modified slice:", sub)
+print("Original array unchanged:", arr)
+
+# In contrast, NumPy arrays behave like true views
+import numpy as np
+arr_np = np.array([10, 20, 30, 40, 50])
+sub_np = arr_np[1:4]
+sub_np[0] = 99
+print("NumPy slice reflects back:", arr_np)
+```
+
+This example shows the difference: Python lists create a copy, while NumPy slices act as views and affect the original.
+
+#### Why it matters
+
+Slices let you work with subsets of data without wasting memory or time copying. They are critical in systems and scientific computing where performance matters. They also highlight the idea of aliasing: when two names refer to the same data. Understanding slices teaches you when changes propagate and when they don't, which helps avoid surprising bugs.
+
+#### Exercises
+
+1. Create an array of 10 numbers. Take a slice of the middle 5 elements and print them.
+2. Update the first element in your slice and describe what happens to the original array in your chosen language.
+3. Compare slicing behavior in Python and NumPy: which one copies, which one shares?
+4. Explain why slicing a very large dataset is more efficient than copying it.
+5. Think of a real-world analogy where two people share the same resource but only see part of it. How does this relate to slices?
+
+### 2.3 L1 — Slices in Practice
+
+Slices provide a practical way to work with subarrays efficiently. Instead of copying data into a new structure, a slice acts as a lightweight reference to part of an existing array. This gives programmers flexibility to manipulate sections of data without paying the cost of duplication, while still preserving the familiar indexing model of arrays.
+
+#### Deep Dive
+
+At the implementation level, a slice is typically represented by a small structure that stores:
+
+1. A pointer to the first element in the slice.
+2. The slice's length (how many elements it can access).
+3. Optionally, its capacity (how far the slice can grow into the backing array).
+
+Indexing into a slice works just like indexing into an array:
+
+```
+slice[i] → base_address + i × element_size
+```
+
+The complexity model stays consistent:
+
+- Slice creation: O(1) when implemented as a view, O(n) if the language copies elements.
+- Access/update: O(1), just like arrays.
+- Traversal: O(k), proportional to the slice's length.
+
+This design makes slices efficient but introduces trade-offs. With true views, the slice and the original array share memory. Updates made through one are visible through the other. This can be extremely useful but also dangerous, as it introduces the possibility of unintended side effects. Languages that prioritize safety (like Python lists) avoid this by returning a copy instead of a view.
+
+The balance is clear:
+
+- Views (Go, Rust, NumPy): fast and memory-efficient, but require discipline to avoid aliasing bugs.
+- Copies (Python lists): safer, but slower and more memory-intensive for large arrays.
+
+A summary of behaviors:
+
+| Language/Library | Slice Behavior | Shared Updates | Notes                                        |
+| ---------------- | -------------- | -------------- | -------------------------------------------- |
+| Go               | View           | Yes            | Backed by `(ptr, len, cap)` triple           |
+| Rust             | View           | Yes            | Safe with borrow checker (mutable/immutable) |
+| Python list      | Copy           | No             | Safer but memory-expensive                   |
+| NumPy array      | View           | Yes            | Basis of efficient scientific computing      |
+| C/C++            | Manual pointer | Yes            | No built-in slice type; must manage manually |
+
+##### Use cases.
+
+- Processing large datasets in segments without copying.
+- Implementing algorithms like sliding windows, partitions, or block-based iteration.
+- Sharing views of arrays across functions for modular design without allocating new memory.
+
+##### Pitfalls.
+
+- In languages with views, careless updates can corrupt the original array unexpectedly.
+- In Go and C++, extending a slice/view beyond its capacity causes runtime errors or undefined behavior.
+- In Python, forgetting that slices are copies can lead to performance issues in large-scale workloads.
+
+#### Worked Example
+
+```python
+# Demonstrating copy slices vs view slices in Python and NumPy
+
+# Python list slicing creates a copy
+arr = [1, 2, 3, 4, 5]
+sub = arr[1:4]
+sub[0] = 99
+print("Python original:", arr)  # unchanged
+print("Python slice (copy):", sub)
+
+# NumPy slicing creates a view
+import numpy as np
+arr_np = np.array([1, 2, 3, 4, 5])
+sub_np = arr_np[1:4]
+sub_np[0] = 99
+print("NumPy original (affected):", arr_np)
+print("NumPy slice (view):", sub_np)
+```
+
+This example shows the key difference: Python lists copy, while NumPy provides true views. The choice reflects different design priorities: safety in Python's core data structures versus performance in numerical computing.
+
+#### Why it matters
+
+Slices make programs more efficient and expressive. They eliminate unnecessary copying, speed up algorithms that work on subranges, and support modular programming by passing references instead of duplicating data. At the same time, they expose important design trade-offs between safety and performance. Understanding slices provides insight into how modern languages manage memory efficiently while protecting against common errors.
+
+#### Exercises
+
+1. In Go, create an array of 10 elements and take a slice of the middle 5. Update the slice and observe the effect on the array.
+2. In Python, slice a list of 1 million numbers and explain the performance cost compared to slicing a NumPy array of the same size.
+3. Write a procedure that accepts a slice and doubles each element. Test with both a copy-based language (Python lists) and a view-based language (NumPy or Go).
+4. Explain why passing slices to functions is more memory-efficient than passing entire arrays.
+5. Discuss a scenario where slice aliasing could lead to unintended bugs in a large program.
+
+### 2.3 L2 — Slices and Views in Systems
+
+Slices are not just convenient programming shortcuts; they represent a powerful abstraction that ties language semantics to hardware realities. At this level, slices expose details about memory layout, lifetime, and compiler optimizations. They are central to performance-critical systems because they allow efficient access to subsets of data without copying, while also demanding careful handling to avoid aliasing bugs and unsafe memory access.
+
+#### Deep Dive
+
+A slice is typically represented internally as a triple:
+
+- A pointer to the first element,
+- A length describing how many elements are visible,
+- A capacity showing how far the slice may extend into the backing array.
+
+Indexing into a slice is still O(1), but the compiler inserts bounds checks to prevent invalid access. In performance-sensitive code, compilers often apply bounds-check elimination (BCE) when they can prove that loop indices remain within safe limits. This allows slices to combine safety with near-native performance.
+
+Slices are non-owning references. They do not manage memory themselves but instead depend on the underlying array. In languages like Rust, the borrow checker enforces lifetimes to prevent dangling slices. In C and C++, however, programmers must manually ensure that the backing array outlives the slice, or risk undefined behavior.
+
+Because slices share memory, they introduce aliasing. Multiple slices can point to overlapping regions of the same array. This can lead to subtle bugs if two parts of a program update the same region concurrently. In multithreaded contexts, mutable aliasing without synchronization can cause data races. Some systems adopt copy-on-write strategies to reduce risks, but this adds overhead.
+
+From a performance perspective, slices preserve contiguity, which is ideal for cache locality and prefetching. Sequential traversal is cache-friendly, but strided access (e.g., every 3rd element) can defeat hardware prefetchers, reducing efficiency. Languages like NumPy exploit strides explicitly, enabling both dense and sparse-like views without copying.
+
+Language designs differ in how they handle slices:
+
+- Go uses `(ptr, len, cap)`. Appending to a slice may allocate a new array if capacity is exceeded, silently detaching it from the original backing storage.
+- Rust distinguishes `&[T]` for immutable and `&mut [T]` for mutable slices, with the compiler enforcing safe borrowing rules.
+- C/C++ provide no built-in slice type, so developers rely on raw pointers and manual length tracking. This is flexible but error-prone.
+- NumPy supports advanced slicing: views with strides, broadcasting rules, and multidimensional slices for scientific computing.
+
+Compilers also optimize slice-heavy code:
+
+- Vectorization transforms element-wise loops into SIMD instructions when slices are contiguous.
+- Escape analysis determines whether slices can stay stack-allocated or must be promoted to the heap.
+
+System-level use cases highlight the importance of slices:
+
+- Zero-copy I/O: network and file system buffers are exposed as slices into larger memory regions.
+- Memory-mapped files: slices map directly to disk pages, enabling efficient processing of large datasets.
+- GPU programming: CUDA and OpenCL kernels operate on slices of device memory, avoiding transfers.
+
+These applications show why slices are not just a programming convenience but a core tool for bridging high-level logic with low-level performance.
+
+#### Worked Example (Go)
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    arr := [6]int{10, 20, 30, 40, 50, 60}
+    s := arr[1:4] // slice referencing elements 20, 30, 40
+
+    fmt.Println("Original array:", arr)
+    fmt.Println("Slice view:", s)
+
+    // Update through slice
+    s[0] = 99
+    fmt.Println("After update via slice, array:", arr)
+
+    // Demonstrate capacity
+    fmt.Println("Slice length:", len(s), "capacity:", cap(s))
+
+    // Appending beyond slice capacity reallocates
+    s = append(s, 70, 80)
+    fmt.Println("Slice after append:", s)
+    fmt.Println("Array after append (unchanged):", arr)
+}
+```
+
+This example illustrates Go's slice model. The slice `s` initially shares storage with `arr`. Updates propagate to the array. However, when appending exceeds the slice's capacity, Go allocates a new backing array, breaking the link with the original. This behavior is efficient but can surprise developers if not understood.
+
+#### Why it matters
+
+Slices embody key system concepts: pointer arithmetic, memory ownership, cache locality, and aliasing. They explain how languages achieve zero-copy abstractions while balancing safety and performance. They also highlight risks such as dangling references and silent reallocations. Mastery of slices is essential for building efficient algorithms, avoiding memory errors, and reasoning about system-level performance.
+
+#### Exercises
+
+1. In Go, create an array of 8 integers and take overlapping slices. Modify one slice and observe effects on the other. Explain why this happens.
+2. In Rust, attempt to create two mutable slices of the same array region. Explain why the borrow checker rejects it.
+3. In C, simulate a slice using a pointer and a length. Show what happens if the backing array is freed while the slice is still in use.
+4. In NumPy, create a 2D array and take a strided slice (every second row). Explain why performance is worse than contiguous slicing.
+5. Compare how Python, Go, and Rust enforce (or fail to enforce) safety when working with slices.
+
+## 2.4 Multidimensional Arrays 
+
+### 2.4 L0 — Tables and Grids
+
+A multidimensional array is an extension of the simple array idea. Instead of storing data in a single row, a multidimensional array organizes elements in a grid, table, or cube. The most common example is a two-dimensional array, which looks like a table with rows and columns. Each position in the grid is identified by two coordinates: one for the row and one for the column. This structure is useful for representing spreadsheets, images, game boards, and mathematical matrices.
+
+#### Deep Dive
+
+You can think of a multidimensional array as an array of arrays. A two-dimensional array is a list where each element is itself another list. For example, a 3×3 table contains 3 rows, each of which has 3 columns. Accessing an element requires specifying both coordinates: `arr[row][col]`.
+
+Even though we visualize multidimensional arrays as grids, in memory they are still stored as a single continuous sequence. To find an element, the program computes its position using a formula. In a 2D array with `n` columns, the element at `(row, col)` is located at:
+
+```
+index = row × n + col
+```
+
+This mapping allows direct access in constant time, just like with 1D arrays.
+
+Common operations are:
+
+- Creation: decide dimensions and initialize with values.
+- Access: specify row and column to retrieve an element.
+- Update: change the value at a given coordinate.
+- Traversal: visit elements row by row or column by column.
+
+A quick summary:
+
+| Operation      | Description                 | Cost   |
+| -------------- | --------------------------- | ------ |
+| Access element | Get value at (row, col)     | O(1)   |
+| Update element | Replace value at (row, col) | O(1)   |
+| Traverse array | Visit all elements          | O(n×m) |
+
+Multidimensional arrays introduce an important detail: traversal order. In many languages (like C and Python's NumPy), arrays are stored in row-major order, which means all elements of the first row are laid out contiguously, then the second row, and so on. Others, like Fortran, use column-major order. This difference affects performance in more advanced topics, but at this level, the key idea is that access is still fast and predictable.
+
+#### Worked Example
+
+```python
+# Create a 2D array (3x3 table) using list of lists
+table = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Access element in second row, third column
+print("Element at (1, 2):", table[1][2])  # prints 6
+
+# Update element
+table[0][0] = 99
+print("Updated table:", table)
+
+# Traverse row by row
+print("Row traversal:")
+for row in table:
+    for val in row:
+        print(val, end=" ")
+    print()
+```
+
+This example shows how to build and use a 2D array in Python. It looks like a table, with easy access via coordinates.
+
+#### Why it matters
+
+Multidimensional arrays provide a natural way to represent structured data like matrices, grids, and images. They allow algorithms to work directly with two-dimensional or higher-dimensional information without flattening everything into one long row. This makes programs easier to write, read, and reason about.
+
+#### Exercises
+
+1. Create a 3×3 array with numbers 1 through 9 and print it in a table format.
+2. Access the element at row 2, column 3 and describe how you found it.
+3. Change the center element of a 3×3 array to 0.
+4. Write a loop to compute the sum of all values in a 4×4 array.
+5. Explain why accessing `(row, col)` in a 2D array is still O(1) even though the data is stored in a single sequence in memory.
+
+### 2.4 L1 — Multidimensional Arrays in Practice
+
+Multidimensional arrays are powerful because they extend the linear model of arrays into grids, tables, and higher dimensions. At a practical level, they are still stored in memory as a flattened linear block. What changes is the indexing formula: instead of a single index, we use multiple coordinates that the system translates into one offset.
+
+#### Deep Dive
+
+The most common form is a 2D array. In memory, the elements are laid out row by row (row-major) or column by column (column-major).
+
+- Row-major (C, NumPy default): elements of each row are contiguous.
+- Column-major (Fortran, MATLAB): elements of each column are contiguous.
+
+For a 2D array with `num_cols` columns, the element at `(row, col)` in row-major order is located at:
+
+```
+index = row × num_cols + col
+```
+
+For column-major order with `num_rows` rows, the formula is:
+
+```
+index = col × num_rows + row
+```
+
+This distinction matters when traversing. Accessing elements in the memory's natural order (row by row for row-major, column by column for column-major) is cache-friendly. Traversing in the opposite order forces the program to jump around in memory, leading to slower performance.
+
+Extending to 3D and higher is straightforward. For a 3D array with `(layers, rows, cols)` in row-major order:
+
+```
+index = layer × (rows × cols) + row × cols + col
+```
+
+Complexity remains consistent:
+
+- Access/update: O(1) using index calculation.
+- Traversal: O(n × m) for 2D, O(n × m × k) for 3D.
+
+Trade-offs:
+
+- Contiguous multidimensional arrays provide excellent performance for predictable workloads (e.g., matrix operations).
+- Resizing is costly because the entire block must be reallocated.
+- Jagged arrays (arrays of arrays) provide flexibility but lose memory contiguity, reducing cache performance.
+
+Use cases:
+
+- Storing images (pixels as grids).
+- Mathematical matrices in scientific computing.
+- Game boards and maps.
+- Tables in database-like structures.
+
+Different languages implement multidimensional arrays differently:
+
+- Python lists: nested lists simulate 2D arrays but are jagged and fragmented in memory.
+- NumPy: provides true multidimensional arrays stored contiguously in row-major (default) or column-major order.
+- C/C++: support both contiguous multidimensional arrays (`int arr[rows][cols];`) and pointer-based arrays of arrays.
+- Java: uses arrays of arrays (jagged by default).
+
+#### Worked Example
+
+```python
+# Comparing list of lists vs NumPy arrays
+# List of lists (jagged)
+table = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+print("Element at (2, 1):", table[2][1])  # 8
+
+# NumPy array (true contiguous 2D array)
+import numpy as np
+matrix = np.array([[1,2,3],[4,5,6],[7,8,9]])
+print("Element at (2, 1):", matrix[2,1])  # 8
+
+# Traversal in row-major order
+for row in range(matrix.shape[0]):
+    for col in range(matrix.shape[1]):
+        val = matrix[row, col]  # efficient in NumPy
+```
+
+The Python list-of-lists behaves like a table, but each row may live separately in memory. NumPy, on the other hand, stores data contiguously, enabling much faster iteration and vectorized operations.
+
+#### Why it matters
+
+Multidimensional arrays are central to real-world applications, from graphics and simulations to data science and machine learning. They highlight how physical memory layout (row-major vs column-major) interacts with algorithm design. Understanding them allows developers to choose between safety, flexibility, and performance, depending on the problem.
+
+#### Exercises
+
+1. Write a procedure to sum all values in a 5×5 array by traversing row by row.
+2. For a 3×3 NumPy array, access element `(2,1)` and explain how its memory index is calculated in row-major order.
+3. Create a jagged array (rows of different lengths) in Python. Show how traversal differs from a true 2D array.
+4. Explain why traversing a NumPy array by rows is faster than by columns.
+5. Write a formula for computing the linear index of `(i,j,k)` in a 3D array stored in row-major order.
+
+### 2.4 L2 — Multidimensional Arrays and System Realities
+
+Multidimensional arrays are not only a logical abstraction but also a system-level structure that interacts with memory layout, caches, and compilers. At this level, understanding how they are stored, accessed, and optimized is essential for building high-performance code in scientific computing, graphics, and data-intensive systems.
+
+#### Deep Dive
+
+A multidimensional array is stored either as a contiguous linear block or as an array of pointers (jagged array). In the contiguous layout, elements follow one another in memory according to a linearization formula. In row-major order (C, NumPy), a 2D element at `(row, col)` is:
+
+```
+index = row × num_cols + col
+```
+
+In column-major order (Fortran, MATLAB), the formula is:
+
+```
+index = col × num_rows + row
+```
+
+This difference has deep performance consequences. In row-major layout, traversing row by row is cache-friendly because consecutive elements are contiguous. Traversing column by column introduces large strides, which can cause cache and TLB misses. In column-major arrays, the reverse holds true.
+
+##### Cache and performance.
+When an array is traversed sequentially in its natural memory order, cache lines are used efficiently and hardware prefetchers work well. Strided access, such as reading every k-th column in a row-major layout, prevents prefetchers from predicting the access pattern and leads to performance drops. For large arrays, this can mean the difference between processing gigabytes per second and megabytes per second.
+
+##### Alignment and padding.
+Compilers and libraries often align rows to cache line or SIMD vector boundaries. For example, a 64-byte cache line may cause padding to be inserted so that each row begins on a boundary. In parallel systems, this prevents false sharing when multiple threads process different rows. However, padding increases memory footprint.
+
+##### Language-level differences.
+
+- C/C++: contiguous 2D arrays (`int arr[rows][cols]`) guarantee row-major layout. Jagged arrays (array of pointers) sacrifice locality but allow uneven row sizes.
+- Fortran/MATLAB: column-major ordering dominates scientific computing, influencing algorithms in BLAS and LAPACK.
+- NumPy: stores strides explicitly, enabling flexible slicing and arbitrary views. Strided slices can represent transposed matrices without copying.
+
+##### Optimizations.
+
+- Loop tiling/blocking: partition loops into smaller blocks that fit into cache, maximizing reuse.
+- SIMD-friendly layouts: structure-of-arrays (SoA) improves vectorization compared to array-of-structures (AoS).
+- Matrix multiplication kernels: carefully designed to exploit cache hierarchy, prefetching, and SIMD registers.
+
+##### System-level use cases.
+
+- Image processing: images stored as row-major arrays, with pixels in contiguous scanlines. Efficient filters process them row by row.
+- GPU computing: memory coalescing requires threads in a warp to access contiguous memory regions; array layout directly affects throughput.
+- Databases: columnar storage uses column-major arrays, enabling fast scans and aggregation queries.
+
+##### Pitfalls.
+
+- Traversing in the "wrong" order can cause performance cliffs.
+- Large index calculations may overflow if not handled carefully.
+- Porting algorithms between row-major and column-major languages can introduce subtle bugs.
+
+Profiling.
+Practical analysis involves comparing traversal patterns, cache miss rates, and vectorization efficiency. Modern compilers can eliminate redundant bounds checks and auto-vectorize well-structured loops, but poor layout or order can block these optimizations.
+
+#### Worked Example (C)
+
+```c
+#include <stdio.h>
+#define ROWS 4
+#define COLS 4
+
+int main() {
+    int arr[ROWS][COLS];
+
+    // Fill the array
+    for (int r = 0; r < ROWS; r++) {
+        for (int c = 0; c < COLS; c++) {
+            arr[r][c] = r * COLS + c;
+        }
+    }
+
+    // Row-major traversal (cache-friendly in C)
+    int sum_row = 0;
+    for (int r = 0; r < ROWS; r++) {
+        for (int c = 0; c < COLS; c++) {
+            sum_row += arr[r][c];
+        }
+    }
+
+    // Column traversal (less efficient in row-major)
+    int sum_col = 0;
+    for (int c = 0; c < COLS; c++) {
+        for (int r = 0; r < ROWS; r++) {
+            sum_col += arr[r][c];
+        }
+    }
+
+    printf("Row traversal sum: %d\n", sum_row);
+    printf("Column traversal sum: %d\n", sum_col);
+    return 0;
+}
+```
+
+This program highlights traversal order. On large arrays, row-major traversal is much faster in C because of cache-friendly memory access, while column traversal may cause frequent cache misses.
+
+#### Why it matters
+
+Multidimensional arrays sit at the heart of performance-critical applications. Their memory layout determines how well algorithms interact with CPU caches, vector units, and GPUs. Understanding row-major vs column-major, stride penalties, and cache-aware traversal allows developers to write software that scales from toy programs to high-performance computing systems.
+
+#### Exercises
+
+1. In C, create a 1000×1000 matrix and measure the time difference between row-major and column traversal. Explain the results.
+2. In NumPy, take a 2D array and transpose it. Use `.strides` to confirm that the transposed array is a view, not a copy.
+3. Write the linear index formula for a 4D array `(a,b,c,d)` in row-major order.
+4. Explain how false sharing could occur when two threads update adjacent rows of a large array.
+5. Compare the impact of row-major vs column-major layout in matrix multiplication performance.
+
+## 2.5 Sparse Arrays 
+
+### 2.5 L0 — Sparse Arrays as Empty Parking Lots
+
+A sparse array is a way of storing data when most of the positions are empty. Instead of recording every slot like in a dense array, a sparse array only remembers the places that hold actual values. You can think of a huge parking lot with only a few cars parked: a dense array writes down every spot, empty or not, while a sparse array just writes down the locations of the cars.
+
+#### Deep Dive
+
+Dense arrays are straightforward: every position has a value, even if it is zero or unused. This makes access simple and fast, but wastes memory if most positions are empty. Sparse arrays solve this by storing only the useful entries.
+
+There are many ways to represent a sparse array:
+
+- Dictionary/Map: store index → value pairs, ignoring empty slots.
+- Coordinate list (COO): keep two lists, one for indices and one for values.
+- Run-length encoding: store stretches of empty values as counts, followed by the next filled value.
+
+The key idea is to save memory at the cost of more complex indexing. Access is no longer just arithmetic (`arr[i]`) but requires looking up in the chosen structure.
+
+Comparison:
+
+| Representation | Memory Use | Access Speed | Good For                           |
+| -------------- | ---------- | ------------ | ---------------------------------- |
+| Dense array    | High       | O(1)         | Data with many filled elements     |
+| Sparse (map)   | Low        | O(1) average | Few filled elements, random access |
+| Sparse (list)  | Very low   | O(n)         | Very small number of entries       |
+
+#### Worked Example
+
+```python
+# Dense representation: wastes memory for mostly empty data
+dense = [0] * 20
+dense[3] = 10
+dense[15] = 25
+print("Dense array:", dense)
+
+# Sparse representation using dictionary
+sparse = {3: 10, 15: 25}
+print("Sparse array:", sparse)
+
+# Access value
+print("Value at index 3:", sparse.get(3, 0))
+print("Value at index 7:", sparse.get(7, 0))  # default to 0 for missing
+```
+
+This shows how a sparse dictionary only records the positions that matter, while the dense version allocates space for all 20 slots.
+
+#### Why it matters
+
+Sparse arrays are crucial when working with large data where most entries are empty. They save memory and make it possible to process huge datasets that would not fit into memory as dense arrays. They also appear in real-world systems like machine learning (feature vectors), scientific computing (matrices with few non-zero entries), and search engines (posting lists).
+
+#### Exercises
+
+1. Represent a sparse array of size 1000 with only 3 non-zero values at indices 2, 500, and 999.
+2. Write a procedure to count the number of non-empty values in a sparse array.
+3. Access an index that does not exist in the sparse array and explain what should be returned.
+4. Compare the memory used by a dense array of 1000 zeros and a sparse representation with 3 values.
+5. Think of a real-world example (outside programming) where recording only the "non-empty" spots is more efficient than listing everything.
+
+### 2.5 L1 — Sparse Arrays in Practice
+
+Sparse arrays become important when dealing with very large datasets where only a few positions hold non-zero values. Instead of allocating memory for every element, practical implementations use compact structures to track only the occupied indices. This saves memory, but requires trade-offs in access speed and update complexity.
+
+#### Deep Dive
+
+There are several practical ways to represent sparse arrays:
+
+1. Dictionary/Hash Map
+
+   * Store index → value pairs.
+   * Very fast random access and updates (average O(1)).
+   * Memory overhead is higher because of hash structures.
+
+2. Coordinate List (COO)
+
+   * Keep two parallel arrays: one for indices, one for values.
+   * Compact, easy to construct, but access is O(n).
+   * Good for static data with few updates.
+
+3. Compressed Sparse Row (CSR) / Compressed Sparse Column (CSC)
+
+   * Widely used for sparse matrices.
+   * Use three arrays: values, column indices, and row pointers (or vice versa).
+   * Extremely efficient for matrix-vector operations.
+   * Poor at dynamic updates, since compression must be rebuilt.
+
+4. Run-Length Encoding (RLE)
+
+   * Store runs of zeros as counts, followed by non-zero entries.
+   * Best for sequences with long stretches of emptiness.
+
+A comparison:
+
+| Format     | Memory Use       | Access Speed                       | Best For                               |
+| ---------- | ---------------- | ---------------------------------- | -------------------------------------- |
+| Dictionary | Higher per-entry | O(1) avg                           | Dynamic updates, unpredictable indices |
+| COO        | Very low         | O(n)                               | Static, small sparse sets              |
+| CSR/CSC    | Compact          | O(1) row scan, O(log n) col lookup | Linear algebra, scientific computing   |
+| RLE        | Very compact     | Sequential O(n), random slower     | Time-series with long zero runs        |
+
+##### Trade-offs:
+
+- Dense arrays are fast but waste memory.
+- Sparse arrays save memory but access/update complexity varies.
+- Choice of structure depends on workload (frequent random access vs batch computation).
+
+##### Use cases:
+
+- Machine learning: sparse feature vectors in text classification or recommender systems.
+- Graph algorithms: adjacency matrices for sparse graphs.
+- Search engines: inverted index posting lists.
+- Scientific computing: storing large sparse matrices for simulations.
+
+#### Worked Example
+
+```python
+# Sparse array using Python dictionary
+sparse = {2: 10, 100: 50, 999: 7}
+
+# Accessing
+print("Value at 100:", sparse.get(100, 0))
+print("Value at 3 (missing):", sparse.get(3, 0))
+
+# Inserting new value
+sparse[500] = 42
+
+# Traversing non-empty values
+for idx, val in sparse.items():
+    print(f"Index {idx} → {val}")
+```
+
+For dense vs sparse comparison:
+
+```python
+dense = [0] * 1000
+dense[2], dense[100], dense[999] = 10, 50, 7
+print("Dense uses 1000 slots, sparse uses", len(sparse), "entries")
+```
+
+#### Why it matters
+
+Sparse arrays strike a balance between memory efficiency and performance. They let you work with massive datasets that would otherwise be impossible to store in memory. They also demonstrate the importance of choosing the right representation for the problem: a dictionary for dynamic updates, CSR for scientific kernels, or RLE for compressed logs.
+
+#### Exercises
+
+1. Represent a sparse array of length 1000 with values at indices 2, 100, and 999 using:
+   a) a dictionary, and
+   b) two parallel lists (indices, values).
+2. Write a procedure that traverses only non-empty entries and prints them.
+3. Explain why inserting a value in CSR format is more expensive than in a dictionary-based representation.
+4. Compare memory usage of a dense array of length 1000 with only 5 non-zero entries against its sparse dictionary form.
+5. Give two real-world scenarios where CSR is preferable to dictionary-based sparse arrays.
+
+### 2.5 L2 — Sparse Arrays and Compressed Layouts in Systems
+
+Sparse arrays are not only about saving memory; they embody deep design choices about compression, cache use, and hardware acceleration. At this level, the question is not "should I store zeros or not," but "which representation balances memory, access speed, and computational efficiency for the workload?"
+
+#### Deep Dive
+
+Several compressed storage formats exist, each tuned to different needs:
+
+- COO (Coordinate List): Store parallel arrays for row indices, column indices, and values. Flexible and simple, but inefficient for repeated access because lookups require scanning.
+- CSR (Compressed Sparse Row): Use three arrays: `values`, `col_indices`, and `row_ptr` to mark boundaries. Accessing all elements of a row is O(1), while finding a specific column in a row is O(log n) or linear. Excellent for sparse matrix-vector multiplication (SpMV).
+- CSC (Compressed Sparse Column): Similar to CSR, but optimized for column operations.
+- DIA (Diagonal): Only store diagonals in banded matrices. Extremely memory-efficient for PDE solvers.
+- ELL (Ellpack/Itpack): Store each row padded to the same length, enabling SIMD and GPU vectorization. Works well when rows have similar numbers of nonzeros.
+- HYB (Hybrid, CUDA): Combines ELL for regular rows and COO for irregular cases. Used in GPU-accelerated sparse libraries.
+
+##### Performance and Complexity.
+
+- Dictionaries/maps: O(1) average access, but higher overhead per entry.
+- COO: O(n) lookups, better for incremental construction.
+- CSR/CSC: excellent for batch operations, poor for insertions.
+- ELL/DIA: high throughput on SIMD/GPU hardware but inflexible.
+
+Sparse matrix-vector multiplication (SpMV) illustrates trade-offs. With CSR:
+
+```
+y[row] = Σ values[k] * x[col_indices[k]]  
+```
+
+where `row_ptr` guides which elements belong to each row. The cost is proportional to the number of nonzeros, but performance is limited by memory bandwidth and irregular access to `x`.
+
+##### Cache and alignment.
+Compressed formats improve locality for sequential access but introduce irregular memory access patterns when multiplying or searching. Strided iteration can align with cache lines, but pointer-heavy layouts fragment memory. Padding (in ELL) improves SIMD alignment but wastes space.
+
+##### Language and library implementations.
+
+- Python SciPy: `csr_matrix`, `csc_matrix`, `coo_matrix`, `dia_matrix`.
+- C++: Eigen and Armadillo expose CSR and CSC; Intel MKL provides highly optimized kernels.
+- CUDA/cuSPARSE: Hybrid ELL + COO kernels tuned for GPUs.
+
+##### System-level use cases.
+
+- Large-scale PDE solvers and finite element methods.
+- Graph algorithms (PageRank, shortest paths) using sparse adjacency matrices.
+- Inverted indices in search engines (postings lists).
+- Feature vectors in machine learning (bag-of-words, recommender systems).
+
+##### Pitfalls.
+
+- Insertion is expensive in compressed formats (requires shifting or rebuilding).
+- Converting between formats (e.g., COO ↔ CSR) can dominate runtime if done repeatedly.
+- A poor choice of format (e.g., using ELL for irregular sparsity) can waste memory or block vectorization.
+
+##### Optimization and profiling.
+
+- Benchmark SpMV across formats and measure achieved bandwidth.
+- Profile cache misses and TLB behavior in irregular workloads.
+- On GPUs, measure coalesced vs scattered memory access to judge format suitability.
+
+##### Worked Example (Python with SciPy)
+
+```python
+import numpy as np
+from scipy.sparse import csr_matrix
+
+# Dense 5x5 with many zeros
+dense = np.array([
+    [1, 0, 0, 0, 2],
+    [0, 0, 3, 0, 0],
+    [4, 0, 0, 5, 0],
+    [0, 6, 0, 0, 0],
+    [0, 0, 0, 7, 8]
+])
+
+# Convert to CSR
+sparse = csr_matrix(dense)
+
+print("CSR data array:", sparse.data)
+print("CSR indices:", sparse.indices)
+print("CSR indptr:", sparse.indptr)
+
+# Sparse matrix-vector multiplication
+x = np.array([1, 2, 3, 4, 5])
+y = sparse @ x
+print("Result of SpMV:", y)
+```
+
+This example shows how a dense matrix with many zeros can be stored efficiently in CSR. Only nonzeros are stored, and SpMV avoids unnecessary multiplications.
+
+#### Why it matters
+
+Sparse array formats are the backbone of scientific computing, machine learning, and search engines. Choosing the right format determines whether a computation runs in seconds or hours. At scale, cache efficiency, memory bandwidth, and vectorization potential matter as much as algorithmic complexity. Sparse arrays teach the critical lesson that representation is performance.
+
+#### Exercises
+
+1. Implement COO and CSR representations of the same sparse matrix and compare memory usage.
+2. Write a small CSR-based SpMV routine and measure its speed against a dense implementation.
+3. Explain why ELL format is efficient on GPUs but wasteful on highly irregular graphs.
+4. In SciPy, convert a `csr_matrix` to `csc_matrix` and back. Measure the cost for large matrices.
+5. Given a graph with 1M nodes and 10M edges, explain why adjacency lists and CSR are more practical than dense matrices.
+
+## 2.6 Prefix Sums & Scans 
+### 2.6 L0 — Running Totals
+
+A prefix sum, also called a scan, is a way of turning a sequence into running totals. Instead of just producing one final sum, we produce an array where each position shows the sum of all earlier elements. It is like keeping a receipt tape at the checkout: each item is added in order, and you see the growing total after each step.
+
+#### Deep Dive
+
+Prefix sums are simple but powerful. Given an array `[a0, a1, a2, …, an-1]`, the prefix sum array `[p0, p1, p2, …, pn-1]` is defined as:
+
+- Inclusive scan:
+
+  ```
+  pi = a0 + a1 + … + ai
+  ```
+
+- Exclusive scan:
+
+  ```
+  pi = a0 + a1 + … + ai-1
+  ```
+
+  (with p0 = 0 by convention).
+
+Example with array `[1, 2, 3, 4]`:
+
+| Index | Original | Inclusive | Exclusive |
+| ----- | -------- | --------- | --------- |
+| 0     | 1        | 1         | 0         |
+| 1     | 2        | 3         | 1         |
+| 2     | 3        | 6         | 3         |
+| 3     | 4        | 10        | 6         |
+
+Prefix sums are built in a single pass, left to right. This is O(n) in time, requiring an extra array of length n to store results.
+
+Once constructed, prefix sums allow fast range queries. For any subarray between indices `i` and `j`, the sum is:
+
+```
+sum(i..j) = prefix[j] - prefix[i-1]
+```
+
+This reduces what would be O(n) work into O(1) time per query.
+
+Prefix sums also generalize beyond addition: they can be built with multiplication, min, max, or any associative operation.
+
+#### Worked Example
+
+```python
+arr = [1, 2, 3, 4, 5]
+
+# Inclusive prefix sum
+inclusive = []
+running = 0
+for x in arr:
+    running += x
+    inclusive.append(running)
+print("Inclusive scan:", inclusive)
+
+# Exclusive prefix sum
+exclusive = [0]
+running = 0
+for x in arr[:-1]:
+    running += x
+    exclusive.append(running)
+print("Exclusive scan:", exclusive)
+
+# Range query using prefix sums
+i, j = 1, 3  # sum from index 1 to 3 (2+3+4)
+range_sum = inclusive[j] - (inclusive[i-1] if i > 0 else 0)
+print("Range sum (1..3):", range_sum)
+```
+
+This program shows inclusive and exclusive scans, and how to use them to answer range queries quickly.
+
+#### Why it matters
+
+Prefix sums transform repeated work into reusable results. They make range queries efficient, reduce algorithmic complexity, and appear in countless applications: histograms, text processing, probability distributions, and parallel computing. They also introduce the idea of trading extra storage for faster queries, a common algorithmic technique.
+
+#### Exercises
+
+1. Compute the prefix sum of `[1, 2, 3, 4, 5]` by hand.
+2. Show the difference between inclusive and exclusive prefix sums for `[5, 10, 15]`.
+3. Use a prefix sum to find the sum of elements from index 2 to 4 in `[3, 6, 9, 12, 15]`.
+4. Given a prefix sum array `[2, 5, 9, 14]`, reconstruct the original array.
+5. Explain why prefix sums are more efficient than computing each subarray sum from scratch when handling many queries.
+
+### 2.6 L1 — Prefix Sums in Practice
+
+Prefix sums are a versatile tool for speeding up algorithms that involve repeated range queries. Instead of recalculating sums over and over, we preprocess the array once to create cumulative totals. This preprocessing costs O(n), but it allows each query to be answered in O(1).
+
+#### Deep Dive
+
+A prefix sum array is built by scanning the original array from left to right:
+
+```
+prefix[i] = prefix[i-1] + arr[i]
+```
+
+This produces the inclusive scan. The exclusive scan shifts everything rightward, leaving prefix\[0] = 0 and excluding the current element.
+
+The choice between inclusive and exclusive depends on application:
+
+- Inclusive is easier for direct cumulative totals.
+- Exclusive is more natural when answering range queries.
+
+Once built, prefix sums enable efficient operations:
+
+- Range queries: `sum(i..j) = prefix[j] - prefix[i-1]`.
+- Reconstruction: the original array can be recovered with `arr[i] = prefix[i] - prefix[i-1]`.
+- Generalization: the same idea works for multiplication (cumulative product), logical OR/AND, or even min/max. The key requirement is that the operation is associative.
+
+##### Trade-offs:
+
+- Building prefix sums requires O(n) extra memory.
+- If only a few queries are needed, recomputing directly may be simpler.
+- For many queries, the preprocessing overhead is worthwhile.
+
+##### Use cases:
+
+- Fast range-sum queries in databases or competitive programming.
+- Cumulative frequencies in histograms.
+- Substring analysis in text algorithms (e.g., number of vowels in a range).
+- Probability and statistics: cumulative distribution functions.
+
+##### Language implementations:
+
+- Python: `itertools.accumulate`, `numpy.cumsum`.
+- C++: `std::partial_sum` from `<numeric>`.
+- Java: custom loop, or stream reductions.
+
+##### Pitfalls:
+
+- Confusing inclusive vs exclusive scans often leads to off-by-one errors.
+- For large datasets, cumulative sums may overflow fixed-width integers.
+
+#### Worked Example
+
+```python
+import itertools
+import numpy as np
+
+arr = [2, 4, 6, 8, 10]
+
+# Inclusive prefix sum using Python loop
+inclusive = []
+running = 0
+for x in arr:
+    running += x
+    inclusive.append(running)
+print("Inclusive prefix sum:", inclusive)
+
+# Exclusive prefix sum
+exclusive = [0]
+running = 0
+for x in arr[:-1]:
+    running += x
+    exclusive.append(running)
+print("Exclusive prefix sum:", exclusive)
+
+# NumPy cumsum (inclusive)
+np_inclusive = np.cumsum(arr)
+print("NumPy inclusive scan:", np_inclusive)
+
+# Range query using prefix sums
+i, j = 1, 3  # indices 1..3 → 4+6+8
+range_sum = inclusive[j] - (inclusive[i-1] if i > 0 else 0)
+print("Range sum (1..3):", range_sum)
+
+# Recover original array from prefix sums
+reconstructed = [inclusive[0]] + [inclusive[i] - inclusive[i-1] for i in range(1, len(inclusive))]
+print("Reconstructed array:", reconstructed)
+```
+
+This example demonstrates building prefix sums by hand, using built-in libraries, answering queries, and reconstructing the original array.
+
+#### Why it matters
+
+Prefix sums reduce repeated work into reusable results. They transform O(n) queries into O(1), making algorithms faster and more scalable. They are a foundational idea in algorithm design, connecting to histograms, distributions, and dynamic programming.
+
+#### Exercises
+
+1. Build both inclusive and exclusive prefix sums for `[5, 10, 15, 20]`.
+2. Use prefix sums to compute the sum of elements from index 2 to 4 in `[1, 3, 5, 7, 9]`.
+3. Given a prefix sum array `[3, 8, 15, 24]`, reconstruct the original array.
+4. Write a procedure that computes cumulative products (scan with multiplication).
+5. Explain why prefix sums are more useful when answering hundreds of queries instead of just one.
+
+### 2.6 L2 — Prefix Sums and Parallel Scans
+
+Prefix sums seem simple, but at scale they become a central systems primitive. They serve as the backbone of parallel algorithms, GPU kernels, and high-performance libraries. At this level, the focus shifts from "what is a prefix sum" to "how can we compute it efficiently across thousands of cores, with minimal synchronization and maximal throughput?"
+
+#### Deep Dive
+
+Sequential algorithm.
+The simple prefix sum is O(n):
+
+```
+prefix[0] = arr[0]
+for i in 1..n-1:
+    prefix[i] = prefix[i-1] + arr[i]
+```
+
+Efficient for single-threaded contexts, but inherently sequential because each value depends on the one before it.
+
+Parallel algorithms.
+Two key approaches dominate:
+
+- Hillis–Steele scan (1986):
+
+  * Iterative doubling method.
+  * At step k, each thread adds the value from 2^k positions behind.
+  * O(n log n) work, O(log n) depth. Simple but not work-efficient.
+
+- Blelloch scan (1990):
+
+  * Work-efficient, O(n) total operations, O(log n) depth.
+  * Two phases:
+
+    * Up-sweep (reduce): build a tree of partial sums.
+    * Down-sweep: propagate sums back down to compute prefix results.
+  * Widely used in GPU libraries.
+
+##### Hardware performance.
+
+- Cache-aware scans: memory locality matters for large arrays. Blocking and tiling reduce cache misses.
+- SIMD vectorization: multiple prefix elements are computed in parallel inside CPU vector registers.
+- GPUs: scans are implemented at warp and block levels, with CUDA providing primitives like `thrust::inclusive_scan`. Warp shuffles (`__shfl_up_sync`) allow efficient intra-warp scans without shared memory.
+
+##### Memory and synchronization.
+
+- In-place scans reduce memory use but complicate parallelization.
+- Exclusive vs inclusive variants require careful handling of initial values.
+- Synchronization overhead and false sharing are common risks in multithreaded CPU scans.
+- Distributed scans (MPI) require combining partial results from each node, then adjusting local scans with offsets.
+
+##### Libraries and implementations.
+
+- C++ TBB: `parallel_scan` supports both exclusive and inclusive.
+- CUDA Thrust: `inclusive_scan`, `exclusive_scan` for GPU workloads.
+- OpenMP: provides `#pragma omp parallel for reduction` but true scans require more explicit handling.
+- MPI: `MPI_Scan` and `MPI_Exscan` provide distributed prefix sums.
+
+##### System-level use cases.
+
+- Parallel histogramming: count frequencies in parallel, prefix sums to compute cumulative counts.
+- Radix sort: scans partition data into buckets efficiently.
+- Stream compaction: filter elements while maintaining order.
+- GPU memory allocation: prefix sums assign disjoint output positions to threads.
+- Database indexing: scans help build offsets for columnar data storage.
+
+##### Pitfalls.
+
+- Race conditions when threads update overlapping memory.
+- Load imbalance in irregular workloads (e.g., skewed distributions).
+- Wrong handling of inclusive vs exclusive leads to subtle bugs in partitioning algorithms.
+
+##### Profiling and optimization.
+
+- Benchmark sequential vs parallel scan on arrays of size 10^6 or 10^9.
+- Compare scalability with 2, 4, 8, … cores.
+- Measure GPU kernel efficiency at warp, block, and grid levels.
+
+#### Worked Example (CUDA Thrust)
+
+```cpp
+#include <thrust/device_vector.h>
+#include <thrust/scan.h>
+#include <iostream>
+
+int main() {
+    thrust::device_vector<int> data{1, 2, 3, 4, 5};
+
+    // Inclusive scan
+    thrust::inclusive_scan(data.begin(), data.end(), data.begin());
+    std::cout << "Inclusive scan: ";
+    for (int x : data) std::cout << x << " ";
+    std::cout << std::endl;
+
+    // Exclusive scan
+    thrust::device_vector<int> data2{1, 2, 3, 4, 5};
+    thrust::exclusive_scan(data2.begin(), data2.end(), data2.begin(), 0);
+    std::cout << "Exclusive scan: ";
+    for (int x : data2) std::cout << x << " ";
+    std::cout << std::endl;
+}
+```
+
+This program offloads prefix sum computation to the GPU. With thousands of threads, even huge arrays can be scanned in milliseconds.
+
+#### Why it matters
+
+Prefix sums are a textbook example of how a simple algorithm scales into a building block of parallel computing. They are used in compilers, graphics, search engines, and machine learning systems. They show how rethinking algorithms for hardware (CPU caches, SIMD, GPUs, distributed clusters) leads to new designs.
+
+#### Exercises
+
+1. Implement the Hillis–Steele scan for an array of length 16 and show each step.
+2. Implement the Blelloch scan in pseudocode and explain how the up-sweep and down-sweep phases work.
+3. Benchmark a sequential prefix sum vs an OpenMP parallel scan on 10^7 elements.
+4. In CUDA, implement an exclusive scan at the warp level using shuffle instructions.
+5. Explain how prefix sums are used in stream compaction (removing zeros from an array while preserving order).
+
+
+## Deep Dive
+
+#### 2.1 Static Arrays
+
+- Memory alignment and padding in C and assembly.
+- Array indexing formulas compiled into machine code.
+- Page tables and kernel use of fixed-size arrays (`task_struct`, `inode`).
+- Vectorization of loops over static arrays (SSE/AVX).
+- Bounds checking elimination in high-level languages.
+
+#### 2.2 Dynamic Arrays
+
+- Growth factor experiments: doubling vs 1.5× vs incremental.
+- Profiling Python's list growth strategy (measure capacity jumps).
+- Amortized vs worst-case complexity: proofs with actual benchmarks.
+- Reallocation latency spikes in low-latency systems.
+- Comparing `std::vector::reserve` vs default growth.
+- Memory fragmentation in long-running programs.
+
+#### 2.3 Slices & Views
+
+- Slice metadata structure in Go (`ptr, len, cap`).
+- Rust borrow checker rules for `&[T]` vs `&mut [T]`.
+- NumPy stride tricks: transpose as a view, not a copy.
+- Performance gap: traversing contiguous vs strided slices.
+- Cache/TLB impact of strided access (e.g., step=16).
+- False sharing when two threads use overlapping slices.
+
+#### 2.4 Multidimensional Arrays
+
+- Row-major vs column-major benchmarks: traverse order timing.
+- Linear index formulas for N-dimensional arrays.
+- Loop tiling/blocking for matrix multiplication.
+- Structure of Arrays (SoA) vs Array of Structures (AoS).
+- False sharing and padding in multi-threaded traversal.
+- BLAS/LAPACK optimizations and cache-aware kernels.
+- GPU coalesced memory access in 2D/3D arrays.
+
+#### 2.5 Sparse Arrays & Compressed Layouts
+
+- COO, CSR, CSC: hands-on with memory footprint and iteration cost.
+- Comparing dictionary-based vs CSR-based sparse vectors.
+- Parallel SpMV benchmarks on CPU vs GPU.
+- DIA and ELL formats: why they shine in structured sparsity.
+- Hybrid GPU formats (HYB: ELL + COO).
+- Search engine inverted indices as sparse structures.
+- Sparse arrays in ML: bag-of-words and embeddings.
+
+#### 2.6 Prefix Sums & Scans
+
+- Inclusive vs exclusive scans: correctness pitfalls.
+- Hillis–Steele vs Blelloch scans: step count vs work efficiency.
+- Cache-friendly prefix sums on CPUs (blocked scans).
+- SIMD prefix sum using AVX intrinsics.
+- CUDA warp shuffle scans (`__shfl_up_sync`).
+- MPI distributed scans across clusters.
+- Stream compaction via prefix sums (remove zeros in O(n)).
+- Radix sort built from parallel scans.
+
+## LAB 
+
+#### 2.1 Static Arrays
+
+- LAB 1: Implement fixed-size arrays in C and Python, compare access/update speeds.
+- LAB 2: Explore how static arrays are used in Linux kernel (`task_struct`, page tables).
+- LAB 3: Disassemble a simple loop over a static array and inspect the generated assembly.
+- LAB 4: Benchmark cache effects: sequential vs random access in a large static array.
+
+#### 2.2 Dynamic Arrays
+
+- LAB 1: Implement your own dynamic array in C (with doubling strategy).
+- LAB 2: Benchmark Python's `list` growth by tracking capacity changes while appending.
+- LAB 3: Compare growth factors: doubling vs 1.5× vs fixed increments.
+- LAB 4: Stress test reallocation cost by appending millions of elements, measure latency spikes.
+- LAB 5: Use `std::vector::reserve` in C++ and compare performance vs default growth.
+
+#### 2.3 Slices & Views
+
+- LAB 1: In Go, experiment with slice creation, capacity, and append — observe when new arrays are allocated.
+- LAB 2: In Rust, create overlapping slices and see how the borrow checker enforces safety.
+- LAB 3: In Python, compare slicing a list vs slicing a NumPy array — demonstrate copy vs view behavior.
+- LAB 4: Benchmark stride slicing in NumPy (`arr[::16]`) and explain performance drop.
+- LAB 5: Demonstrate aliasing bugs when two slices share the same underlying array.
+
+#### 2.4 Multidimensional Arrays
+
+- LAB 1: Write code to traverse a 1000×1000 array row by row vs column by column, measure performance.
+- LAB 2: Implement your own 2D array in C using both contiguous memory and array-of-pointers, compare speed.
+- LAB 3: Use NumPy to confirm row-major order with `.strides`, then create a column-major array and compare.
+- LAB 4: Implement a tiled matrix multiplication in C/NumPy and measure cache improvement.
+- LAB 5: Experiment with SoA vs AoS layouts for a struct of 3 floats (x,y,z). Measure iteration performance.
+
+#### 2.5 Sparse Arrays & Compressed Layouts
+
+- LAB 1: Implement sparse arrays with Python dict vs dense lists, compare memory usage.
+- LAB 2: Build COO and CSR representations for the same matrix, print memory layout.
+- LAB 3: Benchmark dense vs CSR matrix-vector multiplication.
+- LAB 4: Use SciPy's `csr_matrix` and `csc_matrix`, run queries, compare performance.
+- LAB 5: Implement a simple search engine inverted index as a sparse array of word→docID list.
+
+#### 2.6 Prefix Sums & Scans
+
+- LAB 1: Write inclusive and exclusive prefix sums in Python.
+- LAB 2: Benchmark prefix sums for answering 1000 range queries vs naive summation.
+- LAB 3: Implement Blelloch scan in C/NumPy and visualize the up-sweep/down-sweep steps.
+- LAB 4: Implement prefix sums on GPU (CUDA/Thrust), compare speed to CPU.
+- LAB 5: Use prefix sums for stream compaction: remove zeros from an array while preserving order.
+

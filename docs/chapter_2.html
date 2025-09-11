@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +65,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./chapter_3.html" rel="next">
 <link href="./chapter_1.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -125,24 +159,52 @@ ul.task-list li input[type="checkbox"] {
   <a href="./chapter_2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 2. Arrays</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapter_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 3. Strings</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapter_4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 4. Linked Lists</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapter_5.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5. Stacks and Queues</span></a>
-  </div>
-</li>
     </ul>
     </div>
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#static-arrays" id="toc-static-arrays" class="nav-link active" data-scroll-target="#static-arrays">2.1 Static Arrays</a>
+  <ul class="collapse">
+  <li><a href="#l0-arrays-that-grow" id="toc-l0-arrays-that-grow" class="nav-link" data-scroll-target="#l0-arrays-that-grow">2.2 L0 — Arrays That Grow</a></li>
+  <li><a href="#l1-static-arrays-in-practice" id="toc-l1-static-arrays-in-practice" class="nav-link" data-scroll-target="#l1-static-arrays-in-practice">2.1 L1 — Static Arrays in Practice</a></li>
+  <li><a href="#l2-static-arrays-and-the-system-beneath" id="toc-l2-static-arrays-and-the-system-beneath" class="nav-link" data-scroll-target="#l2-static-arrays-and-the-system-beneath">2.1 L2 — Static Arrays and the System Beneath</a></li>
+  </ul></li>
+  <li><a href="#dynamic-arrays" id="toc-dynamic-arrays" class="nav-link" data-scroll-target="#dynamic-arrays">2.2 Dynamic Arrays</a>
+  <ul class="collapse">
+  <li><a href="#l0-arrays-that-grow-1" id="toc-l0-arrays-that-grow-1" class="nav-link" data-scroll-target="#l0-arrays-that-grow-1">2.2 L0 — Arrays That Grow</a></li>
+  <li><a href="#l1-dynamic-arrays-in-practice" id="toc-l1-dynamic-arrays-in-practice" class="nav-link" data-scroll-target="#l1-dynamic-arrays-in-practice">2.2 L1 — Dynamic Arrays in Practice</a></li>
+  <li><a href="#l2-dynamic-arrays-under-the-hood" id="toc-l2-dynamic-arrays-under-the-hood" class="nav-link" data-scroll-target="#l2-dynamic-arrays-under-the-hood">2.2 L2 — Dynamic Arrays Under the Hood</a></li>
+  </ul></li>
+  <li><a href="#slices-views" id="toc-slices-views" class="nav-link" data-scroll-target="#slices-views">2.3 Slices &amp; Views</a>
+  <ul class="collapse">
+  <li><a href="#l0-looking-through-a-window" id="toc-l0-looking-through-a-window" class="nav-link" data-scroll-target="#l0-looking-through-a-window">2.3 L0 — Looking Through a Window</a></li>
+  <li><a href="#l1-slices-in-practice" id="toc-l1-slices-in-practice" class="nav-link" data-scroll-target="#l1-slices-in-practice">2.3 L1 — Slices in Practice</a></li>
+  <li><a href="#l2-slices-and-views-in-systems" id="toc-l2-slices-and-views-in-systems" class="nav-link" data-scroll-target="#l2-slices-and-views-in-systems">2.3 L2 — Slices and Views in Systems</a></li>
+  </ul></li>
+  <li><a href="#multidimensional-arrays" id="toc-multidimensional-arrays" class="nav-link" data-scroll-target="#multidimensional-arrays">2.4 Multidimensional Arrays</a>
+  <ul class="collapse">
+  <li><a href="#l0-tables-and-grids" id="toc-l0-tables-and-grids" class="nav-link" data-scroll-target="#l0-tables-and-grids">2.4 L0 — Tables and Grids</a></li>
+  <li><a href="#l1-multidimensional-arrays-in-practice" id="toc-l1-multidimensional-arrays-in-practice" class="nav-link" data-scroll-target="#l1-multidimensional-arrays-in-practice">2.4 L1 — Multidimensional Arrays in Practice</a></li>
+  <li><a href="#l2-multidimensional-arrays-and-system-realities" id="toc-l2-multidimensional-arrays-and-system-realities" class="nav-link" data-scroll-target="#l2-multidimensional-arrays-and-system-realities">2.4 L2 — Multidimensional Arrays and System Realities</a></li>
+  </ul></li>
+  <li><a href="#sparse-arrays" id="toc-sparse-arrays" class="nav-link" data-scroll-target="#sparse-arrays">2.5 Sparse Arrays</a>
+  <ul class="collapse">
+  <li><a href="#l0-sparse-arrays-as-empty-parking-lots" id="toc-l0-sparse-arrays-as-empty-parking-lots" class="nav-link" data-scroll-target="#l0-sparse-arrays-as-empty-parking-lots">2.5 L0 — Sparse Arrays as Empty Parking Lots</a></li>
+  <li><a href="#l1-sparse-arrays-in-practice" id="toc-l1-sparse-arrays-in-practice" class="nav-link" data-scroll-target="#l1-sparse-arrays-in-practice">2.5 L1 — Sparse Arrays in Practice</a></li>
+  <li><a href="#l2-sparse-arrays-and-compressed-layouts-in-systems" id="toc-l2-sparse-arrays-and-compressed-layouts-in-systems" class="nav-link" data-scroll-target="#l2-sparse-arrays-and-compressed-layouts-in-systems">2.5 L2 — Sparse Arrays and Compressed Layouts in Systems</a></li>
+  </ul></li>
+  <li><a href="#prefix-sums-scans" id="toc-prefix-sums-scans" class="nav-link" data-scroll-target="#prefix-sums-scans">2.6 Prefix Sums &amp; Scans</a>
+  <ul class="collapse">
+  <li><a href="#l0-running-totals" id="toc-l0-running-totals" class="nav-link" data-scroll-target="#l0-running-totals">2.6 L0 — Running Totals</a></li>
+  <li><a href="#l1-prefix-sums-in-practice" id="toc-l1-prefix-sums-in-practice" class="nav-link" data-scroll-target="#l1-prefix-sums-in-practice">2.6 L1 — Prefix Sums in Practice</a></li>
+  <li><a href="#l2-prefix-sums-and-parallel-scans" id="toc-l2-prefix-sums-and-parallel-scans" class="nav-link" data-scroll-target="#l2-prefix-sums-and-parallel-scans">2.6 L2 — Prefix Sums and Parallel Scans</a></li>
+  </ul></li>
+  <li><a href="#deep-dive-18" id="toc-deep-dive-18" class="nav-link" data-scroll-target="#deep-dive-18">Deep Dive</a></li>
+  <li><a href="#lab" id="toc-lab" class="nav-link" data-scroll-target="#lab">LAB</a></li>
+  </ul>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -170,8 +232,1933 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="static-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="static-arrays">2.1 Static Arrays</h2>
+<section id="l0-arrays-that-grow" class="level3">
+<h3 class="anchored" data-anchor-id="l0-arrays-that-grow">2.2 L0 — Arrays That Grow</h3>
+<p>A dynamic array is like a container that can expand and shrink as needed. Unlike static arrays, which must know their size in advance, a dynamic array adapts as elements are added or removed. You can think of it as a bookshelf where new shelves appear automatically when space runs out. The underlying idea is simple: keep the benefits of fast index-based access, while adding flexibility to change the size.</p>
+<section id="deep-dive" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive">Deep Dive</h4>
+<p>A dynamic array begins with a fixed amount of space called its capacity. When the number of elements (the length) exceeds this capacity, the array grows. This is usually done by allocating a new, larger block of memory and copying the old elements into it. After this, new elements can be added until the new capacity is filled, at which point the process repeats.</p>
+<p>Despite this resizing process, the key properties remain:</p>
+<ul>
+<li>Fast access and update: Elements can still be reached instantly using an index.</li>
+<li>Append flexibility: New elements can be added at the end without worrying about fixed size.</li>
+<li>Occasional resizing cost: Most appends are quick, but when resizing happens, it takes longer because all elements must be copied.</li>
+</ul>
+<p>The performance picture is intuitive:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 32%">
+<col style="width: 49%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Time Complexity (Typical)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Access element</td>
+<td>O(1)</td>
+<td>Index maps directly to position</td>
+</tr>
+<tr class="even">
+<td>Update element</td>
+<td>O(1)</td>
+<td>Replace value in place</td>
+</tr>
+<tr class="odd">
+<td>Append element</td>
+<td>O(1) amortized</td>
+<td>Occasionally O(n) when resizing occurs</td>
+</tr>
+<tr class="even">
+<td>Pop element</td>
+<td>O(1)</td>
+<td>Remove from end</td>
+</tr>
+<tr class="odd">
+<td>Insert/Delete</td>
+<td>O(n)</td>
+<td>Elements must be shifted</td>
+</tr>
+</tbody>
+</table>
+<p>Dynamic arrays therefore trade predictability for flexibility. The occasional slow operation is outweighed by the ability to grow and shrink on demand, which makes them useful for most real-world tasks where the number of elements is not known in advance.</p>
+</section>
+<section id="worked-example" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dynamic array using Python's built-in list</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> []</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Append elements (array grows automatically)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    arr.append((i <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">10</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Array after appending:"</span>, arr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Access and update elements</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Element at index 2:"</span>, arr[<span class="dv">2</span>])</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>arr[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Updated array:"</span>, arr)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove last element</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>last <span class="op">=</span> arr.pop()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Removed element:"</span>, last)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Array after pop:"</span>, arr)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Traverse array</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(arr)):</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Index </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>arr[i]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This short program shows how a dynamic array in Python resizes automatically with <code>append</code> and shrinks with <code>pop</code>. Access and updates remain instant, while resizing happens invisibly when more space is needed.</p>
+</section>
+<section id="why-it-matters" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters">Why it matters</h4>
+<p>Dynamic arrays combine efficiency and flexibility. They allow programs to handle unknown or changing amounts of data without predefining sizes. They form the backbone of lists in high-level languages, balancing performance with usability. They also illustrate the idea of amortized cost: most operations are fast, but occasional expensive operations are averaged out over time.</p>
+</section>
+<section id="exercises" class="level4">
+<h4 class="anchored" data-anchor-id="exercises">Exercises</h4>
+<ol type="1">
+<li>Create an array and append numbers 1 through 10. Print the final array.</li>
+<li>Replace the 3rd element with a new value.</li>
+<li>Remove the last two elements and print the result.</li>
+<li>Write a procedure that traverses a dynamic array and computes the average of its elements.</li>
+<li>Explain why appending one element might sometimes be much slower than appending another, even though both look the same in code.</li>
+</ol>
+</section>
+</section>
+<section id="l1-static-arrays-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="l1-static-arrays-in-practice">2.1 L1 — Static Arrays in Practice</h3>
+<p>Static arrays are one of the simplest and most reliable ways of storing data. They are defined as collections of elements laid out in a fixed-size, contiguous block of memory. Unlike dynamic arrays, their size is determined at creation and cannot be changed later. This property makes them predictable, efficient, and easy to reason about, but also less flexible when dealing with varying amounts of data.</p>
+<section id="deep-dive-1" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-1">Deep Dive</h4>
+<p>At the heart of static arrays is their memory layout. When an array is created, the program reserves a continuous region of memory large enough to hold all its elements. Each element is stored right next to the previous one. This design allows very fast access because the position of any element can be computed directly:</p>
+<pre><code>address_of(arr[i]) = base_address + (i × element_size)</code></pre>
+<p>No searching or scanning is required, only simple arithmetic. This is why reading or writing to an element at a given index is considered O(1) — constant time regardless of the array size.</p>
+<p>The trade-offs emerge when considering insertion or deletion. Because elements are tightly packed, inserting a new element in the middle requires shifting all the subsequent elements by one position. Deleting works the same way in reverse. These operations are therefore O(n), linear in the size of the array.</p>
+<p>The cost summary is straightforward:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Time Complexity</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Access element</td>
+<td>O(1)</td>
+<td>Direct index calculation</td>
+</tr>
+<tr class="even">
+<td>Update element</td>
+<td>O(1)</td>
+<td>Replace in place</td>
+</tr>
+<tr class="odd">
+<td>Traverse</td>
+<td>O(n)</td>
+<td>Visit each element once</td>
+</tr>
+<tr class="even">
+<td>Insert/Delete</td>
+<td>O(n)</td>
+<td>Shifting elements required</td>
+</tr>
+</tbody>
+</table>
+<section id="trade-offs." class="level5">
+<h5 class="anchored" data-anchor-id="trade-offs.">Trade-offs.</h5>
+<p>Static arrays excel when you know the size in advance. They guarantee fast access and compact memory usage because there is no overhead for resizing or metadata. However, they lack flexibility. If the array is too small, you must allocate a larger one and copy all elements over. If it is too large, memory is wasted. This is why languages like Python provide dynamic lists by default, while static arrays are used in performance-critical or resource-constrained contexts.</p>
+</section>
+<section id="use-cases." class="level5">
+<h5 class="anchored" data-anchor-id="use-cases.">Use cases.</h5>
+<ul>
+<li>Buffers: Fixed-size areas for network packets or hardware input.</li>
+<li>Lookup tables: Precomputed constants or small ranges of values (e.g., ASCII character tables).</li>
+<li>Static configuration data: Tables known at compile-time, where resizing is unnecessary.</li>
+</ul>
+</section>
+<section id="pitfalls." class="level5">
+<h5 class="anchored" data-anchor-id="pitfalls.">Pitfalls.</h5>
+<p>Programmers must be careful of two common issues:</p>
+<ol type="1">
+<li>Out-of-bounds errors: Trying to access an index outside the valid range, leading to exceptions (in safe languages) or undefined behavior (in low-level languages).</li>
+<li>Sizing problems: Underestimating leads to crashes, overestimating leads to wasted memory.</li>
+</ol>
+<p>Static arrays are common in many programming environments. In Python, the <code>array</code> module provides a fixed-type sequence that behaves more like a C-style array. Libraries like NumPy also provide fixed-shape arrays that offer efficient memory usage and fast computations. In C and C++, arrays are part of the language itself, and they form the foundation of higher-level containers like <code>std::vector</code>.</p>
+</section>
+</section>
+<section id="worked-example-1" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-1">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> array</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a static array of integers (type 'i' = signed int)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> array.array(<span class="st">'i'</span>, [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">5</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill the array with values</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(arr)):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    arr[i] <span class="op">=</span> (i <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">10</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Access and update elements</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Element at index 2:"</span>, arr[<span class="dv">2</span>])</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>arr[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Updated element at index 2:"</span>, arr[<span class="dv">2</span>])</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Traverse the array</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"All elements:"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(arr)):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Index </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>arr[i]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrating the limitation: trying to insert beyond capacity</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    arr.insert(<span class="dv">5</span>, <span class="dv">60</span>)  <span class="co"># This technically works in Python's array, but resizes internally</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Inserted new element:"</span>, arr)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Error inserting into static array:"</span>, e)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This code illustrates the strengths and weaknesses of static arrays. Access and updates are immediate, and traversal is simple. But the notion of a “fixed size” means that insertion and deletion are costly or, in some languages, unsupported.</p>
+</section>
+<section id="why-it-matters-1" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-1">Why it matters</h4>
+<p>Static arrays are the building blocks of data structures. They teach the trade-off between speed and flexibility. They remind us that memory is finite and that how data is laid out in memory directly impacts performance. Whether writing Python code, using NumPy, or implementing algorithms in C, understanding static arrays makes it easier to reason about cost, predict behavior, and avoid common errors.</p>
+</section>
+<section id="exercises-1" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-1">Exercises</h4>
+<ol type="1">
+<li>Create an array of size 8 and fill it with even numbers from 2 to 16. Then access the 4th element directly.</li>
+<li>Update the middle element of a fixed-size array with a new value.</li>
+<li>Write a procedure to traverse an array and find the maximum element.</li>
+<li>Explain why inserting a new value into the beginning of a static array requires shifting every other element.</li>
+<li>Give two examples of real-world systems where fixed-size arrays are a natural fit.</li>
+</ol>
+</section>
+</section>
+<section id="l2-static-arrays-and-the-system-beneath" class="level3">
+<h3 class="anchored" data-anchor-id="l2-static-arrays-and-the-system-beneath">2.1 L2 — Static Arrays and the System Beneath</h3>
+<p>Static arrays are more than just a collection of values; they are a direct window into how computers store and access data. At the advanced level, understanding static arrays means looking at memory models, cache behavior, compiler optimizations, and the role of arrays in operating systems and production libraries. This perspective is critical for building high-performance software and for avoiding subtle, system-level bugs.</p>
+<section id="deep-dive-2" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-2">Deep Dive</h4>
+<p>At the lowest level, a static array is a contiguous block of memory. When an array is declared, the compiler calculates the required size as <code>length × element_size</code> and reserves that many bytes. Each element is addressed by simple arithmetic:</p>
+<pre><code>address_of(arr[i]) = base_address + (i × element_size)</code></pre>
+<p>This is why access and updates are constant time. The difference between static arrays and dynamically allocated ones often comes down to where the memory lives. Arrays declared inside a function may live on the stack, offering fast allocation and automatic cleanup. Larger arrays or arrays whose size isn’t known at compile time are allocated on the heap, requiring runtime management via calls such as <code>malloc</code> and <code>free</code>.</p>
+<p>The cache hierarchy makes arrays especially efficient. Because elements are contiguous, accessing <code>arr[i]</code> loads not just one element but also its neighbors into a cache line (often 64 bytes). This property, known as spatial locality, means that scanning through an array is very fast. Prefetchers in modern CPUs exploit this by pulling in upcoming cache lines before they are needed. However, irregular access patterns (e.g., striding by 17) can defeat prefetching and lead to performance drops.</p>
+<p>Alignment and padding further influence performance. On most systems, integers must start at addresses divisible by 4, and doubles at addresses divisible by 8. If the compiler cannot guarantee alignment, it may add padding bytes to enforce it. Misaligned accesses can cause slowdowns or even hardware faults on strict architectures.</p>
+<p>Different programming languages expose these behaviors differently. In C, a declaration like <code>int arr[10];</code> on the stack creates exactly 40 bytes on a 32-bit system. In contrast, <code>malloc(10 * sizeof(int))</code> allocates memory on the heap. In C++, <code>std::array&lt;int, 10&gt;</code> is a safer wrapper around C arrays, while <code>std::vector&lt;int&gt;</code> adds resizing at the cost of indirection and metadata. In Fortran and NumPy, multidimensional arrays can be stored in column-major order rather than row-major, which changes how indices map to addresses and affects iteration performance.</p>
+<p>The operating system kernel makes heavy use of static arrays. For example, Linux defines fixed-size arrays in structures like <code>task_struct</code> for file descriptors, and uses arrays in page tables for managing memory mappings. Static arrays provide predictability and remove the need for runtime memory allocation in performance-critical or security-sensitive code.</p>
+<p>From a performance profiling standpoint, arrays reveal fundamental trade-offs. Shifting elements during insertion or deletion requires copying bytes across memory, and the cost grows linearly with the number of elements. Compilers attempt to optimize loops over arrays with vectorization, turning element-wise operations into SIMD instructions. They may also apply loop unrolling or bounds-check elimination (BCE) when it can be proven that indices remain safe.</p>
+<p>Static arrays also carry risks. In C and C++, accessing out-of-bounds memory leads to undefined behavior, often exploited in buffer overflow attacks. Languages like Java or Python mitigate this with runtime bounds checks, but at the expense of some performance.</p>
+<p>At this level, static arrays should be seen not only as a data structure but as a fundamental contract between code, compiler, and hardware.</p>
+<p>Worked Example (C)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Static array of 8 integers allocated on the stack</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> arr<span class="op">[</span><span class="dv">8</span><span class="op">];</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Initialize array</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">8</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        arr<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="op">(</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">*</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Access and update element</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Element at index 3: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> arr<span class="op">[</span><span class="dv">3</span><span class="op">]);</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    arr<span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span><span class="op">;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Updated element at index 3: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> arr<span class="op">[</span><span class="dv">3</span><span class="op">]);</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Traverse with cache-friendly pattern</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">8</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        sum <span class="op">+=</span> arr<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Sum of array: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> sum<span class="op">);</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Dangerous: Uncommenting would cause undefined behavior</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">// printf("%d\n", arr[10]);</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This C program demonstrates how static arrays live on the stack, how indexing works, and why out-of-bounds access is dangerous. On real hardware, iterating sequentially benefits from spatial locality, making the traversal very fast compared to random access.</p>
+</section>
+<section id="why-it-matters-2" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-2">Why it matters</h4>
+<p>Static arrays are the substrate upon which much of computing is built. They are simple in abstraction but complex in practice, touching compilers, operating systems, and hardware. Understanding them is essential for:</p>
+<ul>
+<li>Writing cache-friendly and high-performance code.</li>
+<li>Avoiding security vulnerabilities like buffer overflows.</li>
+<li>Appreciating why higher-level data structures behave the way they do.</li>
+<li>Building intuition for memory layout, alignment, and the interaction between code and the CPU.</li>
+</ul>
+<p>Arrays are not just “collections of values” — they are the foundation of efficient data processing.</p>
+</section>
+<section id="exercises-2" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-2">Exercises</h4>
+<ol type="1">
+<li>In C, declare a static array of size 16 and measure how long it takes to sum its elements sequentially versus accessing them in steps of 4. Explain the performance difference.</li>
+<li>Explain why iterating over a 2D array row by row is faster in C than column by column.</li>
+<li>Consider a struct with mixed types (e.g., <code>char</code>, <code>int</code>, <code>double</code>). Predict where padding bytes will be inserted if placed inside an array.</li>
+<li>Research and describe how the Linux kernel uses static arrays in managing processes or memory.</li>
+<li>Demonstrate with code how accessing beyond the end of a static array in C can cause undefined behavior, and explain why this is a serious risk in system programming.</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="dynamic-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="dynamic-arrays">2.2 Dynamic Arrays</h2>
+<section id="l0-arrays-that-grow-1" class="level3">
+<h3 class="anchored" data-anchor-id="l0-arrays-that-grow-1">2.2 L0 — Arrays That Grow</h3>
+<p>A dynamic array is like a container that can expand and shrink as needed. Unlike static arrays, which must know their size in advance, a dynamic array adapts as elements are added or removed. You can think of it as a bookshelf where new shelves appear automatically when space runs out. The underlying idea is simple: keep the benefits of fast index-based access, while adding flexibility to change the size.</p>
+<section id="deep-dive-3" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-3">Deep Dive</h4>
+<p>A dynamic array begins with a fixed amount of space called its capacity. When the number of elements (the length) exceeds this capacity, the array grows. This is usually done by allocating a new, larger block of memory and copying the old elements into it. After this, new elements can be added until the new capacity is filled, at which point the process repeats.</p>
+<p>Despite this resizing process, the key properties remain:</p>
+<ul>
+<li>Fast access and update: Elements can still be reached instantly using an index.</li>
+<li>Append flexibility: New elements can be added at the end without worrying about fixed size.</li>
+<li>Occasional resizing cost: Most appends are quick, but when resizing happens, it takes longer because all elements must be copied.</li>
+</ul>
+<p>The performance picture is intuitive:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 32%">
+<col style="width: 49%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Time Complexity (Typical)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Access element</td>
+<td>O(1)</td>
+<td>Index maps directly to position</td>
+</tr>
+<tr class="even">
+<td>Update element</td>
+<td>O(1)</td>
+<td>Replace value in place</td>
+</tr>
+<tr class="odd">
+<td>Append element</td>
+<td>O(1) amortized</td>
+<td>Occasionally O(n) when resizing occurs</td>
+</tr>
+<tr class="even">
+<td>Pop element</td>
+<td>O(1)</td>
+<td>Remove from end</td>
+</tr>
+<tr class="odd">
+<td>Insert/Delete</td>
+<td>O(n)</td>
+<td>Elements must be shifted</td>
+</tr>
+</tbody>
+</table>
+<p>Dynamic arrays therefore trade predictability for flexibility. The occasional slow operation is outweighed by the ability to grow and shrink on demand, which makes them useful for most real-world tasks where the number of elements is not known in advance.</p>
+</section>
+<section id="worked-example-2" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-2">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dynamic array using Python's built-in list</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> []</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Append elements (array grows automatically)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    arr.append((i <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">10</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Array after appending:"</span>, arr)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Access and update elements</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Element at index 2:"</span>, arr[<span class="dv">2</span>])</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>arr[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Updated array:"</span>, arr)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove last element</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>last <span class="op">=</span> arr.pop()</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Removed element:"</span>, last)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Array after pop:"</span>, arr)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Traverse array</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(arr)):</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Index </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>arr[i]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This short program shows how a dynamic array in Python resizes automatically with <code>append</code> and shrinks with <code>pop</code>. Access and updates remain instant, while resizing happens invisibly when more space is needed.</p>
+</section>
+<section id="why-it-matters-3" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-3">Why it matters</h4>
+<p>Dynamic arrays combine efficiency and flexibility. They allow programs to handle unknown or changing amounts of data without predefining sizes. They form the backbone of lists in high-level languages, balancing performance with usability. They also illustrate the idea of amortized cost: most operations are fast, but occasional expensive operations are averaged out over time.</p>
+</section>
+<section id="exercises-3" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-3">Exercises</h4>
+<ol type="1">
+<li>Create an array and append numbers 1 through 10. Print the final array.</li>
+<li>Replace the 3rd element with a new value.</li>
+<li>Remove the last two elements and print the result.</li>
+<li>Write a procedure that traverses a dynamic array and computes the average of its elements.</li>
+<li>Explain why appending one element might sometimes be much slower than appending another, even though both look the same in code.</li>
+</ol>
+</section>
+</section>
+<section id="l1-dynamic-arrays-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="l1-dynamic-arrays-in-practice">2.2 L1 — Dynamic Arrays in Practice</h3>
+<p>Dynamic arrays extend the idea of static arrays by making size flexible. They allow adding or removing elements without knowing the total number in advance. Under the hood, this flexibility is achieved through careful memory management: the array is stored in a contiguous block, but when more space is needed, a larger block is allocated, and all elements are copied over. This mechanism balances speed with adaptability and is the reason why dynamic arrays are the default sequence type in many languages.</p>
+<section id="deep-dive-4" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-4">Deep Dive</h4>
+<p>A dynamic array starts with a certain capacity, often larger than the initial number of elements. When the number of stored elements exceeds capacity, the array is resized. The common strategy is to double the capacity. For example, an array of capacity 4 that becomes full will reallocate to capacity 8. All existing elements are copied into the new block, and the old memory is freed.</p>
+<p>This strategy makes appending efficient on average. While an individual resize costs O(n) because of the copying, most appends are O(1). Across a long sequence of operations, the total cost averages out — this is called amortized analysis.</p>
+<p>Dynamic arrays retain the key advantages of static arrays:</p>
+<ul>
+<li>Contiguous storage means fast random access with <code>O(1)</code> time.</li>
+<li>Updates are also <code>O(1)</code> because they overwrite existing slots.</li>
+</ul>
+<p>The challenges appear with other operations:</p>
+<ul>
+<li>Insertions or deletions in the middle require shifting elements, making them O(n).</li>
+<li>Resizing events create temporary latency spikes, especially when arrays are large.</li>
+</ul>
+<p>A clear summary:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Time Complexity</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Access element</td>
+<td>O(1)</td>
+<td>Direct index calculation</td>
+</tr>
+<tr class="even">
+<td>Update element</td>
+<td>O(1)</td>
+<td>Replace value in place</td>
+</tr>
+<tr class="odd">
+<td>Append element</td>
+<td>O(1) amortized</td>
+<td>Occasional O(n) when resizing</td>
+</tr>
+<tr class="even">
+<td>Pop element</td>
+<td>O(1)</td>
+<td>Remove from end</td>
+</tr>
+<tr class="odd">
+<td>Insert/Delete</td>
+<td>O(n)</td>
+<td>Shifting elements required</td>
+</tr>
+</tbody>
+</table>
+<section id="trade-offs.-1" class="level5">
+<h5 class="anchored" data-anchor-id="trade-offs.-1">Trade-offs.</h5>
+<p>Dynamic arrays sacrifice predictability for convenience. Resizing causes performance spikes, but the doubling strategy keeps the average cost low. Over-allocation wastes some memory, but it reduces the frequency of resizes. The key is that this trade-off is usually favorable in practice.</p>
+</section>
+<section id="use-cases.-1" class="level5">
+<h5 class="anchored" data-anchor-id="use-cases.-1">Use cases.</h5>
+<p>Dynamic arrays are well-suited for:</p>
+<ul>
+<li>Lists whose size is not known in advance.</li>
+<li>Workloads dominated by appending and reading values.</li>
+<li>General-purpose data structures in high-level programming languages.</li>
+</ul>
+</section>
+<section id="language-implementations." class="level5">
+<h5 class="anchored" data-anchor-id="language-implementations.">Language implementations.</h5>
+<ul>
+<li>Python: <code>list</code> is a dynamic array, using an over-allocation strategy to reduce frequent resizes.</li>
+<li>C++: <code>std::vector</code> doubles its capacity when needed, invalidating pointers/references after reallocation.</li>
+<li>Java: <code>ArrayList</code> grows by about 1.5× when full, trading memory efficiency for fewer copies.</li>
+</ul>
+</section>
+<section id="pitfalls.-1" class="level5">
+<h5 class="anchored" data-anchor-id="pitfalls.-1">Pitfalls.</h5>
+<ul>
+<li>In languages with pointers or references, resizes can invalidate existing references.</li>
+<li>Large arrays may cause noticeable latency during reallocation.</li>
+<li>Middle insertions and deletions remain inefficient compared to linked structures.</li>
+</ul>
+</section>
+</section>
+<section id="worked-example-3" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-3">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrate dynamic array behavior using Python's list</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> []</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Append elements to trigger resizing internally</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">12</span>):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    arr.append(i)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Appended </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">, length = </span><span class="sc">{</span><span class="bu">len</span>(arr)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Access and update</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Element at index 5:"</span>, arr[<span class="dv">5</span>])</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>arr[<span class="dv">5</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Updated element at index 5:"</span>, arr[<span class="dv">5</span>])</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert in the middle (expensive operation)</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>arr.insert(<span class="dv">6</span>, <span class="dv">123</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Array after middle insert:"</span>, arr)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Pop elements</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>arr.pop()</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Array after pop:"</span>, arr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This example illustrates appending, updating, inserting, and popping. While Python hides the resizing, the cost is there: occasionally the list must allocate more space and copy its contents.</p>
+</section>
+<section id="why-it-matters-4" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-4">Why it matters</h4>
+<p>Dynamic arrays balance flexibility and performance. They demonstrate the principle of amortized complexity, showing how expensive operations can be smoothed out over time. They also highlight trade-offs between memory usage and speed. Understanding them explains why high-level lists perform well in everyday coding but also where they can fail under stress.</p>
+</section>
+<section id="exercises-4" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-4">Exercises</h4>
+<ol type="1">
+<li>Create a dynamic array and append the numbers 1 to 20. Measure how many times resizing would have occurred if the growth factor were 2.</li>
+<li>Insert an element into the middle of a large array and explain why this operation is slower than appending at the end.</li>
+<li>Write a procedure to remove all odd numbers from a dynamic array.</li>
+<li>Compare Python’s <code>list</code>, Java’s <code>ArrayList</code>, and C++’s <code>std::vector</code> in terms of growth strategy.</li>
+<li>Explain why references to elements of a <code>std::vector</code> may become invalid after resizing.</li>
+</ol>
+</section>
+</section>
+<section id="l2-dynamic-arrays-under-the-hood" class="level3">
+<h3 class="anchored" data-anchor-id="l2-dynamic-arrays-under-the-hood">2.2 L2 — Dynamic Arrays Under the Hood</h3>
+<p>Dynamic arrays reveal how high-level flexibility is built on top of low-level memory management. While they appear as resizable containers, underneath they are carefully engineered to balance performance, memory efficiency, and safety. Understanding their internals sheds light on allocators, cache behavior, and the risks of pointer invalidation.</p>
+<section id="deep-dive-5" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-5">Deep Dive</h4>
+<p>Dynamic arrays rely on heap allocation. When first created, they reserve a contiguous memory block with some capacity. As elements are appended and the array fills, the implementation must allocate a new, larger block, copy all existing elements, and free the old block.</p>
+<p>Most implementations use a geometric growth strategy, often doubling the capacity when space runs out. Some use a factor smaller than two, such as 1.5×, to reduce memory waste. The trade-off is between speed and efficiency:</p>
+<ul>
+<li>Larger growth factors reduce the number of costly reallocations.</li>
+<li>Smaller growth factors waste less memory but increase resize frequency.</li>
+</ul>
+<p>This leads to an amortized O(1) cost for append. Each resize is expensive, but they happen infrequently enough that the average cost remains constant across many operations.</p>
+<p>However, resizes have side effects:</p>
+<ul>
+<li>Pointer invalidation: In C++ <code>std::vector</code>, any reference, pointer, or iterator into the old memory becomes invalid after reallocation.</li>
+<li>Latency spikes: Copying thousands or millions of elements in one step can stall a program, especially in real-time or low-latency systems.</li>
+<li>Allocator fragmentation: Repeated growth and shrink cycles can fragment the heap, reducing performance in long-running systems.</li>
+</ul>
+<p>Cache efficiency is one of the strengths of dynamic arrays. Because elements are stored contiguously, traversals are cache-friendly, and prefetchers can load entire blocks into cache lines. But reallocations can disrupt locality temporarily, as the array may move to a new region of memory.</p>
+<p>Different languages implement dynamic arrays with variations:</p>
+<ul>
+<li>Python lists use over-allocation with a small growth factor (~12.5% to 25% extra). This minimizes wasted memory while keeping amortized costs stable.</li>
+<li>C++ <code>std::vector</code> typically doubles its capacity when needed. Developers can call <code>reserve()</code> to preallocate memory and avoid repeated reallocations.</li>
+<li>Java <code>ArrayList</code> grows by ~1.5×, balancing heap usage with resize frequency.</li>
+</ul>
+<p>Dynamic arrays also face risks:</p>
+<ul>
+<li>If resizing logic is incorrect, buffer overflows may occur.</li>
+<li>Attackers can exploit repeated growth/shrink cycles to cause denial-of-service via frequent allocations.</li>
+<li>Very large allocations can fail outright if memory is exhausted.</li>
+</ul>
+<p>From a profiling perspective, workloads matter. Append-heavy patterns perform extremely well due to amortization. Insert-heavy or middle-delete workloads perform poorly because of element shifting. Allocator-aware optimizations, like pre-reserving capacity, can dramatically improve performance.</p>
+</section>
+<section id="worked-example-c" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-c">Worked Example (C++)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> v<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    v<span class="op">.</span>reserve<span class="op">(</span><span class="dv">4</span><span class="op">);</span>  <span class="co">// reserve space for 4 elements to reduce reallocations</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">12</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        v<span class="op">.</span>push_back<span class="op">(</span>i <span class="op">*</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Appended "</span> <span class="op">&lt;&lt;</span> i<span class="op">*</span><span class="dv">10</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                  <span class="op">&lt;&lt;</span> <span class="st">", size = "</span> <span class="op">&lt;&lt;</span> v<span class="op">.</span>size<span class="op">()</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                  <span class="op">&lt;&lt;</span> <span class="st">", capacity = "</span> <span class="op">&lt;&lt;</span> v<span class="op">.</span>capacity<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Access and update</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Element at index 5: "</span> <span class="op">&lt;&lt;</span> v<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    v<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span><span class="op">;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Updated element at index 5: "</span> <span class="op">&lt;&lt;</span> v<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Demonstrate invalidation risk</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span><span class="op">*</span> ptr <span class="op">=</span> <span class="op">&amp;</span>v<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    v<span class="op">.</span>push_back<span class="op">(</span><span class="dv">12345</span><span class="op">);</span> <span class="co">// may reallocate and move data</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Old pointer may now be invalid: "</span> <span class="op">&lt;&lt;</span> <span class="op">*</span>ptr <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span> <span class="co">// UB if reallocated</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This program shows how <code>std::vector</code> manages capacity. The output reveals how capacity grows as more elements are appended. The pointer invalidation example highlights a subtle but critical risk: after a resize, old addresses into the array are no longer safe.</p>
+</section>
+<section id="why-it-matters-5" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-5">Why it matters</h4>
+<p>Dynamic arrays expose the tension between abstraction and reality. They appear simple, but internally they touch almost every layer of the system: heap allocators, caches, compiler optimizations, and safety checks. They are essential for understanding how high-level languages achieve both usability and performance, and they illustrate real-world engineering trade-offs between speed, memory, and safety.</p>
+</section>
+<section id="exercises-5" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-5">Exercises</h4>
+<ol type="1">
+<li>In C++, measure the capacity growth of a <code>std::vector&lt;int&gt;</code> as you append 1,000 elements. Plot size vs capacity.</li>
+<li>Explain why a program that repeatedly appends and deletes elements might fragment the heap over time.</li>
+<li>Compare the growth strategies of Python <code>list</code>, C++ <code>std::vector</code>, and Java <code>ArrayList</code>. Which wastes more memory? Which minimizes resize cost?</li>
+<li>Write a program that appends 1 million integers to a dynamic array and then times the traversal. Compare it with inserting 1 million integers at the beginning.</li>
+<li>Show how <code>reserve()</code> in <code>std::vector</code> or <code>ensureCapacity()</code> in Java <code>ArrayList</code> can eliminate costly reallocation spikes.</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="slices-views" class="level2">
+<h2 class="anchored" data-anchor-id="slices-views">2.3 Slices &amp; Views</h2>
+<section id="l0-looking-through-a-window" class="level3">
+<h3 class="anchored" data-anchor-id="l0-looking-through-a-window">2.3 L0 — Looking Through a Window</h3>
+<p>A slice or view is a way to look at part of an array without creating a new one. Instead of copying data, a slice points to the same underlying elements, just with its own start and end boundaries. This makes working with subarrays fast and memory-efficient. You can think of a slice as a window into a longer row of boxes, showing only the portion you care about.</p>
+<section id="deep-dive-6" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-6">Deep Dive</h4>
+<p>When you take a slice, you don’t get a new array filled with copied elements. Instead, you get a new “view” that remembers where in the original array it starts and stops. This is useful because:</p>
+<ul>
+<li>No copying means creating a slice is very fast.</li>
+<li>Shared storage means changes in the slice also affect the original array (in languages like Go, Rust, or NumPy).</li>
+<li>Reduced scope means you can focus on a part of the array without carrying the entire structure.</li>
+</ul>
+<p>Key properties of slices:</p>
+<ol type="1">
+<li>They refer to the same memory as the original array.</li>
+<li>They have their own length (number of elements visible).</li>
+<li>They may also carry a capacity, which limits how far they can expand into the original array.</li>
+</ol>
+<p>In Python, list slicing (<code>arr[2:5]</code>) creates a new list with copies of the elements. This is not a true view. By contrast, NumPy arrays, Go slices, and Rust slices provide real views — updates to the slice affect the original array.</p>
+<p>A summary:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Slice/View</th>
+<th>New Array (Copy)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Memory usage</td>
+<td>Shares existing storage</td>
+<td>Allocates new storage</td>
+</tr>
+<tr class="even">
+<td>Creation cost</td>
+<td>O(1)</td>
+<td>O(n) for copied elements</td>
+</tr>
+<tr class="odd">
+<td>Updates</td>
+<td>Affect original array</td>
+<td>Independent</td>
+</tr>
+<tr class="even">
+<td>Safety</td>
+<td>Risk of aliasing issues</td>
+<td>No shared changes</td>
+</tr>
+</tbody>
+</table>
+<p>Slices are especially valuable when working with large datasets, where copying would be too expensive.</p>
+</section>
+<section id="worked-example-4" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-4">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python slicing creates a copy, but useful to illustrate concept</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Slice of middle part</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> arr[<span class="dv">1</span>:<span class="dv">4</span>]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original array:"</span>, arr)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Slice (copy in Python):"</span>, sub)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Modifying the slice does not affect the original (Python behavior)</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>sub[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Modified slice:"</span>, sub)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original array unchanged:"</span>, arr)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># In contrast, NumPy arrays behave like true views</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>arr_np <span class="op">=</span> np.array([<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>])</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>sub_np <span class="op">=</span> arr_np[<span class="dv">1</span>:<span class="dv">4</span>]</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>sub_np[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"NumPy slice reflects back:"</span>, arr_np)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This example shows the difference: Python lists create a copy, while NumPy slices act as views and affect the original.</p>
+</section>
+<section id="why-it-matters-6" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-6">Why it matters</h4>
+<p>Slices let you work with subsets of data without wasting memory or time copying. They are critical in systems and scientific computing where performance matters. They also highlight the idea of aliasing: when two names refer to the same data. Understanding slices teaches you when changes propagate and when they don’t, which helps avoid surprising bugs.</p>
+</section>
+<section id="exercises-6" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-6">Exercises</h4>
+<ol type="1">
+<li>Create an array of 10 numbers. Take a slice of the middle 5 elements and print them.</li>
+<li>Update the first element in your slice and describe what happens to the original array in your chosen language.</li>
+<li>Compare slicing behavior in Python and NumPy: which one copies, which one shares?</li>
+<li>Explain why slicing a very large dataset is more efficient than copying it.</li>
+<li>Think of a real-world analogy where two people share the same resource but only see part of it. How does this relate to slices?</li>
+</ol>
+</section>
+</section>
+<section id="l1-slices-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="l1-slices-in-practice">2.3 L1 — Slices in Practice</h3>
+<p>Slices provide a practical way to work with subarrays efficiently. Instead of copying data into a new structure, a slice acts as a lightweight reference to part of an existing array. This gives programmers flexibility to manipulate sections of data without paying the cost of duplication, while still preserving the familiar indexing model of arrays.</p>
+<section id="deep-dive-7" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-7">Deep Dive</h4>
+<p>At the implementation level, a slice is typically represented by a small structure that stores:</p>
+<ol type="1">
+<li>A pointer to the first element in the slice.</li>
+<li>The slice’s length (how many elements it can access).</li>
+<li>Optionally, its capacity (how far the slice can grow into the backing array).</li>
+</ol>
+<p>Indexing into a slice works just like indexing into an array:</p>
+<pre><code>slice[i] → base_address + i × element_size</code></pre>
+<p>The complexity model stays consistent:</p>
+<ul>
+<li>Slice creation: O(1) when implemented as a view, O(n) if the language copies elements.</li>
+<li>Access/update: O(1), just like arrays.</li>
+<li>Traversal: O(k), proportional to the slice’s length.</li>
+</ul>
+<p>This design makes slices efficient but introduces trade-offs. With true views, the slice and the original array share memory. Updates made through one are visible through the other. This can be extremely useful but also dangerous, as it introduces the possibility of unintended side effects. Languages that prioritize safety (like Python lists) avoid this by returning a copy instead of a view.</p>
+<p>The balance is clear:</p>
+<ul>
+<li>Views (Go, Rust, NumPy): fast and memory-efficient, but require discipline to avoid aliasing bugs.</li>
+<li>Copies (Python lists): safer, but slower and more memory-intensive for large arrays.</li>
+</ul>
+<p>A summary of behaviors:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Language/Library</th>
+<th>Slice Behavior</th>
+<th>Shared Updates</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Go</td>
+<td>View</td>
+<td>Yes</td>
+<td>Backed by <code>(ptr, len, cap)</code> triple</td>
+</tr>
+<tr class="even">
+<td>Rust</td>
+<td>View</td>
+<td>Yes</td>
+<td>Safe with borrow checker (mutable/immutable)</td>
+</tr>
+<tr class="odd">
+<td>Python list</td>
+<td>Copy</td>
+<td>No</td>
+<td>Safer but memory-expensive</td>
+</tr>
+<tr class="even">
+<td>NumPy array</td>
+<td>View</td>
+<td>Yes</td>
+<td>Basis of efficient scientific computing</td>
+</tr>
+<tr class="odd">
+<td>C/C++</td>
+<td>Manual pointer</td>
+<td>Yes</td>
+<td>No built-in slice type; must manage manually</td>
+</tr>
+</tbody>
+</table>
+<section id="use-cases.-2" class="level5">
+<h5 class="anchored" data-anchor-id="use-cases.-2">Use cases.</h5>
+<ul>
+<li>Processing large datasets in segments without copying.</li>
+<li>Implementing algorithms like sliding windows, partitions, or block-based iteration.</li>
+<li>Sharing views of arrays across functions for modular design without allocating new memory.</li>
+</ul>
+</section>
+<section id="pitfalls.-2" class="level5">
+<h5 class="anchored" data-anchor-id="pitfalls.-2">Pitfalls.</h5>
+<ul>
+<li>In languages with views, careless updates can corrupt the original array unexpectedly.</li>
+<li>In Go and C++, extending a slice/view beyond its capacity causes runtime errors or undefined behavior.</li>
+<li>In Python, forgetting that slices are copies can lead to performance issues in large-scale workloads.</li>
+</ul>
+</section>
+</section>
+<section id="worked-example-5" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-5">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrating copy slices vs view slices in Python and NumPy</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Python list slicing creates a copy</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> arr[<span class="dv">1</span>:<span class="dv">4</span>]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>sub[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Python original:"</span>, arr)  <span class="co"># unchanged</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Python slice (copy):"</span>, sub)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># NumPy slicing creates a view</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>arr_np <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>sub_np <span class="op">=</span> arr_np[<span class="dv">1</span>:<span class="dv">4</span>]</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>sub_np[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"NumPy original (affected):"</span>, arr_np)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"NumPy slice (view):"</span>, sub_np)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This example shows the key difference: Python lists copy, while NumPy provides true views. The choice reflects different design priorities: safety in Python’s core data structures versus performance in numerical computing.</p>
+</section>
+<section id="why-it-matters-7" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-7">Why it matters</h4>
+<p>Slices make programs more efficient and expressive. They eliminate unnecessary copying, speed up algorithms that work on subranges, and support modular programming by passing references instead of duplicating data. At the same time, they expose important design trade-offs between safety and performance. Understanding slices provides insight into how modern languages manage memory efficiently while protecting against common errors.</p>
+</section>
+<section id="exercises-7" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-7">Exercises</h4>
+<ol type="1">
+<li>In Go, create an array of 10 elements and take a slice of the middle 5. Update the slice and observe the effect on the array.</li>
+<li>In Python, slice a list of 1 million numbers and explain the performance cost compared to slicing a NumPy array of the same size.</li>
+<li>Write a procedure that accepts a slice and doubles each element. Test with both a copy-based language (Python lists) and a view-based language (NumPy or Go).</li>
+<li>Explain why passing slices to functions is more memory-efficient than passing entire arrays.</li>
+<li>Discuss a scenario where slice aliasing could lead to unintended bugs in a large program.</li>
+</ol>
+</section>
+</section>
+<section id="l2-slices-and-views-in-systems" class="level3">
+<h3 class="anchored" data-anchor-id="l2-slices-and-views-in-systems">2.3 L2 — Slices and Views in Systems</h3>
+<p>Slices are not just convenient programming shortcuts; they represent a powerful abstraction that ties language semantics to hardware realities. At this level, slices expose details about memory layout, lifetime, and compiler optimizations. They are central to performance-critical systems because they allow efficient access to subsets of data without copying, while also demanding careful handling to avoid aliasing bugs and unsafe memory access.</p>
+<section id="deep-dive-8" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-8">Deep Dive</h4>
+<p>A slice is typically represented internally as a triple:</p>
+<ul>
+<li>A pointer to the first element,</li>
+<li>A length describing how many elements are visible,</li>
+<li>A capacity showing how far the slice may extend into the backing array.</li>
+</ul>
+<p>Indexing into a slice is still O(1), but the compiler inserts bounds checks to prevent invalid access. In performance-sensitive code, compilers often apply bounds-check elimination (BCE) when they can prove that loop indices remain within safe limits. This allows slices to combine safety with near-native performance.</p>
+<p>Slices are non-owning references. They do not manage memory themselves but instead depend on the underlying array. In languages like Rust, the borrow checker enforces lifetimes to prevent dangling slices. In C and C++, however, programmers must manually ensure that the backing array outlives the slice, or risk undefined behavior.</p>
+<p>Because slices share memory, they introduce aliasing. Multiple slices can point to overlapping regions of the same array. This can lead to subtle bugs if two parts of a program update the same region concurrently. In multithreaded contexts, mutable aliasing without synchronization can cause data races. Some systems adopt copy-on-write strategies to reduce risks, but this adds overhead.</p>
+<p>From a performance perspective, slices preserve contiguity, which is ideal for cache locality and prefetching. Sequential traversal is cache-friendly, but strided access (e.g., every 3rd element) can defeat hardware prefetchers, reducing efficiency. Languages like NumPy exploit strides explicitly, enabling both dense and sparse-like views without copying.</p>
+<p>Language designs differ in how they handle slices:</p>
+<ul>
+<li>Go uses <code>(ptr, len, cap)</code>. Appending to a slice may allocate a new array if capacity is exceeded, silently detaching it from the original backing storage.</li>
+<li>Rust distinguishes <code>&amp;[T]</code> for immutable and <code>&amp;mut [T]</code> for mutable slices, with the compiler enforcing safe borrowing rules.</li>
+<li>C/C++ provide no built-in slice type, so developers rely on raw pointers and manual length tracking. This is flexible but error-prone.</li>
+<li>NumPy supports advanced slicing: views with strides, broadcasting rules, and multidimensional slices for scientific computing.</li>
+</ul>
+<p>Compilers also optimize slice-heavy code:</p>
+<ul>
+<li>Vectorization transforms element-wise loops into SIMD instructions when slices are contiguous.</li>
+<li>Escape analysis determines whether slices can stay stack-allocated or must be promoted to the heap.</li>
+</ul>
+<p>System-level use cases highlight the importance of slices:</p>
+<ul>
+<li>Zero-copy I/O: network and file system buffers are exposed as slices into larger memory regions.</li>
+<li>Memory-mapped files: slices map directly to disk pages, enabling efficient processing of large datasets.</li>
+<li>GPU programming: CUDA and OpenCL kernels operate on slices of device memory, avoiding transfers.</li>
+</ul>
+<p>These applications show why slices are not just a programming convenience but a core tool for bridging high-level logic with low-level performance.</p>
+</section>
+<section id="worked-example-go" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-go">Worked Example (Go)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode go code-with-copy"><code class="sourceCode go"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> main</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">"fmt"</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    arr <span class="op">:=</span> <span class="op">[</span><span class="dv">6</span><span class="op">]</span><span class="dt">int</span><span class="op">{</span><span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">40</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">60</span><span class="op">}</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    s <span class="op">:=</span> arr<span class="op">[</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span><span class="op">]</span> <span class="co">// slice referencing elements 20, 30, 40</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"Original array:"</span><span class="op">,</span> arr<span class="op">)</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"Slice view:"</span><span class="op">,</span> s<span class="op">)</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Update through slice</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    s<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"After update via slice, array:"</span><span class="op">,</span> arr<span class="op">)</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Demonstrate capacity</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"Slice length:"</span><span class="op">,</span> <span class="bu">len</span><span class="op">(</span>s<span class="op">),</span> <span class="st">"capacity:"</span><span class="op">,</span> <span class="bu">cap</span><span class="op">(</span>s<span class="op">))</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Appending beyond slice capacity reallocates</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>s<span class="op">,</span> <span class="dv">70</span><span class="op">,</span> <span class="dv">80</span><span class="op">)</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"Slice after append:"</span><span class="op">,</span> s<span class="op">)</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"Array after append (unchanged):"</span><span class="op">,</span> arr<span class="op">)</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This example illustrates Go’s slice model. The slice <code>s</code> initially shares storage with <code>arr</code>. Updates propagate to the array. However, when appending exceeds the slice’s capacity, Go allocates a new backing array, breaking the link with the original. This behavior is efficient but can surprise developers if not understood.</p>
+</section>
+<section id="why-it-matters-8" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-8">Why it matters</h4>
+<p>Slices embody key system concepts: pointer arithmetic, memory ownership, cache locality, and aliasing. They explain how languages achieve zero-copy abstractions while balancing safety and performance. They also highlight risks such as dangling references and silent reallocations. Mastery of slices is essential for building efficient algorithms, avoiding memory errors, and reasoning about system-level performance.</p>
+</section>
+<section id="exercises-8" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-8">Exercises</h4>
+<ol type="1">
+<li>In Go, create an array of 8 integers and take overlapping slices. Modify one slice and observe effects on the other. Explain why this happens.</li>
+<li>In Rust, attempt to create two mutable slices of the same array region. Explain why the borrow checker rejects it.</li>
+<li>In C, simulate a slice using a pointer and a length. Show what happens if the backing array is freed while the slice is still in use.</li>
+<li>In NumPy, create a 2D array and take a strided slice (every second row). Explain why performance is worse than contiguous slicing.</li>
+<li>Compare how Python, Go, and Rust enforce (or fail to enforce) safety when working with slices.</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="multidimensional-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="multidimensional-arrays">2.4 Multidimensional Arrays</h2>
+<section id="l0-tables-and-grids" class="level3">
+<h3 class="anchored" data-anchor-id="l0-tables-and-grids">2.4 L0 — Tables and Grids</h3>
+<p>A multidimensional array is an extension of the simple array idea. Instead of storing data in a single row, a multidimensional array organizes elements in a grid, table, or cube. The most common example is a two-dimensional array, which looks like a table with rows and columns. Each position in the grid is identified by two coordinates: one for the row and one for the column. This structure is useful for representing spreadsheets, images, game boards, and mathematical matrices.</p>
+<section id="deep-dive-9" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-9">Deep Dive</h4>
+<p>You can think of a multidimensional array as an array of arrays. A two-dimensional array is a list where each element is itself another list. For example, a 3×3 table contains 3 rows, each of which has 3 columns. Accessing an element requires specifying both coordinates: <code>arr[row][col]</code>.</p>
+<p>Even though we visualize multidimensional arrays as grids, in memory they are still stored as a single continuous sequence. To find an element, the program computes its position using a formula. In a 2D array with <code>n</code> columns, the element at <code>(row, col)</code> is located at:</p>
+<pre><code>index = row × n + col</code></pre>
+<p>This mapping allows direct access in constant time, just like with 1D arrays.</p>
+<p>Common operations are:</p>
+<ul>
+<li>Creation: decide dimensions and initialize with values.</li>
+<li>Access: specify row and column to retrieve an element.</li>
+<li>Update: change the value at a given coordinate.</li>
+<li>Traversal: visit elements row by row or column by column.</li>
+</ul>
+<p>A quick summary:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Description</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Access element</td>
+<td>Get value at (row, col)</td>
+<td>O(1)</td>
+</tr>
+<tr class="even">
+<td>Update element</td>
+<td>Replace value at (row, col)</td>
+<td>O(1)</td>
+</tr>
+<tr class="odd">
+<td>Traverse array</td>
+<td>Visit all elements</td>
+<td>O(n×m)</td>
+</tr>
+</tbody>
+</table>
+<p>Multidimensional arrays introduce an important detail: traversal order. In many languages (like C and Python’s NumPy), arrays are stored in row-major order, which means all elements of the first row are laid out contiguously, then the second row, and so on. Others, like Fortran, use column-major order. This difference affects performance in more advanced topics, but at this level, the key idea is that access is still fast and predictable.</p>
+</section>
+<section id="worked-example-6" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-6">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 2D array (3x3 table) using list of lists</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> [</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Access element in second row, third column</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Element at (1, 2):"</span>, table[<span class="dv">1</span>][<span class="dv">2</span>])  <span class="co"># prints 6</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Update element</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>table[<span class="dv">0</span>][<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Updated table:"</span>, table)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Traverse row by row</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Row traversal:"</span>)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> table:</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> val <span class="kw">in</span> row:</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(val, end<span class="op">=</span><span class="st">" "</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This example shows how to build and use a 2D array in Python. It looks like a table, with easy access via coordinates.</p>
+</section>
+<section id="why-it-matters-9" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-9">Why it matters</h4>
+<p>Multidimensional arrays provide a natural way to represent structured data like matrices, grids, and images. They allow algorithms to work directly with two-dimensional or higher-dimensional information without flattening everything into one long row. This makes programs easier to write, read, and reason about.</p>
+</section>
+<section id="exercises-9" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-9">Exercises</h4>
+<ol type="1">
+<li>Create a 3×3 array with numbers 1 through 9 and print it in a table format.</li>
+<li>Access the element at row 2, column 3 and describe how you found it.</li>
+<li>Change the center element of a 3×3 array to 0.</li>
+<li>Write a loop to compute the sum of all values in a 4×4 array.</li>
+<li>Explain why accessing <code>(row, col)</code> in a 2D array is still O(1) even though the data is stored in a single sequence in memory.</li>
+</ol>
+</section>
+</section>
+<section id="l1-multidimensional-arrays-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="l1-multidimensional-arrays-in-practice">2.4 L1 — Multidimensional Arrays in Practice</h3>
+<p>Multidimensional arrays are powerful because they extend the linear model of arrays into grids, tables, and higher dimensions. At a practical level, they are still stored in memory as a flattened linear block. What changes is the indexing formula: instead of a single index, we use multiple coordinates that the system translates into one offset.</p>
+<section id="deep-dive-10" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-10">Deep Dive</h4>
+<p>The most common form is a 2D array. In memory, the elements are laid out row by row (row-major) or column by column (column-major).</p>
+<ul>
+<li>Row-major (C, NumPy default): elements of each row are contiguous.</li>
+<li>Column-major (Fortran, MATLAB): elements of each column are contiguous.</li>
+</ul>
+<p>For a 2D array with <code>num_cols</code> columns, the element at <code>(row, col)</code> in row-major order is located at:</p>
+<pre><code>index = row × num_cols + col</code></pre>
+<p>For column-major order with <code>num_rows</code> rows, the formula is:</p>
+<pre><code>index = col × num_rows + row</code></pre>
+<p>This distinction matters when traversing. Accessing elements in the memory’s natural order (row by row for row-major, column by column for column-major) is cache-friendly. Traversing in the opposite order forces the program to jump around in memory, leading to slower performance.</p>
+<p>Extending to 3D and higher is straightforward. For a 3D array with <code>(layers, rows, cols)</code> in row-major order:</p>
+<pre><code>index = layer × (rows × cols) + row × cols + col</code></pre>
+<p>Complexity remains consistent:</p>
+<ul>
+<li>Access/update: O(1) using index calculation.</li>
+<li>Traversal: O(n × m) for 2D, O(n × m × k) for 3D.</li>
+</ul>
+<p>Trade-offs:</p>
+<ul>
+<li>Contiguous multidimensional arrays provide excellent performance for predictable workloads (e.g., matrix operations).</li>
+<li>Resizing is costly because the entire block must be reallocated.</li>
+<li>Jagged arrays (arrays of arrays) provide flexibility but lose memory contiguity, reducing cache performance.</li>
+</ul>
+<p>Use cases:</p>
+<ul>
+<li>Storing images (pixels as grids).</li>
+<li>Mathematical matrices in scientific computing.</li>
+<li>Game boards and maps.</li>
+<li>Tables in database-like structures.</li>
+</ul>
+<p>Different languages implement multidimensional arrays differently:</p>
+<ul>
+<li>Python lists: nested lists simulate 2D arrays but are jagged and fragmented in memory.</li>
+<li>NumPy: provides true multidimensional arrays stored contiguously in row-major (default) or column-major order.</li>
+<li>C/C++: support both contiguous multidimensional arrays (<code>int arr[rows][cols];</code>) and pointer-based arrays of arrays.</li>
+<li>Java: uses arrays of arrays (jagged by default).</li>
+</ul>
+</section>
+<section id="worked-example-7" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-7">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparing list of lists vs NumPy arrays</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># List of lists (jagged)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> [</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Element at (2, 1):"</span>, table[<span class="dv">2</span>][<span class="dv">1</span>])  <span class="co"># 8</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># NumPy array (true contiguous 2D array)</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> np.array([[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],[<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>],[<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>]])</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Element at (2, 1):"</span>, matrix[<span class="dv">2</span>,<span class="dv">1</span>])  <span class="co"># 8</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Traversal in row-major order</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(matrix.shape[<span class="dv">0</span>]):</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(matrix.shape[<span class="dv">1</span>]):</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>        val <span class="op">=</span> matrix[row, col]  <span class="co"># efficient in NumPy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The Python list-of-lists behaves like a table, but each row may live separately in memory. NumPy, on the other hand, stores data contiguously, enabling much faster iteration and vectorized operations.</p>
+</section>
+<section id="why-it-matters-10" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-10">Why it matters</h4>
+<p>Multidimensional arrays are central to real-world applications, from graphics and simulations to data science and machine learning. They highlight how physical memory layout (row-major vs column-major) interacts with algorithm design. Understanding them allows developers to choose between safety, flexibility, and performance, depending on the problem.</p>
+</section>
+<section id="exercises-10" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-10">Exercises</h4>
+<ol type="1">
+<li>Write a procedure to sum all values in a 5×5 array by traversing row by row.</li>
+<li>For a 3×3 NumPy array, access element <code>(2,1)</code> and explain how its memory index is calculated in row-major order.</li>
+<li>Create a jagged array (rows of different lengths) in Python. Show how traversal differs from a true 2D array.</li>
+<li>Explain why traversing a NumPy array by rows is faster than by columns.</li>
+<li>Write a formula for computing the linear index of <code>(i,j,k)</code> in a 3D array stored in row-major order.</li>
+</ol>
+</section>
+</section>
+<section id="l2-multidimensional-arrays-and-system-realities" class="level3">
+<h3 class="anchored" data-anchor-id="l2-multidimensional-arrays-and-system-realities">2.4 L2 — Multidimensional Arrays and System Realities</h3>
+<p>Multidimensional arrays are not only a logical abstraction but also a system-level structure that interacts with memory layout, caches, and compilers. At this level, understanding how they are stored, accessed, and optimized is essential for building high-performance code in scientific computing, graphics, and data-intensive systems.</p>
+<section id="deep-dive-11" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-11">Deep Dive</h4>
+<p>A multidimensional array is stored either as a contiguous linear block or as an array of pointers (jagged array). In the contiguous layout, elements follow one another in memory according to a linearization formula. In row-major order (C, NumPy), a 2D element at <code>(row, col)</code> is:</p>
+<pre><code>index = row × num_cols + col</code></pre>
+<p>In column-major order (Fortran, MATLAB), the formula is:</p>
+<pre><code>index = col × num_rows + row</code></pre>
+<p>This difference has deep performance consequences. In row-major layout, traversing row by row is cache-friendly because consecutive elements are contiguous. Traversing column by column introduces large strides, which can cause cache and TLB misses. In column-major arrays, the reverse holds true.</p>
+<section id="cache-and-performance." class="level5">
+<h5 class="anchored" data-anchor-id="cache-and-performance.">Cache and performance.</h5>
+<p>When an array is traversed sequentially in its natural memory order, cache lines are used efficiently and hardware prefetchers work well. Strided access, such as reading every k-th column in a row-major layout, prevents prefetchers from predicting the access pattern and leads to performance drops. For large arrays, this can mean the difference between processing gigabytes per second and megabytes per second.</p>
+</section>
+<section id="alignment-and-padding." class="level5">
+<h5 class="anchored" data-anchor-id="alignment-and-padding.">Alignment and padding.</h5>
+<p>Compilers and libraries often align rows to cache line or SIMD vector boundaries. For example, a 64-byte cache line may cause padding to be inserted so that each row begins on a boundary. In parallel systems, this prevents false sharing when multiple threads process different rows. However, padding increases memory footprint.</p>
+</section>
+<section id="language-level-differences." class="level5">
+<h5 class="anchored" data-anchor-id="language-level-differences.">Language-level differences.</h5>
+<ul>
+<li>C/C++: contiguous 2D arrays (<code>int arr[rows][cols]</code>) guarantee row-major layout. Jagged arrays (array of pointers) sacrifice locality but allow uneven row sizes.</li>
+<li>Fortran/MATLAB: column-major ordering dominates scientific computing, influencing algorithms in BLAS and LAPACK.</li>
+<li>NumPy: stores strides explicitly, enabling flexible slicing and arbitrary views. Strided slices can represent transposed matrices without copying.</li>
+</ul>
+</section>
+<section id="optimizations." class="level5">
+<h5 class="anchored" data-anchor-id="optimizations.">Optimizations.</h5>
+<ul>
+<li>Loop tiling/blocking: partition loops into smaller blocks that fit into cache, maximizing reuse.</li>
+<li>SIMD-friendly layouts: structure-of-arrays (SoA) improves vectorization compared to array-of-structures (AoS).</li>
+<li>Matrix multiplication kernels: carefully designed to exploit cache hierarchy, prefetching, and SIMD registers.</li>
+</ul>
+</section>
+<section id="system-level-use-cases." class="level5">
+<h5 class="anchored" data-anchor-id="system-level-use-cases.">System-level use cases.</h5>
+<ul>
+<li>Image processing: images stored as row-major arrays, with pixels in contiguous scanlines. Efficient filters process them row by row.</li>
+<li>GPU computing: memory coalescing requires threads in a warp to access contiguous memory regions; array layout directly affects throughput.</li>
+<li>Databases: columnar storage uses column-major arrays, enabling fast scans and aggregation queries.</li>
+</ul>
+</section>
+<section id="pitfalls.-3" class="level5">
+<h5 class="anchored" data-anchor-id="pitfalls.-3">Pitfalls.</h5>
+<ul>
+<li>Traversing in the “wrong” order can cause performance cliffs.</li>
+<li>Large index calculations may overflow if not handled carefully.</li>
+<li>Porting algorithms between row-major and column-major languages can introduce subtle bugs.</li>
+</ul>
+<p>Profiling. Practical analysis involves comparing traversal patterns, cache miss rates, and vectorization efficiency. Modern compilers can eliminate redundant bounds checks and auto-vectorize well-structured loops, but poor layout or order can block these optimizations.</p>
+</section>
+</section>
+<section id="worked-example-c-1" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-c-1">Worked Example (C)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define ROWS </span><span class="dv">4</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define COLS </span><span class="dv">4</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> arr<span class="op">[</span>ROWS<span class="op">][</span>COLS<span class="op">];</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Fill the array</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> r <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> r <span class="op">&lt;</span> ROWS<span class="op">;</span> r<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> c <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> c <span class="op">&lt;</span> COLS<span class="op">;</span> c<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>            arr<span class="op">[</span>r<span class="op">][</span>c<span class="op">]</span> <span class="op">=</span> r <span class="op">*</span> COLS <span class="op">+</span> c<span class="op">;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Row-major traversal (cache-friendly in C)</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> sum_row <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> r <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> r <span class="op">&lt;</span> ROWS<span class="op">;</span> r<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> c <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> c <span class="op">&lt;</span> COLS<span class="op">;</span> c<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>            sum_row <span class="op">+=</span> arr<span class="op">[</span>r<span class="op">][</span>c<span class="op">];</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Column traversal (less efficient in row-major)</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> sum_col <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> c <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> c <span class="op">&lt;</span> COLS<span class="op">;</span> c<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> r <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> r <span class="op">&lt;</span> ROWS<span class="op">;</span> r<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>            sum_col <span class="op">+=</span> arr<span class="op">[</span>r<span class="op">][</span>c<span class="op">];</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Row traversal sum: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> sum_row<span class="op">);</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Column traversal sum: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> sum_col<span class="op">);</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This program highlights traversal order. On large arrays, row-major traversal is much faster in C because of cache-friendly memory access, while column traversal may cause frequent cache misses.</p>
+</section>
+<section id="why-it-matters-11" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-11">Why it matters</h4>
+<p>Multidimensional arrays sit at the heart of performance-critical applications. Their memory layout determines how well algorithms interact with CPU caches, vector units, and GPUs. Understanding row-major vs column-major, stride penalties, and cache-aware traversal allows developers to write software that scales from toy programs to high-performance computing systems.</p>
+</section>
+<section id="exercises-11" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-11">Exercises</h4>
+<ol type="1">
+<li>In C, create a 1000×1000 matrix and measure the time difference between row-major and column traversal. Explain the results.</li>
+<li>In NumPy, take a 2D array and transpose it. Use <code>.strides</code> to confirm that the transposed array is a view, not a copy.</li>
+<li>Write the linear index formula for a 4D array <code>(a,b,c,d)</code> in row-major order.</li>
+<li>Explain how false sharing could occur when two threads update adjacent rows of a large array.</li>
+<li>Compare the impact of row-major vs column-major layout in matrix multiplication performance.</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="sparse-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="sparse-arrays">2.5 Sparse Arrays</h2>
+<section id="l0-sparse-arrays-as-empty-parking-lots" class="level3">
+<h3 class="anchored" data-anchor-id="l0-sparse-arrays-as-empty-parking-lots">2.5 L0 — Sparse Arrays as Empty Parking Lots</h3>
+<p>A sparse array is a way of storing data when most of the positions are empty. Instead of recording every slot like in a dense array, a sparse array only remembers the places that hold actual values. You can think of a huge parking lot with only a few cars parked: a dense array writes down every spot, empty or not, while a sparse array just writes down the locations of the cars.</p>
+<section id="deep-dive-12" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-12">Deep Dive</h4>
+<p>Dense arrays are straightforward: every position has a value, even if it is zero or unused. This makes access simple and fast, but wastes memory if most positions are empty. Sparse arrays solve this by storing only the useful entries.</p>
+<p>There are many ways to represent a sparse array:</p>
+<ul>
+<li>Dictionary/Map: store index → value pairs, ignoring empty slots.</li>
+<li>Coordinate list (COO): keep two lists, one for indices and one for values.</li>
+<li>Run-length encoding: store stretches of empty values as counts, followed by the next filled value.</li>
+</ul>
+<p>The key idea is to save memory at the cost of more complex indexing. Access is no longer just arithmetic (<code>arr[i]</code>) but requires looking up in the chosen structure.</p>
+<p>Comparison:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 14%">
+<col style="width: 17%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Representation</th>
+<th>Memory Use</th>
+<th>Access Speed</th>
+<th>Good For</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dense array</td>
+<td>High</td>
+<td>O(1)</td>
+<td>Data with many filled elements</td>
+</tr>
+<tr class="even">
+<td>Sparse (map)</td>
+<td>Low</td>
+<td>O(1) average</td>
+<td>Few filled elements, random access</td>
+</tr>
+<tr class="odd">
+<td>Sparse (list)</td>
+<td>Very low</td>
+<td>O(n)</td>
+<td>Very small number of entries</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="worked-example-8" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-8">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dense representation: wastes memory for mostly empty data</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>dense <span class="op">=</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">20</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>dense[<span class="dv">3</span>] <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>dense[<span class="dv">15</span>] <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dense array:"</span>, dense)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sparse representation using dictionary</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>sparse <span class="op">=</span> {<span class="dv">3</span>: <span class="dv">10</span>, <span class="dv">15</span>: <span class="dv">25</span>}</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sparse array:"</span>, sparse)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Access value</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Value at index 3:"</span>, sparse.get(<span class="dv">3</span>, <span class="dv">0</span>))</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Value at index 7:"</span>, sparse.get(<span class="dv">7</span>, <span class="dv">0</span>))  <span class="co"># default to 0 for missing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This shows how a sparse dictionary only records the positions that matter, while the dense version allocates space for all 20 slots.</p>
+</section>
+<section id="why-it-matters-12" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-12">Why it matters</h4>
+<p>Sparse arrays are crucial when working with large data where most entries are empty. They save memory and make it possible to process huge datasets that would not fit into memory as dense arrays. They also appear in real-world systems like machine learning (feature vectors), scientific computing (matrices with few non-zero entries), and search engines (posting lists).</p>
+</section>
+<section id="exercises-12" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-12">Exercises</h4>
+<ol type="1">
+<li>Represent a sparse array of size 1000 with only 3 non-zero values at indices 2, 500, and 999.</li>
+<li>Write a procedure to count the number of non-empty values in a sparse array.</li>
+<li>Access an index that does not exist in the sparse array and explain what should be returned.</li>
+<li>Compare the memory used by a dense array of 1000 zeros and a sparse representation with 3 values.</li>
+<li>Think of a real-world example (outside programming) where recording only the “non-empty” spots is more efficient than listing everything.</li>
+</ol>
+</section>
+</section>
+<section id="l1-sparse-arrays-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="l1-sparse-arrays-in-practice">2.5 L1 — Sparse Arrays in Practice</h3>
+<p>Sparse arrays become important when dealing with very large datasets where only a few positions hold non-zero values. Instead of allocating memory for every element, practical implementations use compact structures to track only the occupied indices. This saves memory, but requires trade-offs in access speed and update complexity.</p>
+<section id="deep-dive-13" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-13">Deep Dive</h4>
+<p>There are several practical ways to represent sparse arrays:</p>
+<ol type="1">
+<li><p>Dictionary/Hash Map</p>
+<ul>
+<li>Store index → value pairs.</li>
+<li>Very fast random access and updates (average O(1)).</li>
+<li>Memory overhead is higher because of hash structures.</li>
+</ul></li>
+<li><p>Coordinate List (COO)</p>
+<ul>
+<li>Keep two parallel arrays: one for indices, one for values.</li>
+<li>Compact, easy to construct, but access is O(n).</li>
+<li>Good for static data with few updates.</li>
+</ul></li>
+<li><p>Compressed Sparse Row (CSR) / Compressed Sparse Column (CSC)</p>
+<ul>
+<li>Widely used for sparse matrices.</li>
+<li>Use three arrays: values, column indices, and row pointers (or vice versa).</li>
+<li>Extremely efficient for matrix-vector operations.</li>
+<li>Poor at dynamic updates, since compression must be rebuilt.</li>
+</ul></li>
+<li><p>Run-Length Encoding (RLE)</p>
+<ul>
+<li>Store runs of zeros as counts, followed by non-zero entries.</li>
+<li>Best for sequences with long stretches of emptiness.</li>
+</ul></li>
+</ol>
+<p>A comparison:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 16%">
+<col style="width: 34%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Format</th>
+<th>Memory Use</th>
+<th>Access Speed</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dictionary</td>
+<td>Higher per-entry</td>
+<td>O(1) avg</td>
+<td>Dynamic updates, unpredictable indices</td>
+</tr>
+<tr class="even">
+<td>COO</td>
+<td>Very low</td>
+<td>O(n)</td>
+<td>Static, small sparse sets</td>
+</tr>
+<tr class="odd">
+<td>CSR/CSC</td>
+<td>Compact</td>
+<td>O(1) row scan, O(log n) col lookup</td>
+<td>Linear algebra, scientific computing</td>
+</tr>
+<tr class="even">
+<td>RLE</td>
+<td>Very compact</td>
+<td>Sequential O(n), random slower</td>
+<td>Time-series with long zero runs</td>
+</tr>
+</tbody>
+</table>
+<section id="trade-offs" class="level5">
+<h5 class="anchored" data-anchor-id="trade-offs">Trade-offs:</h5>
+<ul>
+<li>Dense arrays are fast but waste memory.</li>
+<li>Sparse arrays save memory but access/update complexity varies.</li>
+<li>Choice of structure depends on workload (frequent random access vs batch computation).</li>
+</ul>
+</section>
+<section id="use-cases" class="level5">
+<h5 class="anchored" data-anchor-id="use-cases">Use cases:</h5>
+<ul>
+<li>Machine learning: sparse feature vectors in text classification or recommender systems.</li>
+<li>Graph algorithms: adjacency matrices for sparse graphs.</li>
+<li>Search engines: inverted index posting lists.</li>
+<li>Scientific computing: storing large sparse matrices for simulations.</li>
+</ul>
+</section>
+</section>
+<section id="worked-example-9" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-9">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sparse array using Python dictionary</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>sparse <span class="op">=</span> {<span class="dv">2</span>: <span class="dv">10</span>, <span class="dv">100</span>: <span class="dv">50</span>, <span class="dv">999</span>: <span class="dv">7</span>}</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Accessing</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Value at 100:"</span>, sparse.get(<span class="dv">100</span>, <span class="dv">0</span>))</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Value at 3 (missing):"</span>, sparse.get(<span class="dv">3</span>, <span class="dv">0</span>))</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Inserting new value</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>sparse[<span class="dv">500</span>] <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Traversing non-empty values</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, val <span class="kw">in</span> sparse.items():</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Index </span><span class="sc">{</span>idx<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span>val<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For dense vs sparse comparison:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dense <span class="op">=</span> [<span class="dv">0</span>] <span class="op">*</span> <span class="dv">1000</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dense[<span class="dv">2</span>], dense[<span class="dv">100</span>], dense[<span class="dv">999</span>] <span class="op">=</span> <span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">7</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dense uses 1000 slots, sparse uses"</span>, <span class="bu">len</span>(sparse), <span class="st">"entries"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="why-it-matters-13" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-13">Why it matters</h4>
+<p>Sparse arrays strike a balance between memory efficiency and performance. They let you work with massive datasets that would otherwise be impossible to store in memory. They also demonstrate the importance of choosing the right representation for the problem: a dictionary for dynamic updates, CSR for scientific kernels, or RLE for compressed logs.</p>
+</section>
+<section id="exercises-13" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-13">Exercises</h4>
+<ol type="1">
+<li>Represent a sparse array of length 1000 with values at indices 2, 100, and 999 using:
+<ol type="a">
+<li>a dictionary, and</li>
+<li>two parallel lists (indices, values).</li>
+</ol></li>
+<li>Write a procedure that traverses only non-empty entries and prints them.</li>
+<li>Explain why inserting a value in CSR format is more expensive than in a dictionary-based representation.</li>
+<li>Compare memory usage of a dense array of length 1000 with only 5 non-zero entries against its sparse dictionary form.</li>
+<li>Give two real-world scenarios where CSR is preferable to dictionary-based sparse arrays.</li>
+</ol>
+</section>
+</section>
+<section id="l2-sparse-arrays-and-compressed-layouts-in-systems" class="level3">
+<h3 class="anchored" data-anchor-id="l2-sparse-arrays-and-compressed-layouts-in-systems">2.5 L2 — Sparse Arrays and Compressed Layouts in Systems</h3>
+<p>Sparse arrays are not only about saving memory; they embody deep design choices about compression, cache use, and hardware acceleration. At this level, the question is not “should I store zeros or not,” but “which representation balances memory, access speed, and computational efficiency for the workload?”</p>
+<section id="deep-dive-14" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-14">Deep Dive</h4>
+<p>Several compressed storage formats exist, each tuned to different needs:</p>
+<ul>
+<li>COO (Coordinate List): Store parallel arrays for row indices, column indices, and values. Flexible and simple, but inefficient for repeated access because lookups require scanning.</li>
+<li>CSR (Compressed Sparse Row): Use three arrays: <code>values</code>, <code>col_indices</code>, and <code>row_ptr</code> to mark boundaries. Accessing all elements of a row is O(1), while finding a specific column in a row is O(log n) or linear. Excellent for sparse matrix-vector multiplication (SpMV).</li>
+<li>CSC (Compressed Sparse Column): Similar to CSR, but optimized for column operations.</li>
+<li>DIA (Diagonal): Only store diagonals in banded matrices. Extremely memory-efficient for PDE solvers.</li>
+<li>ELL (Ellpack/Itpack): Store each row padded to the same length, enabling SIMD and GPU vectorization. Works well when rows have similar numbers of nonzeros.</li>
+<li>HYB (Hybrid, CUDA): Combines ELL for regular rows and COO for irregular cases. Used in GPU-accelerated sparse libraries.</li>
+</ul>
+<section id="performance-and-complexity." class="level5">
+<h5 class="anchored" data-anchor-id="performance-and-complexity.">Performance and Complexity.</h5>
+<ul>
+<li>Dictionaries/maps: O(1) average access, but higher overhead per entry.</li>
+<li>COO: O(n) lookups, better for incremental construction.</li>
+<li>CSR/CSC: excellent for batch operations, poor for insertions.</li>
+<li>ELL/DIA: high throughput on SIMD/GPU hardware but inflexible.</li>
+</ul>
+<p>Sparse matrix-vector multiplication (SpMV) illustrates trade-offs. With CSR:</p>
+<pre><code>y[row] = Σ values[k] * x[col_indices[k]]  </code></pre>
+<p>where <code>row_ptr</code> guides which elements belong to each row. The cost is proportional to the number of nonzeros, but performance is limited by memory bandwidth and irregular access to <code>x</code>.</p>
+</section>
+<section id="cache-and-alignment." class="level5">
+<h5 class="anchored" data-anchor-id="cache-and-alignment.">Cache and alignment.</h5>
+<p>Compressed formats improve locality for sequential access but introduce irregular memory access patterns when multiplying or searching. Strided iteration can align with cache lines, but pointer-heavy layouts fragment memory. Padding (in ELL) improves SIMD alignment but wastes space.</p>
+</section>
+<section id="language-and-library-implementations." class="level5">
+<h5 class="anchored" data-anchor-id="language-and-library-implementations.">Language and library implementations.</h5>
+<ul>
+<li>Python SciPy: <code>csr_matrix</code>, <code>csc_matrix</code>, <code>coo_matrix</code>, <code>dia_matrix</code>.</li>
+<li>C++: Eigen and Armadillo expose CSR and CSC; Intel MKL provides highly optimized kernels.</li>
+<li>CUDA/cuSPARSE: Hybrid ELL + COO kernels tuned for GPUs.</li>
+</ul>
+</section>
+<section id="system-level-use-cases.-1" class="level5">
+<h5 class="anchored" data-anchor-id="system-level-use-cases.-1">System-level use cases.</h5>
+<ul>
+<li>Large-scale PDE solvers and finite element methods.</li>
+<li>Graph algorithms (PageRank, shortest paths) using sparse adjacency matrices.</li>
+<li>Inverted indices in search engines (postings lists).</li>
+<li>Feature vectors in machine learning (bag-of-words, recommender systems).</li>
+</ul>
+</section>
+<section id="pitfalls.-4" class="level5">
+<h5 class="anchored" data-anchor-id="pitfalls.-4">Pitfalls.</h5>
+<ul>
+<li>Insertion is expensive in compressed formats (requires shifting or rebuilding).</li>
+<li>Converting between formats (e.g., COO ↔︎ CSR) can dominate runtime if done repeatedly.</li>
+<li>A poor choice of format (e.g., using ELL for irregular sparsity) can waste memory or block vectorization.</li>
+</ul>
+</section>
+<section id="optimization-and-profiling." class="level5">
+<h5 class="anchored" data-anchor-id="optimization-and-profiling.">Optimization and profiling.</h5>
+<ul>
+<li>Benchmark SpMV across formats and measure achieved bandwidth.</li>
+<li>Profile cache misses and TLB behavior in irregular workloads.</li>
+<li>On GPUs, measure coalesced vs scattered memory access to judge format suitability.</li>
+</ul>
+</section>
+<section id="worked-example-python-with-scipy" class="level5">
+<h5 class="anchored" data-anchor-id="worked-example-python-with-scipy">Worked Example (Python with SciPy)</h5>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.sparse <span class="im">import</span> csr_matrix</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Dense 5x5 with many zeros</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>dense <span class="op">=</span> np.array([</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>],</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>],</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">8</span>]</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to CSR</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>sparse <span class="op">=</span> csr_matrix(dense)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CSR data array:"</span>, sparse.data)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CSR indices:"</span>, sparse.indices)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CSR indptr:"</span>, sparse.indptr)</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Sparse matrix-vector multiplication</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sparse <span class="op">@</span> x</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Result of SpMV:"</span>, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This example shows how a dense matrix with many zeros can be stored efficiently in CSR. Only nonzeros are stored, and SpMV avoids unnecessary multiplications.</p>
+</section>
+</section>
+<section id="why-it-matters-14" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-14">Why it matters</h4>
+<p>Sparse array formats are the backbone of scientific computing, machine learning, and search engines. Choosing the right format determines whether a computation runs in seconds or hours. At scale, cache efficiency, memory bandwidth, and vectorization potential matter as much as algorithmic complexity. Sparse arrays teach the critical lesson that representation is performance.</p>
+</section>
+<section id="exercises-14" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-14">Exercises</h4>
+<ol type="1">
+<li>Implement COO and CSR representations of the same sparse matrix and compare memory usage.</li>
+<li>Write a small CSR-based SpMV routine and measure its speed against a dense implementation.</li>
+<li>Explain why ELL format is efficient on GPUs but wasteful on highly irregular graphs.</li>
+<li>In SciPy, convert a <code>csr_matrix</code> to <code>csc_matrix</code> and back. Measure the cost for large matrices.</li>
+<li>Given a graph with 1M nodes and 10M edges, explain why adjacency lists and CSR are more practical than dense matrices.</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="prefix-sums-scans" class="level2">
+<h2 class="anchored" data-anchor-id="prefix-sums-scans">2.6 Prefix Sums &amp; Scans</h2>
+<section id="l0-running-totals" class="level3">
+<h3 class="anchored" data-anchor-id="l0-running-totals">2.6 L0 — Running Totals</h3>
+<p>A prefix sum, also called a scan, is a way of turning a sequence into running totals. Instead of just producing one final sum, we produce an array where each position shows the sum of all earlier elements. It is like keeping a receipt tape at the checkout: each item is added in order, and you see the growing total after each step.</p>
+<section id="deep-dive-15" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-15">Deep Dive</h4>
+<p>Prefix sums are simple but powerful. Given an array <code>[a0, a1, a2, …, an-1]</code>, the prefix sum array <code>[p0, p1, p2, …, pn-1]</code> is defined as:</p>
+<ul>
+<li><p>Inclusive scan:</p>
+<pre><code>pi = a0 + a1 + … + ai</code></pre></li>
+<li><p>Exclusive scan:</p>
+<pre><code>pi = a0 + a1 + … + ai-1</code></pre>
+<p>(with p0 = 0 by convention).</p></li>
+</ul>
+<p>Example with array <code>[1, 2, 3, 4]</code>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Index</th>
+<th>Original</th>
+<th>Inclusive</th>
+<th>Exclusive</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>3</td>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>4</td>
+<td>10</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>Prefix sums are built in a single pass, left to right. This is O(n) in time, requiring an extra array of length n to store results.</p>
+<p>Once constructed, prefix sums allow fast range queries. For any subarray between indices <code>i</code> and <code>j</code>, the sum is:</p>
+<pre><code>sum(i..j) = prefix[j] - prefix[i-1]</code></pre>
+<p>This reduces what would be O(n) work into O(1) time per query.</p>
+<p>Prefix sums also generalize beyond addition: they can be built with multiplication, min, max, or any associative operation.</p>
+</section>
+<section id="worked-example-10" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-10">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Inclusive prefix sum</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>inclusive <span class="op">=</span> []</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>running <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> arr:</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    running <span class="op">+=</span> x</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    inclusive.append(running)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Inclusive scan:"</span>, inclusive)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Exclusive prefix sum</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>exclusive <span class="op">=</span> [<span class="dv">0</span>]</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>running <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> arr[:<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    running <span class="op">+=</span> x</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    exclusive.append(running)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Exclusive scan:"</span>, exclusive)</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Range query using prefix sums</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>i, j <span class="op">=</span> <span class="dv">1</span>, <span class="dv">3</span>  <span class="co"># sum from index 1 to 3 (2+3+4)</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>range_sum <span class="op">=</span> inclusive[j] <span class="op">-</span> (inclusive[i<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Range sum (1..3):"</span>, range_sum)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This program shows inclusive and exclusive scans, and how to use them to answer range queries quickly.</p>
+</section>
+<section id="why-it-matters-15" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-15">Why it matters</h4>
+<p>Prefix sums transform repeated work into reusable results. They make range queries efficient, reduce algorithmic complexity, and appear in countless applications: histograms, text processing, probability distributions, and parallel computing. They also introduce the idea of trading extra storage for faster queries, a common algorithmic technique.</p>
+</section>
+<section id="exercises-15" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-15">Exercises</h4>
+<ol type="1">
+<li>Compute the prefix sum of <code>[1, 2, 3, 4, 5]</code> by hand.</li>
+<li>Show the difference between inclusive and exclusive prefix sums for <code>[5, 10, 15]</code>.</li>
+<li>Use a prefix sum to find the sum of elements from index 2 to 4 in <code>[3, 6, 9, 12, 15]</code>.</li>
+<li>Given a prefix sum array <code>[2, 5, 9, 14]</code>, reconstruct the original array.</li>
+<li>Explain why prefix sums are more efficient than computing each subarray sum from scratch when handling many queries.</li>
+</ol>
+</section>
+</section>
+<section id="l1-prefix-sums-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="l1-prefix-sums-in-practice">2.6 L1 — Prefix Sums in Practice</h3>
+<p>Prefix sums are a versatile tool for speeding up algorithms that involve repeated range queries. Instead of recalculating sums over and over, we preprocess the array once to create cumulative totals. This preprocessing costs O(n), but it allows each query to be answered in O(1).</p>
+<section id="deep-dive-16" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-16">Deep Dive</h4>
+<p>A prefix sum array is built by scanning the original array from left to right:</p>
+<pre><code>prefix[i] = prefix[i-1] + arr[i]</code></pre>
+<p>This produces the inclusive scan. The exclusive scan shifts everything rightward, leaving prefix[0] = 0 and excluding the current element.</p>
+<p>The choice between inclusive and exclusive depends on application:</p>
+<ul>
+<li>Inclusive is easier for direct cumulative totals.</li>
+<li>Exclusive is more natural when answering range queries.</li>
+</ul>
+<p>Once built, prefix sums enable efficient operations:</p>
+<ul>
+<li>Range queries: <code>sum(i..j) = prefix[j] - prefix[i-1]</code>.</li>
+<li>Reconstruction: the original array can be recovered with <code>arr[i] = prefix[i] - prefix[i-1]</code>.</li>
+<li>Generalization: the same idea works for multiplication (cumulative product), logical OR/AND, or even min/max. The key requirement is that the operation is associative.</li>
+</ul>
+<section id="trade-offs-1" class="level5">
+<h5 class="anchored" data-anchor-id="trade-offs-1">Trade-offs:</h5>
+<ul>
+<li>Building prefix sums requires O(n) extra memory.</li>
+<li>If only a few queries are needed, recomputing directly may be simpler.</li>
+<li>For many queries, the preprocessing overhead is worthwhile.</li>
+</ul>
+</section>
+<section id="use-cases-1" class="level5">
+<h5 class="anchored" data-anchor-id="use-cases-1">Use cases:</h5>
+<ul>
+<li>Fast range-sum queries in databases or competitive programming.</li>
+<li>Cumulative frequencies in histograms.</li>
+<li>Substring analysis in text algorithms (e.g., number of vowels in a range).</li>
+<li>Probability and statistics: cumulative distribution functions.</li>
+</ul>
+</section>
+<section id="language-implementations" class="level5">
+<h5 class="anchored" data-anchor-id="language-implementations">Language implementations:</h5>
+<ul>
+<li>Python: <code>itertools.accumulate</code>, <code>numpy.cumsum</code>.</li>
+<li>C++: <code>std::partial_sum</code> from <code>&lt;numeric&gt;</code>.</li>
+<li>Java: custom loop, or stream reductions.</li>
+</ul>
+</section>
+<section id="pitfalls" class="level5">
+<h5 class="anchored" data-anchor-id="pitfalls">Pitfalls:</h5>
+<ul>
+<li>Confusing inclusive vs exclusive scans often leads to off-by-one errors.</li>
+<li>For large datasets, cumulative sums may overflow fixed-width integers.</li>
+</ul>
+</section>
+</section>
+<section id="worked-example-11" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-11">Worked Example</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> itertools</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>]</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Inclusive prefix sum using Python loop</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>inclusive <span class="op">=</span> []</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>running <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> arr:</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    running <span class="op">+=</span> x</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    inclusive.append(running)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Inclusive prefix sum:"</span>, inclusive)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Exclusive prefix sum</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>exclusive <span class="op">=</span> [<span class="dv">0</span>]</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>running <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> arr[:<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>    running <span class="op">+=</span> x</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>    exclusive.append(running)</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Exclusive prefix sum:"</span>, exclusive)</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co"># NumPy cumsum (inclusive)</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>np_inclusive <span class="op">=</span> np.cumsum(arr)</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"NumPy inclusive scan:"</span>, np_inclusive)</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Range query using prefix sums</span></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>i, j <span class="op">=</span> <span class="dv">1</span>, <span class="dv">3</span>  <span class="co"># indices 1..3 → 4+6+8</span></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>range_sum <span class="op">=</span> inclusive[j] <span class="op">-</span> (inclusive[i<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Range sum (1..3):"</span>, range_sum)</span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Recover original array from prefix sums</span></span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>reconstructed <span class="op">=</span> [inclusive[<span class="dv">0</span>]] <span class="op">+</span> [inclusive[i] <span class="op">-</span> inclusive[i<span class="op">-</span><span class="dv">1</span>] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(inclusive))]</span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Reconstructed array:"</span>, reconstructed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This example demonstrates building prefix sums by hand, using built-in libraries, answering queries, and reconstructing the original array.</p>
+</section>
+<section id="why-it-matters-16" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-16">Why it matters</h4>
+<p>Prefix sums reduce repeated work into reusable results. They transform O(n) queries into O(1), making algorithms faster and more scalable. They are a foundational idea in algorithm design, connecting to histograms, distributions, and dynamic programming.</p>
+</section>
+<section id="exercises-16" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-16">Exercises</h4>
+<ol type="1">
+<li>Build both inclusive and exclusive prefix sums for <code>[5, 10, 15, 20]</code>.</li>
+<li>Use prefix sums to compute the sum of elements from index 2 to 4 in <code>[1, 3, 5, 7, 9]</code>.</li>
+<li>Given a prefix sum array <code>[3, 8, 15, 24]</code>, reconstruct the original array.</li>
+<li>Write a procedure that computes cumulative products (scan with multiplication).</li>
+<li>Explain why prefix sums are more useful when answering hundreds of queries instead of just one.</li>
+</ol>
+</section>
+</section>
+<section id="l2-prefix-sums-and-parallel-scans" class="level3">
+<h3 class="anchored" data-anchor-id="l2-prefix-sums-and-parallel-scans">2.6 L2 — Prefix Sums and Parallel Scans</h3>
+<p>Prefix sums seem simple, but at scale they become a central systems primitive. They serve as the backbone of parallel algorithms, GPU kernels, and high-performance libraries. At this level, the focus shifts from “what is a prefix sum” to “how can we compute it efficiently across thousands of cores, with minimal synchronization and maximal throughput?”</p>
+<section id="deep-dive-17" class="level4">
+<h4 class="anchored" data-anchor-id="deep-dive-17">Deep Dive</h4>
+<p>Sequential algorithm. The simple prefix sum is O(n):</p>
+<pre><code>prefix[0] = arr[0]
+for i in 1..n-1:
+    prefix[i] = prefix[i-1] + arr[i]</code></pre>
+<p>Efficient for single-threaded contexts, but inherently sequential because each value depends on the one before it.</p>
+<p>Parallel algorithms. Two key approaches dominate:</p>
+<ul>
+<li><p>Hillis–Steele scan (1986):</p>
+<ul>
+<li>Iterative doubling method.</li>
+<li>At step k, each thread adds the value from 2^k positions behind.</li>
+<li>O(n log n) work, O(log n) depth. Simple but not work-efficient.</li>
+</ul></li>
+<li><p>Blelloch scan (1990):</p>
+<ul>
+<li><p>Work-efficient, O(n) total operations, O(log n) depth.</p></li>
+<li><p>Two phases:</p>
+<ul>
+<li>Up-sweep (reduce): build a tree of partial sums.</li>
+<li>Down-sweep: propagate sums back down to compute prefix results.</li>
+</ul></li>
+<li><p>Widely used in GPU libraries.</p></li>
+</ul></li>
+</ul>
+<section id="hardware-performance." class="level5">
+<h5 class="anchored" data-anchor-id="hardware-performance.">Hardware performance.</h5>
+<ul>
+<li>Cache-aware scans: memory locality matters for large arrays. Blocking and tiling reduce cache misses.</li>
+<li>SIMD vectorization: multiple prefix elements are computed in parallel inside CPU vector registers.</li>
+<li>GPUs: scans are implemented at warp and block levels, with CUDA providing primitives like <code>thrust::inclusive_scan</code>. Warp shuffles (<code>__shfl_up_sync</code>) allow efficient intra-warp scans without shared memory.</li>
+</ul>
+</section>
+<section id="memory-and-synchronization." class="level5">
+<h5 class="anchored" data-anchor-id="memory-and-synchronization.">Memory and synchronization.</h5>
+<ul>
+<li>In-place scans reduce memory use but complicate parallelization.</li>
+<li>Exclusive vs inclusive variants require careful handling of initial values.</li>
+<li>Synchronization overhead and false sharing are common risks in multithreaded CPU scans.</li>
+<li>Distributed scans (MPI) require combining partial results from each node, then adjusting local scans with offsets.</li>
+</ul>
+</section>
+<section id="libraries-and-implementations." class="level5">
+<h5 class="anchored" data-anchor-id="libraries-and-implementations.">Libraries and implementations.</h5>
+<ul>
+<li>C++ TBB: <code>parallel_scan</code> supports both exclusive and inclusive.</li>
+<li>CUDA Thrust: <code>inclusive_scan</code>, <code>exclusive_scan</code> for GPU workloads.</li>
+<li>OpenMP: provides <code>#pragma omp parallel for reduction</code> but true scans require more explicit handling.</li>
+<li>MPI: <code>MPI_Scan</code> and <code>MPI_Exscan</code> provide distributed prefix sums.</li>
+</ul>
+</section>
+<section id="system-level-use-cases.-2" class="level5">
+<h5 class="anchored" data-anchor-id="system-level-use-cases.-2">System-level use cases.</h5>
+<ul>
+<li>Parallel histogramming: count frequencies in parallel, prefix sums to compute cumulative counts.</li>
+<li>Radix sort: scans partition data into buckets efficiently.</li>
+<li>Stream compaction: filter elements while maintaining order.</li>
+<li>GPU memory allocation: prefix sums assign disjoint output positions to threads.</li>
+<li>Database indexing: scans help build offsets for columnar data storage.</li>
+</ul>
+</section>
+<section id="pitfalls.-5" class="level5">
+<h5 class="anchored" data-anchor-id="pitfalls.-5">Pitfalls.</h5>
+<ul>
+<li>Race conditions when threads update overlapping memory.</li>
+<li>Load imbalance in irregular workloads (e.g., skewed distributions).</li>
+<li>Wrong handling of inclusive vs exclusive leads to subtle bugs in partitioning algorithms.</li>
+</ul>
+</section>
+<section id="profiling-and-optimization." class="level5">
+<h5 class="anchored" data-anchor-id="profiling-and-optimization.">Profiling and optimization.</h5>
+<ul>
+<li>Benchmark sequential vs parallel scan on arrays of size 10^6 or 10^9.</li>
+<li>Compare scalability with 2, 4, 8, … cores.</li>
+<li>Measure GPU kernel efficiency at warp, block, and grid levels.</li>
+</ul>
+</section>
+</section>
+<section id="worked-example-cuda-thrust" class="level4">
+<h4 class="anchored" data-anchor-id="worked-example-cuda-thrust">Worked Example (CUDA Thrust)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;thrust/device_vector.h&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;thrust/scan.h&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    thrust<span class="op">::</span>device_vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> data<span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">};</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Inclusive scan</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    thrust<span class="op">::</span>inclusive_scan<span class="op">(</span>data<span class="op">.</span>begin<span class="op">(),</span> data<span class="op">.</span>end<span class="op">(),</span> data<span class="op">.</span>begin<span class="op">());</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Inclusive scan: "</span><span class="op">;</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> x <span class="op">:</span> data<span class="op">)</span> <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> x <span class="op">&lt;&lt;</span> <span class="st">" "</span><span class="op">;</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Exclusive scan</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    thrust<span class="op">::</span>device_vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> data2<span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">};</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    thrust<span class="op">::</span>exclusive_scan<span class="op">(</span>data2<span class="op">.</span>begin<span class="op">(),</span> data2<span class="op">.</span>end<span class="op">(),</span> data2<span class="op">.</span>begin<span class="op">(),</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Exclusive scan: "</span><span class="op">;</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> x <span class="op">:</span> data2<span class="op">)</span> <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> x <span class="op">&lt;&lt;</span> <span class="st">" "</span><span class="op">;</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This program offloads prefix sum computation to the GPU. With thousands of threads, even huge arrays can be scanned in milliseconds.</p>
+</section>
+<section id="why-it-matters-17" class="level4">
+<h4 class="anchored" data-anchor-id="why-it-matters-17">Why it matters</h4>
+<p>Prefix sums are a textbook example of how a simple algorithm scales into a building block of parallel computing. They are used in compilers, graphics, search engines, and machine learning systems. They show how rethinking algorithms for hardware (CPU caches, SIMD, GPUs, distributed clusters) leads to new designs.</p>
+</section>
+<section id="exercises-17" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-17">Exercises</h4>
+<ol type="1">
+<li>Implement the Hillis–Steele scan for an array of length 16 and show each step.</li>
+<li>Implement the Blelloch scan in pseudocode and explain how the up-sweep and down-sweep phases work.</li>
+<li>Benchmark a sequential prefix sum vs an OpenMP parallel scan on 10^7 elements.</li>
+<li>In CUDA, implement an exclusive scan at the warp level using shuffle instructions.</li>
+<li>Explain how prefix sums are used in stream compaction (removing zeros from an array while preserving order).</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="deep-dive-18" class="level2">
+<h2 class="anchored" data-anchor-id="deep-dive-18">Deep Dive</h2>
+<section id="static-arrays-1" class="level4">
+<h4 class="anchored" data-anchor-id="static-arrays-1">2.1 Static Arrays</h4>
+<ul>
+<li>Memory alignment and padding in C and assembly.</li>
+<li>Array indexing formulas compiled into machine code.</li>
+<li>Page tables and kernel use of fixed-size arrays (<code>task_struct</code>, <code>inode</code>).</li>
+<li>Vectorization of loops over static arrays (SSE/AVX).</li>
+<li>Bounds checking elimination in high-level languages.</li>
+</ul>
+</section>
+<section id="dynamic-arrays-1" class="level4">
+<h4 class="anchored" data-anchor-id="dynamic-arrays-1">2.2 Dynamic Arrays</h4>
+<ul>
+<li>Growth factor experiments: doubling vs 1.5× vs incremental.</li>
+<li>Profiling Python’s list growth strategy (measure capacity jumps).</li>
+<li>Amortized vs worst-case complexity: proofs with actual benchmarks.</li>
+<li>Reallocation latency spikes in low-latency systems.</li>
+<li>Comparing <code>std::vector::reserve</code> vs default growth.</li>
+<li>Memory fragmentation in long-running programs.</li>
+</ul>
+</section>
+<section id="slices-views-1" class="level4">
+<h4 class="anchored" data-anchor-id="slices-views-1">2.3 Slices &amp; Views</h4>
+<ul>
+<li>Slice metadata structure in Go (<code>ptr, len, cap</code>).</li>
+<li>Rust borrow checker rules for <code>&amp;[T]</code> vs <code>&amp;mut [T]</code>.</li>
+<li>NumPy stride tricks: transpose as a view, not a copy.</li>
+<li>Performance gap: traversing contiguous vs strided slices.</li>
+<li>Cache/TLB impact of strided access (e.g., step=16).</li>
+<li>False sharing when two threads use overlapping slices.</li>
+</ul>
+</section>
+<section id="multidimensional-arrays-1" class="level4">
+<h4 class="anchored" data-anchor-id="multidimensional-arrays-1">2.4 Multidimensional Arrays</h4>
+<ul>
+<li>Row-major vs column-major benchmarks: traverse order timing.</li>
+<li>Linear index formulas for N-dimensional arrays.</li>
+<li>Loop tiling/blocking for matrix multiplication.</li>
+<li>Structure of Arrays (SoA) vs Array of Structures (AoS).</li>
+<li>False sharing and padding in multi-threaded traversal.</li>
+<li>BLAS/LAPACK optimizations and cache-aware kernels.</li>
+<li>GPU coalesced memory access in 2D/3D arrays.</li>
+</ul>
+</section>
+<section id="sparse-arrays-compressed-layouts" class="level4">
+<h4 class="anchored" data-anchor-id="sparse-arrays-compressed-layouts">2.5 Sparse Arrays &amp; Compressed Layouts</h4>
+<ul>
+<li>COO, CSR, CSC: hands-on with memory footprint and iteration cost.</li>
+<li>Comparing dictionary-based vs CSR-based sparse vectors.</li>
+<li>Parallel SpMV benchmarks on CPU vs GPU.</li>
+<li>DIA and ELL formats: why they shine in structured sparsity.</li>
+<li>Hybrid GPU formats (HYB: ELL + COO).</li>
+<li>Search engine inverted indices as sparse structures.</li>
+<li>Sparse arrays in ML: bag-of-words and embeddings.</li>
+</ul>
+</section>
+<section id="prefix-sums-scans-1" class="level4">
+<h4 class="anchored" data-anchor-id="prefix-sums-scans-1">2.6 Prefix Sums &amp; Scans</h4>
+<ul>
+<li>Inclusive vs exclusive scans: correctness pitfalls.</li>
+<li>Hillis–Steele vs Blelloch scans: step count vs work efficiency.</li>
+<li>Cache-friendly prefix sums on CPUs (blocked scans).</li>
+<li>SIMD prefix sum using AVX intrinsics.</li>
+<li>CUDA warp shuffle scans (<code>__shfl_up_sync</code>).</li>
+<li>MPI distributed scans across clusters.</li>
+<li>Stream compaction via prefix sums (remove zeros in O(n)).</li>
+<li>Radix sort built from parallel scans.</li>
+</ul>
+</section>
+</section>
+<section id="lab" class="level2">
+<h2 class="anchored" data-anchor-id="lab">LAB</h2>
+<section id="static-arrays-2" class="level4">
+<h4 class="anchored" data-anchor-id="static-arrays-2">2.1 Static Arrays</h4>
+<ul>
+<li>LAB 1: Implement fixed-size arrays in C and Python, compare access/update speeds.</li>
+<li>LAB 2: Explore how static arrays are used in Linux kernel (<code>task_struct</code>, page tables).</li>
+<li>LAB 3: Disassemble a simple loop over a static array and inspect the generated assembly.</li>
+<li>LAB 4: Benchmark cache effects: sequential vs random access in a large static array.</li>
+</ul>
+</section>
+<section id="dynamic-arrays-2" class="level4">
+<h4 class="anchored" data-anchor-id="dynamic-arrays-2">2.2 Dynamic Arrays</h4>
+<ul>
+<li>LAB 1: Implement your own dynamic array in C (with doubling strategy).</li>
+<li>LAB 2: Benchmark Python’s <code>list</code> growth by tracking capacity changes while appending.</li>
+<li>LAB 3: Compare growth factors: doubling vs 1.5× vs fixed increments.</li>
+<li>LAB 4: Stress test reallocation cost by appending millions of elements, measure latency spikes.</li>
+<li>LAB 5: Use <code>std::vector::reserve</code> in C++ and compare performance vs default growth.</li>
+</ul>
+</section>
+<section id="slices-views-2" class="level4">
+<h4 class="anchored" data-anchor-id="slices-views-2">2.3 Slices &amp; Views</h4>
+<ul>
+<li>LAB 1: In Go, experiment with slice creation, capacity, and append — observe when new arrays are allocated.</li>
+<li>LAB 2: In Rust, create overlapping slices and see how the borrow checker enforces safety.</li>
+<li>LAB 3: In Python, compare slicing a list vs slicing a NumPy array — demonstrate copy vs view behavior.</li>
+<li>LAB 4: Benchmark stride slicing in NumPy (<code>arr[::16]</code>) and explain performance drop.</li>
+<li>LAB 5: Demonstrate aliasing bugs when two slices share the same underlying array.</li>
+</ul>
+</section>
+<section id="multidimensional-arrays-2" class="level4">
+<h4 class="anchored" data-anchor-id="multidimensional-arrays-2">2.4 Multidimensional Arrays</h4>
+<ul>
+<li>LAB 1: Write code to traverse a 1000×1000 array row by row vs column by column, measure performance.</li>
+<li>LAB 2: Implement your own 2D array in C using both contiguous memory and array-of-pointers, compare speed.</li>
+<li>LAB 3: Use NumPy to confirm row-major order with <code>.strides</code>, then create a column-major array and compare.</li>
+<li>LAB 4: Implement a tiled matrix multiplication in C/NumPy and measure cache improvement.</li>
+<li>LAB 5: Experiment with SoA vs AoS layouts for a struct of 3 floats (x,y,z). Measure iteration performance.</li>
+</ul>
+</section>
+<section id="sparse-arrays-compressed-layouts-1" class="level4">
+<h4 class="anchored" data-anchor-id="sparse-arrays-compressed-layouts-1">2.5 Sparse Arrays &amp; Compressed Layouts</h4>
+<ul>
+<li>LAB 1: Implement sparse arrays with Python dict vs dense lists, compare memory usage.</li>
+<li>LAB 2: Build COO and CSR representations for the same matrix, print memory layout.</li>
+<li>LAB 3: Benchmark dense vs CSR matrix-vector multiplication.</li>
+<li>LAB 4: Use SciPy’s <code>csr_matrix</code> and <code>csc_matrix</code>, run queries, compare performance.</li>
+<li>LAB 5: Implement a simple search engine inverted index as a sparse array of word→docID list.</li>
+</ul>
+</section>
+<section id="prefix-sums-scans-2" class="level4">
+<h4 class="anchored" data-anchor-id="prefix-sums-scans-2">2.6 Prefix Sums &amp; Scans</h4>
+<ul>
+<li>LAB 1: Write inclusive and exclusive prefix sums in Python.</li>
+<li>LAB 2: Benchmark prefix sums for answering 1000 range queries vs naive summation.</li>
+<li>LAB 3: Implement Blelloch scan in C/NumPy and visualize the up-sweep/down-sweep steps.</li>
+<li>LAB 4: Implement prefix sums on GPU (CUDA/Thrust), compare speed to CPU.</li>
+<li>LAB 5: Use prefix sums for stream compaction: remove zeros from an array while preserving order.</li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -581,9 +2568,6 @@ ul.task-list li input[type="checkbox"] {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapter_3.html" class="pagination-link" aria-label="Chapter 3. Strings">
-        <span class="nav-page-text"><span class="chapter-title">Chapter 3. Strings</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -212,9 +212,9 @@
   \apptocmd{\@title}{\par {\large #1 \par}}{}{}
 }
 \makeatother
-\subtitle{Version 0.1.0}
+\subtitle{Version 0.1.1}
 \author{Duc-Tam Nguyen}
-\date{2025-09-09}
+\date{2025-09-11}
 \begin{document}
 \maketitle
 
@@ -2596,18 +2596,3161 @@ systems-level contracts that must be understood and enforced.
 
 \chapter{Chapter 2. Arrays}\label{chapter-2.-arrays}
 
-\bookmarksetup{startatroot}
+\section{2.1 Static Arrays}\label{static-arrays}
 
-\chapter{Chapter 3. Strings}\label{chapter-3.-strings}
+\subsection{2.2 L0 --- Arrays That Grow}\label{l0-arrays-that-grow}
 
-\bookmarksetup{startatroot}
+A dynamic array is like a container that can expand and shrink as
+needed. Unlike static arrays, which must know their size in advance, a
+dynamic array adapts as elements are added or removed. You can think of
+it as a bookshelf where new shelves appear automatically when space runs
+out. The underlying idea is simple: keep the benefits of fast
+index-based access, while adding flexibility to change the size.
 
-\chapter{Chapter 4. Linked Lists}\label{chapter-4.-linked-lists}
+\subsubsection{Deep Dive}\label{deep-dive-3}
 
-\bookmarksetup{startatroot}
+A dynamic array begins with a fixed amount of space called its capacity.
+When the number of elements (the length) exceeds this capacity, the
+array grows. This is usually done by allocating a new, larger block of
+memory and copying the old elements into it. After this, new elements
+can be added until the new capacity is filled, at which point the
+process repeats.
 
-\chapter{Chapter 5. Stacks and
-Queues}\label{chapter-5.-stacks-and-queues}
+Despite this resizing process, the key properties remain:
+
+\begin{itemize}
+\tightlist
+\item
+  Fast access and update: Elements can still be reached instantly using
+  an index.
+\item
+  Append flexibility: New elements can be added at the end without
+  worrying about fixed size.
+\item
+  Occasional resizing cost: Most appends are quick, but when resizing
+  happens, it takes longer because all elements must be copied.
+\end{itemize}
+
+The performance picture is intuitive:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1818}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3247}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4935}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Operation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Time Complexity (Typical)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Notes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Access element & O(1) & Index maps directly to position \\
+Update element & O(1) & Replace value in place \\
+Append element & O(1) amortized & Occasionally O(n) when resizing
+occurs \\
+Pop element & O(1) & Remove from end \\
+Insert/Delete & O(n) & Elements must be shifted \\
+\end{longtable}
+
+Dynamic arrays therefore trade predictability for flexibility. The
+occasional slow operation is outweighed by the ability to grow and
+shrink on demand, which makes them useful for most real-world tasks
+where the number of elements is not known in advance.
+
+\subsubsection{Worked Example}\label{worked-example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a dynamic array using Python\textquotesingle{}s built{-}in list}
+\NormalTok{arr }\OperatorTok{=}\NormalTok{ []}
+
+\CommentTok{\# Append elements (array grows automatically)}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{5}\NormalTok{):}
+\NormalTok{    arr.append((i }\OperatorTok{+} \DecValTok{1}\NormalTok{) }\OperatorTok{*} \DecValTok{10}\NormalTok{)}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Array after appending:"}\NormalTok{, arr)}
+
+\CommentTok{\# Access and update elements}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Element at index 2:"}\NormalTok{, arr[}\DecValTok{2}\NormalTok{])}
+\NormalTok{arr[}\DecValTok{2}\NormalTok{] }\OperatorTok{=} \DecValTok{99}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Updated array:"}\NormalTok{, arr)}
+
+\CommentTok{\# Remove last element}
+\NormalTok{last }\OperatorTok{=}\NormalTok{ arr.pop()}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Removed element:"}\NormalTok{, last)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Array after pop:"}\NormalTok{, arr)}
+
+\CommentTok{\# Traverse array}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(arr)):}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Index }\SpecialCharTok{\{}\NormalTok{i}\SpecialCharTok{\}}\SpecialStringTok{: }\SpecialCharTok{\{}\NormalTok{arr[i]}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This short program shows how a dynamic array in Python resizes
+automatically with \texttt{append} and shrinks with \texttt{pop}. Access
+and updates remain instant, while resizing happens invisibly when more
+space is needed.
+
+\subsubsection{Why it matters}\label{why-it-matters-12}
+
+Dynamic arrays combine efficiency and flexibility. They allow programs
+to handle unknown or changing amounts of data without predefining sizes.
+They form the backbone of lists in high-level languages, balancing
+performance with usability. They also illustrate the idea of amortized
+cost: most operations are fast, but occasional expensive operations are
+averaged out over time.
+
+\subsubsection{Exercises}\label{exercises-12}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create an array and append numbers 1 through 10. Print the final
+  array.
+\item
+  Replace the 3rd element with a new value.
+\item
+  Remove the last two elements and print the result.
+\item
+  Write a procedure that traverses a dynamic array and computes the
+  average of its elements.
+\item
+  Explain why appending one element might sometimes be much slower than
+  appending another, even though both look the same in code.
+\end{enumerate}
+
+\subsection{2.1 L1 --- Static Arrays in
+Practice}\label{l1-static-arrays-in-practice}
+
+Static arrays are one of the simplest and most reliable ways of storing
+data. They are defined as collections of elements laid out in a
+fixed-size, contiguous block of memory. Unlike dynamic arrays, their
+size is determined at creation and cannot be changed later. This
+property makes them predictable, efficient, and easy to reason about,
+but also less flexible when dealing with varying amounts of data.
+
+\subsubsection{Deep Dive}\label{deep-dive-4}
+
+At the heart of static arrays is their memory layout. When an array is
+created, the program reserves a continuous region of memory large enough
+to hold all its elements. Each element is stored right next to the
+previous one. This design allows very fast access because the position
+of any element can be computed directly:
+
+\begin{verbatim}
+address_of(arr[i]) = base_address + (i × element_size)
+\end{verbatim}
+
+No searching or scanning is required, only simple arithmetic. This is
+why reading or writing to an element at a given index is considered O(1)
+--- constant time regardless of the array size.
+
+The trade-offs emerge when considering insertion or deletion. Because
+elements are tightly packed, inserting a new element in the middle
+requires shifting all the subsequent elements by one position. Deleting
+works the same way in reverse. These operations are therefore O(n),
+linear in the size of the array.
+
+The cost summary is straightforward:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Operation & Time Complexity & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Access element & O(1) & Direct index calculation \\
+Update element & O(1) & Replace in place \\
+Traverse & O(n) & Visit each element once \\
+Insert/Delete & O(n) & Shifting elements required \\
+\end{longtable}
+
+\paragraph{Trade-offs.}\label{trade-offs.}
+
+Static arrays excel when you know the size in advance. They guarantee
+fast access and compact memory usage because there is no overhead for
+resizing or metadata. However, they lack flexibility. If the array is
+too small, you must allocate a larger one and copy all elements over. If
+it is too large, memory is wasted. This is why languages like Python
+provide dynamic lists by default, while static arrays are used in
+performance-critical or resource-constrained contexts.
+
+\paragraph{Use cases.}\label{use-cases.}
+
+\begin{itemize}
+\tightlist
+\item
+  Buffers: Fixed-size areas for network packets or hardware input.
+\item
+  Lookup tables: Precomputed constants or small ranges of values (e.g.,
+  ASCII character tables).
+\item
+  Static configuration data: Tables known at compile-time, where
+  resizing is unnecessary.
+\end{itemize}
+
+\paragraph{Pitfalls.}\label{pitfalls.}
+
+Programmers must be careful of two common issues:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Out-of-bounds errors: Trying to access an index outside the valid
+  range, leading to exceptions (in safe languages) or undefined behavior
+  (in low-level languages).
+\item
+  Sizing problems: Underestimating leads to crashes, overestimating
+  leads to wasted memory.
+\end{enumerate}
+
+Static arrays are common in many programming environments. In Python,
+the \texttt{array} module provides a fixed-type sequence that behaves
+more like a C-style array. Libraries like NumPy also provide fixed-shape
+arrays that offer efficient memory usage and fast computations. In C and
+C++, arrays are part of the language itself, and they form the
+foundation of higher-level containers like \texttt{std::vector}.
+
+\subsubsection{Worked Example}\label{worked-example-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ array}
+
+\CommentTok{\# Create a static array of integers (type \textquotesingle{}i\textquotesingle{} = signed int)}
+\NormalTok{arr }\OperatorTok{=}\NormalTok{ array.array(}\StringTok{\textquotesingle{}i\textquotesingle{}}\NormalTok{, [}\DecValTok{0}\NormalTok{] }\OperatorTok{*} \DecValTok{5}\NormalTok{)}
+
+\CommentTok{\# Fill the array with values}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(arr)):}
+\NormalTok{    arr[i] }\OperatorTok{=}\NormalTok{ (i }\OperatorTok{+} \DecValTok{1}\NormalTok{) }\OperatorTok{*} \DecValTok{10}
+
+\CommentTok{\# Access and update elements}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Element at index 2:"}\NormalTok{, arr[}\DecValTok{2}\NormalTok{])}
+\NormalTok{arr[}\DecValTok{2}\NormalTok{] }\OperatorTok{=} \DecValTok{99}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Updated element at index 2:"}\NormalTok{, arr[}\DecValTok{2}\NormalTok{])}
+
+\CommentTok{\# Traverse the array}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"All elements:"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(arr)):}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Index }\SpecialCharTok{\{}\NormalTok{i}\SpecialCharTok{\}}\SpecialStringTok{: }\SpecialCharTok{\{}\NormalTok{arr[i]}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+
+\CommentTok{\# Demonstrating the limitation: trying to insert beyond capacity}
+\ControlFlowTok{try}\NormalTok{:}
+\NormalTok{    arr.insert(}\DecValTok{5}\NormalTok{, }\DecValTok{60}\NormalTok{)  }\CommentTok{\# This technically works in Python\textquotesingle{}s array, but resizes internally}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Inserted new element:"}\NormalTok{, arr)}
+\ControlFlowTok{except} \PreprocessorTok{Exception} \ImportTok{as}\NormalTok{ e:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Error inserting into static array:"}\NormalTok{, e)}
+\end{Highlighting}
+\end{Shaded}
+
+This code illustrates the strengths and weaknesses of static arrays.
+Access and updates are immediate, and traversal is simple. But the
+notion of a ``fixed size'' means that insertion and deletion are costly
+or, in some languages, unsupported.
+
+\subsubsection{Why it matters}\label{why-it-matters-13}
+
+Static arrays are the building blocks of data structures. They teach the
+trade-off between speed and flexibility. They remind us that memory is
+finite and that how data is laid out in memory directly impacts
+performance. Whether writing Python code, using NumPy, or implementing
+algorithms in C, understanding static arrays makes it easier to reason
+about cost, predict behavior, and avoid common errors.
+
+\subsubsection{Exercises}\label{exercises-13}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create an array of size 8 and fill it with even numbers from 2 to 16.
+  Then access the 4th element directly.
+\item
+  Update the middle element of a fixed-size array with a new value.
+\item
+  Write a procedure to traverse an array and find the maximum element.
+\item
+  Explain why inserting a new value into the beginning of a static array
+  requires shifting every other element.
+\item
+  Give two examples of real-world systems where fixed-size arrays are a
+  natural fit.
+\end{enumerate}
+
+\subsection{2.1 L2 --- Static Arrays and the System
+Beneath}\label{l2-static-arrays-and-the-system-beneath}
+
+Static arrays are more than just a collection of values; they are a
+direct window into how computers store and access data. At the advanced
+level, understanding static arrays means looking at memory models, cache
+behavior, compiler optimizations, and the role of arrays in operating
+systems and production libraries. This perspective is critical for
+building high-performance software and for avoiding subtle, system-level
+bugs.
+
+\subsubsection{Deep Dive}\label{deep-dive-5}
+
+At the lowest level, a static array is a contiguous block of memory.
+When an array is declared, the compiler calculates the required size as
+\texttt{length\ ×\ element\_size} and reserves that many bytes. Each
+element is addressed by simple arithmetic:
+
+\begin{verbatim}
+address_of(arr[i]) = base_address + (i × element_size)
+\end{verbatim}
+
+This is why access and updates are constant time. The difference between
+static arrays and dynamically allocated ones often comes down to where
+the memory lives. Arrays declared inside a function may live on the
+stack, offering fast allocation and automatic cleanup. Larger arrays or
+arrays whose size isn't known at compile time are allocated on the heap,
+requiring runtime management via calls such as \texttt{malloc} and
+\texttt{free}.
+
+The cache hierarchy makes arrays especially efficient. Because elements
+are contiguous, accessing \texttt{arr{[}i{]}} loads not just one element
+but also its neighbors into a cache line (often 64 bytes). This
+property, known as spatial locality, means that scanning through an
+array is very fast. Prefetchers in modern CPUs exploit this by pulling
+in upcoming cache lines before they are needed. However, irregular
+access patterns (e.g., striding by 17) can defeat prefetching and lead
+to performance drops.
+
+Alignment and padding further influence performance. On most systems,
+integers must start at addresses divisible by 4, and doubles at
+addresses divisible by 8. If the compiler cannot guarantee alignment, it
+may add padding bytes to enforce it. Misaligned accesses can cause
+slowdowns or even hardware faults on strict architectures.
+
+Different programming languages expose these behaviors differently. In
+C, a declaration like \texttt{int\ arr{[}10{]};} on the stack creates
+exactly 40 bytes on a 32-bit system. In contrast,
+\texttt{malloc(10\ *\ sizeof(int))} allocates memory on the heap. In
+C++, \texttt{std::array\textless{}int,\ 10\textgreater{}} is a safer
+wrapper around C arrays, while
+\texttt{std::vector\textless{}int\textgreater{}} adds resizing at the
+cost of indirection and metadata. In Fortran and NumPy, multidimensional
+arrays can be stored in column-major order rather than row-major, which
+changes how indices map to addresses and affects iteration performance.
+
+The operating system kernel makes heavy use of static arrays. For
+example, Linux defines fixed-size arrays in structures like
+\texttt{task\_struct} for file descriptors, and uses arrays in page
+tables for managing memory mappings. Static arrays provide
+predictability and remove the need for runtime memory allocation in
+performance-critical or security-sensitive code.
+
+From a performance profiling standpoint, arrays reveal fundamental
+trade-offs. Shifting elements during insertion or deletion requires
+copying bytes across memory, and the cost grows linearly with the number
+of elements. Compilers attempt to optimize loops over arrays with
+vectorization, turning element-wise operations into SIMD instructions.
+They may also apply loop unrolling or bounds-check elimination (BCE)
+when it can be proven that indices remain safe.
+
+Static arrays also carry risks. In C and C++, accessing out-of-bounds
+memory leads to undefined behavior, often exploited in buffer overflow
+attacks. Languages like Java or Python mitigate this with runtime bounds
+checks, but at the expense of some performance.
+
+At this level, static arrays should be seen not only as a data structure
+but as a fundamental contract between code, compiler, and hardware.
+
+Worked Example (C)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdio.h\textgreater{}}
+
+\DataTypeTok{int}\NormalTok{ main}\OperatorTok{()} \OperatorTok{\{}
+    \CommentTok{// Static array of 8 integers allocated on the stack}
+    \DataTypeTok{int}\NormalTok{ arr}\OperatorTok{[}\DecValTok{8}\OperatorTok{];}
+
+    \CommentTok{// Initialize array}
+    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ i }\OperatorTok{\textless{}} \DecValTok{8}\OperatorTok{;}\NormalTok{ i}\OperatorTok{++)} \OperatorTok{\{}
+\NormalTok{        arr}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=} \OperatorTok{(}\NormalTok{i }\OperatorTok{+} \DecValTok{1}\OperatorTok{)} \OperatorTok{*} \DecValTok{10}\OperatorTok{;}
+    \OperatorTok{\}}
+
+    \CommentTok{// Access and update element}
+\NormalTok{    printf}\OperatorTok{(}\StringTok{"Element at index 3: }\SpecialCharTok{\%d\textbackslash{}n}\StringTok{"}\OperatorTok{,}\NormalTok{ arr}\OperatorTok{[}\DecValTok{3}\OperatorTok{]);}
+\NormalTok{    arr}\OperatorTok{[}\DecValTok{3}\OperatorTok{]} \OperatorTok{=} \DecValTok{99}\OperatorTok{;}
+\NormalTok{    printf}\OperatorTok{(}\StringTok{"Updated element at index 3: }\SpecialCharTok{\%d\textbackslash{}n}\StringTok{"}\OperatorTok{,}\NormalTok{ arr}\OperatorTok{[}\DecValTok{3}\OperatorTok{]);}
+
+    \CommentTok{// Traverse with cache{-}friendly pattern}
+    \DataTypeTok{int}\NormalTok{ sum }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ i }\OperatorTok{\textless{}} \DecValTok{8}\OperatorTok{;}\NormalTok{ i}\OperatorTok{++)} \OperatorTok{\{}
+\NormalTok{        sum }\OperatorTok{+=}\NormalTok{ arr}\OperatorTok{[}\NormalTok{i}\OperatorTok{];}
+    \OperatorTok{\}}
+\NormalTok{    printf}\OperatorTok{(}\StringTok{"Sum of array: }\SpecialCharTok{\%d\textbackslash{}n}\StringTok{"}\OperatorTok{,}\NormalTok{ sum}\OperatorTok{);}
+
+    \CommentTok{// Dangerous: Uncommenting would cause undefined behavior}
+    \CommentTok{// printf("\%d\textbackslash{}n", arr[10]);}
+
+    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This C program demonstrates how static arrays live on the stack, how
+indexing works, and why out-of-bounds access is dangerous. On real
+hardware, iterating sequentially benefits from spatial locality, making
+the traversal very fast compared to random access.
+
+\subsubsection{Why it matters}\label{why-it-matters-14}
+
+Static arrays are the substrate upon which much of computing is built.
+They are simple in abstraction but complex in practice, touching
+compilers, operating systems, and hardware. Understanding them is
+essential for:
+
+\begin{itemize}
+\tightlist
+\item
+  Writing cache-friendly and high-performance code.
+\item
+  Avoiding security vulnerabilities like buffer overflows.
+\item
+  Appreciating why higher-level data structures behave the way they do.
+\item
+  Building intuition for memory layout, alignment, and the interaction
+  between code and the CPU.
+\end{itemize}
+
+Arrays are not just ``collections of values'' --- they are the
+foundation of efficient data processing.
+
+\subsubsection{Exercises}\label{exercises-14}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In C, declare a static array of size 16 and measure how long it takes
+  to sum its elements sequentially versus accessing them in steps of 4.
+  Explain the performance difference.
+\item
+  Explain why iterating over a 2D array row by row is faster in C than
+  column by column.
+\item
+  Consider a struct with mixed types (e.g., \texttt{char}, \texttt{int},
+  \texttt{double}). Predict where padding bytes will be inserted if
+  placed inside an array.
+\item
+  Research and describe how the Linux kernel uses static arrays in
+  managing processes or memory.
+\item
+  Demonstrate with code how accessing beyond the end of a static array
+  in C can cause undefined behavior, and explain why this is a serious
+  risk in system programming.
+\end{enumerate}
+
+\section{2.2 Dynamic Arrays}\label{dynamic-arrays}
+
+\subsection{2.2 L0 --- Arrays That Grow}\label{l0-arrays-that-grow-1}
+
+A dynamic array is like a container that can expand and shrink as
+needed. Unlike static arrays, which must know their size in advance, a
+dynamic array adapts as elements are added or removed. You can think of
+it as a bookshelf where new shelves appear automatically when space runs
+out. The underlying idea is simple: keep the benefits of fast
+index-based access, while adding flexibility to change the size.
+
+\subsubsection{Deep Dive}\label{deep-dive-6}
+
+A dynamic array begins with a fixed amount of space called its capacity.
+When the number of elements (the length) exceeds this capacity, the
+array grows. This is usually done by allocating a new, larger block of
+memory and copying the old elements into it. After this, new elements
+can be added until the new capacity is filled, at which point the
+process repeats.
+
+Despite this resizing process, the key properties remain:
+
+\begin{itemize}
+\tightlist
+\item
+  Fast access and update: Elements can still be reached instantly using
+  an index.
+\item
+  Append flexibility: New elements can be added at the end without
+  worrying about fixed size.
+\item
+  Occasional resizing cost: Most appends are quick, but when resizing
+  happens, it takes longer because all elements must be copied.
+\end{itemize}
+
+The performance picture is intuitive:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1818}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3247}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4935}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Operation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Time Complexity (Typical)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Notes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Access element & O(1) & Index maps directly to position \\
+Update element & O(1) & Replace value in place \\
+Append element & O(1) amortized & Occasionally O(n) when resizing
+occurs \\
+Pop element & O(1) & Remove from end \\
+Insert/Delete & O(n) & Elements must be shifted \\
+\end{longtable}
+
+Dynamic arrays therefore trade predictability for flexibility. The
+occasional slow operation is outweighed by the ability to grow and
+shrink on demand, which makes them useful for most real-world tasks
+where the number of elements is not known in advance.
+
+\subsubsection{Worked Example}\label{worked-example-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a dynamic array using Python\textquotesingle{}s built{-}in list}
+\NormalTok{arr }\OperatorTok{=}\NormalTok{ []}
+
+\CommentTok{\# Append elements (array grows automatically)}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{5}\NormalTok{):}
+\NormalTok{    arr.append((i }\OperatorTok{+} \DecValTok{1}\NormalTok{) }\OperatorTok{*} \DecValTok{10}\NormalTok{)}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Array after appending:"}\NormalTok{, arr)}
+
+\CommentTok{\# Access and update elements}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Element at index 2:"}\NormalTok{, arr[}\DecValTok{2}\NormalTok{])}
+\NormalTok{arr[}\DecValTok{2}\NormalTok{] }\OperatorTok{=} \DecValTok{99}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Updated array:"}\NormalTok{, arr)}
+
+\CommentTok{\# Remove last element}
+\NormalTok{last }\OperatorTok{=}\NormalTok{ arr.pop()}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Removed element:"}\NormalTok{, last)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Array after pop:"}\NormalTok{, arr)}
+
+\CommentTok{\# Traverse array}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(arr)):}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Index }\SpecialCharTok{\{}\NormalTok{i}\SpecialCharTok{\}}\SpecialStringTok{: }\SpecialCharTok{\{}\NormalTok{arr[i]}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This short program shows how a dynamic array in Python resizes
+automatically with \texttt{append} and shrinks with \texttt{pop}. Access
+and updates remain instant, while resizing happens invisibly when more
+space is needed.
+
+\subsubsection{Why it matters}\label{why-it-matters-15}
+
+Dynamic arrays combine efficiency and flexibility. They allow programs
+to handle unknown or changing amounts of data without predefining sizes.
+They form the backbone of lists in high-level languages, balancing
+performance with usability. They also illustrate the idea of amortized
+cost: most operations are fast, but occasional expensive operations are
+averaged out over time.
+
+\subsubsection{Exercises}\label{exercises-15}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create an array and append numbers 1 through 10. Print the final
+  array.
+\item
+  Replace the 3rd element with a new value.
+\item
+  Remove the last two elements and print the result.
+\item
+  Write a procedure that traverses a dynamic array and computes the
+  average of its elements.
+\item
+  Explain why appending one element might sometimes be much slower than
+  appending another, even though both look the same in code.
+\end{enumerate}
+
+\subsection{2.2 L1 --- Dynamic Arrays in
+Practice}\label{l1-dynamic-arrays-in-practice}
+
+Dynamic arrays extend the idea of static arrays by making size flexible.
+They allow adding or removing elements without knowing the total number
+in advance. Under the hood, this flexibility is achieved through careful
+memory management: the array is stored in a contiguous block, but when
+more space is needed, a larger block is allocated, and all elements are
+copied over. This mechanism balances speed with adaptability and is the
+reason why dynamic arrays are the default sequence type in many
+languages.
+
+\subsubsection{Deep Dive}\label{deep-dive-7}
+
+A dynamic array starts with a certain capacity, often larger than the
+initial number of elements. When the number of stored elements exceeds
+capacity, the array is resized. The common strategy is to double the
+capacity. For example, an array of capacity 4 that becomes full will
+reallocate to capacity 8. All existing elements are copied into the new
+block, and the old memory is freed.
+
+This strategy makes appending efficient on average. While an individual
+resize costs O(n) because of the copying, most appends are O(1). Across
+a long sequence of operations, the total cost averages out --- this is
+called amortized analysis.
+
+Dynamic arrays retain the key advantages of static arrays:
+
+\begin{itemize}
+\tightlist
+\item
+  Contiguous storage means fast random access with \texttt{O(1)} time.
+\item
+  Updates are also \texttt{O(1)} because they overwrite existing slots.
+\end{itemize}
+
+The challenges appear with other operations:
+
+\begin{itemize}
+\tightlist
+\item
+  Insertions or deletions in the middle require shifting elements,
+  making them O(n).
+\item
+  Resizing events create temporary latency spikes, especially when
+  arrays are large.
+\end{itemize}
+
+A clear summary:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Operation & Time Complexity & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Access element & O(1) & Direct index calculation \\
+Update element & O(1) & Replace value in place \\
+Append element & O(1) amortized & Occasional O(n) when resizing \\
+Pop element & O(1) & Remove from end \\
+Insert/Delete & O(n) & Shifting elements required \\
+\end{longtable}
+
+\paragraph{Trade-offs.}\label{trade-offs.-1}
+
+Dynamic arrays sacrifice predictability for convenience. Resizing causes
+performance spikes, but the doubling strategy keeps the average cost
+low. Over-allocation wastes some memory, but it reduces the frequency of
+resizes. The key is that this trade-off is usually favorable in
+practice.
+
+\paragraph{Use cases.}\label{use-cases.-1}
+
+Dynamic arrays are well-suited for:
+
+\begin{itemize}
+\tightlist
+\item
+  Lists whose size is not known in advance.
+\item
+  Workloads dominated by appending and reading values.
+\item
+  General-purpose data structures in high-level programming languages.
+\end{itemize}
+
+\paragraph{Language implementations.}\label{language-implementations.}
+
+\begin{itemize}
+\tightlist
+\item
+  Python: \texttt{list} is a dynamic array, using an over-allocation
+  strategy to reduce frequent resizes.
+\item
+  C++: \texttt{std::vector} doubles its capacity when needed,
+  invalidating pointers/references after reallocation.
+\item
+  Java: \texttt{ArrayList} grows by about 1.5× when full, trading memory
+  efficiency for fewer copies.
+\end{itemize}
+
+\paragraph{Pitfalls.}\label{pitfalls.-1}
+
+\begin{itemize}
+\tightlist
+\item
+  In languages with pointers or references, resizes can invalidate
+  existing references.
+\item
+  Large arrays may cause noticeable latency during reallocation.
+\item
+  Middle insertions and deletions remain inefficient compared to linked
+  structures.
+\end{itemize}
+
+\subsubsection{Worked Example}\label{worked-example-3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Demonstrate dynamic array behavior using Python\textquotesingle{}s list}
+\NormalTok{arr }\OperatorTok{=}\NormalTok{ []}
+
+\CommentTok{\# Append elements to trigger resizing internally}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{12}\NormalTok{):}
+\NormalTok{    arr.append(i)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Appended }\SpecialCharTok{\{}\NormalTok{i}\SpecialCharTok{\}}\SpecialStringTok{, length = }\SpecialCharTok{\{}\BuiltInTok{len}\NormalTok{(arr)}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+
+\CommentTok{\# Access and update}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Element at index 5:"}\NormalTok{, arr[}\DecValTok{5}\NormalTok{])}
+\NormalTok{arr[}\DecValTok{5}\NormalTok{] }\OperatorTok{=} \DecValTok{99}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Updated element at index 5:"}\NormalTok{, arr[}\DecValTok{5}\NormalTok{])}
+
+\CommentTok{\# Insert in the middle (expensive operation)}
+\NormalTok{arr.insert(}\DecValTok{6}\NormalTok{, }\DecValTok{123}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Array after middle insert:"}\NormalTok{, arr)}
+
+\CommentTok{\# Pop elements}
+\NormalTok{arr.pop()}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Array after pop:"}\NormalTok{, arr)}
+\end{Highlighting}
+\end{Shaded}
+
+This example illustrates appending, updating, inserting, and popping.
+While Python hides the resizing, the cost is there: occasionally the
+list must allocate more space and copy its contents.
+
+\subsubsection{Why it matters}\label{why-it-matters-16}
+
+Dynamic arrays balance flexibility and performance. They demonstrate the
+principle of amortized complexity, showing how expensive operations can
+be smoothed out over time. They also highlight trade-offs between memory
+usage and speed. Understanding them explains why high-level lists
+perform well in everyday coding but also where they can fail under
+stress.
+
+\subsubsection{Exercises}\label{exercises-16}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a dynamic array and append the numbers 1 to 20. Measure how
+  many times resizing would have occurred if the growth factor were 2.
+\item
+  Insert an element into the middle of a large array and explain why
+  this operation is slower than appending at the end.
+\item
+  Write a procedure to remove all odd numbers from a dynamic array.
+\item
+  Compare Python's \texttt{list}, Java's \texttt{ArrayList}, and C++'s
+  \texttt{std::vector} in terms of growth strategy.
+\item
+  Explain why references to elements of a \texttt{std::vector} may
+  become invalid after resizing.
+\end{enumerate}
+
+\subsection{2.2 L2 --- Dynamic Arrays Under the
+Hood}\label{l2-dynamic-arrays-under-the-hood}
+
+Dynamic arrays reveal how high-level flexibility is built on top of
+low-level memory management. While they appear as resizable containers,
+underneath they are carefully engineered to balance performance, memory
+efficiency, and safety. Understanding their internals sheds light on
+allocators, cache behavior, and the risks of pointer invalidation.
+
+\subsubsection{Deep Dive}\label{deep-dive-8}
+
+Dynamic arrays rely on heap allocation. When first created, they reserve
+a contiguous memory block with some capacity. As elements are appended
+and the array fills, the implementation must allocate a new, larger
+block, copy all existing elements, and free the old block.
+
+Most implementations use a geometric growth strategy, often doubling the
+capacity when space runs out. Some use a factor smaller than two, such
+as 1.5×, to reduce memory waste. The trade-off is between speed and
+efficiency:
+
+\begin{itemize}
+\tightlist
+\item
+  Larger growth factors reduce the number of costly reallocations.
+\item
+  Smaller growth factors waste less memory but increase resize
+  frequency.
+\end{itemize}
+
+This leads to an amortized O(1) cost for append. Each resize is
+expensive, but they happen infrequently enough that the average cost
+remains constant across many operations.
+
+However, resizes have side effects:
+
+\begin{itemize}
+\tightlist
+\item
+  Pointer invalidation: In C++ \texttt{std::vector}, any reference,
+  pointer, or iterator into the old memory becomes invalid after
+  reallocation.
+\item
+  Latency spikes: Copying thousands or millions of elements in one step
+  can stall a program, especially in real-time or low-latency systems.
+\item
+  Allocator fragmentation: Repeated growth and shrink cycles can
+  fragment the heap, reducing performance in long-running systems.
+\end{itemize}
+
+Cache efficiency is one of the strengths of dynamic arrays. Because
+elements are stored contiguously, traversals are cache-friendly, and
+prefetchers can load entire blocks into cache lines. But reallocations
+can disrupt locality temporarily, as the array may move to a new region
+of memory.
+
+Different languages implement dynamic arrays with variations:
+
+\begin{itemize}
+\tightlist
+\item
+  Python lists use over-allocation with a small growth factor
+  (\textasciitilde12.5\% to 25\% extra). This minimizes wasted memory
+  while keeping amortized costs stable.
+\item
+  C++ \texttt{std::vector} typically doubles its capacity when needed.
+  Developers can call \texttt{reserve()} to preallocate memory and avoid
+  repeated reallocations.
+\item
+  Java \texttt{ArrayList} grows by \textasciitilde1.5×, balancing heap
+  usage with resize frequency.
+\end{itemize}
+
+Dynamic arrays also face risks:
+
+\begin{itemize}
+\tightlist
+\item
+  If resizing logic is incorrect, buffer overflows may occur.
+\item
+  Attackers can exploit repeated growth/shrink cycles to cause
+  denial-of-service via frequent allocations.
+\item
+  Very large allocations can fail outright if memory is exhausted.
+\end{itemize}
+
+From a profiling perspective, workloads matter. Append-heavy patterns
+perform extremely well due to amortization. Insert-heavy or
+middle-delete workloads perform poorly because of element shifting.
+Allocator-aware optimizations, like pre-reserving capacity, can
+dramatically improve performance.
+
+\subsubsection{Worked Example (C++)}\label{worked-example-c}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{\#include }\ImportTok{\textless{}iostream\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}vector\textgreater{}}
+
+\DataTypeTok{int}\NormalTok{ main}\OperatorTok{()} \OperatorTok{\{}
+    \BuiltInTok{std::}\NormalTok{vector}\OperatorTok{\textless{}}\DataTypeTok{int}\OperatorTok{\textgreater{}}\NormalTok{ v}\OperatorTok{;}
+\NormalTok{    v}\OperatorTok{.}\NormalTok{reserve}\OperatorTok{(}\DecValTok{4}\OperatorTok{);}  \CommentTok{// reserve space for 4 elements to reduce reallocations}
+
+    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ i }\OperatorTok{\textless{}} \DecValTok{12}\OperatorTok{;}\NormalTok{ i}\OperatorTok{++)} \OperatorTok{\{}
+\NormalTok{        v}\OperatorTok{.}\NormalTok{push\_back}\OperatorTok{(}\NormalTok{i }\OperatorTok{*} \DecValTok{10}\OperatorTok{);}
+        \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}} \StringTok{"Appended "} \OperatorTok{\textless{}\textless{}}\NormalTok{ i}\OperatorTok{*}\DecValTok{10}
+                  \OperatorTok{\textless{}\textless{}} \StringTok{", size = "} \OperatorTok{\textless{}\textless{}}\NormalTok{ v}\OperatorTok{.}\NormalTok{size}\OperatorTok{()}
+                  \OperatorTok{\textless{}\textless{}} \StringTok{", capacity = "} \OperatorTok{\textless{}\textless{}}\NormalTok{ v}\OperatorTok{.}\NormalTok{capacity}\OperatorTok{()} \OperatorTok{\textless{}\textless{}} \BuiltInTok{std::}\NormalTok{endl}\OperatorTok{;}
+    \OperatorTok{\}}
+
+    \CommentTok{// Access and update}
+    \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}} \StringTok{"Element at index 5: "} \OperatorTok{\textless{}\textless{}}\NormalTok{ v}\OperatorTok{[}\DecValTok{5}\OperatorTok{]} \OperatorTok{\textless{}\textless{}} \BuiltInTok{std::}\NormalTok{endl}\OperatorTok{;}
+\NormalTok{    v}\OperatorTok{[}\DecValTok{5}\OperatorTok{]} \OperatorTok{=} \DecValTok{99}\OperatorTok{;}
+    \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}} \StringTok{"Updated element at index 5: "} \OperatorTok{\textless{}\textless{}}\NormalTok{ v}\OperatorTok{[}\DecValTok{5}\OperatorTok{]} \OperatorTok{\textless{}\textless{}} \BuiltInTok{std::}\NormalTok{endl}\OperatorTok{;}
+
+    \CommentTok{// Demonstrate invalidation risk}
+    \DataTypeTok{int}\OperatorTok{*}\NormalTok{ ptr }\OperatorTok{=} \OperatorTok{\&}\NormalTok{v}\OperatorTok{[}\DecValTok{0}\OperatorTok{];}
+\NormalTok{    v}\OperatorTok{.}\NormalTok{push\_back}\OperatorTok{(}\DecValTok{12345}\OperatorTok{);} \CommentTok{// may reallocate and move data}
+    \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}} \StringTok{"Old pointer may now be invalid: "} \OperatorTok{\textless{}\textless{}} \OperatorTok{*}\NormalTok{ptr }\OperatorTok{\textless{}\textless{}} \BuiltInTok{std::}\NormalTok{endl}\OperatorTok{;} \CommentTok{// UB if reallocated}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This program shows how \texttt{std::vector} manages capacity. The output
+reveals how capacity grows as more elements are appended. The pointer
+invalidation example highlights a subtle but critical risk: after a
+resize, old addresses into the array are no longer safe.
+
+\subsubsection{Why it matters}\label{why-it-matters-17}
+
+Dynamic arrays expose the tension between abstraction and reality. They
+appear simple, but internally they touch almost every layer of the
+system: heap allocators, caches, compiler optimizations, and safety
+checks. They are essential for understanding how high-level languages
+achieve both usability and performance, and they illustrate real-world
+engineering trade-offs between speed, memory, and safety.
+
+\subsubsection{Exercises}\label{exercises-17}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In C++, measure the capacity growth of a
+  \texttt{std::vector\textless{}int\textgreater{}} as you append 1,000
+  elements. Plot size vs capacity.
+\item
+  Explain why a program that repeatedly appends and deletes elements
+  might fragment the heap over time.
+\item
+  Compare the growth strategies of Python \texttt{list}, C++
+  \texttt{std::vector}, and Java \texttt{ArrayList}. Which wastes more
+  memory? Which minimizes resize cost?
+\item
+  Write a program that appends 1 million integers to a dynamic array and
+  then times the traversal. Compare it with inserting 1 million integers
+  at the beginning.
+\item
+  Show how \texttt{reserve()} in \texttt{std::vector} or
+  \texttt{ensureCapacity()} in Java \texttt{ArrayList} can eliminate
+  costly reallocation spikes.
+\end{enumerate}
+
+\section{2.3 Slices \& Views}\label{slices-views}
+
+\subsection{2.3 L0 --- Looking Through a
+Window}\label{l0-looking-through-a-window}
+
+A slice or view is a way to look at part of an array without creating a
+new one. Instead of copying data, a slice points to the same underlying
+elements, just with its own start and end boundaries. This makes working
+with subarrays fast and memory-efficient. You can think of a slice as a
+window into a longer row of boxes, showing only the portion you care
+about.
+
+\subsubsection{Deep Dive}\label{deep-dive-9}
+
+When you take a slice, you don't get a new array filled with copied
+elements. Instead, you get a new ``view'' that remembers where in the
+original array it starts and stops. This is useful because:
+
+\begin{itemize}
+\tightlist
+\item
+  No copying means creating a slice is very fast.
+\item
+  Shared storage means changes in the slice also affect the original
+  array (in languages like Go, Rust, or NumPy).
+\item
+  Reduced scope means you can focus on a part of the array without
+  carrying the entire structure.
+\end{itemize}
+
+Key properties of slices:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  They refer to the same memory as the original array.
+\item
+  They have their own length (number of elements visible).
+\item
+  They may also carry a capacity, which limits how far they can expand
+  into the original array.
+\end{enumerate}
+
+In Python, list slicing (\texttt{arr{[}2:5{]}}) creates a new list with
+copies of the elements. This is not a true view. By contrast, NumPy
+arrays, Go slices, and Rust slices provide real views --- updates to the
+slice affect the original array.
+
+A summary:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Feature & Slice/View & New Array (Copy) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Memory usage & Shares existing storage & Allocates new storage \\
+Creation cost & O(1) & O(n) for copied elements \\
+Updates & Affect original array & Independent \\
+Safety & Risk of aliasing issues & No shared changes \\
+\end{longtable}
+
+Slices are especially valuable when working with large datasets, where
+copying would be too expensive.
+
+\subsubsection{Worked Example}\label{worked-example-4}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Python slicing creates a copy, but useful to illustrate concept}
+\NormalTok{arr }\OperatorTok{=}\NormalTok{ [}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DecValTok{50}\NormalTok{]}
+
+\CommentTok{\# Slice of middle part}
+\NormalTok{sub }\OperatorTok{=}\NormalTok{ arr[}\DecValTok{1}\NormalTok{:}\DecValTok{4}\NormalTok{]}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Original array:"}\NormalTok{, arr)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Slice (copy in Python):"}\NormalTok{, sub)}
+
+\CommentTok{\# Modifying the slice does not affect the original (Python behavior)}
+\NormalTok{sub[}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \DecValTok{99}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Modified slice:"}\NormalTok{, sub)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Original array unchanged:"}\NormalTok{, arr)}
+
+\CommentTok{\# In contrast, NumPy arrays behave like true views}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\NormalTok{arr\_np }\OperatorTok{=}\NormalTok{ np.array([}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DecValTok{50}\NormalTok{])}
+\NormalTok{sub\_np }\OperatorTok{=}\NormalTok{ arr\_np[}\DecValTok{1}\NormalTok{:}\DecValTok{4}\NormalTok{]}
+\NormalTok{sub\_np[}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \DecValTok{99}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"NumPy slice reflects back:"}\NormalTok{, arr\_np)}
+\end{Highlighting}
+\end{Shaded}
+
+This example shows the difference: Python lists create a copy, while
+NumPy slices act as views and affect the original.
+
+\subsubsection{Why it matters}\label{why-it-matters-18}
+
+Slices let you work with subsets of data without wasting memory or time
+copying. They are critical in systems and scientific computing where
+performance matters. They also highlight the idea of aliasing: when two
+names refer to the same data. Understanding slices teaches you when
+changes propagate and when they don't, which helps avoid surprising
+bugs.
+
+\subsubsection{Exercises}\label{exercises-18}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create an array of 10 numbers. Take a slice of the middle 5 elements
+  and print them.
+\item
+  Update the first element in your slice and describe what happens to
+  the original array in your chosen language.
+\item
+  Compare slicing behavior in Python and NumPy: which one copies, which
+  one shares?
+\item
+  Explain why slicing a very large dataset is more efficient than
+  copying it.
+\item
+  Think of a real-world analogy where two people share the same resource
+  but only see part of it. How does this relate to slices?
+\end{enumerate}
+
+\subsection{2.3 L1 --- Slices in Practice}\label{l1-slices-in-practice}
+
+Slices provide a practical way to work with subarrays efficiently.
+Instead of copying data into a new structure, a slice acts as a
+lightweight reference to part of an existing array. This gives
+programmers flexibility to manipulate sections of data without paying
+the cost of duplication, while still preserving the familiar indexing
+model of arrays.
+
+\subsubsection{Deep Dive}\label{deep-dive-10}
+
+At the implementation level, a slice is typically represented by a small
+structure that stores:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A pointer to the first element in the slice.
+\item
+  The slice's length (how many elements it can access).
+\item
+  Optionally, its capacity (how far the slice can grow into the backing
+  array).
+\end{enumerate}
+
+Indexing into a slice works just like indexing into an array:
+
+\begin{verbatim}
+slice[i] → base_address + i × element_size
+\end{verbatim}
+
+The complexity model stays consistent:
+
+\begin{itemize}
+\tightlist
+\item
+  Slice creation: O(1) when implemented as a view, O(n) if the language
+  copies elements.
+\item
+  Access/update: O(1), just like arrays.
+\item
+  Traversal: O(k), proportional to the slice's length.
+\end{itemize}
+
+This design makes slices efficient but introduces trade-offs. With true
+views, the slice and the original array share memory. Updates made
+through one are visible through the other. This can be extremely useful
+but also dangerous, as it introduces the possibility of unintended side
+effects. Languages that prioritize safety (like Python lists) avoid this
+by returning a copy instead of a view.
+
+The balance is clear:
+
+\begin{itemize}
+\tightlist
+\item
+  Views (Go, Rust, NumPy): fast and memory-efficient, but require
+  discipline to avoid aliasing bugs.
+\item
+  Copies (Python lists): safer, but slower and more memory-intensive for
+  large arrays.
+\end{itemize}
+
+A summary of behaviors:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1818}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1591}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1591}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Language/Library
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Slice Behavior
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Shared Updates
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Notes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Go & View & Yes & Backed by \texttt{(ptr,\ len,\ cap)} triple \\
+Rust & View & Yes & Safe with borrow checker (mutable/immutable) \\
+Python list & Copy & No & Safer but memory-expensive \\
+NumPy array & View & Yes & Basis of efficient scientific computing \\
+C/C++ & Manual pointer & Yes & No built-in slice type; must manage
+manually \\
+\end{longtable}
+
+\paragraph{Use cases.}\label{use-cases.-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Processing large datasets in segments without copying.
+\item
+  Implementing algorithms like sliding windows, partitions, or
+  block-based iteration.
+\item
+  Sharing views of arrays across functions for modular design without
+  allocating new memory.
+\end{itemize}
+
+\paragraph{Pitfalls.}\label{pitfalls.-2}
+
+\begin{itemize}
+\tightlist
+\item
+  In languages with views, careless updates can corrupt the original
+  array unexpectedly.
+\item
+  In Go and C++, extending a slice/view beyond its capacity causes
+  runtime errors or undefined behavior.
+\item
+  In Python, forgetting that slices are copies can lead to performance
+  issues in large-scale workloads.
+\end{itemize}
+
+\subsubsection{Worked Example}\label{worked-example-5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Demonstrating copy slices vs view slices in Python and NumPy}
+
+\CommentTok{\# Python list slicing creates a copy}
+\NormalTok{arr }\OperatorTok{=}\NormalTok{ [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{]}
+\NormalTok{sub }\OperatorTok{=}\NormalTok{ arr[}\DecValTok{1}\NormalTok{:}\DecValTok{4}\NormalTok{]}
+\NormalTok{sub[}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \DecValTok{99}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Python original:"}\NormalTok{, arr)  }\CommentTok{\# unchanged}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Python slice (copy):"}\NormalTok{, sub)}
+
+\CommentTok{\# NumPy slicing creates a view}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\NormalTok{arr\_np }\OperatorTok{=}\NormalTok{ np.array([}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{])}
+\NormalTok{sub\_np }\OperatorTok{=}\NormalTok{ arr\_np[}\DecValTok{1}\NormalTok{:}\DecValTok{4}\NormalTok{]}
+\NormalTok{sub\_np[}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \DecValTok{99}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"NumPy original (affected):"}\NormalTok{, arr\_np)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"NumPy slice (view):"}\NormalTok{, sub\_np)}
+\end{Highlighting}
+\end{Shaded}
+
+This example shows the key difference: Python lists copy, while NumPy
+provides true views. The choice reflects different design priorities:
+safety in Python's core data structures versus performance in numerical
+computing.
+
+\subsubsection{Why it matters}\label{why-it-matters-19}
+
+Slices make programs more efficient and expressive. They eliminate
+unnecessary copying, speed up algorithms that work on subranges, and
+support modular programming by passing references instead of duplicating
+data. At the same time, they expose important design trade-offs between
+safety and performance. Understanding slices provides insight into how
+modern languages manage memory efficiently while protecting against
+common errors.
+
+\subsubsection{Exercises}\label{exercises-19}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In Go, create an array of 10 elements and take a slice of the middle
+  5. Update the slice and observe the effect on the array.
+\item
+  In Python, slice a list of 1 million numbers and explain the
+  performance cost compared to slicing a NumPy array of the same size.
+\item
+  Write a procedure that accepts a slice and doubles each element. Test
+  with both a copy-based language (Python lists) and a view-based
+  language (NumPy or Go).
+\item
+  Explain why passing slices to functions is more memory-efficient than
+  passing entire arrays.
+\item
+  Discuss a scenario where slice aliasing could lead to unintended bugs
+  in a large program.
+\end{enumerate}
+
+\subsection{2.3 L2 --- Slices and Views in
+Systems}\label{l2-slices-and-views-in-systems}
+
+Slices are not just convenient programming shortcuts; they represent a
+powerful abstraction that ties language semantics to hardware realities.
+At this level, slices expose details about memory layout, lifetime, and
+compiler optimizations. They are central to performance-critical systems
+because they allow efficient access to subsets of data without copying,
+while also demanding careful handling to avoid aliasing bugs and unsafe
+memory access.
+
+\subsubsection{Deep Dive}\label{deep-dive-11}
+
+A slice is typically represented internally as a triple:
+
+\begin{itemize}
+\tightlist
+\item
+  A pointer to the first element,
+\item
+  A length describing how many elements are visible,
+\item
+  A capacity showing how far the slice may extend into the backing
+  array.
+\end{itemize}
+
+Indexing into a slice is still O(1), but the compiler inserts bounds
+checks to prevent invalid access. In performance-sensitive code,
+compilers often apply bounds-check elimination (BCE) when they can prove
+that loop indices remain within safe limits. This allows slices to
+combine safety with near-native performance.
+
+Slices are non-owning references. They do not manage memory themselves
+but instead depend on the underlying array. In languages like Rust, the
+borrow checker enforces lifetimes to prevent dangling slices. In C and
+C++, however, programmers must manually ensure that the backing array
+outlives the slice, or risk undefined behavior.
+
+Because slices share memory, they introduce aliasing. Multiple slices
+can point to overlapping regions of the same array. This can lead to
+subtle bugs if two parts of a program update the same region
+concurrently. In multithreaded contexts, mutable aliasing without
+synchronization can cause data races. Some systems adopt copy-on-write
+strategies to reduce risks, but this adds overhead.
+
+From a performance perspective, slices preserve contiguity, which is
+ideal for cache locality and prefetching. Sequential traversal is
+cache-friendly, but strided access (e.g., every 3rd element) can defeat
+hardware prefetchers, reducing efficiency. Languages like NumPy exploit
+strides explicitly, enabling both dense and sparse-like views without
+copying.
+
+Language designs differ in how they handle slices:
+
+\begin{itemize}
+\tightlist
+\item
+  Go uses \texttt{(ptr,\ len,\ cap)}. Appending to a slice may allocate
+  a new array if capacity is exceeded, silently detaching it from the
+  original backing storage.
+\item
+  Rust distinguishes \texttt{\&{[}T{]}} for immutable and
+  \texttt{\&mut\ {[}T{]}} for mutable slices, with the compiler
+  enforcing safe borrowing rules.
+\item
+  C/C++ provide no built-in slice type, so developers rely on raw
+  pointers and manual length tracking. This is flexible but error-prone.
+\item
+  NumPy supports advanced slicing: views with strides, broadcasting
+  rules, and multidimensional slices for scientific computing.
+\end{itemize}
+
+Compilers also optimize slice-heavy code:
+
+\begin{itemize}
+\tightlist
+\item
+  Vectorization transforms element-wise loops into SIMD instructions
+  when slices are contiguous.
+\item
+  Escape analysis determines whether slices can stay stack-allocated or
+  must be promoted to the heap.
+\end{itemize}
+
+System-level use cases highlight the importance of slices:
+
+\begin{itemize}
+\tightlist
+\item
+  Zero-copy I/O: network and file system buffers are exposed as slices
+  into larger memory regions.
+\item
+  Memory-mapped files: slices map directly to disk pages, enabling
+  efficient processing of large datasets.
+\item
+  GPU programming: CUDA and OpenCL kernels operate on slices of device
+  memory, avoiding transfers.
+\end{itemize}
+
+These applications show why slices are not just a programming
+convenience but a core tool for bridging high-level logic with low-level
+performance.
+
+\subsubsection{Worked Example (Go)}\label{worked-example-go}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{package}\NormalTok{ main}
+
+\KeywordTok{import} \StringTok{"fmt"}
+
+\KeywordTok{func}\NormalTok{ main}\OperatorTok{()} \OperatorTok{\{}
+\NormalTok{    arr }\OperatorTok{:=} \OperatorTok{[}\DecValTok{6}\OperatorTok{]}\DataTypeTok{int}\OperatorTok{\{}\DecValTok{10}\OperatorTok{,} \DecValTok{20}\OperatorTok{,} \DecValTok{30}\OperatorTok{,} \DecValTok{40}\OperatorTok{,} \DecValTok{50}\OperatorTok{,} \DecValTok{60}\OperatorTok{\}}
+\NormalTok{    s }\OperatorTok{:=}\NormalTok{ arr}\OperatorTok{[}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\OperatorTok{]} \CommentTok{// slice referencing elements 20, 30, 40}
+
+\NormalTok{    fmt}\OperatorTok{.}\NormalTok{Println}\OperatorTok{(}\StringTok{"Original array:"}\OperatorTok{,}\NormalTok{ arr}\OperatorTok{)}
+\NormalTok{    fmt}\OperatorTok{.}\NormalTok{Println}\OperatorTok{(}\StringTok{"Slice view:"}\OperatorTok{,}\NormalTok{ s}\OperatorTok{)}
+
+    \CommentTok{// Update through slice}
+\NormalTok{    s}\OperatorTok{[}\DecValTok{0}\OperatorTok{]} \OperatorTok{=} \DecValTok{99}
+\NormalTok{    fmt}\OperatorTok{.}\NormalTok{Println}\OperatorTok{(}\StringTok{"After update via slice, array:"}\OperatorTok{,}\NormalTok{ arr}\OperatorTok{)}
+
+    \CommentTok{// Demonstrate capacity}
+\NormalTok{    fmt}\OperatorTok{.}\NormalTok{Println}\OperatorTok{(}\StringTok{"Slice length:"}\OperatorTok{,} \BuiltInTok{len}\OperatorTok{(}\NormalTok{s}\OperatorTok{),} \StringTok{"capacity:"}\OperatorTok{,} \BuiltInTok{cap}\OperatorTok{(}\NormalTok{s}\OperatorTok{))}
+
+    \CommentTok{// Appending beyond slice capacity reallocates}
+\NormalTok{    s }\OperatorTok{=} \BuiltInTok{append}\OperatorTok{(}\NormalTok{s}\OperatorTok{,} \DecValTok{70}\OperatorTok{,} \DecValTok{80}\OperatorTok{)}
+\NormalTok{    fmt}\OperatorTok{.}\NormalTok{Println}\OperatorTok{(}\StringTok{"Slice after append:"}\OperatorTok{,}\NormalTok{ s}\OperatorTok{)}
+\NormalTok{    fmt}\OperatorTok{.}\NormalTok{Println}\OperatorTok{(}\StringTok{"Array after append (unchanged):"}\OperatorTok{,}\NormalTok{ arr}\OperatorTok{)}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This example illustrates Go's slice model. The slice \texttt{s}
+initially shares storage with \texttt{arr}. Updates propagate to the
+array. However, when appending exceeds the slice's capacity, Go
+allocates a new backing array, breaking the link with the original. This
+behavior is efficient but can surprise developers if not understood.
+
+\subsubsection{Why it matters}\label{why-it-matters-20}
+
+Slices embody key system concepts: pointer arithmetic, memory ownership,
+cache locality, and aliasing. They explain how languages achieve
+zero-copy abstractions while balancing safety and performance. They also
+highlight risks such as dangling references and silent reallocations.
+Mastery of slices is essential for building efficient algorithms,
+avoiding memory errors, and reasoning about system-level performance.
+
+\subsubsection{Exercises}\label{exercises-20}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In Go, create an array of 8 integers and take overlapping slices.
+  Modify one slice and observe effects on the other. Explain why this
+  happens.
+\item
+  In Rust, attempt to create two mutable slices of the same array
+  region. Explain why the borrow checker rejects it.
+\item
+  In C, simulate a slice using a pointer and a length. Show what happens
+  if the backing array is freed while the slice is still in use.
+\item
+  In NumPy, create a 2D array and take a strided slice (every second
+  row). Explain why performance is worse than contiguous slicing.
+\item
+  Compare how Python, Go, and Rust enforce (or fail to enforce) safety
+  when working with slices.
+\end{enumerate}
+
+\section{2.4 Multidimensional Arrays}\label{multidimensional-arrays}
+
+\subsection{2.4 L0 --- Tables and Grids}\label{l0-tables-and-grids}
+
+A multidimensional array is an extension of the simple array idea.
+Instead of storing data in a single row, a multidimensional array
+organizes elements in a grid, table, or cube. The most common example is
+a two-dimensional array, which looks like a table with rows and columns.
+Each position in the grid is identified by two coordinates: one for the
+row and one for the column. This structure is useful for representing
+spreadsheets, images, game boards, and mathematical matrices.
+
+\subsubsection{Deep Dive}\label{deep-dive-12}
+
+You can think of a multidimensional array as an array of arrays. A
+two-dimensional array is a list where each element is itself another
+list. For example, a 3×3 table contains 3 rows, each of which has 3
+columns. Accessing an element requires specifying both coordinates:
+\texttt{arr{[}row{]}{[}col{]}}.
+
+Even though we visualize multidimensional arrays as grids, in memory
+they are still stored as a single continuous sequence. To find an
+element, the program computes its position using a formula. In a 2D
+array with \texttt{n} columns, the element at \texttt{(row,\ col)} is
+located at:
+
+\begin{verbatim}
+index = row × n + col
+\end{verbatim}
+
+This mapping allows direct access in constant time, just like with 1D
+arrays.
+
+Common operations are:
+
+\begin{itemize}
+\tightlist
+\item
+  Creation: decide dimensions and initialize with values.
+\item
+  Access: specify row and column to retrieve an element.
+\item
+  Update: change the value at a given coordinate.
+\item
+  Traversal: visit elements row by row or column by column.
+\end{itemize}
+
+A quick summary:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Operation & Description & Cost \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Access element & Get value at (row, col) & O(1) \\
+Update element & Replace value at (row, col) & O(1) \\
+Traverse array & Visit all elements & O(n×m) \\
+\end{longtable}
+
+Multidimensional arrays introduce an important detail: traversal order.
+In many languages (like C and Python's NumPy), arrays are stored in
+row-major order, which means all elements of the first row are laid out
+contiguously, then the second row, and so on. Others, like Fortran, use
+column-major order. This difference affects performance in more advanced
+topics, but at this level, the key idea is that access is still fast and
+predictable.
+
+\subsubsection{Worked Example}\label{worked-example-6}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a 2D array (3x3 table) using list of lists}
+\NormalTok{table }\OperatorTok{=}\NormalTok{ [}
+\NormalTok{    [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{],}
+\NormalTok{    [}\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{],}
+\NormalTok{    [}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{]}
+\NormalTok{]}
+
+\CommentTok{\# Access element in second row, third column}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Element at (1, 2):"}\NormalTok{, table[}\DecValTok{1}\NormalTok{][}\DecValTok{2}\NormalTok{])  }\CommentTok{\# prints 6}
+
+\CommentTok{\# Update element}
+\NormalTok{table[}\DecValTok{0}\NormalTok{][}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \DecValTok{99}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Updated table:"}\NormalTok{, table)}
+
+\CommentTok{\# Traverse row by row}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Row traversal:"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ row }\KeywordTok{in}\NormalTok{ table:}
+    \ControlFlowTok{for}\NormalTok{ val }\KeywordTok{in}\NormalTok{ row:}
+        \BuiltInTok{print}\NormalTok{(val, end}\OperatorTok{=}\StringTok{" "}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+This example shows how to build and use a 2D array in Python. It looks
+like a table, with easy access via coordinates.
+
+\subsubsection{Why it matters}\label{why-it-matters-21}
+
+Multidimensional arrays provide a natural way to represent structured
+data like matrices, grids, and images. They allow algorithms to work
+directly with two-dimensional or higher-dimensional information without
+flattening everything into one long row. This makes programs easier to
+write, read, and reason about.
+
+\subsubsection{Exercises}\label{exercises-21}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a 3×3 array with numbers 1 through 9 and print it in a table
+  format.
+\item
+  Access the element at row 2, column 3 and describe how you found it.
+\item
+  Change the center element of a 3×3 array to 0.
+\item
+  Write a loop to compute the sum of all values in a 4×4 array.
+\item
+  Explain why accessing \texttt{(row,\ col)} in a 2D array is still O(1)
+  even though the data is stored in a single sequence in memory.
+\end{enumerate}
+
+\subsection{2.4 L1 --- Multidimensional Arrays in
+Practice}\label{l1-multidimensional-arrays-in-practice}
+
+Multidimensional arrays are powerful because they extend the linear
+model of arrays into grids, tables, and higher dimensions. At a
+practical level, they are still stored in memory as a flattened linear
+block. What changes is the indexing formula: instead of a single index,
+we use multiple coordinates that the system translates into one offset.
+
+\subsubsection{Deep Dive}\label{deep-dive-13}
+
+The most common form is a 2D array. In memory, the elements are laid out
+row by row (row-major) or column by column (column-major).
+
+\begin{itemize}
+\tightlist
+\item
+  Row-major (C, NumPy default): elements of each row are contiguous.
+\item
+  Column-major (Fortran, MATLAB): elements of each column are
+  contiguous.
+\end{itemize}
+
+For a 2D array with \texttt{num\_cols} columns, the element at
+\texttt{(row,\ col)} in row-major order is located at:
+
+\begin{verbatim}
+index = row × num_cols + col
+\end{verbatim}
+
+For column-major order with \texttt{num\_rows} rows, the formula is:
+
+\begin{verbatim}
+index = col × num_rows + row
+\end{verbatim}
+
+This distinction matters when traversing. Accessing elements in the
+memory's natural order (row by row for row-major, column by column for
+column-major) is cache-friendly. Traversing in the opposite order forces
+the program to jump around in memory, leading to slower performance.
+
+Extending to 3D and higher is straightforward. For a 3D array with
+\texttt{(layers,\ rows,\ cols)} in row-major order:
+
+\begin{verbatim}
+index = layer × (rows × cols) + row × cols + col
+\end{verbatim}
+
+Complexity remains consistent:
+
+\begin{itemize}
+\tightlist
+\item
+  Access/update: O(1) using index calculation.
+\item
+  Traversal: O(n × m) for 2D, O(n × m × k) for 3D.
+\end{itemize}
+
+Trade-offs:
+
+\begin{itemize}
+\tightlist
+\item
+  Contiguous multidimensional arrays provide excellent performance for
+  predictable workloads (e.g., matrix operations).
+\item
+  Resizing is costly because the entire block must be reallocated.
+\item
+  Jagged arrays (arrays of arrays) provide flexibility but lose memory
+  contiguity, reducing cache performance.
+\end{itemize}
+
+Use cases:
+
+\begin{itemize}
+\tightlist
+\item
+  Storing images (pixels as grids).
+\item
+  Mathematical matrices in scientific computing.
+\item
+  Game boards and maps.
+\item
+  Tables in database-like structures.
+\end{itemize}
+
+Different languages implement multidimensional arrays differently:
+
+\begin{itemize}
+\tightlist
+\item
+  Python lists: nested lists simulate 2D arrays but are jagged and
+  fragmented in memory.
+\item
+  NumPy: provides true multidimensional arrays stored contiguously in
+  row-major (default) or column-major order.
+\item
+  C/C++: support both contiguous multidimensional arrays
+  (\texttt{int\ arr{[}rows{]}{[}cols{]};}) and pointer-based arrays of
+  arrays.
+\item
+  Java: uses arrays of arrays (jagged by default).
+\end{itemize}
+
+\subsubsection{Worked Example}\label{worked-example-7}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Comparing list of lists vs NumPy arrays}
+\CommentTok{\# List of lists (jagged)}
+\NormalTok{table }\OperatorTok{=}\NormalTok{ [}
+\NormalTok{    [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{],}
+\NormalTok{    [}\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{],}
+\NormalTok{    [}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{]}
+\NormalTok{]}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Element at (2, 1):"}\NormalTok{, table[}\DecValTok{2}\NormalTok{][}\DecValTok{1}\NormalTok{])  }\CommentTok{\# 8}
+
+\CommentTok{\# NumPy array (true contiguous 2D array)}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\NormalTok{matrix }\OperatorTok{=}\NormalTok{ np.array([[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{],[}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{],[}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{]])}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Element at (2, 1):"}\NormalTok{, matrix[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{])  }\CommentTok{\# 8}
+
+\CommentTok{\# Traversal in row{-}major order}
+\ControlFlowTok{for}\NormalTok{ row }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(matrix.shape[}\DecValTok{0}\NormalTok{]):}
+    \ControlFlowTok{for}\NormalTok{ col }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(matrix.shape[}\DecValTok{1}\NormalTok{]):}
+\NormalTok{        val }\OperatorTok{=}\NormalTok{ matrix[row, col]  }\CommentTok{\# efficient in NumPy}
+\end{Highlighting}
+\end{Shaded}
+
+The Python list-of-lists behaves like a table, but each row may live
+separately in memory. NumPy, on the other hand, stores data
+contiguously, enabling much faster iteration and vectorized operations.
+
+\subsubsection{Why it matters}\label{why-it-matters-22}
+
+Multidimensional arrays are central to real-world applications, from
+graphics and simulations to data science and machine learning. They
+highlight how physical memory layout (row-major vs column-major)
+interacts with algorithm design. Understanding them allows developers to
+choose between safety, flexibility, and performance, depending on the
+problem.
+
+\subsubsection{Exercises}\label{exercises-22}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write a procedure to sum all values in a 5×5 array by traversing row
+  by row.
+\item
+  For a 3×3 NumPy array, access element \texttt{(2,1)} and explain how
+  its memory index is calculated in row-major order.
+\item
+  Create a jagged array (rows of different lengths) in Python. Show how
+  traversal differs from a true 2D array.
+\item
+  Explain why traversing a NumPy array by rows is faster than by
+  columns.
+\item
+  Write a formula for computing the linear index of \texttt{(i,j,k)} in
+  a 3D array stored in row-major order.
+\end{enumerate}
+
+\subsection{2.4 L2 --- Multidimensional Arrays and System
+Realities}\label{l2-multidimensional-arrays-and-system-realities}
+
+Multidimensional arrays are not only a logical abstraction but also a
+system-level structure that interacts with memory layout, caches, and
+compilers. At this level, understanding how they are stored, accessed,
+and optimized is essential for building high-performance code in
+scientific computing, graphics, and data-intensive systems.
+
+\subsubsection{Deep Dive}\label{deep-dive-14}
+
+A multidimensional array is stored either as a contiguous linear block
+or as an array of pointers (jagged array). In the contiguous layout,
+elements follow one another in memory according to a linearization
+formula. In row-major order (C, NumPy), a 2D element at
+\texttt{(row,\ col)} is:
+
+\begin{verbatim}
+index = row × num_cols + col
+\end{verbatim}
+
+In column-major order (Fortran, MATLAB), the formula is:
+
+\begin{verbatim}
+index = col × num_rows + row
+\end{verbatim}
+
+This difference has deep performance consequences. In row-major layout,
+traversing row by row is cache-friendly because consecutive elements are
+contiguous. Traversing column by column introduces large strides, which
+can cause cache and TLB misses. In column-major arrays, the reverse
+holds true.
+
+\paragraph{Cache and performance.}\label{cache-and-performance.}
+
+When an array is traversed sequentially in its natural memory order,
+cache lines are used efficiently and hardware prefetchers work well.
+Strided access, such as reading every k-th column in a row-major layout,
+prevents prefetchers from predicting the access pattern and leads to
+performance drops. For large arrays, this can mean the difference
+between processing gigabytes per second and megabytes per second.
+
+\paragraph{Alignment and padding.}\label{alignment-and-padding.}
+
+Compilers and libraries often align rows to cache line or SIMD vector
+boundaries. For example, a 64-byte cache line may cause padding to be
+inserted so that each row begins on a boundary. In parallel systems,
+this prevents false sharing when multiple threads process different
+rows. However, padding increases memory footprint.
+
+\paragraph{Language-level
+differences.}\label{language-level-differences.}
+
+\begin{itemize}
+\tightlist
+\item
+  C/C++: contiguous 2D arrays (\texttt{int\ arr{[}rows{]}{[}cols{]}})
+  guarantee row-major layout. Jagged arrays (array of pointers)
+  sacrifice locality but allow uneven row sizes.
+\item
+  Fortran/MATLAB: column-major ordering dominates scientific computing,
+  influencing algorithms in BLAS and LAPACK.
+\item
+  NumPy: stores strides explicitly, enabling flexible slicing and
+  arbitrary views. Strided slices can represent transposed matrices
+  without copying.
+\end{itemize}
+
+\paragraph{Optimizations.}\label{optimizations.}
+
+\begin{itemize}
+\tightlist
+\item
+  Loop tiling/blocking: partition loops into smaller blocks that fit
+  into cache, maximizing reuse.
+\item
+  SIMD-friendly layouts: structure-of-arrays (SoA) improves
+  vectorization compared to array-of-structures (AoS).
+\item
+  Matrix multiplication kernels: carefully designed to exploit cache
+  hierarchy, prefetching, and SIMD registers.
+\end{itemize}
+
+\paragraph{System-level use cases.}\label{system-level-use-cases.}
+
+\begin{itemize}
+\tightlist
+\item
+  Image processing: images stored as row-major arrays, with pixels in
+  contiguous scanlines. Efficient filters process them row by row.
+\item
+  GPU computing: memory coalescing requires threads in a warp to access
+  contiguous memory regions; array layout directly affects throughput.
+\item
+  Databases: columnar storage uses column-major arrays, enabling fast
+  scans and aggregation queries.
+\end{itemize}
+
+\paragraph{Pitfalls.}\label{pitfalls.-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Traversing in the ``wrong'' order can cause performance cliffs.
+\item
+  Large index calculations may overflow if not handled carefully.
+\item
+  Porting algorithms between row-major and column-major languages can
+  introduce subtle bugs.
+\end{itemize}
+
+Profiling. Practical analysis involves comparing traversal patterns,
+cache miss rates, and vectorization efficiency. Modern compilers can
+eliminate redundant bounds checks and auto-vectorize well-structured
+loops, but poor layout or order can block these optimizations.
+
+\subsubsection{Worked Example (C)}\label{worked-example-c-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{\#include }\ImportTok{\textless{}stdio.h\textgreater{}}
+\PreprocessorTok{\#define ROWS }\DecValTok{4}
+\PreprocessorTok{\#define COLS }\DecValTok{4}
+
+\DataTypeTok{int}\NormalTok{ main}\OperatorTok{()} \OperatorTok{\{}
+    \DataTypeTok{int}\NormalTok{ arr}\OperatorTok{[}\NormalTok{ROWS}\OperatorTok{][}\NormalTok{COLS}\OperatorTok{];}
+
+    \CommentTok{// Fill the array}
+    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ r }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ r }\OperatorTok{\textless{}}\NormalTok{ ROWS}\OperatorTok{;}\NormalTok{ r}\OperatorTok{++)} \OperatorTok{\{}
+        \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ c }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ c }\OperatorTok{\textless{}}\NormalTok{ COLS}\OperatorTok{;}\NormalTok{ c}\OperatorTok{++)} \OperatorTok{\{}
+\NormalTok{            arr}\OperatorTok{[}\NormalTok{r}\OperatorTok{][}\NormalTok{c}\OperatorTok{]} \OperatorTok{=}\NormalTok{ r }\OperatorTok{*}\NormalTok{ COLS }\OperatorTok{+}\NormalTok{ c}\OperatorTok{;}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+
+    \CommentTok{// Row{-}major traversal (cache{-}friendly in C)}
+    \DataTypeTok{int}\NormalTok{ sum\_row }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ r }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ r }\OperatorTok{\textless{}}\NormalTok{ ROWS}\OperatorTok{;}\NormalTok{ r}\OperatorTok{++)} \OperatorTok{\{}
+        \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ c }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ c }\OperatorTok{\textless{}}\NormalTok{ COLS}\OperatorTok{;}\NormalTok{ c}\OperatorTok{++)} \OperatorTok{\{}
+\NormalTok{            sum\_row }\OperatorTok{+=}\NormalTok{ arr}\OperatorTok{[}\NormalTok{r}\OperatorTok{][}\NormalTok{c}\OperatorTok{];}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+
+    \CommentTok{// Column traversal (less efficient in row{-}major)}
+    \DataTypeTok{int}\NormalTok{ sum\_col }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ c }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ c }\OperatorTok{\textless{}}\NormalTok{ COLS}\OperatorTok{;}\NormalTok{ c}\OperatorTok{++)} \OperatorTok{\{}
+        \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ r }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ r }\OperatorTok{\textless{}}\NormalTok{ ROWS}\OperatorTok{;}\NormalTok{ r}\OperatorTok{++)} \OperatorTok{\{}
+\NormalTok{            sum\_col }\OperatorTok{+=}\NormalTok{ arr}\OperatorTok{[}\NormalTok{r}\OperatorTok{][}\NormalTok{c}\OperatorTok{];}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+
+\NormalTok{    printf}\OperatorTok{(}\StringTok{"Row traversal sum: }\SpecialCharTok{\%d\textbackslash{}n}\StringTok{"}\OperatorTok{,}\NormalTok{ sum\_row}\OperatorTok{);}
+\NormalTok{    printf}\OperatorTok{(}\StringTok{"Column traversal sum: }\SpecialCharTok{\%d\textbackslash{}n}\StringTok{"}\OperatorTok{,}\NormalTok{ sum\_col}\OperatorTok{);}
+    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This program highlights traversal order. On large arrays, row-major
+traversal is much faster in C because of cache-friendly memory access,
+while column traversal may cause frequent cache misses.
+
+\subsubsection{Why it matters}\label{why-it-matters-23}
+
+Multidimensional arrays sit at the heart of performance-critical
+applications. Their memory layout determines how well algorithms
+interact with CPU caches, vector units, and GPUs. Understanding
+row-major vs column-major, stride penalties, and cache-aware traversal
+allows developers to write software that scales from toy programs to
+high-performance computing systems.
+
+\subsubsection{Exercises}\label{exercises-23}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In C, create a 1000×1000 matrix and measure the time difference
+  between row-major and column traversal. Explain the results.
+\item
+  In NumPy, take a 2D array and transpose it. Use \texttt{.strides} to
+  confirm that the transposed array is a view, not a copy.
+\item
+  Write the linear index formula for a 4D array \texttt{(a,b,c,d)} in
+  row-major order.
+\item
+  Explain how false sharing could occur when two threads update adjacent
+  rows of a large array.
+\item
+  Compare the impact of row-major vs column-major layout in matrix
+  multiplication performance.
+\end{enumerate}
+
+\section{2.5 Sparse Arrays}\label{sparse-arrays}
+
+\subsection{2.5 L0 --- Sparse Arrays as Empty Parking
+Lots}\label{l0-sparse-arrays-as-empty-parking-lots}
+
+A sparse array is a way of storing data when most of the positions are
+empty. Instead of recording every slot like in a dense array, a sparse
+array only remembers the places that hold actual values. You can think
+of a huge parking lot with only a few cars parked: a dense array writes
+down every spot, empty or not, while a sparse array just writes down the
+locations of the cars.
+
+\subsubsection{Deep Dive}\label{deep-dive-15}
+
+Dense arrays are straightforward: every position has a value, even if it
+is zero or unused. This makes access simple and fast, but wastes memory
+if most positions are empty. Sparse arrays solve this by storing only
+the useful entries.
+
+There are many ways to represent a sparse array:
+
+\begin{itemize}
+\tightlist
+\item
+  Dictionary/Map: store index → value pairs, ignoring empty slots.
+\item
+  Coordinate list (COO): keep two lists, one for indices and one for
+  values.
+\item
+  Run-length encoding: store stretches of empty values as counts,
+  followed by the next filled value.
+\end{itemize}
+
+The key idea is to save memory at the cost of more complex indexing.
+Access is no longer just arithmetic (\texttt{arr{[}i{]}}) but requires
+looking up in the chosen structure.
+
+Comparison:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1714}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4857}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Representation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Memory Use
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Access Speed
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Good For
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Dense array & High & O(1) & Data with many filled elements \\
+Sparse (map) & Low & O(1) average & Few filled elements, random
+access \\
+Sparse (list) & Very low & O(n) & Very small number of entries \\
+\end{longtable}
+
+\subsubsection{Worked Example}\label{worked-example-8}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Dense representation: wastes memory for mostly empty data}
+\NormalTok{dense }\OperatorTok{=}\NormalTok{ [}\DecValTok{0}\NormalTok{] }\OperatorTok{*} \DecValTok{20}
+\NormalTok{dense[}\DecValTok{3}\NormalTok{] }\OperatorTok{=} \DecValTok{10}
+\NormalTok{dense[}\DecValTok{15}\NormalTok{] }\OperatorTok{=} \DecValTok{25}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Dense array:"}\NormalTok{, dense)}
+
+\CommentTok{\# Sparse representation using dictionary}
+\NormalTok{sparse }\OperatorTok{=}\NormalTok{ \{}\DecValTok{3}\NormalTok{: }\DecValTok{10}\NormalTok{, }\DecValTok{15}\NormalTok{: }\DecValTok{25}\NormalTok{\}}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Sparse array:"}\NormalTok{, sparse)}
+
+\CommentTok{\# Access value}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Value at index 3:"}\NormalTok{, sparse.get(}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Value at index 7:"}\NormalTok{, sparse.get(}\DecValTok{7}\NormalTok{, }\DecValTok{0}\NormalTok{))  }\CommentTok{\# default to 0 for missing}
+\end{Highlighting}
+\end{Shaded}
+
+This shows how a sparse dictionary only records the positions that
+matter, while the dense version allocates space for all 20 slots.
+
+\subsubsection{Why it matters}\label{why-it-matters-24}
+
+Sparse arrays are crucial when working with large data where most
+entries are empty. They save memory and make it possible to process huge
+datasets that would not fit into memory as dense arrays. They also
+appear in real-world systems like machine learning (feature vectors),
+scientific computing (matrices with few non-zero entries), and search
+engines (posting lists).
+
+\subsubsection{Exercises}\label{exercises-24}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Represent a sparse array of size 1000 with only 3 non-zero values at
+  indices 2, 500, and 999.
+\item
+  Write a procedure to count the number of non-empty values in a sparse
+  array.
+\item
+  Access an index that does not exist in the sparse array and explain
+  what should be returned.
+\item
+  Compare the memory used by a dense array of 1000 zeros and a sparse
+  representation with 3 values.
+\item
+  Think of a real-world example (outside programming) where recording
+  only the ``non-empty'' spots is more efficient than listing
+  everything.
+\end{enumerate}
+
+\subsection{2.5 L1 --- Sparse Arrays in
+Practice}\label{l1-sparse-arrays-in-practice}
+
+Sparse arrays become important when dealing with very large datasets
+where only a few positions hold non-zero values. Instead of allocating
+memory for every element, practical implementations use compact
+structures to track only the occupied indices. This saves memory, but
+requires trade-offs in access speed and update complexity.
+
+\subsubsection{Deep Dive}\label{deep-dive-16}
+
+There are several practical ways to represent sparse arrays:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Dictionary/Hash Map
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Store index → value pairs.
+  \item
+    Very fast random access and updates (average O(1)).
+  \item
+    Memory overhead is higher because of hash structures.
+  \end{itemize}
+\item
+  Coordinate List (COO)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Keep two parallel arrays: one for indices, one for values.
+  \item
+    Compact, easy to construct, but access is O(n).
+  \item
+    Good for static data with few updates.
+  \end{itemize}
+\item
+  Compressed Sparse Row (CSR) / Compressed Sparse Column (CSC)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Widely used for sparse matrices.
+  \item
+    Use three arrays: values, column indices, and row pointers (or vice
+    versa).
+  \item
+    Extremely efficient for matrix-vector operations.
+  \item
+    Poor at dynamic updates, since compression must be rebuilt.
+  \end{itemize}
+\item
+  Run-Length Encoding (RLE)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Store runs of zeros as counts, followed by non-zero entries.
+  \item
+    Best for sequences with long stretches of emptiness.
+  \end{itemize}
+\end{enumerate}
+
+A comparison:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1020}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1633}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3469}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3878}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Format
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Memory Use
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Access Speed
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Best For
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Dictionary & Higher per-entry & O(1) avg & Dynamic updates,
+unpredictable indices \\
+COO & Very low & O(n) & Static, small sparse sets \\
+CSR/CSC & Compact & O(1) row scan, O(log n) col lookup & Linear algebra,
+scientific computing \\
+RLE & Very compact & Sequential O(n), random slower & Time-series with
+long zero runs \\
+\end{longtable}
+
+\paragraph{Trade-offs:}\label{trade-offs}
+
+\begin{itemize}
+\tightlist
+\item
+  Dense arrays are fast but waste memory.
+\item
+  Sparse arrays save memory but access/update complexity varies.
+\item
+  Choice of structure depends on workload (frequent random access vs
+  batch computation).
+\end{itemize}
+
+\paragraph{Use cases:}\label{use-cases}
+
+\begin{itemize}
+\tightlist
+\item
+  Machine learning: sparse feature vectors in text classification or
+  recommender systems.
+\item
+  Graph algorithms: adjacency matrices for sparse graphs.
+\item
+  Search engines: inverted index posting lists.
+\item
+  Scientific computing: storing large sparse matrices for simulations.
+\end{itemize}
+
+\subsubsection{Worked Example}\label{worked-example-9}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sparse array using Python dictionary}
+\NormalTok{sparse }\OperatorTok{=}\NormalTok{ \{}\DecValTok{2}\NormalTok{: }\DecValTok{10}\NormalTok{, }\DecValTok{100}\NormalTok{: }\DecValTok{50}\NormalTok{, }\DecValTok{999}\NormalTok{: }\DecValTok{7}\NormalTok{\}}
+
+\CommentTok{\# Accessing}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Value at 100:"}\NormalTok{, sparse.get(}\DecValTok{100}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Value at 3 (missing):"}\NormalTok{, sparse.get(}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+
+\CommentTok{\# Inserting new value}
+\NormalTok{sparse[}\DecValTok{500}\NormalTok{] }\OperatorTok{=} \DecValTok{42}
+
+\CommentTok{\# Traversing non{-}empty values}
+\ControlFlowTok{for}\NormalTok{ idx, val }\KeywordTok{in}\NormalTok{ sparse.items():}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Index }\SpecialCharTok{\{}\NormalTok{idx}\SpecialCharTok{\}}\SpecialStringTok{ → }\SpecialCharTok{\{}\NormalTok{val}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+For dense vs sparse comparison:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dense }\OperatorTok{=}\NormalTok{ [}\DecValTok{0}\NormalTok{] }\OperatorTok{*} \DecValTok{1000}
+\NormalTok{dense[}\DecValTok{2}\NormalTok{], dense[}\DecValTok{100}\NormalTok{], dense[}\DecValTok{999}\NormalTok{] }\OperatorTok{=} \DecValTok{10}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{7}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Dense uses 1000 slots, sparse uses"}\NormalTok{, }\BuiltInTok{len}\NormalTok{(sparse), }\StringTok{"entries"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Why it matters}\label{why-it-matters-25}
+
+Sparse arrays strike a balance between memory efficiency and
+performance. They let you work with massive datasets that would
+otherwise be impossible to store in memory. They also demonstrate the
+importance of choosing the right representation for the problem: a
+dictionary for dynamic updates, CSR for scientific kernels, or RLE for
+compressed logs.
+
+\subsubsection{Exercises}\label{exercises-25}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Represent a sparse array of length 1000 with values at indices 2, 100,
+  and 999 using:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii})}
+  \tightlist
+  \item
+    a dictionary, and
+  \item
+    two parallel lists (indices, values).
+  \end{enumerate}
+\item
+  Write a procedure that traverses only non-empty entries and prints
+  them.
+\item
+  Explain why inserting a value in CSR format is more expensive than in
+  a dictionary-based representation.
+\item
+  Compare memory usage of a dense array of length 1000 with only 5
+  non-zero entries against its sparse dictionary form.
+\item
+  Give two real-world scenarios where CSR is preferable to
+  dictionary-based sparse arrays.
+\end{enumerate}
+
+\subsection{2.5 L2 --- Sparse Arrays and Compressed Layouts in
+Systems}\label{l2-sparse-arrays-and-compressed-layouts-in-systems}
+
+Sparse arrays are not only about saving memory; they embody deep design
+choices about compression, cache use, and hardware acceleration. At this
+level, the question is not ``should I store zeros or not,'' but ``which
+representation balances memory, access speed, and computational
+efficiency for the workload?''
+
+\subsubsection{Deep Dive}\label{deep-dive-17}
+
+Several compressed storage formats exist, each tuned to different needs:
+
+\begin{itemize}
+\tightlist
+\item
+  COO (Coordinate List): Store parallel arrays for row indices, column
+  indices, and values. Flexible and simple, but inefficient for repeated
+  access because lookups require scanning.
+\item
+  CSR (Compressed Sparse Row): Use three arrays: \texttt{values},
+  \texttt{col\_indices}, and \texttt{row\_ptr} to mark boundaries.
+  Accessing all elements of a row is O(1), while finding a specific
+  column in a row is O(log n) or linear. Excellent for sparse
+  matrix-vector multiplication (SpMV).
+\item
+  CSC (Compressed Sparse Column): Similar to CSR, but optimized for
+  column operations.
+\item
+  DIA (Diagonal): Only store diagonals in banded matrices. Extremely
+  memory-efficient for PDE solvers.
+\item
+  ELL (Ellpack/Itpack): Store each row padded to the same length,
+  enabling SIMD and GPU vectorization. Works well when rows have similar
+  numbers of nonzeros.
+\item
+  HYB (Hybrid, CUDA): Combines ELL for regular rows and COO for
+  irregular cases. Used in GPU-accelerated sparse libraries.
+\end{itemize}
+
+\paragraph{Performance and
+Complexity.}\label{performance-and-complexity.}
+
+\begin{itemize}
+\tightlist
+\item
+  Dictionaries/maps: O(1) average access, but higher overhead per entry.
+\item
+  COO: O(n) lookups, better for incremental construction.
+\item
+  CSR/CSC: excellent for batch operations, poor for insertions.
+\item
+  ELL/DIA: high throughput on SIMD/GPU hardware but inflexible.
+\end{itemize}
+
+Sparse matrix-vector multiplication (SpMV) illustrates trade-offs. With
+CSR:
+
+\begin{verbatim}
+y[row] = Σ values[k] * x[col_indices[k]]  
+\end{verbatim}
+
+where \texttt{row\_ptr} guides which elements belong to each row. The
+cost is proportional to the number of nonzeros, but performance is
+limited by memory bandwidth and irregular access to \texttt{x}.
+
+\paragraph{Cache and alignment.}\label{cache-and-alignment.}
+
+Compressed formats improve locality for sequential access but introduce
+irregular memory access patterns when multiplying or searching. Strided
+iteration can align with cache lines, but pointer-heavy layouts fragment
+memory. Padding (in ELL) improves SIMD alignment but wastes space.
+
+\paragraph{Language and library
+implementations.}\label{language-and-library-implementations.}
+
+\begin{itemize}
+\tightlist
+\item
+  Python SciPy: \texttt{csr\_matrix}, \texttt{csc\_matrix},
+  \texttt{coo\_matrix}, \texttt{dia\_matrix}.
+\item
+  C++: Eigen and Armadillo expose CSR and CSC; Intel MKL provides highly
+  optimized kernels.
+\item
+  CUDA/cuSPARSE: Hybrid ELL + COO kernels tuned for GPUs.
+\end{itemize}
+
+\paragraph{System-level use cases.}\label{system-level-use-cases.-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Large-scale PDE solvers and finite element methods.
+\item
+  Graph algorithms (PageRank, shortest paths) using sparse adjacency
+  matrices.
+\item
+  Inverted indices in search engines (postings lists).
+\item
+  Feature vectors in machine learning (bag-of-words, recommender
+  systems).
+\end{itemize}
+
+\paragraph{Pitfalls.}\label{pitfalls.-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Insertion is expensive in compressed formats (requires shifting or
+  rebuilding).
+\item
+  Converting between formats (e.g., COO ↔ CSR) can dominate runtime if
+  done repeatedly.
+\item
+  A poor choice of format (e.g., using ELL for irregular sparsity) can
+  waste memory or block vectorization.
+\end{itemize}
+
+\paragraph{Optimization and
+profiling.}\label{optimization-and-profiling.}
+
+\begin{itemize}
+\tightlist
+\item
+  Benchmark SpMV across formats and measure achieved bandwidth.
+\item
+  Profile cache misses and TLB behavior in irregular workloads.
+\item
+  On GPUs, measure coalesced vs scattered memory access to judge format
+  suitability.
+\end{itemize}
+
+\paragraph{Worked Example (Python with
+SciPy)}\label{worked-example-python-with-scipy}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{from}\NormalTok{ scipy.sparse }\ImportTok{import}\NormalTok{ csr\_matrix}
+
+\CommentTok{\# Dense 5x5 with many zeros}
+\NormalTok{dense }\OperatorTok{=}\NormalTok{ np.array([}
+\NormalTok{    [}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{],}
+\NormalTok{    [}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{],}
+\NormalTok{    [}\DecValTok{4}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{],}
+\NormalTok{    [}\DecValTok{0}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{],}
+\NormalTok{    [}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{]}
+\NormalTok{])}
+
+\CommentTok{\# Convert to CSR}
+\NormalTok{sparse }\OperatorTok{=}\NormalTok{ csr\_matrix(dense)}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"CSR data array:"}\NormalTok{, sparse.data)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"CSR indices:"}\NormalTok{, sparse.indices)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"CSR indptr:"}\NormalTok{, sparse.indptr)}
+
+\CommentTok{\# Sparse matrix{-}vector multiplication}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ np.array([}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{])}
+\NormalTok{y }\OperatorTok{=}\NormalTok{ sparse }\OperatorTok{@}\NormalTok{ x}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Result of SpMV:"}\NormalTok{, y)}
+\end{Highlighting}
+\end{Shaded}
+
+This example shows how a dense matrix with many zeros can be stored
+efficiently in CSR. Only nonzeros are stored, and SpMV avoids
+unnecessary multiplications.
+
+\subsubsection{Why it matters}\label{why-it-matters-26}
+
+Sparse array formats are the backbone of scientific computing, machine
+learning, and search engines. Choosing the right format determines
+whether a computation runs in seconds or hours. At scale, cache
+efficiency, memory bandwidth, and vectorization potential matter as much
+as algorithmic complexity. Sparse arrays teach the critical lesson that
+representation is performance.
+
+\subsubsection{Exercises}\label{exercises-26}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Implement COO and CSR representations of the same sparse matrix and
+  compare memory usage.
+\item
+  Write a small CSR-based SpMV routine and measure its speed against a
+  dense implementation.
+\item
+  Explain why ELL format is efficient on GPUs but wasteful on highly
+  irregular graphs.
+\item
+  In SciPy, convert a \texttt{csr\_matrix} to \texttt{csc\_matrix} and
+  back. Measure the cost for large matrices.
+\item
+  Given a graph with 1M nodes and 10M edges, explain why adjacency lists
+  and CSR are more practical than dense matrices.
+\end{enumerate}
+
+\section{2.6 Prefix Sums \& Scans}\label{prefix-sums-scans}
+
+\subsection{2.6 L0 --- Running Totals}\label{l0-running-totals}
+
+A prefix sum, also called a scan, is a way of turning a sequence into
+running totals. Instead of just producing one final sum, we produce an
+array where each position shows the sum of all earlier elements. It is
+like keeping a receipt tape at the checkout: each item is added in
+order, and you see the growing total after each step.
+
+\subsubsection{Deep Dive}\label{deep-dive-18}
+
+Prefix sums are simple but powerful. Given an array
+\texttt{{[}a0,\ a1,\ a2,\ …,\ an-1{]}}, the prefix sum array
+\texttt{{[}p0,\ p1,\ p2,\ …,\ pn-1{]}} is defined as:
+
+\begin{itemize}
+\item
+  Inclusive scan:
+
+\begin{verbatim}
+pi = a0 + a1 + … + ai
+\end{verbatim}
+\item
+  Exclusive scan:
+
+\begin{verbatim}
+pi = a0 + a1 + … + ai-1
+\end{verbatim}
+
+  (with p0 = 0 by convention).
+\end{itemize}
+
+Example with array \texttt{{[}1,\ 2,\ 3,\ 4{]}}:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Index & Original & Inclusive & Exclusive \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & 1 & 1 & 0 \\
+1 & 2 & 3 & 1 \\
+2 & 3 & 6 & 3 \\
+3 & 4 & 10 & 6 \\
+\end{longtable}
+
+Prefix sums are built in a single pass, left to right. This is O(n) in
+time, requiring an extra array of length n to store results.
+
+Once constructed, prefix sums allow fast range queries. For any subarray
+between indices \texttt{i} and \texttt{j}, the sum is:
+
+\begin{verbatim}
+sum(i..j) = prefix[j] - prefix[i-1]
+\end{verbatim}
+
+This reduces what would be O(n) work into O(1) time per query.
+
+Prefix sums also generalize beyond addition: they can be built with
+multiplication, min, max, or any associative operation.
+
+\subsubsection{Worked Example}\label{worked-example-10}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{arr }\OperatorTok{=}\NormalTok{ [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{]}
+
+\CommentTok{\# Inclusive prefix sum}
+\NormalTok{inclusive }\OperatorTok{=}\NormalTok{ []}
+\NormalTok{running }\OperatorTok{=} \DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in}\NormalTok{ arr:}
+\NormalTok{    running }\OperatorTok{+=}\NormalTok{ x}
+\NormalTok{    inclusive.append(running)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Inclusive scan:"}\NormalTok{, inclusive)}
+
+\CommentTok{\# Exclusive prefix sum}
+\NormalTok{exclusive }\OperatorTok{=}\NormalTok{ [}\DecValTok{0}\NormalTok{]}
+\NormalTok{running }\OperatorTok{=} \DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in}\NormalTok{ arr[:}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]:}
+\NormalTok{    running }\OperatorTok{+=}\NormalTok{ x}
+\NormalTok{    exclusive.append(running)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Exclusive scan:"}\NormalTok{, exclusive)}
+
+\CommentTok{\# Range query using prefix sums}
+\NormalTok{i, j }\OperatorTok{=} \DecValTok{1}\NormalTok{, }\DecValTok{3}  \CommentTok{\# sum from index 1 to 3 (2+3+4)}
+\NormalTok{range\_sum }\OperatorTok{=}\NormalTok{ inclusive[j] }\OperatorTok{{-}}\NormalTok{ (inclusive[i}\OperatorTok{{-}}\DecValTok{1}\NormalTok{] }\ControlFlowTok{if}\NormalTok{ i }\OperatorTok{\textgreater{}} \DecValTok{0} \ControlFlowTok{else} \DecValTok{0}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Range sum (1..3):"}\NormalTok{, range\_sum)}
+\end{Highlighting}
+\end{Shaded}
+
+This program shows inclusive and exclusive scans, and how to use them to
+answer range queries quickly.
+
+\subsubsection{Why it matters}\label{why-it-matters-27}
+
+Prefix sums transform repeated work into reusable results. They make
+range queries efficient, reduce algorithmic complexity, and appear in
+countless applications: histograms, text processing, probability
+distributions, and parallel computing. They also introduce the idea of
+trading extra storage for faster queries, a common algorithmic
+technique.
+
+\subsubsection{Exercises}\label{exercises-27}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Compute the prefix sum of \texttt{{[}1,\ 2,\ 3,\ 4,\ 5{]}} by hand.
+\item
+  Show the difference between inclusive and exclusive prefix sums for
+  \texttt{{[}5,\ 10,\ 15{]}}.
+\item
+  Use a prefix sum to find the sum of elements from index 2 to 4 in
+  \texttt{{[}3,\ 6,\ 9,\ 12,\ 15{]}}.
+\item
+  Given a prefix sum array \texttt{{[}2,\ 5,\ 9,\ 14{]}}, reconstruct
+  the original array.
+\item
+  Explain why prefix sums are more efficient than computing each
+  subarray sum from scratch when handling many queries.
+\end{enumerate}
+
+\subsection{2.6 L1 --- Prefix Sums in
+Practice}\label{l1-prefix-sums-in-practice}
+
+Prefix sums are a versatile tool for speeding up algorithms that involve
+repeated range queries. Instead of recalculating sums over and over, we
+preprocess the array once to create cumulative totals. This
+preprocessing costs O(n), but it allows each query to be answered in
+O(1).
+
+\subsubsection{Deep Dive}\label{deep-dive-19}
+
+A prefix sum array is built by scanning the original array from left to
+right:
+
+\begin{verbatim}
+prefix[i] = prefix[i-1] + arr[i]
+\end{verbatim}
+
+This produces the inclusive scan. The exclusive scan shifts everything
+rightward, leaving prefix{[}0{]} = 0 and excluding the current element.
+
+The choice between inclusive and exclusive depends on application:
+
+\begin{itemize}
+\tightlist
+\item
+  Inclusive is easier for direct cumulative totals.
+\item
+  Exclusive is more natural when answering range queries.
+\end{itemize}
+
+Once built, prefix sums enable efficient operations:
+
+\begin{itemize}
+\tightlist
+\item
+  Range queries:
+  \texttt{sum(i..j)\ =\ prefix{[}j{]}\ -\ prefix{[}i-1{]}}.
+\item
+  Reconstruction: the original array can be recovered with
+  \texttt{arr{[}i{]}\ =\ prefix{[}i{]}\ -\ prefix{[}i-1{]}}.
+\item
+  Generalization: the same idea works for multiplication (cumulative
+  product), logical OR/AND, or even min/max. The key requirement is that
+  the operation is associative.
+\end{itemize}
+
+\paragraph{Trade-offs:}\label{trade-offs-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Building prefix sums requires O(n) extra memory.
+\item
+  If only a few queries are needed, recomputing directly may be simpler.
+\item
+  For many queries, the preprocessing overhead is worthwhile.
+\end{itemize}
+
+\paragraph{Use cases:}\label{use-cases-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Fast range-sum queries in databases or competitive programming.
+\item
+  Cumulative frequencies in histograms.
+\item
+  Substring analysis in text algorithms (e.g., number of vowels in a
+  range).
+\item
+  Probability and statistics: cumulative distribution functions.
+\end{itemize}
+
+\paragraph{Language implementations:}\label{language-implementations}
+
+\begin{itemize}
+\tightlist
+\item
+  Python: \texttt{itertools.accumulate}, \texttt{numpy.cumsum}.
+\item
+  C++: \texttt{std::partial\_sum} from
+  \texttt{\textless{}numeric\textgreater{}}.
+\item
+  Java: custom loop, or stream reductions.
+\end{itemize}
+
+\paragraph{Pitfalls:}\label{pitfalls}
+
+\begin{itemize}
+\tightlist
+\item
+  Confusing inclusive vs exclusive scans often leads to off-by-one
+  errors.
+\item
+  For large datasets, cumulative sums may overflow fixed-width integers.
+\end{itemize}
+
+\subsubsection{Worked Example}\label{worked-example-11}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ itertools}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+
+\NormalTok{arr }\OperatorTok{=}\NormalTok{ [}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{10}\NormalTok{]}
+
+\CommentTok{\# Inclusive prefix sum using Python loop}
+\NormalTok{inclusive }\OperatorTok{=}\NormalTok{ []}
+\NormalTok{running }\OperatorTok{=} \DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in}\NormalTok{ arr:}
+\NormalTok{    running }\OperatorTok{+=}\NormalTok{ x}
+\NormalTok{    inclusive.append(running)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Inclusive prefix sum:"}\NormalTok{, inclusive)}
+
+\CommentTok{\# Exclusive prefix sum}
+\NormalTok{exclusive }\OperatorTok{=}\NormalTok{ [}\DecValTok{0}\NormalTok{]}
+\NormalTok{running }\OperatorTok{=} \DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in}\NormalTok{ arr[:}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]:}
+\NormalTok{    running }\OperatorTok{+=}\NormalTok{ x}
+\NormalTok{    exclusive.append(running)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Exclusive prefix sum:"}\NormalTok{, exclusive)}
+
+\CommentTok{\# NumPy cumsum (inclusive)}
+\NormalTok{np\_inclusive }\OperatorTok{=}\NormalTok{ np.cumsum(arr)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"NumPy inclusive scan:"}\NormalTok{, np\_inclusive)}
+
+\CommentTok{\# Range query using prefix sums}
+\NormalTok{i, j }\OperatorTok{=} \DecValTok{1}\NormalTok{, }\DecValTok{3}  \CommentTok{\# indices 1..3 → 4+6+8}
+\NormalTok{range\_sum }\OperatorTok{=}\NormalTok{ inclusive[j] }\OperatorTok{{-}}\NormalTok{ (inclusive[i}\OperatorTok{{-}}\DecValTok{1}\NormalTok{] }\ControlFlowTok{if}\NormalTok{ i }\OperatorTok{\textgreater{}} \DecValTok{0} \ControlFlowTok{else} \DecValTok{0}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Range sum (1..3):"}\NormalTok{, range\_sum)}
+
+\CommentTok{\# Recover original array from prefix sums}
+\NormalTok{reconstructed }\OperatorTok{=}\NormalTok{ [inclusive[}\DecValTok{0}\NormalTok{]] }\OperatorTok{+}\NormalTok{ [inclusive[i] }\OperatorTok{{-}}\NormalTok{ inclusive[i}\OperatorTok{{-}}\DecValTok{1}\NormalTok{] }\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, }\BuiltInTok{len}\NormalTok{(inclusive))]}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Reconstructed array:"}\NormalTok{, reconstructed)}
+\end{Highlighting}
+\end{Shaded}
+
+This example demonstrates building prefix sums by hand, using built-in
+libraries, answering queries, and reconstructing the original array.
+
+\subsubsection{Why it matters}\label{why-it-matters-28}
+
+Prefix sums reduce repeated work into reusable results. They transform
+O(n) queries into O(1), making algorithms faster and more scalable. They
+are a foundational idea in algorithm design, connecting to histograms,
+distributions, and dynamic programming.
+
+\subsubsection{Exercises}\label{exercises-28}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Build both inclusive and exclusive prefix sums for
+  \texttt{{[}5,\ 10,\ 15,\ 20{]}}.
+\item
+  Use prefix sums to compute the sum of elements from index 2 to 4 in
+  \texttt{{[}1,\ 3,\ 5,\ 7,\ 9{]}}.
+\item
+  Given a prefix sum array \texttt{{[}3,\ 8,\ 15,\ 24{]}}, reconstruct
+  the original array.
+\item
+  Write a procedure that computes cumulative products (scan with
+  multiplication).
+\item
+  Explain why prefix sums are more useful when answering hundreds of
+  queries instead of just one.
+\end{enumerate}
+
+\subsection{2.6 L2 --- Prefix Sums and Parallel
+Scans}\label{l2-prefix-sums-and-parallel-scans}
+
+Prefix sums seem simple, but at scale they become a central systems
+primitive. They serve as the backbone of parallel algorithms, GPU
+kernels, and high-performance libraries. At this level, the focus shifts
+from ``what is a prefix sum'' to ``how can we compute it efficiently
+across thousands of cores, with minimal synchronization and maximal
+throughput?''
+
+\subsubsection{Deep Dive}\label{deep-dive-20}
+
+Sequential algorithm. The simple prefix sum is O(n):
+
+\begin{verbatim}
+prefix[0] = arr[0]
+for i in 1..n-1:
+    prefix[i] = prefix[i-1] + arr[i]
+\end{verbatim}
+
+Efficient for single-threaded contexts, but inherently sequential
+because each value depends on the one before it.
+
+Parallel algorithms. Two key approaches dominate:
+
+\begin{itemize}
+\item
+  Hillis--Steele scan (1986):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Iterative doubling method.
+  \item
+    At step k, each thread adds the value from 2\^{}k positions behind.
+  \item
+    O(n log n) work, O(log n) depth. Simple but not work-efficient.
+  \end{itemize}
+\item
+  Blelloch scan (1990):
+
+  \begin{itemize}
+  \item
+    Work-efficient, O(n) total operations, O(log n) depth.
+  \item
+    Two phases:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Up-sweep (reduce): build a tree of partial sums.
+    \item
+      Down-sweep: propagate sums back down to compute prefix results.
+    \end{itemize}
+  \item
+    Widely used in GPU libraries.
+  \end{itemize}
+\end{itemize}
+
+\paragraph{Hardware performance.}\label{hardware-performance.}
+
+\begin{itemize}
+\tightlist
+\item
+  Cache-aware scans: memory locality matters for large arrays. Blocking
+  and tiling reduce cache misses.
+\item
+  SIMD vectorization: multiple prefix elements are computed in parallel
+  inside CPU vector registers.
+\item
+  GPUs: scans are implemented at warp and block levels, with CUDA
+  providing primitives like \texttt{thrust::inclusive\_scan}. Warp
+  shuffles (\texttt{\_\_shfl\_up\_sync}) allow efficient intra-warp
+  scans without shared memory.
+\end{itemize}
+
+\paragraph{Memory and
+synchronization.}\label{memory-and-synchronization.}
+
+\begin{itemize}
+\tightlist
+\item
+  In-place scans reduce memory use but complicate parallelization.
+\item
+  Exclusive vs inclusive variants require careful handling of initial
+  values.
+\item
+  Synchronization overhead and false sharing are common risks in
+  multithreaded CPU scans.
+\item
+  Distributed scans (MPI) require combining partial results from each
+  node, then adjusting local scans with offsets.
+\end{itemize}
+
+\paragraph{Libraries and
+implementations.}\label{libraries-and-implementations.}
+
+\begin{itemize}
+\tightlist
+\item
+  C++ TBB: \texttt{parallel\_scan} supports both exclusive and
+  inclusive.
+\item
+  CUDA Thrust: \texttt{inclusive\_scan}, \texttt{exclusive\_scan} for
+  GPU workloads.
+\item
+  OpenMP: provides \texttt{\#pragma\ omp\ parallel\ for\ reduction} but
+  true scans require more explicit handling.
+\item
+  MPI: \texttt{MPI\_Scan} and \texttt{MPI\_Exscan} provide distributed
+  prefix sums.
+\end{itemize}
+
+\paragraph{System-level use cases.}\label{system-level-use-cases.-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Parallel histogramming: count frequencies in parallel, prefix sums to
+  compute cumulative counts.
+\item
+  Radix sort: scans partition data into buckets efficiently.
+\item
+  Stream compaction: filter elements while maintaining order.
+\item
+  GPU memory allocation: prefix sums assign disjoint output positions to
+  threads.
+\item
+  Database indexing: scans help build offsets for columnar data storage.
+\end{itemize}
+
+\paragraph{Pitfalls.}\label{pitfalls.-5}
+
+\begin{itemize}
+\tightlist
+\item
+  Race conditions when threads update overlapping memory.
+\item
+  Load imbalance in irregular workloads (e.g., skewed distributions).
+\item
+  Wrong handling of inclusive vs exclusive leads to subtle bugs in
+  partitioning algorithms.
+\end{itemize}
+
+\paragraph{Profiling and
+optimization.}\label{profiling-and-optimization.}
+
+\begin{itemize}
+\tightlist
+\item
+  Benchmark sequential vs parallel scan on arrays of size 10\^{}6 or
+  10\^{}9.
+\item
+  Compare scalability with 2, 4, 8, \ldots{} cores.
+\item
+  Measure GPU kernel efficiency at warp, block, and grid levels.
+\end{itemize}
+
+\subsubsection{Worked Example (CUDA
+Thrust)}\label{worked-example-cuda-thrust}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{\#include }\ImportTok{\textless{}thrust/device\_vector.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}thrust/scan.h\textgreater{}}
+\PreprocessorTok{\#include }\ImportTok{\textless{}iostream\textgreater{}}
+
+\DataTypeTok{int}\NormalTok{ main}\OperatorTok{()} \OperatorTok{\{}
+\NormalTok{    thrust}\OperatorTok{::}\NormalTok{device\_vector}\OperatorTok{\textless{}}\DataTypeTok{int}\OperatorTok{\textgreater{}}\NormalTok{ data}\OperatorTok{\{}\DecValTok{1}\OperatorTok{,} \DecValTok{2}\OperatorTok{,} \DecValTok{3}\OperatorTok{,} \DecValTok{4}\OperatorTok{,} \DecValTok{5}\OperatorTok{\};}
+
+    \CommentTok{// Inclusive scan}
+\NormalTok{    thrust}\OperatorTok{::}\NormalTok{inclusive\_scan}\OperatorTok{(}\NormalTok{data}\OperatorTok{.}\NormalTok{begin}\OperatorTok{(),}\NormalTok{ data}\OperatorTok{.}\NormalTok{end}\OperatorTok{(),}\NormalTok{ data}\OperatorTok{.}\NormalTok{begin}\OperatorTok{());}
+    \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}} \StringTok{"Inclusive scan: "}\OperatorTok{;}
+    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ x }\OperatorTok{:}\NormalTok{ data}\OperatorTok{)} \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}}\NormalTok{ x }\OperatorTok{\textless{}\textless{}} \StringTok{" "}\OperatorTok{;}
+    \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}} \BuiltInTok{std::}\NormalTok{endl}\OperatorTok{;}
+
+    \CommentTok{// Exclusive scan}
+\NormalTok{    thrust}\OperatorTok{::}\NormalTok{device\_vector}\OperatorTok{\textless{}}\DataTypeTok{int}\OperatorTok{\textgreater{}}\NormalTok{ data2}\OperatorTok{\{}\DecValTok{1}\OperatorTok{,} \DecValTok{2}\OperatorTok{,} \DecValTok{3}\OperatorTok{,} \DecValTok{4}\OperatorTok{,} \DecValTok{5}\OperatorTok{\};}
+\NormalTok{    thrust}\OperatorTok{::}\NormalTok{exclusive\_scan}\OperatorTok{(}\NormalTok{data2}\OperatorTok{.}\NormalTok{begin}\OperatorTok{(),}\NormalTok{ data2}\OperatorTok{.}\NormalTok{end}\OperatorTok{(),}\NormalTok{ data2}\OperatorTok{.}\NormalTok{begin}\OperatorTok{(),} \DecValTok{0}\OperatorTok{);}
+    \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}} \StringTok{"Exclusive scan: "}\OperatorTok{;}
+    \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ x }\OperatorTok{:}\NormalTok{ data2}\OperatorTok{)} \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}}\NormalTok{ x }\OperatorTok{\textless{}\textless{}} \StringTok{" "}\OperatorTok{;}
+    \BuiltInTok{std::}\NormalTok{cout }\OperatorTok{\textless{}\textless{}} \BuiltInTok{std::}\NormalTok{endl}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This program offloads prefix sum computation to the GPU. With thousands
+of threads, even huge arrays can be scanned in milliseconds.
+
+\subsubsection{Why it matters}\label{why-it-matters-29}
+
+Prefix sums are a textbook example of how a simple algorithm scales into
+a building block of parallel computing. They are used in compilers,
+graphics, search engines, and machine learning systems. They show how
+rethinking algorithms for hardware (CPU caches, SIMD, GPUs, distributed
+clusters) leads to new designs.
+
+\subsubsection{Exercises}\label{exercises-29}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Implement the Hillis--Steele scan for an array of length 16 and show
+  each step.
+\item
+  Implement the Blelloch scan in pseudocode and explain how the up-sweep
+  and down-sweep phases work.
+\item
+  Benchmark a sequential prefix sum vs an OpenMP parallel scan on
+  10\^{}7 elements.
+\item
+  In CUDA, implement an exclusive scan at the warp level using shuffle
+  instructions.
+\item
+  Explain how prefix sums are used in stream compaction (removing zeros
+  from an array while preserving order).
+\end{enumerate}
+
+\section{Deep Dive}\label{deep-dive-21}
+
+\subsubsection{2.1 Static Arrays}\label{static-arrays-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Memory alignment and padding in C and assembly.
+\item
+  Array indexing formulas compiled into machine code.
+\item
+  Page tables and kernel use of fixed-size arrays
+  (\texttt{task\_struct}, \texttt{inode}).
+\item
+  Vectorization of loops over static arrays (SSE/AVX).
+\item
+  Bounds checking elimination in high-level languages.
+\end{itemize}
+
+\subsubsection{2.2 Dynamic Arrays}\label{dynamic-arrays-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Growth factor experiments: doubling vs 1.5× vs incremental.
+\item
+  Profiling Python's list growth strategy (measure capacity jumps).
+\item
+  Amortized vs worst-case complexity: proofs with actual benchmarks.
+\item
+  Reallocation latency spikes in low-latency systems.
+\item
+  Comparing \texttt{std::vector::reserve} vs default growth.
+\item
+  Memory fragmentation in long-running programs.
+\end{itemize}
+
+\subsubsection{2.3 Slices \& Views}\label{slices-views-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Slice metadata structure in Go (\texttt{ptr,\ len,\ cap}).
+\item
+  Rust borrow checker rules for \texttt{\&{[}T{]}} vs
+  \texttt{\&mut\ {[}T{]}}.
+\item
+  NumPy stride tricks: transpose as a view, not a copy.
+\item
+  Performance gap: traversing contiguous vs strided slices.
+\item
+  Cache/TLB impact of strided access (e.g., step=16).
+\item
+  False sharing when two threads use overlapping slices.
+\end{itemize}
+
+\subsubsection{2.4 Multidimensional
+Arrays}\label{multidimensional-arrays-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Row-major vs column-major benchmarks: traverse order timing.
+\item
+  Linear index formulas for N-dimensional arrays.
+\item
+  Loop tiling/blocking for matrix multiplication.
+\item
+  Structure of Arrays (SoA) vs Array of Structures (AoS).
+\item
+  False sharing and padding in multi-threaded traversal.
+\item
+  BLAS/LAPACK optimizations and cache-aware kernels.
+\item
+  GPU coalesced memory access in 2D/3D arrays.
+\end{itemize}
+
+\subsubsection{2.5 Sparse Arrays \& Compressed
+Layouts}\label{sparse-arrays-compressed-layouts}
+
+\begin{itemize}
+\tightlist
+\item
+  COO, CSR, CSC: hands-on with memory footprint and iteration cost.
+\item
+  Comparing dictionary-based vs CSR-based sparse vectors.
+\item
+  Parallel SpMV benchmarks on CPU vs GPU.
+\item
+  DIA and ELL formats: why they shine in structured sparsity.
+\item
+  Hybrid GPU formats (HYB: ELL + COO).
+\item
+  Search engine inverted indices as sparse structures.
+\item
+  Sparse arrays in ML: bag-of-words and embeddings.
+\end{itemize}
+
+\subsubsection{2.6 Prefix Sums \& Scans}\label{prefix-sums-scans-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Inclusive vs exclusive scans: correctness pitfalls.
+\item
+  Hillis--Steele vs Blelloch scans: step count vs work efficiency.
+\item
+  Cache-friendly prefix sums on CPUs (blocked scans).
+\item
+  SIMD prefix sum using AVX intrinsics.
+\item
+  CUDA warp shuffle scans (\texttt{\_\_shfl\_up\_sync}).
+\item
+  MPI distributed scans across clusters.
+\item
+  Stream compaction via prefix sums (remove zeros in O(n)).
+\item
+  Radix sort built from parallel scans.
+\end{itemize}
+
+\section{LAB}\label{lab}
+
+\subsubsection{2.1 Static Arrays}\label{static-arrays-2}
+
+\begin{itemize}
+\tightlist
+\item
+  LAB 1: Implement fixed-size arrays in C and Python, compare
+  access/update speeds.
+\item
+  LAB 2: Explore how static arrays are used in Linux kernel
+  (\texttt{task\_struct}, page tables).
+\item
+  LAB 3: Disassemble a simple loop over a static array and inspect the
+  generated assembly.
+\item
+  LAB 4: Benchmark cache effects: sequential vs random access in a large
+  static array.
+\end{itemize}
+
+\subsubsection{2.2 Dynamic Arrays}\label{dynamic-arrays-2}
+
+\begin{itemize}
+\tightlist
+\item
+  LAB 1: Implement your own dynamic array in C (with doubling strategy).
+\item
+  LAB 2: Benchmark Python's \texttt{list} growth by tracking capacity
+  changes while appending.
+\item
+  LAB 3: Compare growth factors: doubling vs 1.5× vs fixed increments.
+\item
+  LAB 4: Stress test reallocation cost by appending millions of
+  elements, measure latency spikes.
+\item
+  LAB 5: Use \texttt{std::vector::reserve} in C++ and compare
+  performance vs default growth.
+\end{itemize}
+
+\subsubsection{2.3 Slices \& Views}\label{slices-views-2}
+
+\begin{itemize}
+\tightlist
+\item
+  LAB 1: In Go, experiment with slice creation, capacity, and append ---
+  observe when new arrays are allocated.
+\item
+  LAB 2: In Rust, create overlapping slices and see how the borrow
+  checker enforces safety.
+\item
+  LAB 3: In Python, compare slicing a list vs slicing a NumPy array ---
+  demonstrate copy vs view behavior.
+\item
+  LAB 4: Benchmark stride slicing in NumPy (\texttt{arr{[}::16{]}}) and
+  explain performance drop.
+\item
+  LAB 5: Demonstrate aliasing bugs when two slices share the same
+  underlying array.
+\end{itemize}
+
+\subsubsection{2.4 Multidimensional
+Arrays}\label{multidimensional-arrays-2}
+
+\begin{itemize}
+\tightlist
+\item
+  LAB 1: Write code to traverse a 1000×1000 array row by row vs column
+  by column, measure performance.
+\item
+  LAB 2: Implement your own 2D array in C using both contiguous memory
+  and array-of-pointers, compare speed.
+\item
+  LAB 3: Use NumPy to confirm row-major order with \texttt{.strides},
+  then create a column-major array and compare.
+\item
+  LAB 4: Implement a tiled matrix multiplication in C/NumPy and measure
+  cache improvement.
+\item
+  LAB 5: Experiment with SoA vs AoS layouts for a struct of 3 floats
+  (x,y,z). Measure iteration performance.
+\end{itemize}
+
+\subsubsection{2.5 Sparse Arrays \& Compressed
+Layouts}\label{sparse-arrays-compressed-layouts-1}
+
+\begin{itemize}
+\tightlist
+\item
+  LAB 1: Implement sparse arrays with Python dict vs dense lists,
+  compare memory usage.
+\item
+  LAB 2: Build COO and CSR representations for the same matrix, print
+  memory layout.
+\item
+  LAB 3: Benchmark dense vs CSR matrix-vector multiplication.
+\item
+  LAB 4: Use SciPy's \texttt{csr\_matrix} and \texttt{csc\_matrix}, run
+  queries, compare performance.
+\item
+  LAB 5: Implement a simple search engine inverted index as a sparse
+  array of word→docID list.
+\end{itemize}
+
+\subsubsection{2.6 Prefix Sums \& Scans}\label{prefix-sums-scans-2}
+
+\begin{itemize}
+\tightlist
+\item
+  LAB 1: Write inclusive and exclusive prefix sums in Python.
+\item
+  LAB 2: Benchmark prefix sums for answering 1000 range queries vs naive
+  summation.
+\item
+  LAB 3: Implement Blelloch scan in C/NumPy and visualize the
+  up-sweep/down-sweep steps.
+\item
+  LAB 4: Implement prefix sums on GPU (CUDA/Thrust), compare speed to
+  CPU.
+\item
+  LAB 5: Use prefix sums for stream compaction: remove zeros from an
+  array while preserving order.
+\end{itemize}
 
 
 
