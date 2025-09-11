@@ -1,1 +1,3264 @@
 # Chapter 3. Strings
+## 3.1 Representation 
+
+### 3.1 L0 — Necklace of Characters
+
+A string is a sequence of characters. Each character can be a letter, number, symbol, or even whitespace. Strings are used to represent text, from simple names and messages to entire documents. In programming, a string is usually enclosed in quotes to tell the computer where it begins and ends. Strings are fundamental because almost every program interacts with text: input from users, output on screens, or data stored in files.
+
+#### Deep Dive
+
+Strings look simple but have a few important properties that beginners must understand.
+
+<!-- Immutability -->
+In many languages such as Python, strings cannot be changed after creation. If a program "changes" a string, what really happens is the creation of a new one. This is why appending repeatedly can be costly.
+
+<!-- Indexing and Slicing -->
+Each character in a string has a position, starting at 0. Accessing is direct: `word[0]` gives the first character. Slicing extracts portions: `word[1:4]` creates a substring.
+
+| String    | Index Positions         |
+| --------- | ----------------------- |
+| `"HELLO"` | H=0, E=1, L=2, L=3, O=4 |
+
+Negative indices count backward: `word[-1]` gives the last character.
+
+<!-- 3. Concatenation and Repetition -->
+Strings can be combined or repeated. Concatenation uses the `+` operator; repetition uses `*`.
+   Example: `"Hi" + "!"` → `"Hi!"`, `"Na" * 4` → `"NaNaNaNa"`.
+
+<!-- String Literals and Escapes -->
+Quotes (`'` or `"`) mark strings. Escape characters handle special cases: `"\n"` is newline, `"\t"` is tab. Triple quotes allow multi-line text.
+
+<!-- Unicode and ASCII (Intuitive View) -->
+Computers store strings as numbers. ASCII is a small table of 128 characters (A–Z, digits, symbols). Unicode is a universal table covering all writing systems. Modern programs use Unicode (usually UTF-8 encoding), allowing text like `"こんにちは"` or `"😊"`.
+
+#### Worked Example (Python)
+
+```python
+# Defining different kinds of strings
+s1 = "Hello"
+s2 = 'World'
+s3 = """This is 
+a multi-line string."""
+
+# Indexing
+print(s1[0])      # H
+print(s1[-1])     # o
+
+# Slicing
+print(s1[1:4])    # ell
+
+# Concatenation and repetition
+greeting = s1 + " " + s2
+print(greeting)   # Hello World
+
+laugh = "Ha" * 3
+print(laugh)      # HaHaHa
+
+# Escapes
+quote = "She said: \"Yes!\""
+print(quote)      # She said: "Yes!"
+
+# Unicode characters
+emoji = "Smile 😊"
+print(emoji)      # Smile 😊
+```
+
+#### Why it matters
+
+Strings are everywhere. They store names, labels, and text messages. They carry commands and configurations in programs. They are the backbone of web pages, logs, and data files. Understanding immutability avoids performance mistakes. Knowing slicing and concatenation makes manipulation easier. Being aware of Unicode prevents bugs in multilingual applications. Strings look simple but are a core abstraction every developer must master.
+
+#### Exercises
+
+1. Take the word `"COMPUTER"` and print the first, middle, and last character.
+2. Slice the string `"PROGRAMMING"` to extract `"GRAM"`.
+3. Concatenate `"DATA"` and `"BASE"` into one string without using `+`.
+4. Repeat the string `"Na"` four times, then add `" Batman!"` at the end.
+5. Create a multi-line string containing your name, age, and favorite color.
+6. Find the difference between `word[0]` and `word[-1]` in `"PYTHON"`.
+7. Write a string that contains both single and double quotes.
+8. Show that `"abc" * 0` results in an empty string.
+9. Print the Unicode string for `"😊"` alongside a normal word.
+10. Explain in one sentence why immutability matters when working with strings.
+
+### 3.1 L1 — Encodings & Efficiency
+
+Strings in modern programming languages are more than just "text." They are data structures designed with specific trade-offs in memory layout, immutability, and performance. At this level, understanding how strings behave internally allows programmers to write faster, safer, and more maintainable code.
+
+#### Overview/Definition
+
+A string is immutable in many languages, meaning once created, it cannot be changed. This design improves safety and makes strings easier to reason about, but it also affects performance. Operations like concatenation, slicing, and encoding conversions create new strings under the hood. Intermediate programmers must understand how these costs accumulate, when interning optimizes memory usage, and how encodings like UTF-8 and UTF-16 impact representation.
+
+#### Deep Dive
+
+<!-- Immutability in Depth -->
+Strings cannot be modified in place in Python, Java, or Go. If `"hello"` is changed to `"hallo"`, the original object remains untouched, and a new one is created. This has two main consequences:
+
+- Safe sharing across code without fear of accidental modification.
+- Extra memory and CPU costs when building new strings repeatedly.
+
+<!-- String Interning -->
+Languages often reuse identical string values. For example, Python keeps a single `"foo"` literal in memory if used multiple times. This is called *interning*.
+
+- Automatic interning happens for identifiers and some literals.
+- Manual interning (`sys.intern()`) can reduce memory in applications with repeated keys (like symbol tables or parsers).
+
+<!-- Memory Layout and Encodings -->
+Strings store characters differently across languages:
+
+- UTF-8: Variable-width, 1–4 bytes per character. Compact for ASCII-heavy text.
+- UTF-16: Mostly 2 bytes per character, but uses surrogate pairs for others.
+- UTF-32: Fixed 4 bytes per character, simple but wasteful.
+
+   | Encoding | Example Text `"A😊"`       | Storage Size |
+   | -------- | -------------------------- | ------------ |
+   | ASCII    | not representable          | —            |
+   | UTF-8    | `0x41 0xF0 0x9F 0x98 0x8A` | 5 bytes      |
+   | UTF-16   | `0x0041 0xD83D 0xDE0A`     | 6 bytes      |
+   | UTF-32   | `0x00000041 0x0001F60A`    | 8 bytes      |
+
+   This matters because operations like slicing or indexing depend on how characters are encoded.
+
+Concatenation Costs
+
+- In Python, `a + b` builds a new string by copying both inputs.
+- Repeated concatenation inside loops leads to quadratic performance.
+- Solution: accumulate pieces in a list and join once.
+
+Example of inefficient vs efficient approach:
+
+   ```python
+   # Inefficient
+   result = ""
+   for i in range(1000):
+       result += str(i)
+
+   # Efficient
+   parts = []
+   for i in range(1000):
+       parts.append(str(i))
+   result = "".join(parts)
+   ```
+
+Slicing and Substrings
+
+- In Python, `s[2:5]` creates a new string, copying data.
+- In Java before version 7u6, substrings shared the same underlying array (risking memory leaks if a small substring referenced a huge array). After 7u6, substring copies data to avoid this issue.
+- In C++, `std::string_view` allows non-owning references to substrings without copying.
+
+Encoding and Decoding
+
+- Strings are abstract characters; at some point, they must become bytes.
+- `.encode()` turns a Python `str` into bytes using a given encoding.
+- `.decode()` reverses the process.
+- Pitfalls: decoding with the wrong encoding leads to errors or corrupted text.
+
+Performance Pitfalls in Practice
+
+- Parsing logs or JSON with millions of lines can cause memory spikes if string copies accumulate.
+- Unicode introduces complexity: slicing `"😊"` may split it in half if treated as bytes instead of characters.
+- Benchmarking is essential when dealing with high-throughput text pipelines.
+
+Cross-Language Comparisons
+
+   | Language | Representation                     | Notes                                                                     |
+   | -------- | ---------------------------------- | ------------------------------------------------------------------------- |
+   | Python   | Unicode (PEP 393 flexible storage) | Optimized for compactness.                                                |
+   | Java     | UTF-16, immutable `String`         | Uses `StringBuilder` for mutable ops.                                     |
+   | C++      | `std::string`, `string_view`       | SSO (small string optimization) avoids heap allocation for short strings. |
+   | Go       | UTF-8 encoded immutable slices     | `string` is a read-only `[]byte`.                                         |
+
+#### Worked Example (Python)
+
+```python
+# Interning demonstration
+import sys
+
+a = "hello"
+b = "hello"
+print(a is b)  # True, both refer to the same interned literal
+
+# Manual interning
+x = sys.intern("repeated_key")
+y = sys.intern("repeated_key")
+print(x is y)  # True
+
+# Encoding and decoding
+text = "Café"
+encoded = text.encode("utf-8")
+print(encoded)  # b'Caf\xc3\xa9'
+decoded = encoded.decode("utf-8")
+print(decoded)  # Café
+
+# Concatenation efficiency
+words = ["alpha", "beta", "gamma"]
+joined = "-".join(words)
+print(joined)  # alpha-beta-gamma
+```
+
+#### Why it matters
+
+Intermediate-level understanding of string representation prevents subtle but costly mistakes. Knowing that strings are immutable avoids slow concatenation loops. Interning saves memory in large-scale text-heavy systems. Choosing the right encoding prevents bugs when handling international text. Understanding substring behavior helps avoid hidden memory leaks. These details directly impact performance, correctness, and reliability in production systems.
+
+#### Exercises
+
+1. Write code that shows the difference in performance between concatenating strings in a loop and using `join`.
+2. Demonstrate string interning: show two identical literals referencing the same object.
+3. Encode and decode a string containing accented characters using UTF-8.
+4. Take a long string and slice it into two halves; explain why slicing creates a new object in Python.
+5. Compare memory usage between UTF-8 and UTF-16 for a text that contains only ASCII characters.
+6. Investigate what happens when decoding a UTF-8 byte sequence with ASCII encoding.
+7. Show why `"😊"[0]` in Python gives a character but in UTF-8 byte arrays it spans multiple bytes.
+8. Explain the difference between Java `String` and `StringBuilder` in terms of mutability.
+9. Write code that demonstrates the effect of `sys.intern()` on repeated keys.
+10. Research and explain how `std::string_view` in C++ avoids copies.
+
+### 3.1 L2 — Internals & Systems
+
+Strings are central to modern software, but their internal design depends heavily on language, runtime, and operating system. At this level, understanding low-level representation, OS interaction, and hardware acceleration becomes critical.
+
+Strings are immutable in most high-level languages, but under the hood they are arrays of bytes or characters managed by the runtime. Different languages make different trade-offs: memory layout, encoding choice, and substring handling. The operating system provides system calls for moving string data between memory and devices. Hardware accelerates common operations like copying and comparison. Production libraries extend functionality for correctness and speed.
+
+#### Deep Dive
+
+##### Low-Level Representations
+
+C strings are arrays of `char` terminated by `'\0'`. A missing terminator causes buffer overflows. C++ `std::string` stores length and data, with small string optimization (SSO) to keep short strings inline. Python uses PEP 393: compact Unicode with 1, 2, or 4 bytes per character depending on the highest code point. Java `String` is UTF-16, compressed if all characters fit in Latin-1. Go strings are immutable slices of bytes; Rust distinguishes `String` (owned) and `&str` (borrowed).
+
+| Language | Representation     | Notes                    |
+| -------- | ------------------ | ------------------------ |
+| C        | `char *` + `'\0'`  | Simple but unsafe.       |
+| C++      | `std::string`, SSO | Short strings inline.    |
+| Python   | Flexible Unicode   | Adapts width per string. |
+| Java     | UTF-16, compressed | Immutable.               |
+| Go       | UTF-8, slice view  | Immutable.               |
+| Rust     | `String` / `&str`  | UTF-8 guaranteed.        |
+
+##### OS-Level Considerations
+
+Strings occupy stack or heap memory. Large strings cause fragmentation. Garbage-collected languages like Java and Python reclaim unused strings automatically. System calls (`read`, `write`) exchange raw bytes with the OS. In C, forgetting `'\0'` causes overruns. At boundaries (sockets, files), encoding mismatches are a common source of bugs.
+
+##### Hardware-Level Considerations
+
+Performance depends on cache alignment. A string aligned to cache lines is scanned faster. Libraries like `glibc` use SIMD instructions for `memcpy`, `memcmp`, and `strlen`, processing multiple bytes per CPU instruction. Large-scale search and comparison rely on vectorized instructions. Misaligned memory leads to extra CPU cycles.
+
+##### Advanced Encoding Issues
+
+Unicode normalization ensures two strings that look identical are stored in the same form. NFC and NFD differ in how accents are represented. UTF-16 surrogate pairs represent code points beyond `0xFFFF`. Grapheme clusters (like "👨‍👩‍👧‍👦") span multiple code points but behave as one character for users. Security issues arise: Unicode confusables trick users (`а` in Cyrillic vs `a` in Latin), and null characters may bypass string checks in C.
+
+##### Production Libraries & Techniques
+
+ICU provides collation, normalization, and locale-sensitive operations. RE2 avoids regex backtracking vulnerabilities. Hyperscan accelerates string matching using SIMD. String views or slices in C++ and Rust enable zero-copy substrings.
+
+##### Performance Engineering
+
+Concatenation cost is linear in total length. Substrings may leak memory if they reference a large parent buffer (Java pre-7u6). Copy semantics avoid leaks but cost memory. Benchmarking is necessary to choose the right trade-off. Immutability simplifies reasoning but requires builders (`StringBuilder`, `bytes.Buffer`) for efficiency.
+
+#### Worked Example (Python)
+
+```python
+import sys
+import unicodedata
+import time
+
+# --- Representation ---
+ascii_text = "Hello"
+unicode_text = "こんにちは😊"
+print("ASCII:", len(ascii_text), "chars,", len(ascii_text.encode("utf-8")), "bytes")
+print("Unicode:", len(unicode_text), "chars,", len(unicode_text.encode("utf-8")), "bytes")
+
+# --- Encoding/Decoding ---
+data = "Café"
+utf8_bytes = data.encode("utf-8")
+print("UTF-8 bytes:", utf8_bytes)
+print("Decoded back:", utf8_bytes.decode("utf-8"))
+
+# --- Interning ---
+a = "hello"
+b = "hello"
+print("a is b:", a is b)
+x = sys.intern("repeated_key")
+y = sys.intern("repeated_key")
+print("x is y:", x is y)
+
+# --- Concatenation benchmark ---
+N = 20000
+start = time.time()
+s = ""
+for i in range(N):
+    s += "x"
+print("Naive concat time:", round(time.time() - start, 4), "s")
+
+start = time.time()
+parts = ["x" for _ in range(N)]
+s = "".join(parts)
+print("Join concat time:", round(time.time() - start, 4), "s")
+
+# --- Unicode normalization ---
+s1 = "café"          # composed
+s2 = "cafe\u0301"    # decomposed
+print("Raw equal:", s1 == s2)
+print("NFC equal:", unicodedata.normalize("NFC", s1) == unicodedata.normalize("NFC", s2))
+
+# --- Surrogate pairs & grapheme clusters ---
+smile = "😊"
+print("UTF-16 units:", len(smile.encode("utf-16")) // 2)
+family = "👨‍👩‍👧‍👦"
+print("Family code points:", len(family), "rendered:", family)
+
+# --- Unicode confusables ---
+latin_a = "a"
+cyrillic_a = "а"  # visually similar
+print("Latin a == Cyrillic a:", latin_a == cyrillic_a)
+print("Latin ord:", ord(latin_a), "Cyrillic ord:", ord(cyrillic_a))
+```
+
+#### Why it matters
+
+Knowing internals prevents bugs and security issues. Buffer overflows from missing terminators break systems. Misunderstood Unicode can cause errors in databases or user interfaces. Cache alignment and SIMD accelerate processing of huge text datasets. Normalization avoids mismatched text values. Confusables create attack vectors. Production systems depend on engineers understanding these low-level details.
+
+#### Exercises 
+
+1. Explain why a string with a missing terminator can cause reading beyond its memory.
+2. Compare how many bytes the string `"Hello"` uses in UTF-8, UTF-16, and UTF-32.
+3. Show two visually identical strings that are not equal because of different Unicode code points.
+4. Demonstrate normalization making two unequal strings equal.
+5. Measure and compare performance between naive concatenation and buffered concatenation.
+6. Explain how surrogate pairs represent characters beyond `0xFFFF`.
+7. Construct a grapheme cluster (like a family emoji) and count its code points versus user-perceived characters.
+8. Show how substring references can create memory leaks if the original large string is kept alive.
+9. Investigate how cache alignment could affect the speed of scanning a very large string.
+10. Design a test case that reveals a security risk using Unicode confusables.
+
+## 3.2 Operations 
+
+
+### 3.2 L0 — Everyday String Manipulations
+
+Strings are not only stored but also actively used and modified. Beginners often start with everyday tasks: changing text to uppercase, trimming spaces, searching for words, and building sentences. These operations are simple yet powerful, and they form the foundation of text processing in any program.
+
+String operations are ways to manipulate or examine text. They include changing case, removing whitespace, searching for substrings, splitting sentences into words, joining words into sentences, and formatting messages. These actions are essential for handling user input, displaying results, and working with text files.
+
+#### Deep Dive
+
+##### Case Conversion
+Text often needs to be converted. Uppercase makes words stand out (`"hello" → "HELLO"`). Lowercase is useful for comparisons (`"Yes"` vs `"yes"`). Case conversion helps normalize text before processing.
+
+##### Trimming Whitespace
+Whitespace before or after text causes bugs when comparing values. `" hello "` is not the same as `"hello"`. Trimming removes unwanted spaces, tabs, or newlines.
+
+##### Replacing Substrings
+Sometimes one part of text must change. `"cat".replace("c", "h")` becomes `"hat"`. Replacing works for single characters or words.
+
+##### Searching in Strings
+Finding a substring answers whether `"dog"` appears inside `"hotdog"`. Many languages return the index where the substring begins. If not found, they return a special value (like `-1` or `None`).
+
+| Operation | Example                  | Result             |
+| --------- | ------------------------ | ------------------ |
+| Contains  | `"hello" in "say hello"` | True               |
+| Index     | `"abc".find("b")`        | 1                  |
+| Not found | `"abc".find("z")`        | -1 (or equivalent) |
+
+##### Splitting and Joining
+Splitting breaks text into parts: `"one two three"` → `["one", "two", "three"]`. Joining does the reverse: `["a","b","c"]` → `"a-b-c"`. They are inverse operations.
+
+##### Formatting
+Combining variables with text creates messages. `"Hello " + name` works, but formatting systems are clearer: `"Hello, {name}!"`. Formatting ensures readable and consistent text output.
+
+#### Worked Example (Python)
+
+```python
+# Case conversion
+word = "Hello"
+print(word.upper())   # HELLO
+print(word.lower())   # hello
+
+# Trimming whitespace
+text = "   data  "
+print("Before:", repr(text))
+print("After:", repr(text.strip()))
+
+# Replacing substrings
+animal = "cat"
+print(animal.replace("c", "h"))  # hat
+
+# Searching
+sentence = "the quick brown fox"
+print("fox" in sentence)        # True
+print(sentence.find("quick"))   # 4
+print(sentence.find("dog"))     # -1
+
+# Splitting and joining
+line = "one two three"
+parts = line.split(" ")
+print(parts)  # ['one', 'two', 'three']
+joined = "-".join(parts)
+print(joined)  # one-two-three
+
+# Formatting
+name = "Alice"
+age = 30
+print(f"My name is {name}, I am {age} years old.")
+```
+
+#### Why it matters
+
+Text is everywhere: names, messages, configuration files, logs. Programs must read, search, and reshape strings constantly. Converting case enables reliable comparisons. Trimming prevents subtle errors with extra spaces. Splitting and joining support structured data handling. Formatting improves readability for users. These basic operations turn raw text into structured, usable information.
+
+#### Exercises
+
+1. Convert the string `"python"` to uppercase and lowercase.
+2. Remove extra spaces from `"   hello world   "`.
+3. Replace `"dog"` with `"cat"` in the sentence `"the dog barked"`.
+4. Check if `"apple"` is inside `"pineapple"`.
+5. Find the position of `"moon"` in `"the moon rises"`.
+6. Split `"red,green,blue"` into parts and then join them back with `"|"`.
+7. Count how many times the word `"the"` appears in `"the cat and the dog"`.
+8. Format a string that says `"My favorite number is X"`, where `X` is any integer.
+9. Combine a list of words into a sentence with spaces in between.
+10. Explain in one sentence why trimming whitespace is important when processing user input.
+
+Do you want me to continue with 3.2 L1 in the same structured style, adding intermediate concepts like regex basics and efficient searching?
+
+
+
+### 3.2 L1 — Patterns & Practical Tricks
+
+Strings are not only for simple manipulations. In real programs, text must be searched, parsed, and transformed efficiently. At this level, the focus shifts from basic usage to techniques that handle larger inputs, avoid performance traps, and apply structured text processing.
+
+Intermediate string operations expand beyond uppercase, trimming, and splitting. They involve efficient searching, counting, and pattern matching. Regular expressions become a tool for flexible matching. Developers also need to parse structured data such as CSV and JSON, where correctness and performance both matter.
+
+#### Deep Dive
+
+##### Efficient Searching
+Most languages provide methods like `find`, `index`, `startswith`, and `endswith`. These run in linear time but are implemented with optimizations in native code. Checking prefixes and suffixes avoids scanning the entire string.
+
+##### Counting and Replacing
+Counting how many times a substring occurs is essential for statistics or validation. Replacing substrings can transform logs or templates. Efficiency matters: repeated replacements in large text can be costly.
+
+| Operation       | Example Input                 | Result      |
+| --------------- | ----------------------------- | ----------- |
+| Startswith      | `"hello".startswith("he")`    | True        |
+| Endswith        | `"world".endswith("ld")`      | True        |
+| Count substring | `"banana".count("na")`        | 2           |
+| Replace         | `"2025-09".replace("-", "/")` | `"2025/09"` |
+
+##### Regular Expressions (Regex)
+Regex allows powerful pattern matching with symbols:
+
+- `.` matches any character.
+- `*` means repeat zero or more times.
+- `+` means one or more times.
+- `[abc]` matches any of the listed characters.
+
+Example:
+
+- Pattern `[0-9]+` matches any sequence of digits.
+- Pattern `\w+@\w+\.\w+` matches simple email addresses.
+
+Regex engines vary: some use backtracking (flexible but can be slow), others use DFA/NFA (linear-time but less expressive).
+
+##### Parsing Structured Text
+Many formats (CSV, JSON, logs) are line-based text. Splitting on commas or spaces is not enough for robust parsing, but for simple cases splitting and trimming work. Intermediate developers should know the limitations of naive parsing and when to use libraries.
+
+##### Performance Pitfalls
+Naive string concatenation inside loops can be quadratic in cost. Multiple find/replace calls on large inputs can also degrade performance. The best practice is to buffer results or use streaming parsers.
+
+#### Worked Example (Python)
+
+```python
+import re
+
+text = "user: alice, email: alice@example.com; user: bob, email: bob@example.org"
+
+# Efficient searching
+print(text.startswith("user"))      # True
+print(text.endswith("org"))         # True
+print(text.find("bob"))             # position of 'bob'
+
+# Counting and replacing
+fruit = "banana"
+print(fruit.count("na"))            # 2
+print(fruit.replace("na", "NA"))    # baNANA
+
+# Regex: find all email addresses
+emails = re.findall(r"\w+@\w+\.\w+", text)
+print(emails)  # ['alice@example.com', 'bob@example.org']
+
+# Regex: extract all numbers from a string
+data = "Order 123, item 456, total 789"
+numbers = re.findall(r"[0-9]+", data)
+print(numbers)  # ['123', '456', '789']
+
+# Parsing structured text (simple CSV line)
+line = "apple, banana, cherry"
+parts = [p.strip() for p in line.split(",")]
+print(parts)  # ['apple', 'banana', 'cherry']
+
+# Performance demo: avoid naive concatenation
+N = 10000
+# Slow
+s = ""
+for i in range(N):
+    s += "x"
+print("Naive length:", len(s))
+
+# Fast
+s = "".join(["x" for _ in range(N)])
+print("Join length:", len(s))
+```
+
+#### Why it matters
+
+Intermediate operations turn raw text into structured data. Searching and counting enable validation and analysis. Regex provides flexible pattern extraction, but misuse can harm performance. Parsing prepares text for further computation. Avoiding pitfalls like naive concatenation ensures scalable code. These techniques are essential for handling logs, configurations, user inputs, and datasets in real-world applications.
+
+#### Exercises (Easy → Hard)
+
+1. Check if the string `"algorithm"` starts with `"algo"` and ends with `"rithm"`.
+2. Count how many times `"the"` appears in `"the cat and the dog and the theater"`.
+3. Replace every `"-"` in `"2025-09-10"` with `"/"`.
+4. Extract all numbers from the text `"room 101, floor 5, building 42"`.
+5. Write a regex to match any word that starts with `"a"` and ends with `"e"`.
+6. Parse `"red, green, blue , yellow"` into a clean list of color names without spaces.
+7. Demonstrate why repeated concatenation in a loop is slower than using a buffer or join.
+8. Write a regex to match simple phone numbers like `"123-456-7890"`.
+9. Explain why splitting CSV by commas fails if values contain quotes (e.g., `"apple, "banana,grape", cherry"`).
+10. Design a regex that extracts domain names from email addresses.
+
+### 3.2 L2 — Algorithms & Systems
+Advanced string operations rely on specialized algorithms and system support. Searching and matching must be efficient on gigabytes of text. Regex engines balance flexibility with safety. Compilers tokenize source code into symbols using string scanning. And at the system boundary, encoding and locale awareness become critical for correct communication.
+
+#### Deep Dive
+
+##### String Search Algorithms
+The naive search scans one character at a time, which is simple but inefficient for large text.
+
+- Knuth–Morris–Pratt (KMP) preprocesses the pattern to avoid redundant comparisons.
+- Boyer–Moore skips ahead using knowledge of mismatched characters, performing sublinear searches in practice.
+- These algorithms form the backbone of text editors, search utilities, and compilers.
+
+##### Regex Engine Internals
+Regex engines are either backtracking-based (Perl, Python) or automata-based (RE2, Rust).
+
+- Backtracking engines support rich features but risk exponential slowdowns.
+- DFA/NFA-based engines guarantee linear-time execution but restrict advanced patterns.
+- JIT compilation of regex (like in Java or .NET) generates machine code for speed.
+
+##### Tokenization and Lexical Analysis
+Compilers and interpreters must scan source code into tokens. This uses deterministic finite automata (DFAs) built from regex-like rules. For example, recognizing identifiers, keywords, and numbers all rely on string scanning.
+
+##### Unicode-Aware Searching
+Searching in Unicode text requires more than simple byte comparison. Case folding (making case-insensitive comparisons) differs by locale. Grapheme clusters must be considered as user-visible units, not code points.
+
+##### System Boundaries
+Strings cross boundaries when written to files, sockets, or system calls. Encodings must match between sender and receiver. Misalignment causes corrupted output or runtime errors. Databases and network APIs rely on normalized, correctly encoded strings.
+
+##### Performance Considerations
+Substring extraction may copy data (safe but costly) or reference parent buffers (fast but risky). SIMD instructions accelerate scanning large strings in modern CPUs. Benchmarks show naive operations become bottlenecks at scale, requiring optimized algorithms.
+
+#### Worked Example (Python)
+
+```python
+import re
+import time
+
+# --- Naive search ---
+def naive_search(text, pattern):
+    for i in range(len(text) - len(pattern) + 1):
+        if text[i:i+len(pattern)] == pattern:
+            return i
+    return -1
+
+# --- KMP search ---
+def kmp_table(pattern):
+    table = [0] * len(pattern)
+    j = 0
+    for i in range(1, len(pattern)):
+        while j > 0 and pattern[i] != pattern[j]:
+            j = table[j-1]
+        if pattern[i] == pattern[j]:
+            j += 1
+            table[i] = j
+    return table
+
+def kmp_search(text, pattern):
+    table = kmp_table(pattern)
+    j = 0
+    for i in range(len(text)):
+        while j > 0 and text[i] != pattern[j]:
+            j = table[j-1]
+        if text[i] == pattern[j]:
+            j += 1
+        if j == len(pattern):
+            return i - j + 1
+    return -1
+
+# --- Performance test ---
+text = "a" * 100000 + "b"
+pattern = "a" * 1000 + "b"
+
+start = time.time()
+print("Naive:", naive_search(text, pattern))
+print("Naive time:", round(time.time() - start, 4), "s")
+
+start = time.time()
+print("KMP:", kmp_search(text, pattern))
+print("KMP time:", round(time.time() - start, 4), "s")
+
+# --- Regex engines ---
+data = "user: alice@example.com id: 42"
+emails = re.findall(r"\w+@\w+\.\w+", data)
+print("Regex found:", emails)
+
+# --- Unicode case folding ---
+s1 = "Straße"
+s2 = "STRASSE"
+print("Casefold equal:", s1.casefold() == s2.casefold())
+
+# --- Grapheme cluster awareness ---
+family = "👨‍👩‍👧‍👦"
+print("Code points:", len(family))     # length in code points
+print("Rendered:", family)             # perceived as one emoji
+```
+
+#### Why it matters
+
+At scale, naive methods fail. Efficient algorithms like KMP and Boyer–Moore make search practical in editors, search engines, and compilers. Regex engines must be chosen carefully: flexible backtracking engines can crash under malicious input, while DFA-based engines provide safety. Unicode awareness ensures correctness in multilingual systems. At system boundaries, encoding mismatches corrupt data. Performance engineering determines whether systems handle megabytes or terabytes of text reliably.
+
+#### Exercises 
+
+1. Describe how the naive substring search works and why it can be inefficient.
+2. Compare the number of steps needed to search `"aaaaab"` in `"a"*1000 + "b"` using naive vs KMP.
+3. Explain the key idea behind Boyer–Moore that makes it faster than naive search.
+4. Show why some regex patterns can lead to exponential backtracking.
+5. Write a regex that matches valid identifiers (letters, digits, underscores, not starting with a digit).
+6. Explain how compilers use finite automata to tokenize code.
+7. Compare string equality with and without Unicode case folding (`"Straße"` vs `"STRASSE"`).
+8. Show how a grapheme cluster (like family emoji) differs from code point count.
+9. Explain why substring references in some languages (e.g., Java before 7u6) could cause memory leaks.
+10. Design a benchmark plan to measure the impact of SIMD acceleration on string scanning.
+
+## 3.3 Comparison 
+### 3.3 L0 — Equality & Ordering
+
+Comparing strings is one of the simplest but most important operations in programming. Equality checks determine if two pieces of text are the same, while ordering lets us sort words alphabetically. These operations are intuitive but have precise rules that beginners must understand.
+
+#### Overview/Definition
+
+Two strings are equal if they contain exactly the same sequence of characters in the same order. Ordering compares strings lexicographically, meaning character by character from left to right, similar to how words are sorted in a dictionary. These rules allow programs to check conditions, filter text, and sort lists.
+
+#### Deep Dive
+
+##### Equality
+Equality is strict: `"cat"` equals `"cat"` but not `"Cat"`. Whitespace matters too, so `"hello "` is not the same as `"hello"`. Computers check equality by comparing each character in order until a difference is found or both end.
+
+##### Inequality
+If two strings differ in length or characters, they are not equal. The result is simply `true` or `false`.
+
+Lexicographic Ordering
+Ordering compares based on the numerical values of characters. `"apple"` comes before `"banana"` because `'a'` is less than `'b'`. If the first characters are equal, the comparison moves to the next.
+
+| Comparison        | Example              | Result |
+| ----------------- | -------------------- | ------ |
+| Equal             | `"cat" == "cat"`     | True   |
+| Case-sensitive    | `"cat" == "Cat"`     | False  |
+| Shorter vs longer | `"car" < "cart"`     | True   |
+| Alphabetical      | `"apple" < "banana"` | True   |
+
+##### Sorting
+Sorting a list of strings uses lexicographic rules. The result is the same as dictionary order in English when restricted to simple lowercase letters.
+
+#### Worked Example (Python)
+
+```python
+# Equality
+print("cat" == "cat")     # True
+print("cat" == "Cat")     # False
+print("hello " == "hello")# False
+
+# Inequality
+print("dog" != "cat")     # True
+
+# Lexicographic ordering
+print("apple" < "banana") # True
+print("zebra" > "yak")    # True
+print("car" < "cart")     # True
+
+# Sorting a list
+words = ["banana", "apple", "cherry"]
+print(sorted(words))      # ['apple', 'banana', 'cherry']
+```
+
+#### Why it matters
+
+Equality and ordering are the foundation of text handling. Programs must compare passwords, search for keywords, or sort lists of names. Without correct comparison, search engines would mis-rank results and databases would fail to find matches. Even small differences like uppercase vs lowercase or extra spaces can change outcomes. Understanding these rules prevents errors in everyday programming.
+
+#### Exercises 
+
+1. Check if `"dog"` equals `"Dog"`.
+2. Compare `"sun"` and `"moon"` and decide which comes first alphabetically.
+3. Show why `"car"` is less than `"cart"`.
+4. Sort the list `["pear", "apple", "orange"]` in dictionary order.
+5. Explain why `"hello "` and `"hello"` are not equal.
+6. Compare `"Zoo"` and `"apple"` and explain why uppercase letters can affect order.
+7. Demonstrate that two strings must have the same length and characters to be equal.
+8. Given a list of names, describe how to remove duplicates using string equality.
+9. Explain what happens if two strings are equal up to the length of the shorter one (e.g., `"abc"` vs `"abcd"`).
+10. Design a procedure to sort a list of mixed short and long strings alphabetically.
+
+### 3.3 L1 — Collation & Locales
+Comparing strings gets more complicated once you move beyond simple equality and dictionary order. Real-world applications must deal with case sensitivity, cultural rules, and mixed content like numbers and letters. At this level, programmers learn practical techniques for handling comparisons in everyday systems.
+
+Collation is the set of rules that define how strings are compared and sorted. While lexicographic order works for plain ASCII, different languages and contexts require more sophisticated rules. For example, `"ä"` may be treated as equal to `"a"` in one locale but as a separate letter in another. Intermediate-level comparison also introduces the idea of ignoring case and whitespace when appropriate.
+
+#### Deep Dive
+
+##### Case Sensitivity
+By default, string comparison is case-sensitive: `"cat"` ≠ `"Cat"`. Case-insensitive comparison requires converting both sides to the same case or using a locale-aware function.
+
+##### Locales and Cultural Rules
+Different languages define alphabetical order differently.
+
+- In German, `"ä"` often sorts like `"ae"`.
+- In Swedish, `"ä"` is a separate letter after `"z"`.
+- In English, `"apple" < "Banana"` because uppercase and lowercase letters use different numeric codes, but in many systems, case-insensitive comparison is preferred.
+
+##### Numbers in Strings
+Lexicographic order can be confusing with numbers. `"file10"` comes before `"file2"` because `"1"` sorts before `"2"`. Natural sorting treats numbers as whole values so `"file2" < "file10"`.
+
+##### Databases and Collation
+Databases define collations to decide how text is compared and sorted. A collation can be case-sensitive (`CS`) or case-insensitive (`CI`). It can also be accent-sensitive (`AS`) or accent-insensitive (`AI`). This ensures consistent results across queries.
+
+| Comparison Type  | Example              | Result                    |
+| ---------------- | -------------------- | ------------------------- |
+| Case-sensitive   | `"cat" == "Cat"`     | False                     |
+| Case-insensitive | `"cat" ~ "Cat"`      | True                      |
+| Locale (German)  | `"äpfel" vs "apfel"` | Equal or ordered together |
+| Natural sorting  | `"file2" < "file10"` | True                      |
+
+#### Worked Example (Python)
+
+```python
+import locale
+import re
+
+# Case-sensitive vs case-insensitive
+print("cat" == "Cat")            # False
+print("cat".lower() == "Cat".lower())  # True
+
+# Locale-aware comparison
+locale.setlocale(locale.LC_COLLATE, "de_DE.UTF-8")  # German
+print(locale.strcoll("äpfel", "apfel"))  # May treat ä ~ ae
+
+locale.setlocale(locale.LC_COLLATE, "sv_SE.UTF-8")  # Swedish
+print(locale.strcoll("ä", "z"))  # ä sorted after z
+
+# Natural sorting with numbers
+files = ["file2", "file10", "file1"]
+print(sorted(files))   # Lexicographic: ['file1', 'file10', 'file2']
+files.sort(key=lambda x: [int(n) if n.isdigit() else n for n in re.split(r'(\d+)', x)])
+print(files)           # Natural sort: ['file1', 'file2', 'file10']
+```
+
+#### Why it matters
+
+Collation and locale rules affect almost every application that processes human text. Sorting names in a contact list, comparing file names, or filtering database queries all rely on comparison rules. Incorrect handling leads to confusing results for users, especially in multilingual contexts. Natural sorting improves readability when working with numbered data. Database collations ensure consistency in queries and reports.
+
+#### Exercises 
+
+1. Compare `"cat"` and `"Cat"` both case-sensitive and case-insensitive.
+2. Explain why `"file10"` comes before `"file2"` in lexicographic order.
+3. Show how converting both strings to lowercase helps with case-insensitive comparison.
+4. Describe how `"ä"` is treated differently in German vs Swedish ordering.
+5. Given a list of filenames (`file1`, `file2`, `file10`), sort them in natural order.
+6. Explain how a database collation can make `"résumé"` equal to `"resume"`.
+7. Show how case-insensitive and accent-insensitive comparisons change the equality of `"café"` and `"CAFE"`.
+8. Create a rule set for sorting words that mix numbers and letters, like `"a2"`, `"a10"`, `"a3"`.
+9. Demonstrate how incorrect collation could mis-sort a list of international names.
+10. Design an algorithm for locale-aware string comparison that handles both case and accent differences.
+
+### 3.3 L2 — Deep Comparisons
+At the advanced level, comparing strings requires knowledge of Unicode, normalization, system-level optimizations, and specialized libraries. Equality and ordering are no longer trivial: they must handle multiple scripts, cultural rules, and performance constraints at scale.
+
+Deep comparison of strings involves more than checking characters one by one. Unicode introduces multiple ways to represent the same text. Collation rules vary across locales. Large-scale systems need efficient comparison functions that work correctly with international text while remaining fast enough for billions of operations.
+
+#### Deep Dive
+
+##### Unicode Normalization
+The same character can be represented in different ways. For example, `"é"` can be stored as a single code point (`U+00E9`) or as `'e'` plus a combining accent (`U+0065 U+0301`). Normalization ensures consistent representation. NFC (composed) and NFD (decomposed) are the most common forms.
+
+##### Case Folding
+Case-insensitive comparisons must use case folding, which is more complex than simply converting to lowercase. For instance, the German `"ß"` becomes `"ss"` when folded.
+
+##### Collation with ICU
+The International Components for Unicode (ICU) library provides robust comparison and sorting. It supports locale-sensitive rules, accent sensitivity, and custom collation. For example, `"résumé"` may equal `"resume"` in accent-insensitive mode.
+
+##### System-Level Implementations
+At low levels, comparison often reduces to optimized memory functions. Functions like `memcmp` compare bytes quickly, using CPU instructions that process multiple bytes at once. Short-circuit evaluation stops at the first mismatch. Cache alignment improves throughput when scanning long strings.
+
+##### Security Concerns
+Unicode confusables (characters that look alike, such as Latin `"a"` and Cyrillic `"а"`) can fool comparison routines if normalization is not enforced. Attackers exploit this in phishing and injection attacks.
+
+| Challenge                | Example                    | Solution                   |
+| ------------------------ | -------------------------- | -------------------------- |
+| Multiple representations | `"é"` vs `"e\u0301"`       | Normalize (NFC/NFD)        |
+| Case folding             | `"Straße"` vs `"STRASSE"`  | Unicode-aware case folding |
+| Collation differences    | `"ä"` in German vs Swedish | ICU locale rules           |
+| Confusables              | `"a"` vs `"а"`             | Security checks, mapping   |
+
+#### Worked Example (Python)
+
+```python
+import unicodedata
+import locale
+
+# Unicode normalization
+s1 = "café"          # composed
+s2 = "cafe\u0301"    # decomposed
+print("Raw equal:", s1 == s2)
+print("NFC equal:", unicodedata.normalize("NFC", s1) == unicodedata.normalize("NFC", s2))
+print("NFD equal:", unicodedata.normalize("NFD", s1) == unicodedata.normalize("NFD", s2))
+
+# Case folding
+print("ß".casefold() == "ss")   # True
+
+# Locale-sensitive ordering
+locale.setlocale(locale.LC_COLLATE, "fr_FR.UTF-8")  # French
+words = ["école", "eclair", "étude"]
+print(sorted(words, key=locale.strxfrm))  # Locale-aware sort
+
+# Confusables
+latin_a = "a"
+cyrillic_a = "а"  # visually similar
+print("Equal?", latin_a == cyrillic_a)
+print("Latin:", ord(latin_a), "Cyrillic:", ord(cyrillic_a))
+
+# System-level demonstration (byte comparison)
+b1 = b"apple"
+b2 = b"apricot"
+print("memcmp style:", (b1 > b2) - (b1 < b2))  # -1, 0, or 1
+```
+
+#### Why it matters
+
+Deep string comparison underpins databases, search engines, and operating systems. Normalization ensures data consistency across storage and transfer. Case folding avoids incorrect matches in multilingual systems. ICU collation makes applications usable across cultures. Optimized byte comparisons keep performance acceptable at scale. Security requires detecting confusables to prevent spoofing. Without these techniques, global systems would be unreliable and vulnerable.
+
+#### Exercises 
+
+1. Give an example where two visually identical strings are unequal because of different Unicode encodings.
+2. Normalize two strings with accents and show they become equal.
+3. Explain why `"ß"` must be compared to `"ss"` in case-insensitive matching.
+4. Sort the words `"école"`, `"eclair"`, `"étude"` using French collation rules.
+5. Show why `"a"` (Latin) and `"а"` (Cyrillic) are dangerous in string comparison.
+6. Describe how `memcmp` works at the system level to compare two byte sequences.
+7. Explain how cache alignment improves performance when comparing long strings.
+8. Demonstrate the difference between accent-sensitive and accent-insensitive comparison with `"café"` vs `"cafe"`.
+9. Propose a method to detect and mitigate Unicode confusables in user input.
+10. Design a benchmark to compare normalized vs non-normalized string comparison in a large dataset.
+
+## 3.4 Patterns 
+### 3.4 L0 — Simple Search
+
+Strings are often used to find and replace text. Beginners need to understand how to look for substrings, replace parts of text, and use simple wildcards. These operations are the first step toward more advanced pattern matching.
+
+#### Overview/Definition
+
+A search operation checks if a smaller string exists inside a larger one. If found, it returns the position or a confirmation. Replace operations swap one substring for another. Wildcards act as placeholders, matching characters in flexible ways. These basics allow programs to search, clean, and transform text.
+
+#### Deep Dive
+
+##### Finding Substrings
+The simplest search asks: does `"dog"` appear inside `"hotdog"`? Most systems return the starting index of the match. If not found, a special value is returned.
+
+##### Replacing Text
+Replacement takes an old value and swaps it with a new one. `"the sky is blue"` with `"blue" → "red"` becomes `"the sky is red"`. Replacement is useful for cleaning or formatting text.
+
+##### Wildcards (Intuitive View)
+Wildcards are simple symbols that represent "any character." A `*` can mean "any sequence," and a `?` can mean "one character." Example: pattern `"ca*"` matches `"cat"`, `"car"`, and `"castle"`. Wildcards are simpler than full regular expressions but build the same intuition.
+
+| Operation  | Example Input                    | Result         |
+| ---------- | -------------------------------- | -------------- |
+| Contains   | `"cat"` in `"concatenate"`       | True           |
+| Find index | `"hello".find("lo")`             | 3              |
+| Replace    | `"2025-09-10".replace("-", "/")` | `"2025/09/10"` |
+| Wildcard   | Pattern `"ca*"` vs `"castle"`    | Match          |
+
+#### Worked Example (Python)
+
+```python
+# Searching substrings
+sentence = "the quick brown fox"
+print("quick" in sentence)       # True
+print(sentence.find("fox"))      # 16
+print(sentence.find("dog"))      # -1 (not found)
+
+# Replacing text
+date = "2025-09-10"
+print(date.replace("-", "/"))    # 2025/09/10
+
+# Simple wildcard matching (manual example)
+def matches(pattern, text):
+    if pattern == "*":  # match everything
+        return True
+    if pattern.endswith("*"):
+        return text.startswith(pattern[:-1])
+    if pattern.startswith("*"):
+        return text.endswith(pattern[1:])
+    return pattern == text
+
+print(matches("ca*", "cat"))      # True
+print(matches("ca*", "castle"))   # True
+print(matches("*ing", "running")) # True
+print(matches("*at", "cat"))      # True
+```
+
+#### Why it matters
+
+Searching and replacing text is one of the most common tasks in programming. From finding a word in a document, to cleaning up user input, to formatting data for storage, these operations are essential. Wildcards introduce the idea of flexible matching, which prepares learners for regular expressions and more advanced pattern recognition.
+
+#### Exercises 
+
+1. Check if the word `"sun"` appears in the sentence `"the sun sets"`.
+2. Find the position of `"moon"` in `"the moon rises"`.
+3. Replace `"morning"` with `"evening"` in `"good morning"`.
+4. Show that searching for `"dog"` in `"hotdog"` succeeds.
+5. Replace all dashes in `"2025-09-10"` with slashes.
+6. Write a rule with `*` that matches both `"cat"` and `"castle"`.
+7. Create a wildcard pattern that matches any word ending in `"ing"`.
+8. Explain why a failed search must return a special value (not just `0`).
+9. Demonstrate how searching for `"a"` in `"banana"` should return multiple matches.
+10. Describe how wildcards can be extended into full regular expressions.
+
+### 3.4 L1 — Regular Expressions in Practice
+
+At the intermediate level, string pattern matching expands from simple wildcards to regular expressions (regex). Regex provides a concise and powerful way to describe patterns in text. It is widely used in programming for searching, extracting, and validating structured data.
+
+A regular expression is a sequence of symbols that defines a search pattern. Unlike simple wildcards, regex can express detailed rules such as "find all numbers," "match words ending in `ing`," or "validate an email address." Regex is supported in almost every major programming language.
+
+#### Deep Dive
+
+##### Core Symbols
+
+- `.` matches any single character.
+- `*` means zero or more repetitions.
+- `+` means one or more repetitions.
+- `?` means zero or one occurrence.
+- `[abc]` matches one character from the set `a`, `b`, or `c`.
+- `[0-9]` matches any digit.
+- `^` matches the beginning of a string; `$` matches the end.
+
+##### Examples of Patterns
+
+- `[0-9]+` matches sequences of digits like `"123"`.
+- `\w+` matches words made of letters, digits, and underscores.
+- `\w+@\w+\.\w+` matches simple email addresses.
+- `^Hello` matches any string starting with `"Hello"`.
+
+##### Greedy vs Lazy Matching
+Regex quantifiers (`*`, `+`) are greedy by default: they try to match as much as possible. Adding `?` makes them lazy, matching the smallest possible part.
+
+- Greedy: pattern `".*"` on `"abc"` → `"abc"`.
+- Lazy: pattern `".*?"` on `"abc"` → `"a"`.
+
+##### Practical Uses
+Regex is used for:
+
+- Extracting structured data from logs.
+- Validating input like emails or phone numbers.
+- Searching and replacing complex text patterns.
+- Parsing configuration files or text protocols.
+
+#### Worked Example (Python)
+
+```python
+import re
+
+text = "Order 123, item 456, email: alice@example.com"
+
+# Match digits
+numbers = re.findall(r"[0-9]+", text)
+print("Numbers:", numbers)  # ['123', '456']
+
+# Match words
+words = re.findall(r"\w+", text)
+print("Words:", words)
+
+# Match email addresses
+emails = re.findall(r"\w+@\w+\.\w+", text)
+print("Emails:", emails)
+
+# Anchors
+print(bool(re.match(r"^Order", text)))   # True (starts with Order)
+print(bool(re.search(r"com$", text)))   # True (ends with com)
+
+# Greedy vs lazy
+sample = "<tag>content</tag><tag>other</tag>"
+greedy = re.findall(r"<tag>.*</tag>", sample)
+lazy   = re.findall(r"<tag>.*?</tag>", sample)
+print("Greedy:", greedy)  # ['<tag>content</tag><tag>other</tag>']
+print("Lazy:", lazy)      # ['<tag>content</tag>', '<tag>other</tag>']
+```
+
+#### Why it matters
+
+Regex provides a compact language for describing patterns in text. Without it, tasks like extracting emails, validating formats, or parsing logs would require many lines of manual code. Regex is also standardized across languages, so learning it once provides a universal tool. However, careless use can create unreadable code or performance problems, so disciplined practice is essential.
+
+#### Exercises 
+
+1. Write a regex that matches any sequence of digits.
+2. Match all words in `"The quick brown fox"`.
+3. Find all substrings that start with `"a"` and end with `"e"`.
+4. Match an email address of the form `"name@domain.com"`.
+5. Match any string that begins with `"http://"` or `"https://"`.
+6. Extract all numbers from `"Invoice: #123, #456, #789"`.
+7. Demonstrate the difference between greedy and lazy matching with `"<tag>text</tag><tag>more</tag>"`.
+8. Write a regex to validate phone numbers like `"123-456-7890"`.
+9. Explain why using regex to parse complex formats (like HTML) can be unreliable.
+10. Create a regex that matches words containing exactly three vowels.
+
+### 3.4 L2 — Engines & Optimizations
+
+Regular expressions are powerful, but at scale their performance and safety depend on the design of the engine. Advanced systems need regex engines that are predictable, fast, and safe against denial-of-service attacks. At this level, the focus is on internals, optimizations, and production libraries.
+
+Regex engines are implementations of pattern matching. Some use backtracking, exploring many paths but risking exponential slowdowns. Others use deterministic finite automata (DFA) or non-deterministic automata (NFA), which guarantee linear runtime but reduce flexibility. Modern libraries combine these with JIT compilation or SIMD acceleration for speed. Production systems must choose the right engine for correctness and reliability.
+
+#### Deep Dive
+
+##### Engine Architectures
+Backtracking engines (Perl, Python, PCRE) allow advanced features like backreferences but may run in exponential time on crafted inputs. DFA/NFA engines (RE2, Rust, grep) convert patterns to automata that run in linear time. JIT-based engines (Java, .NET) compile regex into machine code for faster execution.
+
+##### Greedy vs Lazy at Engine Level
+Quantifiers like `*` and `+` are greedy by default. Engines track multiple possibilities with stacks or state machines. Lazy quantifiers stop early, but the engine still evaluates alternatives internally.
+
+##### Performance Optimizations
+Compiled regex patterns are faster than compiling on every use. Anchors (`^`, `$`) and character classes (`[0-9]`) reduce search space. Avoiding pathological expressions like `(a+)+` prevents catastrophic backtracking. SIMD instructions scan text in chunks, speeding up low-level matching.
+
+##### Advanced Libraries
+
+- RE2 (Google): guarantees linear runtime, disallows constructs that cause exponential behavior.
+- Hyperscan (Intel): supports multi-pattern regex with SIMD acceleration, used in intrusion detection.
+- ICU: supports Unicode-aware regex and locale-sensitive operations.
+
+##### System-Level Integration
+Regex engines are embedded in compilers, text editors, search tools, and security systems. Multi-pattern matching is essential for scanning logs, detecting spam, and monitoring network traffic.
+
+##### Security Concerns
+Poorly written regex can create ReDoS (Regex Denial of Service). Attackers send inputs that trigger exponential backtracking, freezing systems. For example, pattern `(a+)+b` against `"aaaaaaa…"` takes excessive time. Safe libraries (RE2, Hyperscan) prevent this by design.
+
+| Engine Type  | Strengths                           | Weaknesses                          |
+| ------------ | ----------------------------------- | ----------------------------------- |
+| Backtracking | Full regex features, flexible       | Risk of exponential runtime (ReDoS) |
+| DFA/NFA      | Linear runtime, predictable         | No backreferences, fewer features   |
+| JIT Hybrid   | Very fast, compiled to machine code | Still vulnerable to bad patterns    |
+
+#### Worked Example (Python)
+
+```python
+import re, time
+
+# Backtracking danger: catastrophic regex
+pattern = re.compile(r"(a+)+b")
+text = "a" * 25 + "b"   # works
+print("Match:", bool(pattern.match(text)))
+
+# Problematic input: missing final 'b'
+text_bad = "a" * 25     # exponential backtracking
+start = time.time()
+print("Bad match:", bool(pattern.match(text_bad)))
+print("Time:", round(time.time() - start, 4), "seconds")
+
+# Greedy vs lazy
+html = "<tag>first</tag><tag>second</tag>"
+greedy = re.findall(r"<tag>.*</tag>", html)
+lazy   = re.findall(r"<tag>.*?</tag>", html)
+print("Greedy:", greedy)
+print("Lazy:", lazy)
+
+# Precompiled pattern efficiency
+words = "error warning info debug error warning".split()
+p = re.compile(r"error|warning")
+matches = [w for w in words if p.match(w)]
+print("Matches:", matches)
+
+# Unicode-aware regex
+text = "café resume résumé"
+utf8_words = re.findall(r"\w+", text)
+print("UTF-8 words:", utf8_words)
+
+# Simulated natural sorting with regex
+files = ["file1", "file10", "file2"]
+splitter = re.compile(r'(\d+)')
+files.sort(key=lambda x: [int(n) if n.isdigit() else n for n in splitter.split(x)])
+print("Natural sort:", files)
+```
+
+#### Why it matters
+
+Regex is a double-edged sword. It compresses complex logic into concise expressions, but the wrong engine or pattern can cripple systems. Backtracking engines offer flexibility but can be exploited. DFA-based engines guarantee performance but restrict features. Production libraries like RE2 and Hyperscan provide safe, optimized solutions for real workloads. Security, speed, and predictability all depend on understanding regex internals.
+
+#### Exercises 
+
+1. Explain the difference between greedy and lazy matching.
+2. Show why `(a+)+b` can cause problems on inputs like `"aaaaaa"`.
+3. Compare backtracking and DFA approaches to regex.
+4. Write a regex to match numbers at the start of a string (`^123`).
+5. Explain why precompiling a regex can improve performance.
+6. Describe how RE2 avoids catastrophic backtracking.
+7. Show why regex should not be used for parsing HTML.
+8. Design a regex for matching IPv4 addresses and explain performance concerns.
+9. Compare the runtime of regex matching with and without SIMD acceleration in theory.
+10. Propose a strategy to defend against Regex Denial of Service in a production system.
+
+## 3.5 Applications 
+
+### 3.5 L0 — Everyday Uses
+
+Strings are used in almost every program. Beginners usually encounter them when printing messages, saving text to files, or checking simple inputs. These small applications show how strings connect code to real-world tasks.
+
+Everyday string applications include formatting output, working with text files, validating simple input, and combining small pieces of data into readable results. These tasks look simple but form the foundation of real-world software, from command-line tools to web apps.
+
+#### Deep Dive
+
+##### Text Formatting
+Programs must often display results with both words and numbers. Concatenation creates readable sentences: `"Hello, " + name`. Many languages also support templates: `"Hello, {name}"`.
+
+##### File Reading Basics
+A file is just text stored on disk. Reading one line returns a string. Splitting turns the line into words. Writing strings saves output. Example: reading `"Alice 25"` and splitting it into a name and an age.
+
+##### Input Validation (Simple)
+Not all inputs are valid. Checking that a string is not empty prevents errors. Minimum length ensures requirements are met (like passwords). Character checks confirm only letters or digits are entered.
+
+##### Basic Data Handling
+Strings often need simple processing: counting characters, trimming spaces, or extracting parts. `"John Doe"` can be split into `"John"` and `"Doe"`. Small pieces of text are often joined into a readable result.
+
+| Everyday Task         | Example Input      | Example Output       |
+| --------------------- | ------------------ | -------------------- |
+| Greeting              | `"Alice"`          | `"Hello, Alice!"`    |
+| Trim spaces           | `" hello "`        | `"hello"`            |
+| Count characters      | `"banana"`         | `6`                  |
+| Save and load message | `"Note: call Bob"` | Written and reloaded |
+
+#### Worked Example (Python)
+
+```python
+# Formatting text
+name = "Alice"
+age = 25
+print(f"Hello, {name}! You are {age} years old.")
+
+# File basics (write then read)
+with open("note.txt", "w") as f:
+    f.write("Remember to buy milk")
+
+with open("note.txt", "r") as f:
+    content = f.read()
+print("File content:", content)
+
+# Input validation
+user_input = "   hello123   "
+cleaned = user_input.strip()
+if cleaned and cleaned.isalnum():
+    print("Valid input:", cleaned)
+else:
+    print("Invalid input")
+
+# Data handling
+full_name = "John Doe"
+first, last = full_name.split()
+print("First name:", first)
+print("Last name:", last)
+
+# Joining pieces
+words = ["data", "structures", "are", "fun"]
+sentence = " ".join(words)
+print(sentence)
+```
+
+#### Why it matters
+
+Everyday string handling bridges user interaction and program logic. Without formatting, programs would only output raw numbers. Without validation, programs would accept broken or unsafe input. Without file reading and writing, no program could save notes or logs. These basics show how strings connect software to people and data.
+
+#### Exercises 
+
+1. Print `"Hello, NAME!"` using a variable for the name.
+2. Count the number of characters in `"banana"`.
+3. Save the string `"study algorithms"` to a file, then read it back.
+4. Remove extra spaces from `"   world   "` and print the cleaned string.
+5. Check if `"abc123"` contains only letters and digits.
+6. Split `"Alice Johnson"` into first and last names.
+7. Join `["red", "green", "blue"]` into `"red,green,blue"`.
+8. Create a greeting that includes both a name and an age.
+9. Validate that a password is at least 8 characters long.
+10. Write a program that asks for a note, saves it to a file, and then reloads and prints it.
+
+### 3.5 L1 — Engineering Contexts
+
+As programs grow, string handling shifts from small tasks to structured data and system integration. Strings become the glue for configurations, logs, and filtering. These applications demand clarity, consistency, and efficiency.
+
+#### Overview/Definition
+
+Strings in engineering contexts are used to represent structured formats, record system activity, and enable searching and filtering. They provide a common medium for both humans and machines, balancing readability with machine-parsable structure.
+
+#### Deep Dive
+
+##### Configuration Formats
+Configuration files define how systems run. Common formats like JSON, YAML, or INI are all string-based. Parsing these strings gives structured values. For example, `"timeout": 30` in JSON is a string representation of a setting, later converted into a number.
+
+##### Logs and Monitoring
+Systems record events as text logs. A log line might be `"2025-09-10 12:00:01 ERROR Connection failed"`. These strings are later parsed for monitoring and debugging. Consistency in string format is critical.
+
+##### Searching and Filtering
+Large systems must sift through text quickly. Searching log files for `"ERROR"` highlights problems. Filtering configuration values based on keywords is another common task. Case-insensitive matching or regex-based extraction makes this robust.
+
+##### Data Exchange
+APIs and network protocols often transmit structured text. JSON payloads are strings at the boundary between systems. Converting between string representation and structured data is a common responsibility of engineering code.
+
+| Context       | Example String                     | Purpose                        |
+| ------------- | ---------------------------------- | ------------------------------ |
+| Configuration | `{"host":"localhost","port":8080}` | System settings                |
+| Log line      | `2025-09-10 ERROR Disk full`       | Monitoring & debugging         |
+| Search/filter | Find `"ERROR"` in a log file       | Identify issues                |
+| API payload   | `{"user":"alice","id":42}`         | Data exchange between services |
+
+#### Worked Example (Python)
+
+```python
+import json
+import re
+
+# Configuration parsing (JSON as string)
+config_str = '{"host":"localhost","port":8080}'
+config = json.loads(config_str)
+print("Host:", config["host"], "Port:", config["port"])
+
+# Logging and filtering
+logs = [
+    "2025-09-10 12:00:01 INFO  Server started",
+    "2025-09-10 12:01:22 ERROR Connection failed",
+    "2025-09-10 12:02:45 WARN  Disk almost full"
+]
+errors = [line for line in logs if "ERROR" in line]
+print("Error logs:", errors)
+
+# Case-insensitive search
+query = "warn"
+matches = [line for line in logs if query.lower() in line.lower()]
+print("Warnings:", matches)
+
+# Extracting structured data from logs with regex
+pattern = re.compile(r"(\d{4}-\d{2}-\d{2})\s+\S+\s+(ERROR|WARN|INFO)")
+for log in logs:
+    match = pattern.search(log)
+    if match:
+        date, level = match.groups()
+        print(f"Date: {date}, Level: {level}")
+```
+
+#### Why it matters
+
+Strings in configurations allow flexible system tuning without recompiling. Logs provide the primary record of system behavior and failures. Searching and filtering turn raw logs into actionable insights. APIs and protocols rely on structured strings to communicate. Mastery of these applications makes code more reliable and systems more transparent.
+
+#### Exercises 
+
+1. Parse a JSON string that contains a username and print the value.
+2. Find all log lines that contain `"ERROR"`.
+3. Perform a case-insensitive search for `"warn"` in a list of log lines.
+4. Extract the date from a log entry of the form `"YYYY-MM-DD ..."`.
+5. Parse a configuration string to extract host and port values.
+6. Write a filter that selects only `"INFO"` level log lines.
+7. Convert a dictionary of settings into a JSON string.
+8. Explain why consistent formatting in logs is important for monitoring systems.
+9. Create a regex that extracts both the date and log level from a log entry.
+10. Design a simple log query: given a list of log strings and a keyword, return all lines that match the keyword.
+
+### 3.5 L2 — Large-Scale Systems
+When systems handle massive amounts of text, strings are no longer just for messages, logs, or configs. They become the raw material of search engines, data compression, natural language processing, and security enforcement. At this scale, efficiency, correctness, and safety are critical.
+
+Strings in large-scale systems must be stored compactly, searched efficiently, processed for meaning, and sanitized for safety. Specialized algorithms and libraries turn raw text into structured, searchable, and secure data.
+
+#### Deep Dive
+
+##### Search Engines
+Full-text search systems use inverted indexes: instead of storing text linearly, they map each word to the documents it appears in. Searching `"cat"` means looking up `"cat"` in the index rather than scanning every file. Ranking algorithms (like TF-IDF or BM25) then score relevance.
+
+##### Data Compression
+Strings consume storage. Compression algorithms like Huffman coding, gzip, or dictionary-based schemes reduce size. For example, `"banana banana banana"` can be compressed by storing `"banana"` once and pointing to it three times. Compression reduces storage costs and speeds up network transfer.
+
+##### Natural Language Processing (NLP)
+Raw strings must be tokenized (split into words), normalized (case folding, stemming), and sometimes embedded into vectors. `"running"` → `"run"`. Preprocessing ensures machine learning models treat text consistently.
+
+##### Security
+Strings are also attack vectors. SQL injection, XSS, and command injection happen when untrusted strings are executed as code. Escaping or sanitizing input prevents this. Unicode tricks (confusables, hidden nulls) are used in phishing and bypass attacks. Secure systems enforce normalization and validation before processing.
+
+| Domain        | String Role                           | Techniques                |
+| ------------- | ------------------------------------- | ------------------------- |
+| Search engine | Find text in billions of docs         | Inverted index, ranking   |
+| Compression   | Reduce text storage and transfer cost | Huffman, gzip, dictionary |
+| NLP           | Prepare text for analysis             | Tokenization, stemming    |
+| Security      | Prevent malicious string usage        | Escaping, validation      |
+
+#### Worked Example (Python)
+
+```python
+import re
+import zlib
+from collections import defaultdict
+
+# --- Search Engine Simulation ---
+documents = {
+    1: "the quick brown fox",
+    2: "the lazy dog",
+    3: "the fox jumped over the dog"
+}
+
+# Build inverted index
+index = defaultdict(list)
+for doc_id, text in documents.items():
+    for word in text.split():
+        index[word].append(doc_id)
+
+print("Index for 'fox':", index["fox"])  # [1, 3]
+
+# --- Compression Example ---
+text = "banana banana banana"
+compressed = zlib.compress(text.encode("utf-8"))
+decompressed = zlib.decompress(compressed).decode("utf-8")
+print("Original:", len(text), "bytes")
+print("Compressed:", len(compressed), "bytes")
+print("Decompressed:", decompressed)
+
+# --- NLP Tokenization & Normalization ---
+raw = "Running runs runner"
+tokens = raw.lower().split()
+stems = [re.sub(r"(ing|s|er)$", "", t) for t in tokens]  # naive stemming
+print("Tokens:", tokens)
+print("Stems:", stems)
+
+# --- Security Example ---
+unsafe_input = "'; DROP TABLE users; --"
+safe_query = "SELECT * FROM accounts WHERE name = ?"
+print("Unsafe input:", unsafe_input)
+print("Safe query template:", safe_query)
+```
+
+#### Why it matters
+
+Large-scale string handling powers web search, messaging apps, compression in files and networks, and text-based AI systems. Without inverted indexes, search engines would be unusably slow. Without compression, storage and bandwidth would be wasteful. Without normalization, machine learning models would misinterpret text. Without security checks, attackers could exploit untrusted strings to damage systems. Strings at scale are the backbone of modern computing.
+
+#### Exercises 
+
+1. Explain how an inverted index speeds up searching compared to scanning all documents.
+2. Show how compression reduces storage for repetitive strings like `"abc abc abc"`.
+3. Tokenize `"Cats are running"` into lowercase words.
+4. Normalize `"Running"` into its root form `"run"`.
+5. Describe why `"café"` and `"cafe"` should be normalized before search.
+6. Give an example of SQL injection using a string input.
+7. Explain how escaping special characters prevents injection attacks.
+8. Compare the storage savings between raw and compressed text for a long repeated string.
+9. Propose how to detect Unicode confusables in user names.
+10. Design a small experiment to measure search speed with and without an inverted index.
+
+## Deep Dive
+
+### 3.1 Representation
+
+- L0:
+
+  * Immutability in everyday languages (intuitive).
+  * Indexing and slicing basics.
+  * Concatenation and repetition.
+  * ASCII vs Unicode (conceptual).
+
+- L1:
+
+  * Immutability and its performance costs.
+  * String interning and memory reuse.
+  * Encoding differences: UTF-8, UTF-16, UTF-32.
+  * Slicing behavior across languages (Python vs Java vs C++).
+  * Efficient concatenation (`join`, builders, buffers).
+
+- L2:
+
+  * Language-specific internals: C `char*`, C++ `std::string` + SSO, Python PEP 393, Java `String`, Go slices, Rust `String`/`&str`.
+  * OS-level considerations: heap vs stack, fragmentation, system call boundaries.
+  * Hardware-level: cache alignment, SIMD optimization in libc.
+  * Unicode normalization (NFC, NFD, case folding).
+  * Security issues: confusables, null injection.
+  * ICU, RE2, Hyperscan as production-grade libraries.
+
+### 3.2 Operations
+
+- L0:
+
+  * Case conversion (upper, lower).
+  * Trimming whitespace.
+  * Basic search (`find`, `in`).
+  * Splitting and joining.
+  * Simple string formatting.
+
+- L1:
+
+  * Efficient searching (`startswith`, `endswith`).
+  * Counting substrings and replacing.
+  * Regular expression basics (`.`, `*`, `+`, `[]`).
+  * Parsing structured text (CSV, JSON).
+  * Performance pitfalls (naive concatenation, multiple scans).
+
+- L2:
+
+  * String search algorithms: Naive, KMP, Boyer–Moore.
+  * Regex engine internals (backtracking vs DFA/NFA).
+  * Tokenization in compilers (lexical analysis with automata).
+  * Unicode-aware searching and case folding.
+  * System boundary handling (sockets, files, encodings).
+  * SIMD-accelerated substring search.
+
+### 3.3 Comparison
+
+- L0:
+
+  * Equality checks (case-sensitive, whitespace).
+  * Lexicographic ordering.
+  * Sorting by dictionary order.
+
+- L1:
+
+  * Case-insensitive comparisons.
+  * Locale-aware collation (German vs Swedish).
+  * Natural sorting with numbers (`file2` < `file10`).
+  * Database collations (CI/CS, AI/AS).
+
+- L2:
+
+  * Unicode normalization for equality.
+  * Case folding vs lowercase.
+  * ICU collation internals.
+  * System-level optimizations (memcmp, short-circuit).
+  * Cache-aware comparison for large text.
+  * Detecting and handling Unicode confusables.
+
+### 3.4 Patterns
+
+- L0:
+
+  * Simple substring search.
+  * Replace operations.
+  * Wildcards (`*`, `?`) as intuitive pattern matching.
+
+- L1:
+
+  * Regex syntax: quantifiers, anchors, character classes.
+  * Greedy vs lazy matching.
+  * Regex for input validation (emails, phones).
+  * Extracting structured data from logs.
+
+- L2:
+
+  * Regex engine architectures: backtracking, DFA/NFA, hybrid JIT.
+  * Performance optimizations (precompiled regex, anchors, SIMD).
+  * Production libraries: RE2, Hyperscan, ICU.
+  * System integration: compilers, search tools, IDS.
+  * Security: catastrophic backtracking, ReDoS.
+
+### 3.5 Applications
+
+- L0:
+
+  * Simple greetings and message formatting.
+  * Reading and writing small text files.
+  * Input validation (non-empty, length, alphanumeric).
+  * Joining/extracting small strings.
+
+- L1:
+
+  * Configurations (INI, JSON, YAML).
+  * Logs and monitoring pipelines.
+  * Searching and filtering text data.
+  * APIs and network payloads as strings.
+
+- L2:
+
+  * Search engines with inverted indexes.
+  * Text compression (Huffman, gzip, dictionary).
+  * Natural language preprocessing (tokenization, stemming).
+  * Security concerns: injections, normalization, Unicode attacks.
+  * High-scale performance engineering for string-heavy systems.
+
+## LAB
+
+### 3.1 Representation
+
+- LAB 1: String Encodings in Practice
+
+  * Represent the same text (`"A😊"`) in UTF-8, UTF-16, and UTF-32.
+  * Measure memory size in each encoding.
+  * Show how slicing works differently in each.
+
+- LAB 2: String Interning and Memory Efficiency
+
+  * Create repeated strings with and without interning.
+  * Measure memory usage.
+  * Discuss practical use cases (symbol tables, compilers).
+
+- LAB 3: Kernel-Level String Operations
+
+  * Explore C `char*` strings with `strlen` and buffer overflows.
+  * Compare to higher-level language safety (Python, Java).
+
+### 3.2 Operations
+
+- LAB 4: Concatenation Cost Benchmark
+
+  * Compare loop concatenation (`+`) vs buffered approaches (`join`, builders).
+  * Measure time for small, medium, and large inputs.
+
+- LAB 5: Regex Basics Explorer
+
+  * Implement small regex patterns (`[0-9]+`, `\w+`) across different languages.
+  * Show differences in syntax and output.
+
+- LAB 6: CSV Parsing Pitfalls
+
+  * Try splitting `"apple,"banana,grape",cherry"` naively.
+  * Show incorrect results.
+  * Contrast with proper CSV parsers.
+
+### 3.3 Comparison
+
+- LAB 7: Locale-Aware Sorting
+
+  * Sort a list with `"ä"`, `"z"`, `"apple"`.
+  * Show German vs Swedish locale differences.
+
+- LAB 8: Unicode Normalization Demo
+
+  * Compare `"café"` vs `"cafe\u0301"`.
+  * Show why normalization (NFC, NFD) matters for equality.
+
+- LAB 9: Confusable Characters Security Check
+
+  * Compare Latin `"a"` vs Cyrillic `"а"`.
+  * Build a detector for confusable Unicode characters.
+
+### 3.4 Patterns
+
+- LAB 10: Substring Search Algorithms
+
+  * Implement Naive, KMP, and Boyer–Moore search.
+  * Benchmark them on long repetitive text.
+
+- LAB 11: Regex Engine Catastrophe
+
+  * Use `(a+)+b` on long input without a `b`.
+  * Measure how exponential backtracking freezes the engine.
+  * Contrast with RE2 (linear-time safe).
+
+- LAB 12: Greedy vs Lazy Matching
+
+  * Run regex `"<tag>.*</tag>"` vs `"<tag>.*?</tag>"` on HTML-like text.
+  * Show difference between greedy and lazy quantifiers.
+
+### 3.5 Applications
+
+- LAB 13: Build a Mini Inverted Index
+
+  * Take a small set of documents.
+  * Build an index mapping words to documents.
+  * Query the index for `"fox"`, `"dog"`, etc.
+
+- LAB 14: Compression of Repetitive Strings
+
+  * Implement a simple dictionary compressor.
+  * Compare original vs compressed sizes for `"banana banana banana"`.
+
+- LAB 15: Injection Attack Simulation
+
+  * Build a simple query string with unsanitized input.
+  * Show how malicious input (`"'; DROP TABLE users; --"`) alters behavior.
+  * Fix it with escaping or parameter binding.
+
+## LAB 1: String Encodings in Practice
+
+### Goal
+
+Understand how different encodings (UTF-8, UTF-16, UTF-32) represent the same text. Learn how memory size changes depending on encoding, and why this matters for storage and transmission.
+
+### Setup
+
+You can use any language that provides access to string encodings (Python, Go, C, Java). Python is a good choice because its `encode()` method supports multiple encodings.
+
+Text sample:
+
+```
+"A😊"
+```
+
+This combines a simple ASCII character (`A`) with a multi-byte emoji (`😊`).
+
+### Step-by-Step
+
+1. Represent the string in memory
+
+   * Create the string `"A😊"`.
+   * Print its length in characters.
+   * Print its length in bytes when encoded in UTF-8, UTF-16, and UTF-32.
+
+2. Inspect the raw byte sequences
+
+   * Encode the string in each format.
+   * Print the resulting byte arrays.
+   * Write them in hexadecimal for clarity.
+
+3. Compare differences
+
+   * Notice that UTF-8 is variable-length (1 byte for `A`, 4 bytes for `😊`).
+   * UTF-16 uses 2 bytes for `A`, 4 bytes for `😊` (surrogate pair).
+   * UTF-32 uses 4 bytes for both.
+
+4. Reflect on trade-offs
+
+   * UTF-8 is compact for ASCII-heavy text (English).
+   * UTF-16 is a balance for languages with many non-ASCII characters.
+   * UTF-32 is simple but wastes space.
+
+### Example (Python)
+
+```python
+text = "A😊"
+print("Characters:", len(text))
+
+# UTF-8
+utf8_bytes = text.encode("utf-8")
+print("UTF-8 length:", len(utf8_bytes), "bytes")
+print("UTF-8 bytes:", utf8_bytes.hex())
+
+# UTF-16
+utf16_bytes = text.encode("utf-16")
+print("UTF-16 length:", len(utf16_bytes), "bytes")
+print("UTF-16 bytes:", utf16_bytes.hex())
+
+# UTF-32
+utf32_bytes = text.encode("utf-32")
+print("UTF-32 length:", len(utf32_bytes), "bytes")
+print("UTF-32 bytes:", utf32_bytes.hex())
+```
+
+Expected output (approximate, may differ by platform endianness):
+
+```
+Characters: 2
+UTF-8 length: 5 bytes
+UTF-8 bytes: 41f09f988a
+UTF-16 length: 6 bytes
+UTF-16 bytes: fffe41003dd89a
+UTF-32 length: 8 bytes
+UTF-32 bytes: fffe0000410001f60a
+```
+
+### Expected Results
+
+| Encoding | Bytes for `"A"` | Bytes for `"😊"` | Total Bytes |
+| -------- | --------------- | ---------------- | ----------- |
+| UTF-8    | 1               | 4                | 5           |
+| UTF-16   | 2               | 4 (surrogate)    | 6           |
+| UTF-32   | 4               | 4                | 8           |
+
+### Why it matters
+
+- Encoding affects storage cost and speed.
+- A file with millions of ASCII characters will be 2× bigger in UTF-16 than UTF-8.
+- Emojis or non-Latin scripts can make UTF-8 larger than UTF-16.
+- Choosing the wrong encoding can waste storage, slow down transmission, or even corrupt data if misinterpreted.
+
+### Exercises
+
+1. Encode the string `"Hello"` in UTF-8, UTF-16, UTF-32. Compare sizes.
+2. Repeat with `"こんにちは"` (Japanese). Which encoding is most efficient?
+3. Inspect the raw bytes of `"💡"` and explain why it requires surrogate pairs in UTF-16.
+4. Write a program that takes any string and reports its size in multiple encodings.
+5. Explain why UTF-32 is rarely used for storage despite its simplicity.
+
+## LAB 2: String Interning and Memory Efficiency
+
+### Goal
+
+Understand how string interning reduces memory usage by reusing identical string objects. Learn when interning happens automatically, when it must be explicit, and why it matters in systems with many repeated strings.
+
+### Setup
+
+Use a language that supports string interning (Python, Java, C#, Go with symbol tables, etc.).
+We'll use Python because it demonstrates both automatic interning (for short literals) and manual interning (`sys.intern()`).
+
+Test dataset: a large list of repeated keys (e.g., `"user123"`, `"error"`, `"warning"`).
+
+### Step-by-Step
+
+1. Automatic Interning of Literals
+
+   * Define two identical string literals.
+   * Compare them with `==` (value equality) and `is` (identity).
+   * Observe that they may point to the same object in memory.
+
+2. Non-Interned Strings
+
+   * Build identical strings at runtime (e.g., `"ab" + "cd"`).
+   * Check identity with `is`.
+   * They may not be the same object, even if values match.
+
+3. Explicit Interning
+
+   * Use `sys.intern()` on repeated dynamic strings.
+   * Compare memory addresses before and after.
+
+4. Memory Benchmark
+
+   * Create a list of repeated values (e.g., 100k `"error"` strings).
+   * Measure memory usage with and without interning.
+
+5. Discussion
+
+   * Interning saves memory by keeping one copy of repeated values.
+   * It speeds up dictionary lookups (symbols, keywords, tokens).
+   * But it increases memory if used on unique or rarely repeated strings.
+
+### Example (Python)
+
+```python
+import sys
+
+# 1. Automatic interning
+a = "hello"
+b = "hello"
+print("a == b:", a == b)   # True (values equal)
+print("a is b:", a is b)   # True (same object due to interning)
+
+# 2. Non-interned strings
+x = "".join(["he", "llo"])
+y = "".join(["he", "llo"])
+print("x == y:", x == y)   # True (values equal)
+print("x is y:", x is y)   # False (different objects)
+
+# 3. Manual interning
+x_interned = sys.intern(x)
+y_interned = sys.intern(y)
+print("x_interned is y_interned:", x_interned is y_interned)  # True
+
+# 4. Memory efficiency demo
+words = ["error"] * 100000
+unique_words = [sys.intern("error") for _ in range(100000)]
+print("Normal list length:", len(words))
+print("Interned list length:", len(unique_words))
+print("Normal memory ids (first 3):", [id(w) for w in words[:3]])
+print("Interned memory ids (first 3):", [id(w) for w in unique_words[:3]])
+```
+
+### Expected Results
+
+- String literals often share the same memory address.
+- Dynamically built identical strings are separate objects unless interned.
+- Interned strings reuse the same memory, reducing duplication.
+
+| Case                    | Identity (`is`) | Memory effect                    |
+| ----------------------- | --------------- | -------------------------------- |
+| `"hello"` vs `"hello"`  | True            | Interned automatically.          |
+| `"".join(["he","llo"])` | False           | Different objects in memory.     |
+| `sys.intern()` applied  | True            | Both point to one shared object. |
+
+### Why it matters
+
+- Compilers and interpreters use interning for keywords, identifiers, and symbols.
+- Databases and search engines save memory when handling millions of repeated strings.
+- Performance improves because identity comparison (`is`) is faster than value comparison.
+- Overuse of interning on unique strings wastes memory and CPU cycles.
+
+### Exercises
+
+1. Create two identical literals and prove they point to the same memory location.
+2. Build two identical strings dynamically and show they are different objects.
+3. Apply interning to the dynamic strings and prove they now share memory.
+4. Create 10,000 repeated `"apple"` strings with and without interning. Compare identity checks.
+5. Explain why interning improves dictionary lookups.
+6. Show an example where interning increases memory use (hint: many unique strings).
+7. Compare interned vs non-interned strings in terms of lookup speed in a dictionary of 100k keys.
+8. Describe how interning is used in language runtimes (e.g., symbol tables in compilers).
+9. Propose a scenario in large-scale systems (like log processing) where interning saves significant memory.
+10. Explain why interning must be combined with garbage collection to avoid memory leaks.
+
+## LAB 3: Kernel-Level String Operations
+
+### Goal
+
+Explore how strings are represented at the C level using `char*`. Learn how null terminators (`'\0'`) define string boundaries, how buffer overflows occur, and why higher-level languages add safety.
+
+### Setup
+
+This lab uses C (or C-like pseudocode). It can be run with `gcc` or `clang`.
+We'll demonstrate:
+
+1. How C stores strings in memory.
+2. What happens when the null terminator is missing.
+3. Why functions like `strcpy` can cause buffer overflows.
+
+### Step-by-Step
+
+1. String Representation in C
+
+   * Create a C string with `char s[] = "hello";`.
+   * Print its characters in a loop.
+   * Show that memory includes `'\0'` at the end.
+
+2. Effect of Null Terminator
+
+   * Create a buffer without `'\0'`.
+   * Pass it to `printf("%s")`.
+   * Observe how the function reads past the intended end, printing garbage or crashing.
+
+3. Buffer Overflow Risk
+
+   * Create a small buffer (e.g., 5 bytes).
+   * Copy a larger string into it with `strcpy`.
+   * Show that memory beyond the buffer is overwritten.
+
+4. Safer Alternatives
+
+   * Replace `strcpy` with `strncpy` or `snprintf`.
+   * Show how they limit copies and prevent overflows.
+
+### Example (C)
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    // 1. String representation
+    char s[] = "hello";
+    printf("String: %s\n", s);
+    for (int i = 0; i < sizeof(s); i++) {
+        printf("Byte %d: %d\n", i, s[i]);
+    }
+
+    // 2. Missing null terminator
+    char bad[5] = {'h','e','l','l','o'}; // no '\0'
+    printf("Bad string (no null): %s\n", bad); // prints garbage
+
+    // 3. Buffer overflow
+    char small[5];
+    strcpy(small, "overflow!"); // too long, unsafe
+    printf("Overflowed string: %s\n", small);
+
+    // 4. Safe alternative
+    char safe[5];
+    strncpy(safe, "safe", sizeof(safe) - 1);
+    safe[sizeof(safe) - 1] = '\0'; // ensure null terminator
+    printf("Safe string: %s\n", safe);
+
+    return 0;
+}
+```
+
+### Expected Results
+
+1. The string `"hello"` occupies 6 bytes: 5 characters + 1 null terminator.
+2. Without `'\0'`, `printf` continues reading memory until it finds a random null.
+3. `strcpy` into a small buffer overwrites adjacent memory, causing corruption or crashes.
+4. `strncpy` keeps the buffer safe by limiting copied characters.
+
+| Case                   | Behavior                   |
+| ---------------------- | -------------------------- |
+| With `'\0'`            | Prints correctly.          |
+| Without `'\0'`         | Prints garbage or crashes. |
+| Overflow with `strcpy` | Memory corruption.         |
+| Safe with `strncpy`    | Correct, bounded copy.     |
+
+### Why it matters
+
+- C-level strings are unsafe by default. The programmer must manage termination and bounds.
+- Buffer overflows are a leading cause of security vulnerabilities.
+- Kernel code, device drivers, and embedded systems often rely on raw C strings.
+- Higher-level languages (Python, Java, Go, Rust) wrap strings in safe abstractions, preventing these bugs.
+
+### Exercises
+
+1. Create a C string and print its bytes, showing the null terminator.
+2. Remove the null terminator from a string and observe the output.
+3. Copy `"abcdefgh"` into a buffer of size 5 and note the result.
+4. Rewrite the unsafe copy using `strncpy` or `snprintf`.
+5. Explain why `strncpy` may leave out the null terminator if not handled carefully.
+6. Investigate what happens if you forget to set `safe[sizeof(safe)-1] = '\0'`.
+7. Compare memory usage of `"hello"` vs `"hello world"`.
+8. Explain why C strings make functions like `strlen` O(n) instead of O(1).
+9. Show how buffer overflows can alter unrelated variables in memory.
+10. Discuss how Rust or Go prevents these issues by design.
+
+## LAB 4: Concatenation Cost Benchmark
+
+### Goal
+
+Measure the cost of string concatenation when building large strings. Understand why naive approaches (`+` in loops) are inefficient, and how buffered approaches (`join`, builders, buffers) improve performance.
+
+### Setup
+
+This lab can be done in Python, Java, Go, or C++. Each has different idioms:
+
+- Python → `+` vs `"".join(list)`
+- Java → `+` vs `StringBuilder`
+- Go → `+=` vs `strings.Builder`
+- C++ → `+` vs `std::ostringstream`
+
+We'll use Python as the demonstration language.
+
+### Step-by-Step
+
+1. Naive Concatenation in Loop
+
+   * Start with an empty string.
+   * Append characters one by one with `+`.
+   * Measure execution time.
+
+2. Buffered Concatenation with List + Join
+
+   * Store characters in a list.
+   * Use `"".join(list)` to build the final string once.
+   * Measure execution time.
+
+3. Compare Results
+
+   * Show how loop concatenation scales poorly (O(n²)).
+   * Show how buffered concatenation scales linearly (O(n)).
+
+4. Experiment with Sizes
+
+   * Run benchmarks for N = 10³, 10⁴, 10⁵ characters.
+   * Record execution times.
+
+5. Discussion
+
+   * Naive concatenation reallocates and copies strings repeatedly.
+   * Buffered methods allocate memory once and fill it efficiently.
+   * Similar patterns exist across languages.
+
+### Example (Python)
+
+```python
+import time
+
+def naive_concat(n):
+    s = ""
+    for i in range(n):
+        s += "x"
+    return s
+
+def join_concat(n):
+    parts = []
+    for i in range(n):
+        parts.append("x")
+    return "".join(parts)
+
+for N in [1000, 10000, 50000]:
+    start = time.time()
+    naive_concat(N)
+    print(f"Naive concat N={N}: {round(time.time() - start, 4)}s")
+
+    start = time.time()
+    join_concat(N)
+    print(f"Join concat N={N}: {round(time.time() - start, 4)}s")
+    print("---")
+```
+
+### Expected Results
+
+- For small N (1000), both methods are similar.
+- For larger N (50k+), naive concatenation slows dramatically.
+
+| N      | Naive `+` (s) | Join (s) |
+| ------ | ------------- | -------- |
+| 1,000  | \~0.002       | \~0.001  |
+| 10,000 | \~0.15        | \~0.01   |
+| 50,000 | \~3.0+        | \~0.05   |
+
+### Why it matters
+
+- Text-heavy applications (logs, report generation, data pipelines) must build large strings efficiently.
+- Using the wrong method can multiply runtime by 100× or more.
+- High-level languages hide memory allocation, but understanding efficiency prevents hidden bottlenecks.
+- Systems languages (C++, Rust, Go) provide explicit builders to avoid repeated allocations.
+
+### Exercises
+
+1. Benchmark string concatenation with `+` for N = 1000, 10,000, and 100,000.
+2. Benchmark buffered concatenation (`join`, `StringBuilder`, or equivalent).
+3. Plot execution time against N for both methods.
+4. Explain why naive concatenation is O(n²).
+5. Demonstrate that small strings (N < 100) show no noticeable difference.
+6. Compare Python `join` with Go `strings.Builder`.
+7. Create a function that takes a list of words and joins them with spaces efficiently.
+8. Show how repeated concatenation can impact log processing in a simulated workload.
+9. Extend the benchmark to include Unicode characters like `"😊"`.
+10. Propose an optimization strategy for building multi-megabyte strings in a web server.
+
+## LAB 5: Regex Basics Explorer
+
+### Goal
+
+Learn how regular expressions (regex) describe text patterns. Practice matching digits, words, and simple patterns across strings. Compare regex behavior across different languages, noting syntax similarities and differences.
+
+### Setup
+
+Regex exists in almost every modern language.
+
+- Python → `re` module
+- Java → `Pattern` / `Matcher`
+- Go → `regexp` package
+- C++ → `<regex>`
+- JavaScript → `/pattern/` literals
+
+We'll demonstrate in Python for clarity, but the concepts transfer directly.
+
+### Step-by-Step
+
+1. Basic Digit Matching
+
+   * Use `[0-9]+` to match sequences of digits.
+   * Extract numbers from a sentence.
+
+2. Word Matching
+
+   * Use `\w+` to capture words (letters, digits, underscores).
+   * Show how it splits a sentence into tokens.
+
+3. Anchors
+
+   * Use `^pattern` to match the start of a string.
+   * Use `pattern$` to match the end.
+
+4. Character Classes
+
+   * `[aeiou]` matches vowels.
+   * `[A-Z]` matches uppercase letters.
+
+5. Practical Example: Email
+
+   * Use `\w+@\w+\.\w+` to match simple emails.
+   * Note limitations (not RFC-complete, but useful).
+
+### Example (Python)
+
+```python
+import re
+
+text = "User Alice has email alice@example.com and id 12345."
+
+# 1. Digits
+digits = re.findall(r"[0-9]+", text)
+print("Digits:", digits)  # ['12345']
+
+# 2. Words
+words = re.findall(r"\w+", text)
+print("Words:", words)   # ['User', 'Alice', 'has', ...]
+
+# 3. Anchors
+print(bool(re.match(r"User", text)))   # True (starts with "User")
+print(bool(re.search(r"12345$", text))) # True (ends with "12345.")
+
+# 4. Character classes
+vowels = re.findall(r"[aeiou]", text)
+print("Vowels:", vowels)
+
+# 5. Email pattern
+emails = re.findall(r"\w+@\w+\.\w+", text)
+print("Emails:", emails)
+```
+
+### Expected Results
+
+- `[0-9]+` extracts `"12345"`.
+- `\w+` splits the sentence into words.
+- `^User` matches the beginning.
+- `[aeiou]` finds vowels.
+- `\w+@\w+\.\w+` extracts `"alice@example.com"`.
+
+| Pattern        | Meaning                  | Example Match         |
+| -------------- | ------------------------ | --------------------- |
+| `[0-9]+`       | One or more digits       | `"12345"`             |
+| `\w+`          | Word characters          | `"Alice"`             |
+| `^User`        | Must start with `"User"` | `"User Alice..."`     |
+| `[aeiou]`      | Any single vowel         | `"a", "e", "i"`       |
+| `\w+@\w+\.\w+` | Simple email pattern     | `"alice@example.com"` |
+
+### Why it matters
+
+Regex is a universal tool for working with text: extracting data, validating input, or parsing logs. It is concise and expressive, replacing dozens of manual string operations. Learning the basics of regex builds the foundation for advanced pattern matching and text processing in any language.
+
+### Exercises
+
+1. Write a regex to match all digits in `"room 101 floor 5"`.
+2. Extract all words from `"The quick brown fox"`.
+3. Match any string starting with `"Hello"`.
+4. Match all vowels in `"banana"`.
+5. Extract all email addresses from `"bob@mail.com, alice@test.org"`.
+6. Write a regex that matches only uppercase words.
+7. Find all three-letter words in `"the cat sat on the mat"`.
+8. Show how `^` and `$` can be used to validate a string that must start and end with digits.
+9. Explain why `\w+@\w+\.\w+` is not sufficient for real email validation.
+10. Write a regex that finds all words ending in `"ing"` from a sentence.
+
+## LAB 6: CSV Parsing Pitfalls
+
+### Goal
+
+Show why naive string splitting fails on CSV data. Demonstrate common pitfalls like quoted fields and embedded commas. Learn why dedicated CSV parsers are needed for reliability.
+
+### Setup
+
+CSV (Comma-Separated Values) looks simple but has rules:
+
+- Fields can be quoted with `"`
+- Quoted fields can contain commas
+- Quotes inside fields are escaped as `""`
+
+We'll use Python, since it has both naive string methods and a built-in `csv` module.
+
+### Step-by-Step
+
+1. Naive Split Works Sometimes
+
+   * Take `"apple,banana,cherry"`.
+   * Split by `,`.
+   * Works fine.
+
+2. Problem: Quoted Fields
+
+   * Take `"apple,"banana,grape",cherry"`.
+   * Split by `,`.
+   * See how `"banana,grape"` is broken incorrectly.
+
+3. Problem: Escaped Quotes
+
+   * Take `"apple,"he said ""hi""",cherry"`.
+   * Naive split breaks the field and does not handle quotes.
+
+4. Correct Parsing with CSV Module
+
+   * Use `csv.reader` to handle quotes and escapes.
+   * Show correct results.
+
+5. Discussion
+
+   * Naive string splitting fails whenever quotes or embedded commas exist.
+   * Correct parsers follow RFC 4180 rules.
+   * Production code must use libraries, not ad hoc splitting.
+
+### Example (Python)
+
+```python
+import csv
+
+# 1. Naive split (works)
+line1 = "apple,banana,cherry"
+print("Naive split:", line1.split(","))  # ['apple', 'banana', 'cherry']
+
+# 2. Quoted fields with commas
+line2 = 'apple,"banana,grape",cherry'
+print("Naive split:", line2.split(","))  # ['apple', '"banana', 'grape"', 'cherry']
+
+# 3. Quoted fields with escaped quotes
+line3 = 'apple,"he said ""hi""",cherry'
+print("Naive split:", line3.split(","))  # ['apple', '"he said ""hi"""', 'cherry']
+
+# 4. Correct parsing
+for line in [line1, line2, line3]:
+    parsed = next(csv.reader([line]))
+    print("CSV parser:", parsed)
+```
+
+### Expected Results
+
+- Naive split fails on quoted fields.
+- CSV parser handles commas and quotes correctly.
+
+| Input String                    | Naive Split                             | CSV Parser                          |
+| ------------------------------- | --------------------------------------- | ----------------------------------- |
+| `apple,banana,cherry`           | `['apple','banana','cherry']`           | `['apple','banana','cherry']`       |
+| `apple,"banana,grape",cherry`   | `['apple','"banana','grape"','cherry']` | `['apple','banana,grape','cherry']` |
+| `apple,"he said ""hi""",cherry` | `['apple','"he said ""hi"""','cherry']` | `['apple','he said "hi"','cherry']` |
+
+### Why it matters
+
+CSV looks simple but is deceptively tricky. Many production bugs come from naive parsing that breaks when encountering quotes or embedded commas. Using proper libraries ensures reliability across systems. Understanding these pitfalls prevents data corruption in analytics, ETL pipelines, and configuration parsing.
+
+### Exercises
+
+1. Write code that naively splits `"a,b,c"` and verify the output.
+2. Split `"a,"b,c",d"` naively and explain what goes wrong.
+3. Parse the same line using a CSV library and compare results.
+4. Show how `"a,"he said ""ok""",c"` is incorrectly parsed by naive splitting.
+5. Write a regex that attempts to parse CSV and explain its limits.
+6. Compare parsing speed of naive split vs `csv.reader`.
+7. Explain why using regex for full CSV parsing is impractical.
+8. Show how a CSV parser handles an empty field (`"a,,c"`).
+9. Create a CSV with newline characters inside quotes and parse it correctly.
+10. Describe why standards like RFC 4180 exist for CSV and what problems they solve.
+
+## LAB 7: Locale-Aware Sorting
+
+### Goal
+
+Understand how different locales affect string sorting. See why `"ä"` sorts differently in German vs Swedish, and how case sensitivity influences order. Learn why collation rules matter in real-world systems like databases and search engines.
+
+### Setup
+
+Use a language that supports locale-aware collation:
+
+- Python → `locale` module
+- Java → `Collator`
+- C++ → `<locale>` with `collate`
+- Databases → `COLLATE` clauses
+
+We'll demonstrate with Python.
+
+### Step-by-Step
+
+1. Default Sorting (ASCII/Unicode order)
+
+   * Sort a list of words: `["apple", "Banana", "äpfel", "zebra"]`.
+   * Observe that uppercase letters and special characters do not sort as expected for dictionary order.
+
+2. German Collation
+
+   * Use `"de_DE.UTF-8"` locale.
+   * In German, `"ä"` is often treated like `"ae"`.
+   * Sort the same list and observe differences.
+
+3. Swedish Collation
+
+   * Use `"sv_SE.UTF-8"` locale.
+   * In Swedish, `"ä"` is a separate letter that comes after `"z"`.
+   * Compare results with German sorting.
+
+4. Case Sensitivity
+
+   * Compare `"apple"` vs `"Apple"`.
+   * Show how some locales ignore case, others do not.
+
+5. Discussion
+
+   * Locale defines sorting rules for a culture or language.
+   * Incorrect collation leads to confusing search results or misordered lists.
+   * Databases use collations to enforce consistency.
+
+### Example (Python)
+
+```python
+import locale
+
+words = ["apple", "Banana", "äpfel", "zebra"]
+
+# 1. Default sorting
+print("Default:", sorted(words))
+
+# 2. German collation
+locale.setlocale(locale.LC_COLLATE, "de_DE.UTF-8")
+print("German:", sorted(words, key=locale.strxfrm))
+
+# 3. Swedish collation
+locale.setlocale(locale.LC_COLLATE, "sv_SE.UTF-8")
+print("Swedish:", sorted(words, key=locale.strxfrm))
+
+# 4. Case-insensitive comparison (normalize before sort)
+case_insensitive = sorted(words, key=lambda w: w.lower())
+print("Case-insensitive:", case_insensitive)
+```
+
+### Expected Results
+
+| Locale            | Sorted Output                           |
+| ----------------- | --------------------------------------- |
+| Default (Unicode) | `['Banana', 'apple', 'zebra', 'äpfel']` |
+| German (de\_DE)   | `['apple', 'äpfel', 'Banana', 'zebra']` |
+| Swedish (sv\_SE)  | `['apple', 'Banana', 'zebra', 'äpfel']` |
+| Case-insensitive  | `['apple', 'äpfel', 'Banana', 'zebra']` |
+
+### Why it matters
+
+- Multilingual systems must handle cultural sorting correctly.
+- `"ä"` is `"ae"` in German, but a distinct letter after `"z"` in Swedish.
+- Case sensitivity can confuse users if `"Apple"` and `"apple"` appear far apart.
+- Databases and search engines must define collation rules to ensure consistency.
+
+### Exercises
+
+1. Sort `["Zoo", "apple", "Äpfel"]` in default order.
+2. Sort the same list in German locale.
+3. Sort the same list in Swedish locale.
+4. Explain why results differ between German and Swedish.
+5. Write code that performs case-insensitive sorting.
+6. Compare how `"Résumé"` and `"resume"` sort under accent-sensitive vs accent-insensitive collation.
+7. Demonstrate natural sorting for file names: `["file1", "file10", "file2"]`.
+8. Explain how incorrect collation could break alphabetical order in a contact list.
+9. Research and list collations available in your system/database.
+10. Propose a default collation strategy for a global web application.
+
+## LAB 8: Unicode Normalization Demo
+
+### Goal
+
+Show how visually identical strings can have different underlying Unicode encodings. Learn to use normalization (NFC, NFD) to make comparisons reliable across systems.
+
+### Setup
+
+Unicode allows multiple representations of the same text:
+
+- Precomposed characters (`é` as U+00E9)
+- Decomposed sequences (`e` + U+0301 combining accent)
+
+We'll use Python's `unicodedata` module to demonstrate.
+
+### Step-by-Step
+
+1. Create Equivalent Strings
+
+   * Define `s1 = "café"` (precomposed).
+   * Define `s2 = "cafe\u0301"` (decomposed).
+   * Print both — they look the same.
+
+2. Compare Without Normalization
+
+   * Check `s1 == s2`.
+   * Result is `False`, even though they appear identical.
+
+3. Normalize Strings
+
+   * Apply NFC (Normalization Form Composed).
+   * Apply NFD (Normalization Form Decomposed).
+   * Compare results again.
+
+4. Check Lengths and Code Points
+
+   * Compare lengths of `s1` and `s2`.
+   * Print their Unicode code points.
+   * Show how precomposed has 1 code point for `é`, decomposed has 2.
+
+5. Discussion
+
+   * Normalization ensures consistent storage and comparison.
+   * Databases and search engines often normalize text before indexing.
+   * Without it, identical-looking words may be treated as different.
+
+### Example (Python)
+
+```python
+import unicodedata
+
+# 1. Create equivalent strings
+s1 = "café"           # precomposed
+s2 = "cafe\u0301"     # decomposed
+
+print("s1:", s1)
+print("s2:", s2)
+print("Equal raw?:", s1 == s2)
+
+# 2. Normalize
+nfc1 = unicodedata.normalize("NFC", s1)
+nfc2 = unicodedata.normalize("NFC", s2)
+print("Equal NFC?:", nfc1 == nfc2)
+
+nfd1 = unicodedata.normalize("NFD", s1)
+nfd2 = unicodedata.normalize("NFD", s2)
+print("Equal NFD?:", nfd1 == nfd2)
+
+# 3. Inspect lengths and code points
+print("Length s1:", len(s1))
+print("Length s2:", len(s2))
+
+print("Code points s1:", [hex(ord(c)) for c in s1])
+print("Code points s2:", [hex(ord(c)) for c in s2])
+```
+
+### Expected Results
+
+- `s1 == s2` → False (different underlying encoding).
+- After normalization (NFC or NFD), they compare equal.
+- Lengths differ (`len(s1) == 4`, `len(s2) == 5`).
+- Code points differ:
+
+  * `s1`: `[0x63, 0x61, 0x66, 0xe9]`
+  * `s2`: `[0x63, 0x61, 0x66, 0x65, 0x301]`
+
+| String | Visible Form | Encoding Style  | Length | Code Points          |
+| ------ | ------------ | --------------- | ------ | -------------------- |
+| s1     | café         | Precomposed NFC | 4      | c a f é (U+00E9)     |
+| s2     | café         | Decomposed NFD  | 5      | c a f e + ´ (U+0301) |
+
+### Why it matters
+
+- Identical-looking text can fail equality checks if not normalized.
+- File systems, databases, and APIs may use different normalization forms.
+- Search engines normalize text to avoid duplicate results.
+- Security-sensitive systems must normalize input to avoid spoofing or bypass attacks.
+
+### Exercises
+
+1. Compare `"résumé"` written with precomposed vs decomposed accents.
+2. Show how string lengths differ between NFC and NFD forms.
+3. Write code to normalize a list of user inputs before storing them in a database.
+4. Explain why `"é"` (U+00E9) is not equal to `"e" + U+0301`.
+5. Demonstrate normalization on Japanese text (hiragana + diacritics).
+6. Show how failing to normalize could cause duplicate entries in a dictionary.
+7. Investigate what normalization form macOS uses by default for filenames.
+8. Explain why normalization is critical in international domain names.
+9. Create a function that reports whether two strings are canonically equivalent.
+10. Design a normalization step for a search engine pipeline.
+
+## LAB 9: Confusable Characters Security Check
+
+### Goal
+
+Demonstrate how visually identical characters can come from different scripts (Latin, Cyrillic, Greek). Show how this can fool string comparisons, and implement a basic detector for such confusables.
+
+### Setup
+
+Attackers exploit Unicode confusables (e.g., Latin `"a"` vs Cyrillic `"а"`) to trick users or bypass validation. This is called a homoglyph attack. Examples:
+
+- `"paypal.com"` vs `"раураl.com"` (Cyrillic `р` and `а`).
+- `"admin"` vs `"аdmin"` (Cyrillic `а`).
+
+We'll use Python for demonstration (`unicodedata` module).
+
+### Step-by-Step
+
+1. Create Confusable Strings
+
+   * Define `latin_a = "a"` and `cyrillic_a = "а"` (U+0430).
+   * Print them side by side.
+   * Compare with `==` to show they are different.
+
+2. Inspect Code Points
+
+   * Use `ord()` to print Unicode code points.
+   * Show the numeric difference despite identical appearance.
+
+3. Confusable Detection
+
+   * Write a function that checks if characters belong to different Unicode blocks.
+   * Flag potential confusables.
+
+4. Practical Example: Fake Domain
+
+   * Construct `"раураl.com"` (Cyrillic letters).
+   * Compare it to `"paypal.com"`.
+   * Show why naive string equality misses the difference.
+
+5. Discussion
+
+   * Homoglyph attacks target login systems, domains, and usernames.
+   * Defenses:
+
+     * Normalize + restrict allowed scripts.
+     * Use libraries like [Unicode confusables.txt](https://www.unicode.org/Public/security/latest/confusables.txt).
+     * Visual warnings in browsers.
+
+### Example (Python)
+
+```python
+import unicodedata
+
+# 1. Confusable characters
+latin_a = "a"
+cyrillic_a = "а"  # U+0430
+print("Latin a:", latin_a, "Cyrillic a:", cyrillic_a)
+print("Equal?:", latin_a == cyrillic_a)
+
+# 2. Inspect code points
+print("Latin a code point:", hex(ord(latin_a)))
+print("Cyrillic a code point:", hex(ord(cyrillic_a)))
+
+# 3. Simple detector
+def detect_confusables(text):
+    scripts = {}
+    for ch in text:
+        name = unicodedata.name(ch, "")
+        if "CYRILLIC" in name:
+            scripts[ch] = "Cyrillic"
+        elif "LATIN" in name:
+            scripts[ch] = "Latin"
+        elif "GREEK" in name:
+            scripts[ch] = "Greek"
+    return scripts
+
+print("Detection:", detect_confusables("раураl"))
+
+# 4. Fake domain example
+real = "paypal.com"
+fake = "раураl.com"  # with Cyrillic 'р' and 'а'
+print("Real domain:", real)
+print("Fake domain:", fake)
+print("Equal?:", real == fake)
+print("Fake detection:", detect_confusables(fake))
+```
+
+### Expected Results
+
+- `"a"` vs `"а"` look the same but are unequal.
+- Code points differ:
+
+  * Latin `a` → `U+0061`
+  * Cyrillic `а` → `U+0430`
+- Detection function flags script differences.
+- `"paypal.com"` ≠ `"раураl.com"`, but naive eyes might miss it.
+
+| Character | Visual | Unicode | Script   |
+| --------- | ------ | ------- | -------- |
+| `a`       | a      | U+0061  | Latin    |
+| `а`       | a      | U+0430  | Cyrillic |
+
+### Why it matters
+
+- Security systems that ignore Unicode tricks are vulnerable to phishing and spoofing.
+- Fake domains, usernames, or commands can bypass filters.
+- Normalization does not fix confusables — script restriction or mapping is required.
+- Modern browsers warn users about domains mixing scripts.
+
+### Exercises
+
+1. Compare `"pаypal"` (with Cyrillic `а`) to `"paypal"`.
+2. Print Unicode code points of `"o"` vs Cyrillic `"о"`.
+3. Extend the `detect_confusables` function to flag Greek letters too.
+4. Create a fake username using mixed Latin and Cyrillic.
+5. Show why normalization (NFC/NFD) does not fix confusables.
+6. Research Unicode `confusables.txt` and find at least 5 common homoglyphs.
+7. Propose a rule to allow only one script (Latin or Cyrillic) per string.
+8. Write a program to detect mixed-script domains.
+9. Explain how browsers handle homoglyph domains.
+10. Design a security policy for usernames to prevent confusable attacks.
+
+
+## LAB 10: Substring Search Algorithms
+
+### Goal
+
+Compare different substring search algorithms — Naive, Knuth–Morris–Pratt (KMP), and Boyer–Moore (BM). Learn how they work, when they perform well, and measure their efficiency on long texts.
+
+### Setup
+
+Substring search asks: *Does pattern `P` occur in text `T`?*
+
+- Naive algorithm: check every position → O(n·m).
+- KMP: preprocess pattern to skip comparisons → O(n + m).
+- Boyer–Moore: skip ahead using heuristics → sublinear in practice.
+
+We'll implement these in Python for clarity.
+
+### Step-by-Step
+
+1. Naive Algorithm
+
+   * For each position in text, compare pattern character by character.
+   * Slow on long inputs with repeated matches.
+
+2. KMP Algorithm
+
+   * Build a failure function (longest prefix-suffix table).
+   * Skip ahead when mismatch occurs.
+   * Guarantees linear time.
+
+3. Boyer–Moore Algorithm (Bad Character Rule)
+
+   * Start matching from the end of the pattern.
+   * On mismatch, shift based on last occurrence of character.
+   * Very fast in practice, especially for large alphabets.
+
+4. Benchmark on Large Input
+
+   * Generate a text of size \~100,000 characters.
+   * Search for a small pattern.
+   * Measure runtimes.
+
+5. Discussion
+
+   * Naive is simple but inefficient.
+   * KMP is optimal for worst case.
+   * Boyer–Moore is fastest in practice for natural language.
+
+### Example (Python)
+
+```python
+import time
+
+# 1. Naive
+def naive_search(text, pattern):
+    n, m = len(text), len(pattern)
+    for i in range(n - m + 1):
+        if text[i:i+m] == pattern:
+            return i
+    return -1
+
+# 2. KMP
+def kmp_table(pattern):
+    m = len(pattern)
+    table = [0] * m
+    j = 0
+    for i in range(1, m):
+        while j > 0 and pattern[i] != pattern[j]:
+            j = table[j - 1]
+        if pattern[i] == pattern[j]:
+            j += 1
+            table[i] = j
+    return table
+
+def kmp_search(text, pattern):
+    n, m = len(text), len(pattern)
+    table = kmp_table(pattern)
+    j = 0
+    for i in range(n):
+        while j > 0 and text[i] != pattern[j]:
+            j = table[j - 1]
+        if text[i] == pattern[j]:
+            j += 1
+            if j == m:
+                return i - m + 1
+    return -1
+
+# 3. Boyer–Moore (bad character heuristic)
+def bm_table(pattern):
+    table = {}
+    for i, c in enumerate(pattern):
+        table[c] = i
+    return table
+
+def bm_search(text, pattern):
+    n, m = len(text), len(pattern)
+    table = bm_table(pattern)
+    i = 0
+    while i <= n - m:
+        j = m - 1
+        while j >= 0 and text[i + j] == pattern[j]:
+            j -= 1
+        if j < 0:
+            return i
+        shift = max(1, j - table.get(text[i + j], -1))
+        i += shift
+    return -1
+
+# Benchmark
+text = "a" * 100000 + "b"
+pattern = "a" * 10 + "b"
+
+for name, func in [("Naive", naive_search), ("KMP", kmp_search), ("Boyer–Moore", bm_search)]:
+    start = time.time()
+    pos = func(text, pattern)
+    print(f"{name} found at {pos}, time {round(time.time()-start,4)}s")
+```
+
+### Expected Results
+
+- Naive: Slow for large repetitive text.
+- KMP: Linear time, handles worst case well.
+- Boyer–Moore: Fastest for natural text (skips ahead aggressively).
+
+| Algorithm   | Worst Case Time | Best Case Time | Notes                              |
+| ----------- | --------------- | -------------- | ---------------------------------- |
+| Naive       | O(n·m)          | O(n)           | Simple, bad for long patterns      |
+| KMP         | O(n + m)        | O(n + m)       | Guaranteed linear time             |
+| Boyer–Moore | O(n·m) worst    | Sublinear avg  | Very fast in practice on real text |
+
+### Why it matters
+
+- Search engines, text editors, and databases rely on efficient substring search.
+- Naive methods break down at scale.
+- KMP shows theory guiding better algorithms.
+- Boyer–Moore demonstrates practical engineering that beats naive even further.
+
+### Exercises
+
+1. Implement naive substring search in any language.
+2. Search for `"abc"` in `"aaaabc"` and explain why naive repeats work.
+3. Build the prefix table for `"ababaca"` in KMP.
+4. Explain how KMP avoids re-checking characters.
+5. Implement Boyer–Moore with the bad character rule.
+6. Show why Boyer–Moore jumps ahead more than one character on mismatches.
+7. Benchmark naive vs KMP vs BM on 1MB text.
+8. Compare results for random text vs repetitive text.
+9. Explain why Boyer–Moore worst-case is still O(n·m).
+10. Propose a hybrid search strategy for DNA sequences (small alphabet, long text).
+
+## LAB 11: Regex Engine Catastrophe (ReDoS)
+
+### Goal
+
+See how certain regex patterns cause catastrophic backtracking and turn tiny inputs into huge runtimes (Regex Denial of Service—ReDoS). Learn safe alternatives and mitigation strategies.
+
+### Setup
+
+Any language with a backtracking engine will reproduce the issue (Python/PCRE/Perl/JavaScript). An automata-based engine (e.g., RE2, Rust's default) won't exhibit catastrophic behavior for the same patterns.
+
+Test patterns that are notorious:
+
+- Nested, overlapping quantifiers: `(a+)+b`
+- Ambiguous alternation with stars: `(a|aa)+b`
+- Catastrophic HTMLish: `(<.+>)+`
+
+### Step-by-Step
+
+1. Reproduce a Fast Match
+
+   * Pattern: `(a+)+b`
+   * Input: `"a"*25 + "b"`
+   * Expect: quick success (engine finds the trailing `b`).
+
+2. Trigger Catastrophe
+
+   * Same pattern: `(a+)+b`
+   * Input: `"a"*25` (no `b`)
+   * Expect: very slow—engine explores exponential backtracking paths.
+
+3. Measure Impact
+
+   * Time both inputs.
+   * Increase input length stepwise (e.g., 15, 20, 25, 30 `a`s).
+   * Observe runtime explosion for the no-`b` case.
+
+4. Try Another Problematic Pattern
+
+   * Pattern: `(a|aa)+b`
+   * Inputs: `"a"*N+"b"` (fast) and `"a"*N` (slow).
+   * Note that overlapping alternatives also trigger exponential blowups.
+
+5. Mitigate
+
+   * Refactor to unambiguous patterns:
+
+     * Replace `(a+)+b` with `a+ b`-style constructions that avoid nested quantifiers, or use possessive/atomic quantifiers if supported (e.g., `a++b`, `(?>a+)b`).
+   * Constrain with anchors and character classes to reduce search space.
+   * Precompile and timeout: set execution time limits (if supported).
+   * Use safe engines (RE2/Hyperscan) for untrusted input.
+
+### Example (Python)
+
+```python
+import re, time
+
+def timed_match(pattern, text, flags=0):
+    start = time.time()
+    ok = bool(re.match(pattern, text, flags))
+    dur = time.time() - start
+    return ok, dur
+
+# 1) Fast match: pattern matches because of trailing 'b'
+pat = r"(a+)+b"
+fast_text = "a" * 25 + "b"
+ok, dur = timed_match(pat, fast_text)
+print("FAST   -> match:", ok, "time:", round(dur, 4), "s")
+
+# 2) Catastrophic: same pattern, missing the final 'b'
+slow_text = "a" * 25
+ok, dur = timed_match(pat, slow_text)
+print("SLOW   -> match:", ok, "time:", round(dur, 4), "s")
+
+# 3) Scale up to see blowup
+for n in [20, 22, 24, 26, 28]:
+    txt = "a" * n
+    ok, dur = timed_match(pat, txt)
+    print(f"N={n:<2} -> match:{ok} time:{round(dur, 4)} s")
+
+# 4) Another problematic pattern
+pat2 = r"(a|aa)+b"
+ok, dur = timed_match(pat2, "a" * 25 + "b")
+print("ALT OK -> match:", ok, "time:", round(dur, 4), "s")
+
+ok, dur = timed_match(pat2, "a" * 25)
+print("ALT SLOW-> match:", ok, "time:", round(dur, 4), "s")
+
+# 5) Safer alternative using atomic/possessive (if your engine supports it)
+# Python's 're' does not support atomic groups/possessive quantifiers.
+# Pseudocode examples for other engines:
+#   - PCRE/Java: r"(?>a+)b" or r"a++b"
+# For Python, restructure logic instead of relying on engine features.
+```
+
+### Expected Results
+
+- With trailing `b`, matches are fast.
+- Without `b`, runtime grows rapidly as `N` increases.
+- Overlapping alternations show the same pattern of slowdown.
+- Atomic/possessive quantifiers (in engines that support them) remove backtracking and restore predictable performance.
+
+| Pattern     | Input        | Engine Type        | Behavior                     |                  |
+| ----------- | ------------ | ------------------ | ---------------------------- | ---------------- |
+| `(a+)+b`    | `a…ab`       | Backtracking       | Fast                         |                  |
+| `(a+)+b`    | `a…a`        | Backtracking       | Catastrophic (very slow) |                  |
+| \`(a        | aa)+b\`      | `a…ab`             | Backtracking                 | Fast             |
+| \`(a        | aa)+b\`      | `a…a`              | Backtracking                 | Catastrophic |
+| `(?>a+)b`   | `a…a?`       | Atomic (PCRE/Java) | Predictable, no catastrophe  |                  |
+| `a++b`      | `a…a?`       | Possessive         | Predictable                  |                  |
+| RE2 version | any of above | DFA/NFA (safe)     | Linear-time, no catastrophe  |                  |
+
+### Why it matters
+
+- Untrusted input + fragile regex = DoS vector.
+- Web apps, API gateways, and log pipelines often apply regex to attacker-controlled text.
+- The fix is architectural (pick safe engines) and design-oriented (write non-ambiguous patterns, set timeouts).
+
+### Exercises 
+
+1. Explain why `(a+)+b` is dangerous on inputs composed only of `a`s.
+2. Show a timing table for `(a+)+b` against `a^N` for N = 10, 15, 20, 25.
+3. Construct another catastrophic pattern using overlapping alternation (e.g., `(ab|a)*b`).
+4. Rewrite `(a|aa)+b` into a pattern that avoids ambiguity while matching the same language.
+5. Describe how atomic groups or possessive quantifiers prevent backtracking.
+6. Propose engine-agnostic mitigations: anchoring, limiting input length, pre-validation.
+7. Design a test harness that detects suspicious regex (runtime or backtracking depth spikes).
+8. Compare behavior of the same pattern in a backtracking engine vs a linear-time engine (e.g., RE2).
+9. For a production route-matching regex, list safeguards to prevent ReDoS in a web server.
+10. Outline a policy for your organization: when to allow backreferences/lookbehinds; when to mandate RE2-class engines.
+
+## LAB 12: Greedy vs Lazy Matching
+
+### Goal
+
+See how regex quantifiers (`*`, `+`, `?`) behave in greedy mode (match as much as possible) versus lazy mode (match as little as possible). Learn when greedy matching leads to over-capture and how lazy mode fixes it.
+
+### Setup
+
+Regex engines default to greedy quantifiers:
+
+- `.*` matches the longest possible string.
+- Adding `?` makes them lazy: `.*?` matches the shortest possible string.
+
+We'll use Python's `re` module.
+
+### Step-by-Step
+
+1. Simple Greedy Match
+
+   * Pattern: `<tag>.*</tag>`
+   * Input: `"<tag>one</tag><tag>two</tag>"`
+   * Greedy captures from the first `<tag>` to the last `</tag>`, swallowing too much.
+
+2. Switch to Lazy
+
+   * Pattern: `<tag>.*?</tag>`
+   * Same input.
+   * Lazy captures each `<tag>…</tag>` pair separately, as expected.
+
+3. Experiment with Plus Quantifier
+
+   * Compare `<tag>.+</tag>` vs `<tag>.+?</tag>`.
+   * `+` requires at least one character, `*` allows zero.
+
+4. Realistic Example: HTML-ish Parsing
+
+   * Input: `"<b>bold</b><i>italic</i>"`.
+   * Greedy regex: `<.*>` → captures everything between first `<` and last `>`.
+   * Lazy regex: `<.*?>` → captures `<b>`, `</b>`, `<i>`, `</i>` separately.
+
+5. Discussion
+
+   * Greedy matching is fine when only one block exists.
+   * Lazy matching is safer for repeated structures.
+   * Regex is not a full parser; overuse leads to fragile code.
+
+### Example (Python)
+
+```python
+import re
+
+text = "<tag>one</tag><tag>two</tag>"
+
+# 1. Greedy match
+greedy = re.findall(r"<tag>.*</tag>", text)
+print("Greedy:", greedy)
+
+# 2. Lazy match
+lazy = re.findall(r"<tag>.*?</tag>", text)
+print("Lazy:", lazy)
+
+# 3. Greedy vs lazy with plus quantifier
+sample = "<tag>a</tag><tag>b</tag>"
+print("Greedy +:", re.findall(r"<tag>.+</tag>", sample))
+print("Lazy +?:", re.findall(r"<tag>.+?</tag>", sample))
+
+# 4. HTML-ish example
+html = "<b>bold</b><i>italic</i>"
+print("Greedy HTML:", re.findall(r"<.*>", html))
+print("Lazy HTML:", re.findall(r"<.*?>", html))
+```
+
+### Expected Results
+
+- Greedy consumes everything between first and last match.
+- Lazy matches each block separately.
+
+| Pattern          | Input                          | Output                                 |
+| ---------------- | ------------------------------ | -------------------------------------- |
+| `<tag>.*</tag>`  | `<tag>one</tag><tag>two</tag>` | `['<tag>one</tag><tag>two</tag>']`     |
+| `<tag>.*?</tag>` | `<tag>one</tag><tag>two</tag>` | `['<tag>one</tag>', '<tag>two</tag>']` |
+| `<.*>` (greedy)  | `<b>bold</b><i>italic</i>`     | `['<b>bold</b><i>italic</i>']`         |
+| `<.*?>` (lazy)   | `<b>bold</b><i>italic</i>`     | `['<b>', '</b>', '<i>', '</i>']`       |
+
+### Why it matters
+
+- Greedy vs lazy matching changes how much text is captured.
+- Incorrect choice can swallow entire documents or miss intended matches.
+- Useful in log parsing, HTML scraping, and template matching.
+- Shows why regex is powerful but also error-prone when used without care.
+
+### Exercises
+
+1. Write a regex to capture `<tag>…</tag>` in `"<tag>a</tag><tag>b</tag>"`. Compare greedy vs lazy.
+2. Show why `<.*>` over-captures in `"<p>hi</p><p>bye</p>"`.
+3. Modify `<.*>` into `<.*?>` and explain the difference.
+4. Use `.+?` to capture non-empty blocks. Show how it differs from `.*?`.
+5. Write a regex that extracts `<b>…</b>` text only.
+6. Compare results of `<div>.*</div>` on a file with nested `<div>` tags.
+7. Explain why lazy quantifiers may still produce unexpected results in deeply nested structures.
+8. Benchmark `.*` vs `.*?` on a 1MB HTML file.
+9. Show how greedy vs lazy affects performance (number of backtracking steps).
+10. Explain why full HTML parsing should not rely solely on regex.
+
+
+## LAB 13: Build a Mini Inverted Index
+
+### Goal
+
+Implement a simplified inverted index, the core data structure behind search engines. Learn how to map words to the documents they appear in, then use the index to answer queries quickly.
+
+### Setup
+
+An inverted index stores entries like:
+
+```
+"dog" → [doc1, doc3]  
+"cat" → [doc2]  
+```
+
+Instead of scanning every document, you look up the word in the index. We'll implement this in Python, but the idea applies to any language or system.
+
+### Step-by-Step
+
+1. Prepare Documents
+
+   * Create a small collection of texts, each with an ID.
+   * Example:
+
+     * `1: "the quick brown fox"`
+     * `2: "the lazy dog"`
+     * `3: "the fox jumped over the dog"`
+
+2. Tokenize Documents
+
+   * Split text into lowercase words.
+   * Remove punctuation (simplified tokenizer).
+
+3. Build Inverted Index
+
+   * For each word, append the document ID to its list.
+   * Use a dictionary (map) of word → set of doc IDs.
+
+4. Query the Index
+
+   * Look up a word and return all documents containing it.
+   * Extend to multi-word queries by intersecting sets.
+
+5. Discussion
+
+   * Inverted index allows fast search compared to scanning.
+   * Real search engines add ranking (TF-IDF, BM25), phrase search, and indexing optimizations.
+
+### Example (Python)
+
+```python
+from collections import defaultdict
+import re
+
+# 1. Documents
+docs = {
+    1: "the quick brown fox",
+    2: "the lazy dog",
+    3: "the fox jumped over the dog"
+}
+
+# 2. Tokenize
+def tokenize(text):
+    return re.findall(r"\w+", text.lower())
+
+# 3. Build inverted index
+index = defaultdict(set)
+for doc_id, text in docs.items():
+    for word in tokenize(text):
+        index[word].add(doc_id)
+
+# 4. Query
+def search(word):
+    return index.get(word.lower(), set())
+
+def search_multi(words):
+    sets = [search(w) for w in words]
+    return set.intersection(*sets) if sets else set()
+
+# Example queries
+print("Index for 'fox':", index["fox"])
+print("Search 'dog':", search("dog"))
+print("Search 'fox AND dog':", search_multi(["fox", "dog"]))
+```
+
+### Expected Results
+
+- Index for `"fox"` → `{1, 3}`
+- Search `"dog"` → `{2, 3}`
+- Search `"fox AND dog"` → `{3}`
+
+| Word   | Document IDs |
+| ------ | ------------ |
+| the    | {1, 2, 3}    |
+| quick  | {1}          |
+| brown  | {1}          |
+| fox    | {1, 3}       |
+| lazy   | {2}          |
+| dog    | {2, 3}       |
+| jumped | {3}          |
+| over   | {3}          |
+
+### Why it matters
+
+- This is the foundation of Google, Lucene, Elasticsearch and every major search system.
+- Inverted indexes make keyword search efficient.
+- They scale from a few documents to billions.
+- Concepts here connect to IR (Information Retrieval) theory.
+
+### Exercises
+
+1. Build an inverted index for 5 custom sentences.
+2. Search for a single word and list document IDs.
+3. Implement AND search: return docs containing all words.
+4. Implement OR search: return docs containing at least one word.
+5. Extend the tokenizer to remove stop words like `"the"`, `"and"`.
+6. Modify the index to count word frequency in each document.
+7. Add a simple ranking: prefer documents with more matches.
+8. Test the system with queries on `"cat"` when no doc contains `"cat"`.
+9. Explain why inverted indexes are better than scanning.
+10. Design how you would scale this to 1 million documents.
+
+## LAB 14: Compression of Repetitive Strings
+
+### Goal
+
+Understand how string compression reduces storage by exploiting repetition. Learn simple dictionary-based compression, compare sizes with and without compression, and see how algorithms like gzip or Huffman coding achieve savings.
+
+### Setup
+
+We'll simulate a simple compression scheme:
+
+- Naive storage: keep the string as-is.
+- Dictionary-based compression: replace repeated substrings with references.
+- Compare results with Python's `zlib` (which implements DEFLATE, combining LZ77 + Huffman coding).
+
+Test input:
+
+```
+"banana banana banana"
+```
+
+### Step-by-Step
+
+1. Uncompressed Storage
+
+   * Measure length of original string in bytes.
+
+2. Naive Dictionary Compression
+
+   * Store `"banana"` once.
+   * Represent repeated `"banana"`s as references.
+   * Calculate compressed size (dictionary + references).
+
+3. zlib Compression
+
+   * Use `zlib.compress()` to compress.
+   * Compare compressed size with original.
+
+4. Test with Different Inputs
+
+   * Highly repetitive: `"abc abc abc abc"` → compresses well.
+   * Random: `"qwertyuiop"` → compresses poorly.
+
+5. Discussion
+
+   * Compression works best when redundancy exists.
+   * Dictionary + entropy coding are the backbone of text and file compression.
+   * Trade-off: compression saves space but costs CPU time.
+
+### Example (Python)
+
+```python
+import zlib
+
+# 1. Original string
+text = "banana banana banana"
+original_size = len(text.encode("utf-8"))
+print("Original text:", text)
+print("Original size:", original_size, "bytes")
+
+# 2. Naive dictionary compression simulation
+dictionary = {"banana": 1}
+tokens = [dictionary.get(word, word) for word in text.split()]
+compressed_repr = (dictionary, tokens)
+simulated_size = len("banana") + len(tokens)  # rough size
+print("Naive simulated compressed size:", simulated_size, "bytes")
+
+# 3. zlib compression
+compressed = zlib.compress(text.encode("utf-8"))
+print("zlib compressed size:", len(compressed), "bytes")
+
+# 4. Compare with random string
+random_text = "qwertyuiop"
+compressed_random = zlib.compress(random_text.encode("utf-8"))
+print("Random original size:", len(random_text), "bytes")
+print("Random compressed size:", len(compressed_random), "bytes")
+```
+
+### Expected Results
+
+- Original: \~20 bytes.
+- Naive dictionary scheme: fewer bytes than original.
+- zlib: compressed size significantly smaller (e.g., 20 → 17).
+- Random text: compressed size ≈ original (sometimes slightly larger due to overhead).
+
+| Input                    | Original Size | Compressed Size       |
+| ------------------------ | ------------- | --------------------- |
+| `"banana banana banana"` | 20 bytes      | \~17 bytes            |
+| `"abc abc abc abc"`      | 15 bytes      | \~13 bytes            |
+| `"qwertyuiop"`           | 10 bytes      | \~12 bytes (overhead) |
+
+### Why it matters
+
+- Compression underpins storage (zip files, databases, backups) and transmission (HTTP gzip, messaging).
+- Saves bandwidth and storage by removing redundancy.
+- Shows trade-offs: repetitive text compresses well, random text does not.
+- Foundation for deeper algorithms: Huffman coding, LZ77, arithmetic coding.
+
+### Exercises
+
+1. Compute original and compressed sizes of `"hello hello hello"`.
+2. Compare compression ratio for `"aaaaa"` vs `"abcde"`.
+3. Write a function that stores unique words in a dictionary and replaces repeats with indexes.
+4. Extend your dictionary to store `"banana"` as key `1` and `"apple"` as key `2`. Compress `"banana apple banana"`.
+5. Measure zlib compression ratio for a large string of repeated `"test"`.
+6. Generate random strings of length 100 and test compression. What happens?
+7. Explain why compression sometimes increases size on short random inputs.
+8. Compare zlib compression with `bz2` or `lzma` in Python.
+9. Explain how compression is used in network protocols like HTTP/2.
+10. Propose how compression could be applied in search engine indexes (from LAB 13).
+
+## LAB 15: Injection Attack Simulation
+
+### Goal
+
+Demonstrate how insecure string handling in queries can lead to injection attacks (e.g., SQL injection). Show how malicious inputs manipulate string-based queries, and how parameterized queries prevent this.
+
+### Setup
+
+Any system that builds queries with string concatenation is vulnerable. We'll simulate SQL injection in Python:
+
+- Unsafe example: concatenating user input directly into a query string.
+- Safe example: using parameterized queries (`?` or `%s`).
+
+We'll use `sqlite3` for demonstration, since it's lightweight and built into Python.
+
+### Step-by-Step
+
+1. Create a Sample Database
+
+   * Table: `accounts(name TEXT, balance INT)`.
+   * Insert rows: `"Alice", 100`, `"Bob", 50`.
+
+2. Unsafe Query
+
+   * Take user input for name.
+   * Build query with string concatenation:
+
+     ```sql
+     SELECT * FROM accounts WHERE name = 'USER_INPUT';
+     ```
+   * Input `"Alice"` → works fine.
+   * Input `"' OR '1'='1"` → query returns all rows (attack).
+
+3. Simulated SQL Injection Attack
+
+   * Input `"; DROP TABLE accounts; --"` → destructive query.
+   * In real systems, this would delete the table.
+
+4. Safe Query with Parameters
+
+   * Use `cursor.execute("SELECT * FROM accounts WHERE name = ?", (user_input,))`.
+   * Input `"' OR '1'='1"` → safely treated as a literal string, no injection.
+
+5. Discussion
+
+   * String concatenation = dangerous.
+   * Parameterization = safe.
+   * This applies to SQL, shell commands, HTML, and beyond.
+
+### Example (Python)
+
+```python
+import sqlite3
+
+# 1. Setup
+conn = sqlite3.connect(":memory:")
+c = conn.cursor()
+c.execute("CREATE TABLE accounts (name TEXT, balance INT)")
+c.executemany("INSERT INTO accounts VALUES (?, ?)", [("Alice", 100), ("Bob", 50)])
+conn.commit()
+
+# 2. Unsafe query
+def unsafe_query(user_input):
+    query = f"SELECT * FROM accounts WHERE name = '{user_input}'"
+    print("Unsafe query:", query)
+    return list(c.execute(query))
+
+# Safe query
+def safe_query(user_input):
+    query = "SELECT * FROM accounts WHERE name = ?"
+    print("Safe query:", query)
+    return list(c.execute(query, (user_input,)))
+
+# Normal input
+print("Normal unsafe:", unsafe_query("Alice"))
+
+# Injection attack
+print("Injection unsafe:", unsafe_query("' OR '1'='1"))
+
+# Safe version prevents injection
+print("Safe version:", safe_query("' OR '1'='1"))
+```
+
+### Expected Results
+
+- Normal input `"Alice"` works fine.
+- Injection input `"' OR '1'='1"` returns all rows in unsafe query.
+- Safe query treats it literally → no injection.
+
+| Input           | Unsafe Query Result          | Safe Query Result  |
+| --------------- | ---------------------------- | ------------------ |
+| `"Alice"`       | `[("Alice", 100)]`           | `[("Alice", 100)]` |
+| `"' OR '1'='1"` | `[("Alice",100),("Bob",50)]` | `[]` (no match)    |
+
+### Why it matters
+
+- SQL injection is one of the most critical web vulnerabilities (OWASP Top 10).
+- Attackers can dump data, bypass authentication, or destroy databases.
+- The problem is not SQL itself but string misuse.
+- Fix: always use parameterized queries or ORMs with safe bindings.
+
+### Exercises
+
+1. Write a query vulnerable to injection and test with `"Alice"`.
+2. Inject `"' OR '1'='1"` and explain why it returns all rows.
+3. Try input `"; DROP TABLE accounts; --"` and explain what would happen in a real DB.
+4. Rewrite your code to use parameterized queries.
+5. Test injection again with safe queries and verify no effect.
+6. Extend this idea to shell commands (`os.system`) and simulate command injection.
+7. Research one real-world breach caused by SQL injection.
+8. Explain why escaping input manually (e.g., replacing quotes) is insufficient.
+9. Design input validation rules that complement parameterization.
+10. Propose a security guideline for handling strings in queries for your organization.
+
