@@ -3,6 +3,9 @@
 A concise, beginner-friendly introduction to Algorithms.
 
 ```
+Bake a cake with care,
+follow steps the recipe gives,
+that’s an algorithm.
 ```
 
 ## Formats
