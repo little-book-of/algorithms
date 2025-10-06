@@ -1,0 +1,261 @@
+## Contents 
+
+#### Volume 1 — What Is an Algorithm?
+
+1. Problems, procedures, and precision
+2. Inputs, outputs, and assumptions
+3. Deterministic vs. nondeterministic steps
+4. Decomposing big problems into small ones
+5. Abstraction: hiding details to see structure
+6. Representing data: numbers, text, and simple records
+7. Correctness as a promise: pre/postconditions
+8. Cost as effort: time, memory, and simplicity
+9. Algorithms vs. heuristics: when “good enough” wins
+10. A tiny toolbox: three everyday recipes (sum, max, count)
+
+#### Volume 2 — Describing Algorithms Clearly
+
+11. Pseudocode that reads like plain English
+12. Flowcharts and step diagrams
+13. Tracing by hand: dry runs on small examples
+14. Input modeling: choose the right shape for data
+15. Edge cases: empties, extremes, and errors
+16. Step-invariants: what stays true while we work
+17. Assertions and sanity checks
+18. Naming things and writing clear steps
+19. Turning pictures into procedures
+20. From idea to draft algorithm
+
+#### Volume 3 — Reasoning About Cost (Complexity Without Tears)
+
+21. Constant time vs. growing time
+22. Counting simple loops
+23. Nested loops as grids of work
+24. Best, average, worst case thinking
+25. Space cost and data copies
+26. Big-O intuition (skip the calculus)
+27. Practical performance vs. asymptotics
+28. Lower bounds as “can’t do better than”
+29. Trade-offs: time vs. space vs. simplicity
+30. Measuring in practice: micro-bench basics
+
+#### Volume 4 — Data Building Blocks I: Arrays, Lists, Queues, Stacks
+
+31. Arrays: indexed shelves
+32. Traversal patterns and two-pointers
+33. Dynamic arrays: growth and amortized cost
+34. Linked lists: chains of nodes
+35. Insert, delete, and search patterns
+36. Stacks: undo, parse, and backtrack
+37. Queues: first-in first-out thinking
+38. Deques and circular buffers
+39. Choosing between list and array
+40. Real-world mini-projects (logs, history, task queues)
+
+#### Volume 5 — Data Building Blocks II: Trees, Hashes, and Graphs (Gentle)
+
+41. Trees as nested boxes
+42. Binary trees and traversal orders
+43. Balanced vs. unbalanced intuition
+44. Hash tables: buckets from good mixing
+45. Handling collisions: chaining and open addressing
+46. Sets and maps as interfaces
+47. Graphs as connections: nodes and edges
+48. Adjacency lists vs. matrices
+49. Weighted, directed, and bipartite basics
+50. Modeling real problems with graphs
+
+#### Volume 6 — Searching and Sorting Fundamentals
+
+51. Linear search and sentinel tricks
+52. Binary search: halving the haystack
+53. Sorting goals and stability
+54. Selection: find min/max, kth element
+55. Insertion sort: simple and local
+56. Merge sort: split, sort, merge
+57. Quick sort: partition and pivot
+58. Counting and bucket sort: when keys are small
+59. Practical mixtures and fallbacks
+60. Where sorting shows up in life
+
+#### Volume 7 — Recursion & Divide-and-Conquer
+
+61. The recursive mindset: self-reference safely
+62. Base cases and progress measures
+63. Visualizing call stacks
+64. Classic examples (factorial, Fibonacci, binary search)
+65. Divide-and-conquer pattern
+66. Recurrence intuition (without heavy math)
+67. Tail recursion and iteration conversion
+68. Handling duplicates and boundaries cleanly
+69. Debugging recursive code
+70. Recursion in real tasks (parsing, image quadrants)
+
+#### Volume 8 — Greedy Algorithms
+
+71. What “locally best” means
+72. Exchange arguments (why greedy can be right)
+73. Interval scheduling and activity selection
+74. Making change (when greedy works, when it fails)
+75. Huffman coding intuition
+76. Spanning trees with a greedy flavor
+77. Greedy on graphs: pitfalls and patterns
+78. Greedy vs. dynamic programming: choose wisely
+79. Counterexamples as teaching tools
+80. Greedy checklists before you code
+
+#### Volume 9 — Dynamic Programming (DP) for Humans
+
+81. Overlapping subproblems and optimal substructure
+82. From recursion to memoization
+83. Bottom-up tables and state diagrams
+84. Longest common subsequence (LCS) story
+85. Knapsack as choices on a grid
+86. Path counting on grids with obstacles
+87. Edit distance and spell-check vibes
+88. Reconstructing solutions from tables
+89. Space-saving DP tricks
+90. Recognizing DP opportunities in the wild
+
+#### Volume 10 — Graph Algorithms I: Exploration
+
+91. BFS: layers and shortest hops
+92. DFS: depth trails and classification of edges
+93. Connectivity: components and islands
+94. Detecting cycles (directed/undirected)
+95. Topological sort on DAGs
+96. Using parents, levels, and timestamps
+97. Flood fill and maze solving
+98. Graph modeling patterns (grids, states)
+99. Traversal pitfalls: visited sets and resets
+100. When not to use graphs
+
+#### Volume 11 — Graph Algorithms II: Paths and Trees
+
+101. Weighted shortest paths mindset
+102. Dijkstra: non-negative weights
+103. Bellman–Ford: handle negatives carefully
+104. All-pairs sketch: repeated single-source
+105. Minimum spanning trees: cut and cycle views
+106. Kruskal vs. Prim: data structure choices
+107. Union-Find (Disjoint Set Union) basics
+108. DAG shortest paths as DP
+109. Graph heuristics in practice (A\* intuition)
+110. Modeling road networks and deliveries
+
+#### Volume 12 — Strings, Text, and Patterns
+
+111. Strings as arrays of characters
+112. Naive pattern matching and sliding windows
+113. Prefix-function intuition (KMP idea, gently)
+114. Z-function and borders (conceptual)
+115. Rolling hash and Rabin–Karp
+116. Tries for dictionaries and autocomplete
+117. Simple compression ideas (run-length, Huffman revisit)
+118. Tokenization and normalization basics
+119. Anagrams, palindromes, frequency maps
+120. Real tasks: search, dedup, and logs
+
+#### Volume 13 — Geometry and Spatial Algorithms
+
+121. Points, vectors, and distances (no heavy math)
+122. Orientation tests: left, right, collinear
+123. Bounding boxes and collision checks
+124. Line segments: intersect or not
+125. Polygons: perimeter, area, and winding
+126. Grid geometry: raster thinking
+127. Closest pair (divide-and-conquer idea)
+128. Convex hull intuition
+129. Spatial indexing intuition (quadtrees)
+130. Practical tasks: maps, games, and UI hit-testing
+
+#### Volume 14 — Probability & Randomized Algorithms (Gentle)
+
+131. Randomness as a tool, not magic
+132. Sampling fairly and shuffling
+133. Reservoir sampling for streams
+134. Monte Carlo vs. Las Vegas algorithms
+135. Randomized quickselect intuition
+136. Hashing and probabilistic data structures (bloom filter intuition)
+137. Expectations without heavy formulas
+138. Estimating large counts (Flajolet–Martin idea)
+139. Random walks and simple simulations
+140. When to prefer randomized approaches
+
+#### Volume 15 — Backtracking & Constraint Search
+
+141. State spaces and search trees
+142. Backtracking skeleton (choose → explore → undo)
+143. Pruning with constraints
+144. Permutations, combinations, and subsets
+145. Sudoku/N-Queens: patterns of pruning
+146. Ordering choices to speed up search
+147. Constraint propagation intuition
+148. Branch and bound basics
+149. Detecting impossibility early
+150. Turning search into solutions you can explain
+
+#### Volume 16 — Numbers, Data, and Simple Numerics
+
+151. Integer limits, overflow, and safe arithmetic
+152. Fixed vs. floating-point intuition
+153. Summation stability and Kahan idea (gently)
+154. Binary, decimal, and bases
+155. Greatest common divisor and Euclid
+156. Prime checks (simple) and factoring (why it’s hard)
+157. Modular arithmetic intuition
+158. Root finding with bisection (no calculus)
+159. Interpolation and simple smoothing
+160. Units, precision, and error budgets
+
+#### Volume 17 — Working with Big Data (Beginner-Level Ideas)
+
+161. Memory vs. disk: locality matters
+162. Chunking and batching
+163. External sorting idea
+164. Streaming: one pass, small memory
+165. Map-Reduce as a mental model
+166. Sketches for big counts (count-min intuition)
+167. Windowed aggregates on streams
+168. Caching and eviction (LRU intuition)
+169. Parallelism vs. concurrency (plain language)
+170. Practical hygiene: logs, checkpoints, retries
+
+#### Volume 18 — Practical Algorithms in Everyday Software
+
+171. Rate limiting (token/leaky bucket intuition)
+172. Consistent hashing (balanced placement idea)
+173. Pagination, search, and ranking basics
+174. Recommendation heuristics (co-occurrence intuition)
+175. Deduplication and fuzzy matching
+176. Scheduling jobs and throttling
+177. Pathfinding in apps and games
+178. Simple image operations (filters as kernels)
+179. Text pipelines (tokenize → normalize → index)
+180. “Good enough” engineering: latency and budgets
+
+#### Volume 19 — Designing Algorithms: A Playbook
+
+181. Clarify the goal and constraints
+182. Model the data and operations
+183. Choose patterns: brute force → prune → optimize
+184. Identify invariants and loop structure
+185. Prove or test correctness (lightweight)
+186. Estimate cost and pick the right order of growth
+187. Simplify first; optimize last
+188. Reuse libraries vs. reinventing
+189. Communicate the approach (diagrams & docs)
+190. Post-mortems: learn from misses
+
+#### Volume 20 — Capstones, Case Studies, and Practice
+
+191. Route planner for a small city (graphs)
+192. Personal finance analyzer (arrays, scans, DP lite)
+193. Study planner/scheduler (greedy + constraints)
+194. Document search and dedup (strings + hashing)
+195. Inventory allocator (greedy vs. DP trade-offs)
+196. Game pathfinding and AI (BFS/A\*)
+197. Image cleanup mini-tool (filters + queues)
+198. Log analyzer for trends (streaming + sketches)
+199. Data cleaning pipeline (practical robustness)
+200. Build your own algorithm notebook (templates, checklists)

@@ -1,0 +1,7320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The Plan – The Little Book of Algorithms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../books/en-us/book.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../books/en-us/plan.html"><span class="chapter-title">The Plan</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">The Little Book of Algorithms</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Content</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../books/en-us/book.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../books/en-us/plan.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The Plan</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#chapter-1.-foundations-of-algorithms" id="toc-chapter-1.-foundations-of-algorithms" class="nav-link active" data-scroll-target="#chapter-1.-foundations-of-algorithms">Chapter 1. Foundations of Algorithms</a>
+  <ul class="collapse">
+  <li><a href="#what-is-an-algorithm" id="toc-what-is-an-algorithm" class="nav-link" data-scroll-target="#what-is-an-algorithm">1. What Is an Algorithm?</a></li>
+  <li><a href="#measuring-time-and-space" id="toc-measuring-time-and-space" class="nav-link" data-scroll-target="#measuring-time-and-space">2. Measuring Time and Space</a></li>
+  <li><a href="#big-o-big-theta-big-omega" id="toc-big-o-big-theta-big-omega" class="nav-link" data-scroll-target="#big-o-big-theta-big-omega">3. Big-O, Big-Theta, Big-Omega</a></li>
+  <li><a href="#algorithmic-paradigms-greedy-divide-and-conquer-dp" id="toc-algorithmic-paradigms-greedy-divide-and-conquer-dp" class="nav-link" data-scroll-target="#algorithmic-paradigms-greedy-divide-and-conquer-dp">4. Algorithmic Paradigms (Greedy, Divide and Conquer, DP)</a></li>
+  <li><a href="#recurrence-relations" id="toc-recurrence-relations" class="nav-link" data-scroll-target="#recurrence-relations">5. Recurrence Relations</a></li>
+  <li><a href="#searching-basics" id="toc-searching-basics" class="nav-link" data-scroll-target="#searching-basics">6. Searching Basics</a></li>
+  <li><a href="#sorting-basics" id="toc-sorting-basics" class="nav-link" data-scroll-target="#sorting-basics">7. Sorting Basics</a></li>
+  <li><a href="#data-structures-overview" id="toc-data-structures-overview" class="nav-link" data-scroll-target="#data-structures-overview">8. Data Structures Overview</a></li>
+  <li><a href="#graphs-and-trees-overview" id="toc-graphs-and-trees-overview" class="nav-link" data-scroll-target="#graphs-and-trees-overview">9. Graphs and Trees Overview</a></li>
+  <li><a href="#algorithm-design-patterns" id="toc-algorithm-design-patterns" class="nav-link" data-scroll-target="#algorithm-design-patterns">10. Algorithm Design Patterns</a></li>
+  </ul></li>
+  <li><a href="#chapter-2.-sorting-and-searching" id="toc-chapter-2.-sorting-and-searching" class="nav-link" data-scroll-target="#chapter-2.-sorting-and-searching">Chapter 2. Sorting and Searching</a>
+  <ul class="collapse">
+  <li><a href="#elementary-sorting-bubble-insertion-selection" id="toc-elementary-sorting-bubble-insertion-selection" class="nav-link" data-scroll-target="#elementary-sorting-bubble-insertion-selection">11. Elementary Sorting (Bubble, Insertion, Selection)</a></li>
+  <li><a href="#divide-and-conquer-sorting-merge-quick-heap" id="toc-divide-and-conquer-sorting-merge-quick-heap" class="nav-link" data-scroll-target="#divide-and-conquer-sorting-merge-quick-heap">12. Divide-and-Conquer Sorting (Merge, Quick, Heap)</a></li>
+  <li><a href="#counting-and-distribution-sorts-counting-radix-bucket" id="toc-counting-and-distribution-sorts-counting-radix-bucket" class="nav-link" data-scroll-target="#counting-and-distribution-sorts-counting-radix-bucket">13. Counting and Distribution Sorts (Counting, Radix, Bucket)</a></li>
+  <li><a href="#hybrid-sorts-introsort-timsort" id="toc-hybrid-sorts-introsort-timsort" class="nav-link" data-scroll-target="#hybrid-sorts-introsort-timsort">14. Hybrid Sorts (IntroSort, Timsort)</a></li>
+  <li><a href="#special-sorts-cycle-gnome-comb-pancake" id="toc-special-sorts-cycle-gnome-comb-pancake" class="nav-link" data-scroll-target="#special-sorts-cycle-gnome-comb-pancake">15. Special Sorts (Cycle, Gnome, Comb, Pancake)</a></li>
+  <li><a href="#linear-and-binary-search" id="toc-linear-and-binary-search" class="nav-link" data-scroll-target="#linear-and-binary-search">16. Linear and Binary Search</a></li>
+  <li><a href="#interpolation-and-exponential-search" id="toc-interpolation-and-exponential-search" class="nav-link" data-scroll-target="#interpolation-and-exponential-search">17. Interpolation and Exponential Search</a></li>
+  <li><a href="#selection-algorithms-quickselect-median-of-medians" id="toc-selection-algorithms-quickselect-median-of-medians" class="nav-link" data-scroll-target="#selection-algorithms-quickselect-median-of-medians">18. Selection Algorithms (Quickselect, Median of Medians)</a></li>
+  <li><a href="#range-searching-and-nearest-neighbor" id="toc-range-searching-and-nearest-neighbor" class="nav-link" data-scroll-target="#range-searching-and-nearest-neighbor">19. Range Searching and Nearest Neighbor</a></li>
+  <li><a href="#search-optimizations-and-variants" id="toc-search-optimizations-and-variants" class="nav-link" data-scroll-target="#search-optimizations-and-variants">20. Search Optimizations and Variants</a></li>
+  </ul></li>
+  <li><a href="#chapter-3.-data-structures-in-action" id="toc-chapter-3.-data-structures-in-action" class="nav-link" data-scroll-target="#chapter-3.-data-structures-in-action">Chapter 3. Data Structures in Action</a>
+  <ul class="collapse">
+  <li><a href="#arrays-linked-lists-stacks-queues" id="toc-arrays-linked-lists-stacks-queues" class="nav-link" data-scroll-target="#arrays-linked-lists-stacks-queues">21. Arrays, Linked Lists, Stacks, Queues</a></li>
+  <li><a href="#hash-tables-and-variants-cuckoo-robin-hood-consistent" id="toc-hash-tables-and-variants-cuckoo-robin-hood-consistent" class="nav-link" data-scroll-target="#hash-tables-and-variants-cuckoo-robin-hood-consistent">22. Hash Tables and Variants (Cuckoo, Robin Hood, Consistent)</a></li>
+  <li><a href="#heaps-binary-fibonacci-pairing" id="toc-heaps-binary-fibonacci-pairing" class="nav-link" data-scroll-target="#heaps-binary-fibonacci-pairing">23. Heaps (Binary, Fibonacci, Pairing)</a></li>
+  <li><a href="#balanced-trees-avl-red-black-splay-treap" id="toc-balanced-trees-avl-red-black-splay-treap" class="nav-link" data-scroll-target="#balanced-trees-avl-red-black-splay-treap">24. Balanced Trees (AVL, Red-Black, Splay, Treap)</a></li>
+  <li><a href="#segment-trees-and-fenwick-trees" id="toc-segment-trees-and-fenwick-trees" class="nav-link" data-scroll-target="#segment-trees-and-fenwick-trees">25. Segment Trees and Fenwick Trees</a></li>
+  <li><a href="#disjoint-set-union-union-find" id="toc-disjoint-set-union-union-find" class="nav-link" data-scroll-target="#disjoint-set-union-union-find">26. Disjoint Set Union (Union-Find)</a></li>
+  <li><a href="#probabilistic-data-structures-bloom-count-min-hyperloglog" id="toc-probabilistic-data-structures-bloom-count-min-hyperloglog" class="nav-link" data-scroll-target="#probabilistic-data-structures-bloom-count-min-hyperloglog">27. Probabilistic Data Structures (Bloom, Count-Min, HyperLogLog)</a></li>
+  <li><a href="#skip-lists-and-b-trees" id="toc-skip-lists-and-b-trees" class="nav-link" data-scroll-target="#skip-lists-and-b-trees">28. Skip Lists and B-Trees</a></li>
+  <li><a href="#persistent-and-functional-data-structures" id="toc-persistent-and-functional-data-structures" class="nav-link" data-scroll-target="#persistent-and-functional-data-structures">29. Persistent and Functional Data Structures</a></li>
+  <li><a href="#advanced-trees-and-range-queries" id="toc-advanced-trees-and-range-queries" class="nav-link" data-scroll-target="#advanced-trees-and-range-queries">30. Advanced Trees and Range Queries</a></li>
+  </ul></li>
+  <li><a href="#chapter-4.-graph-algorithms" id="toc-chapter-4.-graph-algorithms" class="nav-link" data-scroll-target="#chapter-4.-graph-algorithms">Chapter 4. Graph Algorithms</a>
+  <ul class="collapse">
+  <li><a href="#traversals-dfs-bfs-iterative-deepening" id="toc-traversals-dfs-bfs-iterative-deepening" class="nav-link" data-scroll-target="#traversals-dfs-bfs-iterative-deepening">31. Traversals (DFS, BFS, Iterative Deepening)</a></li>
+  <li><a href="#strongly-connected-components-tarjan-kosaraju" id="toc-strongly-connected-components-tarjan-kosaraju" class="nav-link" data-scroll-target="#strongly-connected-components-tarjan-kosaraju">32. Strongly Connected Components (Tarjan, Kosaraju)</a></li>
+  <li><a href="#shortest-paths-dijkstra-bellman-ford-a-johnson" id="toc-shortest-paths-dijkstra-bellman-ford-a-johnson" class="nav-link" data-scroll-target="#shortest-paths-dijkstra-bellman-ford-a-johnson">33. Shortest Paths (Dijkstra, Bellman-Ford, A*, Johnson)</a></li>
+  <li><a href="#shortest-path-variants-01-bfs-bidirectional-heuristic-a" id="toc-shortest-path-variants-01-bfs-bidirectional-heuristic-a" class="nav-link" data-scroll-target="#shortest-path-variants-01-bfs-bidirectional-heuristic-a">34. Shortest Path Variants (0–1 BFS, Bidirectional, Heuristic A*)</a></li>
+  <li><a href="#minimum-spanning-trees-kruskal-prim-borůvka" id="toc-minimum-spanning-trees-kruskal-prim-borůvka" class="nav-link" data-scroll-target="#minimum-spanning-trees-kruskal-prim-borůvka">35. Minimum Spanning Trees (Kruskal, Prim, Borůvka)</a></li>
+  <li><a href="#flows-fordfulkerson-edmondskarp-dinic" id="toc-flows-fordfulkerson-edmondskarp-dinic" class="nav-link" data-scroll-target="#flows-fordfulkerson-edmondskarp-dinic">36. Flows (Ford–Fulkerson, Edmonds–Karp, Dinic)</a></li>
+  <li><a href="#cuts-stoerwagner-karger-gomoryhu" id="toc-cuts-stoerwagner-karger-gomoryhu" class="nav-link" data-scroll-target="#cuts-stoerwagner-karger-gomoryhu">37. Cuts (Stoer–Wagner, Karger, Gomory–Hu)</a></li>
+  <li><a href="#matchings-hopcroftkarp-hungarian-blossom" id="toc-matchings-hopcroftkarp-hungarian-blossom" class="nav-link" data-scroll-target="#matchings-hopcroftkarp-hungarian-blossom">38. Matchings (Hopcroft–Karp, Hungarian, Blossom)</a></li>
+  <li><a href="#tree-algorithms-lca-hld-centroid-decomposition" id="toc-tree-algorithms-lca-hld-centroid-decomposition" class="nav-link" data-scroll-target="#tree-algorithms-lca-hld-centroid-decomposition">39. Tree Algorithms (LCA, HLD, Centroid Decomposition)</a></li>
+  <li><a href="#advanced-graph-algorithms-and-tricks" id="toc-advanced-graph-algorithms-and-tricks" class="nav-link" data-scroll-target="#advanced-graph-algorithms-and-tricks">40. Advanced Graph Algorithms and Tricks</a></li>
+  </ul></li>
+  <li><a href="#chapter-5.-dynamic-programming" id="toc-chapter-5.-dynamic-programming" class="nav-link" data-scroll-target="#chapter-5.-dynamic-programming">Chapter 5. Dynamic Programming</a>
+  <ul class="collapse">
+  <li><a href="#dp-basics-and-state-transitions" id="toc-dp-basics-and-state-transitions" class="nav-link" data-scroll-target="#dp-basics-and-state-transitions">41. DP Basics and State Transitions</a></li>
+  <li><a href="#classic-problems-knapsack-subset-sum-coin-change" id="toc-classic-problems-knapsack-subset-sum-coin-change" class="nav-link" data-scroll-target="#classic-problems-knapsack-subset-sum-coin-change">42. Classic Problems (Knapsack, Subset Sum, Coin Change)</a></li>
+  <li><a href="#sequence-problems-lis-lcs-edit-distance" id="toc-sequence-problems-lis-lcs-edit-distance" class="nav-link" data-scroll-target="#sequence-problems-lis-lcs-edit-distance">43. Sequence Problems (LIS, LCS, Edit Distance)</a></li>
+  <li><a href="#matrix-and-chain-problems" id="toc-matrix-and-chain-problems" class="nav-link" data-scroll-target="#matrix-and-chain-problems">44. Matrix and Chain Problems</a></li>
+  <li><a href="#bitmask-dp-and-traveling-salesman" id="toc-bitmask-dp-and-traveling-salesman" class="nav-link" data-scroll-target="#bitmask-dp-and-traveling-salesman">45. Bitmask DP and Traveling Salesman</a></li>
+  <li><a href="#digit-dp-and-sos-dp" id="toc-digit-dp-and-sos-dp" class="nav-link" data-scroll-target="#digit-dp-and-sos-dp">46. Digit DP and SOS DP</a></li>
+  <li><a href="#dp-optimizations-divide-conquer-convex-hull-trick-knuth" id="toc-dp-optimizations-divide-conquer-convex-hull-trick-knuth" class="nav-link" data-scroll-target="#dp-optimizations-divide-conquer-convex-hull-trick-knuth">47. DP Optimizations (Divide &amp; Conquer, Convex Hull Trick, Knuth)</a></li>
+  <li><a href="#tree-dp-and-rerooting" id="toc-tree-dp-and-rerooting" class="nav-link" data-scroll-target="#tree-dp-and-rerooting">48. Tree DP and Rerooting</a></li>
+  <li><a href="#dp-reconstruction-and-traceback" id="toc-dp-reconstruction-and-traceback" class="nav-link" data-scroll-target="#dp-reconstruction-and-traceback">49. DP Reconstruction and Traceback</a></li>
+  <li><a href="#meta-dp-and-optimization-templates" id="toc-meta-dp-and-optimization-templates" class="nav-link" data-scroll-target="#meta-dp-and-optimization-templates">50. Meta-DP and Optimization Templates</a></li>
+  </ul></li>
+  <li><a href="#chapter-6.-mathematics-for-algorithms" id="toc-chapter-6.-mathematics-for-algorithms" class="nav-link" data-scroll-target="#chapter-6.-mathematics-for-algorithms">Chapter 6. Mathematics for Algorithms</a>
+  <ul class="collapse">
+  <li><a href="#number-theory-gcd-modular-arithmetic-crt" id="toc-number-theory-gcd-modular-arithmetic-crt" class="nav-link" data-scroll-target="#number-theory-gcd-modular-arithmetic-crt">51. Number Theory (GCD, Modular Arithmetic, CRT)</a></li>
+  <li><a href="#primality-and-factorization-millerrabin-pollard-rho" id="toc-primality-and-factorization-millerrabin-pollard-rho" class="nav-link" data-scroll-target="#primality-and-factorization-millerrabin-pollard-rho">52. Primality and Factorization (Miller–Rabin, Pollard Rho)</a></li>
+  <li><a href="#combinatorics-permutations-combinations-subsets" id="toc-combinatorics-permutations-combinations-subsets" class="nav-link" data-scroll-target="#combinatorics-permutations-combinations-subsets">53. Combinatorics (Permutations, Combinations, Subsets)</a></li>
+  <li><a href="#probability-and-randomized-algorithms" id="toc-probability-and-randomized-algorithms" class="nav-link" data-scroll-target="#probability-and-randomized-algorithms">54. Probability and Randomized Algorithms</a></li>
+  <li><a href="#sieve-methods-and-modular-math" id="toc-sieve-methods-and-modular-math" class="nav-link" data-scroll-target="#sieve-methods-and-modular-math">55. Sieve Methods and Modular Math</a></li>
+  <li><a href="#linear-algebra-gaussian-elimination-lu-svd" id="toc-linear-algebra-gaussian-elimination-lu-svd" class="nav-link" data-scroll-target="#linear-algebra-gaussian-elimination-lu-svd">56. Linear Algebra (Gaussian Elimination, LU, SVD)</a></li>
+  <li><a href="#fft-and-ntt-fast-transforms" id="toc-fft-and-ntt-fast-transforms" class="nav-link" data-scroll-target="#fft-and-ntt-fast-transforms">57. FFT and NTT (Fast Transforms)</a></li>
+  <li><a href="#numerical-methods-newton-simpson-rungekutta" id="toc-numerical-methods-newton-simpson-rungekutta" class="nav-link" data-scroll-target="#numerical-methods-newton-simpson-rungekutta">58. Numerical Methods (Newton, Simpson, Runge–Kutta)</a></li>
+  <li><a href="#mathematical-optimization-simplex-gradient-convex" id="toc-mathematical-optimization-simplex-gradient-convex" class="nav-link" data-scroll-target="#mathematical-optimization-simplex-gradient-convex">59. Mathematical Optimization (Simplex, Gradient, Convex)</a></li>
+  <li><a href="#algebraic-tricks-and-transform-techniques" id="toc-algebraic-tricks-and-transform-techniques" class="nav-link" data-scroll-target="#algebraic-tricks-and-transform-techniques">60. Algebraic Tricks and Transform Techniques</a></li>
+  </ul></li>
+  <li><a href="#chapter-7.-strings-and-text-algorithms" id="toc-chapter-7.-strings-and-text-algorithms" class="nav-link" data-scroll-target="#chapter-7.-strings-and-text-algorithms">Chapter 7. Strings and Text Algorithms</a>
+  <ul class="collapse">
+  <li><a href="#string-matching-kmp-z-rabinkarp-boyermoore" id="toc-string-matching-kmp-z-rabinkarp-boyermoore" class="nav-link" data-scroll-target="#string-matching-kmp-z-rabinkarp-boyermoore">61. String Matching (KMP, Z, Rabin–Karp, Boyer–Moore)</a></li>
+  <li><a href="#multi-pattern-search-ahocorasick" id="toc-multi-pattern-search-ahocorasick" class="nav-link" data-scroll-target="#multi-pattern-search-ahocorasick">62. Multi-Pattern Search (Aho–Corasick)</a></li>
+  <li><a href="#suffix-structures-suffix-array-suffix-tree-lcp" id="toc-suffix-structures-suffix-array-suffix-tree-lcp" class="nav-link" data-scroll-target="#suffix-structures-suffix-array-suffix-tree-lcp">63. Suffix Structures (Suffix Array, Suffix Tree, LCP)</a></li>
+  <li><a href="#palindromes-and-periodicity-manacher" id="toc-palindromes-and-periodicity-manacher" class="nav-link" data-scroll-target="#palindromes-and-periodicity-manacher">64. Palindromes and Periodicity (Manacher)</a></li>
+  <li><a href="#edit-distance-and-alignment" id="toc-edit-distance-and-alignment" class="nav-link" data-scroll-target="#edit-distance-and-alignment">65. Edit Distance and Alignment</a></li>
+  <li><a href="#compression-huffman-arithmetic-lz77-bwt" id="toc-compression-huffman-arithmetic-lz77-bwt" class="nav-link" data-scroll-target="#compression-huffman-arithmetic-lz77-bwt">66. Compression (Huffman, Arithmetic, LZ77, BWT)</a></li>
+  <li><a href="#cryptographic-hashes-and-checksums" id="toc-cryptographic-hashes-and-checksums" class="nav-link" data-scroll-target="#cryptographic-hashes-and-checksums">67. Cryptographic Hashes and Checksums</a></li>
+  <li><a href="#approximate-and-streaming-matching" id="toc-approximate-and-streaming-matching" class="nav-link" data-scroll-target="#approximate-and-streaming-matching">68. Approximate and Streaming Matching</a></li>
+  <li><a href="#bioinformatics-alignment-needlemanwunsch-smithwaterman" id="toc-bioinformatics-alignment-needlemanwunsch-smithwaterman" class="nav-link" data-scroll-target="#bioinformatics-alignment-needlemanwunsch-smithwaterman">69. Bioinformatics Alignment (Needleman–Wunsch, Smith–Waterman)</a></li>
+  <li><a href="#text-indexing-and-search-structures" id="toc-text-indexing-and-search-structures" class="nav-link" data-scroll-target="#text-indexing-and-search-structures">70. Text Indexing and Search Structures</a></li>
+  </ul></li>
+  <li><a href="#chapter-8.-geometry-graphics-and-spatial-algorithms" id="toc-chapter-8.-geometry-graphics-and-spatial-algorithms" class="nav-link" data-scroll-target="#chapter-8.-geometry-graphics-and-spatial-algorithms">Chapter 8. Geometry, Graphics, and Spatial Algorithms</a>
+  <ul class="collapse">
+  <li><a href="#convex-hull-graham-andrew-chan" id="toc-convex-hull-graham-andrew-chan" class="nav-link" data-scroll-target="#convex-hull-graham-andrew-chan">71. Convex Hull (Graham, Andrew, Chan)</a></li>
+  <li><a href="#closest-pair-and-segment-intersection" id="toc-closest-pair-and-segment-intersection" class="nav-link" data-scroll-target="#closest-pair-and-segment-intersection">72. Closest Pair and Segment Intersection</a></li>
+  <li><a href="#line-sweep-and-plane-sweep-algorithms" id="toc-line-sweep-and-plane-sweep-algorithms" class="nav-link" data-scroll-target="#line-sweep-and-plane-sweep-algorithms">73. Line Sweep and Plane Sweep Algorithms</a></li>
+  <li><a href="#delaunay-and-voronoi-diagrams" id="toc-delaunay-and-voronoi-diagrams" class="nav-link" data-scroll-target="#delaunay-and-voronoi-diagrams">74. Delaunay and Voronoi Diagrams</a></li>
+  <li><a href="#point-in-polygon-and-polygon-triangulation" id="toc-point-in-polygon-and-polygon-triangulation" class="nav-link" data-scroll-target="#point-in-polygon-and-polygon-triangulation">75. Point in Polygon and Polygon Triangulation</a></li>
+  <li><a href="#spatial-data-structures-kd-r-tree" id="toc-spatial-data-structures-kd-r-tree" class="nav-link" data-scroll-target="#spatial-data-structures-kd-r-tree">76. Spatial Data Structures (KD, R-tree)</a></li>
+  <li><a href="#rasterization-and-scanline-techniques" id="toc-rasterization-and-scanline-techniques" class="nav-link" data-scroll-target="#rasterization-and-scanline-techniques">77. Rasterization and Scanline Techniques</a></li>
+  <li><a href="#computer-vision-canny-hough-sift" id="toc-computer-vision-canny-hough-sift" class="nav-link" data-scroll-target="#computer-vision-canny-hough-sift">78. Computer Vision (Canny, Hough, SIFT)</a></li>
+  <li><a href="#pathfinding-in-space-a-rrt-prm" id="toc-pathfinding-in-space-a-rrt-prm" class="nav-link" data-scroll-target="#pathfinding-in-space-a-rrt-prm">79. Pathfinding in Space (A*, RRT, PRM)</a></li>
+  <li><a href="#computational-geometry-variants-and-applications" id="toc-computational-geometry-variants-and-applications" class="nav-link" data-scroll-target="#computational-geometry-variants-and-applications">80. Computational Geometry Variants and Applications</a></li>
+  </ul></li>
+  <li><a href="#chapter-9.-systems-databases-and-distributed-algorithms" id="toc-chapter-9.-systems-databases-and-distributed-algorithms" class="nav-link" data-scroll-target="#chapter-9.-systems-databases-and-distributed-algorithms">Chapter 9. Systems, Databases, and Distributed Algorithms</a>
+  <ul class="collapse">
+  <li><a href="#concurrency-control-2pl-mvcc-occ" id="toc-concurrency-control-2pl-mvcc-occ" class="nav-link" data-scroll-target="#concurrency-control-2pl-mvcc-occ">81. Concurrency Control (2PL, MVCC, OCC)</a></li>
+  <li><a href="#logging-recovery-and-commit-protocols" id="toc-logging-recovery-and-commit-protocols" class="nav-link" data-scroll-target="#logging-recovery-and-commit-protocols">82. Logging, Recovery, and Commit Protocols</a></li>
+  <li><a href="#scheduling-round-robin-edf-rate-monotonic" id="toc-scheduling-round-robin-edf-rate-monotonic" class="nav-link" data-scroll-target="#scheduling-round-robin-edf-rate-monotonic">83. Scheduling (Round Robin, EDF, Rate-Monotonic)</a></li>
+  <li><a href="#caching-and-replacement-lru-lfu-clock" id="toc-caching-and-replacement-lru-lfu-clock" class="nav-link" data-scroll-target="#caching-and-replacement-lru-lfu-clock">84. Caching and Replacement (LRU, LFU, CLOCK)</a></li>
+  <li><a href="#networking-routing-congestion-control" id="toc-networking-routing-congestion-control" class="nav-link" data-scroll-target="#networking-routing-congestion-control">85. Networking (Routing, Congestion Control)</a></li>
+  <li><a href="#distributed-consensus-paxos-raft-pbft" id="toc-distributed-consensus-paxos-raft-pbft" class="nav-link" data-scroll-target="#distributed-consensus-paxos-raft-pbft">86. Distributed Consensus (Paxos, Raft, PBFT)</a></li>
+  <li><a href="#load-balancing-and-rate-limiting" id="toc-load-balancing-and-rate-limiting" class="nav-link" data-scroll-target="#load-balancing-and-rate-limiting">87. Load Balancing and Rate Limiting</a></li>
+  <li><a href="#search-and-indexing-inverted-bm25-wand" id="toc-search-and-indexing-inverted-bm25-wand" class="nav-link" data-scroll-target="#search-and-indexing-inverted-bm25-wand">88. Search and Indexing (Inverted, BM25, WAND)</a></li>
+  <li><a href="#compression-and-encoding-in-systems" id="toc-compression-and-encoding-in-systems" class="nav-link" data-scroll-target="#compression-and-encoding-in-systems">89. Compression and Encoding in Systems</a></li>
+  <li><a href="#fault-tolerance-and-replication" id="toc-fault-tolerance-and-replication" class="nav-link" data-scroll-target="#fault-tolerance-and-replication">90. Fault Tolerance and Replication</a></li>
+  </ul></li>
+  <li><a href="#chapter-10.-ai-ml-and-optimization" id="toc-chapter-10.-ai-ml-and-optimization" class="nav-link" data-scroll-target="#chapter-10.-ai-ml-and-optimization">Chapter 10. AI, ML, and Optimization</a>
+  <ul class="collapse">
+  <li><a href="#classical-ml-k-means-naive-bayes-svm-decision-trees" id="toc-classical-ml-k-means-naive-bayes-svm-decision-trees" class="nav-link" data-scroll-target="#classical-ml-k-means-naive-bayes-svm-decision-trees">91. Classical ML (k-means, Naive Bayes, SVM, Decision Trees)</a></li>
+  <li><a href="#ensemble-methods-bagging-boosting-random-forests" id="toc-ensemble-methods-bagging-boosting-random-forests" class="nav-link" data-scroll-target="#ensemble-methods-bagging-boosting-random-forests">92. Ensemble Methods (Bagging, Boosting, Random Forests)</a></li>
+  <li><a href="#gradient-methods-sgd-adam-rmsprop" id="toc-gradient-methods-sgd-adam-rmsprop" class="nav-link" data-scroll-target="#gradient-methods-sgd-adam-rmsprop">93. Gradient Methods (SGD, Adam, RMSProp)</a></li>
+  <li><a href="#deep-learning-backpropagation-dropout-normalization" id="toc-deep-learning-backpropagation-dropout-normalization" class="nav-link" data-scroll-target="#deep-learning-backpropagation-dropout-normalization">94. Deep Learning (Backpropagation, Dropout, Normalization)</a></li>
+  <li><a href="#sequence-models-viterbi-beam-search-ctc" id="toc-sequence-models-viterbi-beam-search-ctc" class="nav-link" data-scroll-target="#sequence-models-viterbi-beam-search-ctc">95. Sequence Models (Viterbi, Beam Search, CTC)</a></li>
+  <li><a href="#metaheuristics-ga-sa-pso-aco" id="toc-metaheuristics-ga-sa-pso-aco" class="nav-link" data-scroll-target="#metaheuristics-ga-sa-pso-aco">96. Metaheuristics (GA, SA, PSO, ACO)</a></li>
+  <li><a href="#reinforcement-learning-q-learning-policy-gradients" id="toc-reinforcement-learning-q-learning-policy-gradients" class="nav-link" data-scroll-target="#reinforcement-learning-q-learning-policy-gradients">97. Reinforcement Learning (Q-learning, Policy Gradients)</a></li>
+  <li><a href="#approximation-and-online-algorithms" id="toc-approximation-and-online-algorithms" class="nav-link" data-scroll-target="#approximation-and-online-algorithms">98. Approximation and Online Algorithms</a></li>
+  <li><a href="#fairness-causal-inference-and-robust-optimization" id="toc-fairness-causal-inference-and-robust-optimization" class="nav-link" data-scroll-target="#fairness-causal-inference-and-robust-optimization">99. Fairness, Causal Inference, and Robust Optimization</a></li>
+  <li><a href="#ai-planning-search-and-learning-systems" id="toc-ai-planning-search-and-learning-systems" class="nav-link" data-scroll-target="#ai-planning-search-and-learning-systems">100. AI Planning, Search, and Learning Systems</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">The Plan</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="chapter-1.-foundations-of-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-1.-foundations-of-algorithms">Chapter 1. Foundations of Algorithms</h2>
+<section id="what-is-an-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-an-algorithm">1. What Is an Algorithm?</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 33%">
+<col style="width: 64%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Euclid’s GCD</td>
+<td>Oldest known algorithm for greatest common divisor</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Sieve of Eratosthenes</td>
+<td>Generate primes efficiently</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Binary Search</td>
+<td>Divide and conquer search</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Exponentiation by Squaring</td>
+<td>Fast power computation</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Long Division</td>
+<td>Classic step-by-step arithmetic</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Modular Addition Algorithm</td>
+<td>Wrap-around arithmetic</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Base Conversion Algorithm</td>
+<td>Convert between number systems</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Factorial Computation</td>
+<td>Recursive and iterative approaches</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Fibonacci Sequence</td>
+<td>Recursive vs.&nbsp;dynamic computation</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Tower of Hanoi</td>
+<td>Recursive problem-solving pattern</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="measuring-time-and-space" class="level3">
+<h3 class="anchored" data-anchor-id="measuring-time-and-space">2. Measuring Time and Space</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 41%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>11</td>
+<td>Counting Operations</td>
+<td>Manual step-counting for complexity</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Loop Analysis</td>
+<td>Evaluate time cost of loops</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>Recurrence Expansion</td>
+<td>Analyze recursive costs</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>Amortized Analysis</td>
+<td>Average per-operation cost</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>Space Counting</td>
+<td>Stack and heap tracking</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>Memory Footprint Estimator</td>
+<td>Track per-variable usage</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>Time Complexity Table</td>
+<td>Map O(1)…O(n²)…O(2ⁿ)</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>Space-Time Tradeoff</td>
+<td>Cache vs.&nbsp;recomputation</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>Profiling Algorithm</td>
+<td>Empirical time measurement</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>Benchmarking Framework</td>
+<td>Compare algorithm performance</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="big-o-big-theta-big-omega" class="level3">
+<h3 class="anchored" data-anchor-id="big-o-big-theta-big-omega">3. Big-O, Big-Theta, Big-Omega</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 43%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>21</td>
+<td>Growth Rate Comparator</td>
+<td>Compare asymptotic behaviors</td>
+</tr>
+<tr class="even">
+<td>22</td>
+<td>Dominant Term Extractor</td>
+<td>Simplify runtime expressions</td>
+</tr>
+<tr class="odd">
+<td>23</td>
+<td>Limit-Based Complexity Test</td>
+<td>Using limits for asymptotics</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td>Summation Simplifier</td>
+<td>Sum of arithmetic/geometric sequences</td>
+</tr>
+<tr class="odd">
+<td>25</td>
+<td>Recurrence Tree Method</td>
+<td>Visualize recursive costs</td>
+</tr>
+<tr class="even">
+<td>26</td>
+<td>Master Theorem Evaluator</td>
+<td>Solve T(n) recurrences</td>
+</tr>
+<tr class="odd">
+<td>27</td>
+<td>Big-Theta Proof Builder</td>
+<td>Bounding upper and lower limits</td>
+</tr>
+<tr class="even">
+<td>28</td>
+<td>Big-Omega Case Finder</td>
+<td>Best-case scenario analysis</td>
+</tr>
+<tr class="odd">
+<td>29</td>
+<td>Empirical Complexity Estimator</td>
+<td>Measure via doubling experiments</td>
+</tr>
+<tr class="even">
+<td>30</td>
+<td>Complexity Class Identifier</td>
+<td>Match runtime to known class</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="algorithmic-paradigms-greedy-divide-and-conquer-dp" class="level3">
+<h3 class="anchored" data-anchor-id="algorithmic-paradigms-greedy-divide-and-conquer-dp">4. Algorithmic Paradigms (Greedy, Divide and Conquer, DP)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>31</td>
+<td>Greedy Coin Change</td>
+<td>Local optimal step-by-step</td>
+</tr>
+<tr class="even">
+<td>32</td>
+<td>Huffman Coding</td>
+<td>Greedy compression tree</td>
+</tr>
+<tr class="odd">
+<td>33</td>
+<td>Merge Sort</td>
+<td>Divide and conquer sort</td>
+</tr>
+<tr class="even">
+<td>34</td>
+<td>Binary Search</td>
+<td>Divide and conquer search</td>
+</tr>
+<tr class="odd">
+<td>35</td>
+<td>Karatsuba Multiplication</td>
+<td>Recursive divide &amp; conquer</td>
+</tr>
+<tr class="even">
+<td>36</td>
+<td>Matrix Chain Multiplication</td>
+<td>DP with substructure</td>
+</tr>
+<tr class="odd">
+<td>37</td>
+<td>Longest Common Subsequence</td>
+<td>Classic DP problem</td>
+</tr>
+<tr class="even">
+<td>38</td>
+<td>Rod Cutting</td>
+<td>DP optimization</td>
+</tr>
+<tr class="odd">
+<td>39</td>
+<td>Activity Selection</td>
+<td>Greedy scheduling</td>
+</tr>
+<tr class="even">
+<td>40</td>
+<td>Optimal Merge Patterns</td>
+<td>Greedy file merging</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="recurrence-relations" class="level3">
+<h3 class="anchored" data-anchor-id="recurrence-relations">5. Recurrence Relations</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>41</td>
+<td>Linear Recurrence Solver</td>
+<td>Closed-form for linear recurrences</td>
+</tr>
+<tr class="even">
+<td>42</td>
+<td>Master Theorem</td>
+<td>Divide-and-conquer complexity</td>
+</tr>
+<tr class="odd">
+<td>43</td>
+<td>Substitution Method</td>
+<td>Inductive proof approach</td>
+</tr>
+<tr class="even">
+<td>44</td>
+<td>Iteration Method</td>
+<td>Expand recurrence step-by-step</td>
+</tr>
+<tr class="odd">
+<td>45</td>
+<td>Generating Functions</td>
+<td>Transform recurrences</td>
+</tr>
+<tr class="even">
+<td>46</td>
+<td>Matrix Exponentiation</td>
+<td>Solve linear recurrences fast</td>
+</tr>
+<tr class="odd">
+<td>47</td>
+<td>Recurrence to DP Table</td>
+<td>Tabulation approach</td>
+</tr>
+<tr class="even">
+<td>48</td>
+<td>Divide &amp; Combine Template</td>
+<td>Convert recurrence into algorithm</td>
+</tr>
+<tr class="odd">
+<td>49</td>
+<td>Memoized Recursive Solver</td>
+<td>Store overlapping results</td>
+</tr>
+<tr class="even">
+<td>50</td>
+<td>Characteristic Polynomial</td>
+<td>Solve homogeneous recurrence</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="searching-basics" class="level3">
+<h3 class="anchored" data-anchor-id="searching-basics">6. Searching Basics</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>51</td>
+<td>Linear Search</td>
+<td>Sequential element scan</td>
+</tr>
+<tr class="even">
+<td>52</td>
+<td>Binary Search</td>
+<td>Midpoint halving</td>
+</tr>
+<tr class="odd">
+<td>53</td>
+<td>Jump Search</td>
+<td>Block skip linear</td>
+</tr>
+<tr class="even">
+<td>54</td>
+<td>Exponential Search</td>
+<td>Doubling step size</td>
+</tr>
+<tr class="odd">
+<td>55</td>
+<td>Interpolation Search</td>
+<td>Estimate position by value</td>
+</tr>
+<tr class="even">
+<td>56</td>
+<td>Ternary Search</td>
+<td>Divide into thirds</td>
+</tr>
+<tr class="odd">
+<td>57</td>
+<td>Fibonacci Search</td>
+<td>Golden ratio search</td>
+</tr>
+<tr class="even">
+<td>58</td>
+<td>Sentinel Search</td>
+<td>Early termination optimization</td>
+</tr>
+<tr class="odd">
+<td>59</td>
+<td>Bidirectional Search</td>
+<td>Meet-in-the-middle</td>
+</tr>
+<tr class="even">
+<td>60</td>
+<td>Search in Rotated Array</td>
+<td>Adapted binary search</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sorting-basics" class="level3">
+<h3 class="anchored" data-anchor-id="sorting-basics">7. Sorting Basics</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>61</td>
+<td>Bubble Sort</td>
+<td>Adjacent swap sort</td>
+</tr>
+<tr class="even">
+<td>62</td>
+<td>Selection Sort</td>
+<td>Find minimum each pass</td>
+</tr>
+<tr class="odd">
+<td>63</td>
+<td>Insertion Sort</td>
+<td>Incremental build sort</td>
+</tr>
+<tr class="even">
+<td>64</td>
+<td>Shell Sort</td>
+<td>Gap-based insertion</td>
+</tr>
+<tr class="odd">
+<td>65</td>
+<td>Merge Sort</td>
+<td>Divide-and-conquer</td>
+</tr>
+<tr class="even">
+<td>66</td>
+<td>Quick Sort</td>
+<td>Partition-based</td>
+</tr>
+<tr class="odd">
+<td>67</td>
+<td>Heap Sort</td>
+<td>Binary heap order</td>
+</tr>
+<tr class="even">
+<td>68</td>
+<td>Counting Sort</td>
+<td>Integer key distribution</td>
+</tr>
+<tr class="odd">
+<td>69</td>
+<td>Radix Sort</td>
+<td>Digit-by-digit</td>
+</tr>
+<tr class="even">
+<td>70</td>
+<td>Bucket Sort</td>
+<td>Group into ranges</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data-structures-overview" class="level3">
+<h3 class="anchored" data-anchor-id="data-structures-overview">8. Data Structures Overview</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>71</td>
+<td>Stack Push/Pop</td>
+<td>LIFO operations</td>
+</tr>
+<tr class="even">
+<td>72</td>
+<td>Queue Enqueue/Dequeue</td>
+<td>FIFO operations</td>
+</tr>
+<tr class="odd">
+<td>73</td>
+<td>Singly Linked List</td>
+<td>Linear node chain</td>
+</tr>
+<tr class="even">
+<td>74</td>
+<td>Doubly Linked List</td>
+<td>Bidirectional traversal</td>
+</tr>
+<tr class="odd">
+<td>75</td>
+<td>Hash Table Insertion</td>
+<td>Key-value indexing</td>
+</tr>
+<tr class="even">
+<td>76</td>
+<td>Binary Search Tree Insert</td>
+<td>Ordered node placement</td>
+</tr>
+<tr class="odd">
+<td>77</td>
+<td>Heapify</td>
+<td>Build heap in-place</td>
+</tr>
+<tr class="even">
+<td>78</td>
+<td>Union-Find Operations</td>
+<td>Disjoint-set management</td>
+</tr>
+<tr class="odd">
+<td>79</td>
+<td>Graph Adjacency List Build</td>
+<td>Sparse representation</td>
+</tr>
+<tr class="even">
+<td>80</td>
+<td>Trie Insertion/Search</td>
+<td>Prefix tree for strings</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="graphs-and-trees-overview" class="level3">
+<h3 class="anchored" data-anchor-id="graphs-and-trees-overview">9. Graphs and Trees Overview</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>81</td>
+<td>DFS Traversal</td>
+<td>Depth-first exploration</td>
+</tr>
+<tr class="even">
+<td>82</td>
+<td>BFS Traversal</td>
+<td>Level-order exploration</td>
+</tr>
+<tr class="odd">
+<td>83</td>
+<td>Topological Sort</td>
+<td>DAG ordering</td>
+</tr>
+<tr class="even">
+<td>84</td>
+<td>Minimum Spanning Tree</td>
+<td>Kruskal/Prim overview</td>
+</tr>
+<tr class="odd">
+<td>85</td>
+<td>Dijkstra’s Shortest Path</td>
+<td>Weighted graph shortest route</td>
+</tr>
+<tr class="even">
+<td>86</td>
+<td>Bellman-Ford</td>
+<td>Handle negative edges</td>
+</tr>
+<tr class="odd">
+<td>87</td>
+<td>Floyd-Warshall</td>
+<td>All-pairs shortest path</td>
+</tr>
+<tr class="even">
+<td>88</td>
+<td>Union-Find for MST</td>
+<td>Edge grouping</td>
+</tr>
+<tr class="odd">
+<td>89</td>
+<td>Tree Traversals</td>
+<td>Inorder, Preorder, Postorder</td>
+</tr>
+<tr class="even">
+<td>90</td>
+<td>LCA (Lowest Common Ancestor)</td>
+<td>Common node in tree</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="algorithm-design-patterns" class="level3">
+<h3 class="anchored" data-anchor-id="algorithm-design-patterns">10. Algorithm Design Patterns</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>91</td>
+<td>Brute Force</td>
+<td>Try all possibilities</td>
+</tr>
+<tr class="even">
+<td>92</td>
+<td>Greedy Choice</td>
+<td>Local optimum per step</td>
+</tr>
+<tr class="odd">
+<td>93</td>
+<td>Divide and Conquer</td>
+<td>Break and merge</td>
+</tr>
+<tr class="even">
+<td>94</td>
+<td>Dynamic Programming</td>
+<td>Reuse subproblems</td>
+</tr>
+<tr class="odd">
+<td>95</td>
+<td>Backtracking</td>
+<td>Explore with undo</td>
+</tr>
+<tr class="even">
+<td>96</td>
+<td>Branch and Bound</td>
+<td>Prune search space</td>
+</tr>
+<tr class="odd">
+<td>97</td>
+<td>Randomized Algorithm</td>
+<td>Inject randomness</td>
+</tr>
+<tr class="even">
+<td>98</td>
+<td>Approximation Algorithm</td>
+<td>Near-optimal solution</td>
+</tr>
+<tr class="odd">
+<td>99</td>
+<td>Online Algorithm</td>
+<td>Step-by-step decision</td>
+</tr>
+<tr class="even">
+<td>100</td>
+<td>Hybrid Strategy</td>
+<td>Combine paradigms</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chapter-2.-sorting-and-searching" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-2.-sorting-and-searching">Chapter 2. Sorting and Searching</h2>
+<section id="elementary-sorting-bubble-insertion-selection" class="level3">
+<h3 class="anchored" data-anchor-id="elementary-sorting-bubble-insertion-selection">11. Elementary Sorting (Bubble, Insertion, Selection)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>101</td>
+<td>Bubble Sort</td>
+<td>Swap adjacent out-of-order elements</td>
+</tr>
+<tr class="even">
+<td>102</td>
+<td>Improved Bubble Sort</td>
+<td>Stop early if already sorted</td>
+</tr>
+<tr class="odd">
+<td>103</td>
+<td>Cocktail Shaker Sort</td>
+<td>Bidirectional bubble pass</td>
+</tr>
+<tr class="even">
+<td>104</td>
+<td>Selection Sort</td>
+<td>Select smallest element each pass</td>
+</tr>
+<tr class="odd">
+<td>105</td>
+<td>Double Selection Sort</td>
+<td>Find both min and max each pass</td>
+</tr>
+<tr class="even">
+<td>106</td>
+<td>Insertion Sort</td>
+<td>Insert each element into correct spot</td>
+</tr>
+<tr class="odd">
+<td>107</td>
+<td>Binary Insertion Sort</td>
+<td>Use binary search for position</td>
+</tr>
+<tr class="even">
+<td>108</td>
+<td>Gnome Sort</td>
+<td>Simple insertion-like with swaps</td>
+</tr>
+<tr class="odd">
+<td>109</td>
+<td>Odd-Even Sort</td>
+<td>Parallel-friendly comparison sort</td>
+</tr>
+<tr class="even">
+<td>110</td>
+<td>Stooge Sort</td>
+<td>Recursive quirky educational sort</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="divide-and-conquer-sorting-merge-quick-heap" class="level3">
+<h3 class="anchored" data-anchor-id="divide-and-conquer-sorting-merge-quick-heap">12. Divide-and-Conquer Sorting (Merge, Quick, Heap)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>111</td>
+<td>Merge Sort</td>
+<td>Recursive divide and merge</td>
+</tr>
+<tr class="even">
+<td>112</td>
+<td>Iterative Merge Sort</td>
+<td>Bottom-up non-recursive version</td>
+</tr>
+<tr class="odd">
+<td>113</td>
+<td>Quick Sort</td>
+<td>Partition-based recursive sort</td>
+</tr>
+<tr class="even">
+<td>114</td>
+<td>Hoare Partition Scheme</td>
+<td>Classic quicksort partition</td>
+</tr>
+<tr class="odd">
+<td>115</td>
+<td>Lomuto Partition Scheme</td>
+<td>Simpler but less efficient</td>
+</tr>
+<tr class="even">
+<td>116</td>
+<td>Randomized Quick Sort</td>
+<td>Avoid worst-case pivot</td>
+</tr>
+<tr class="odd">
+<td>117</td>
+<td>Heap Sort</td>
+<td>Heapify + extract max repeatedly</td>
+</tr>
+<tr class="even">
+<td>118</td>
+<td>3-Way Quick Sort</td>
+<td>Handle duplicates efficiently</td>
+</tr>
+<tr class="odd">
+<td>119</td>
+<td>External Merge Sort</td>
+<td>Disk-based merge for large data</td>
+</tr>
+<tr class="even">
+<td>120</td>
+<td>Parallel Merge Sort</td>
+<td>Divide work among threads</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="counting-and-distribution-sorts-counting-radix-bucket" class="level3">
+<h3 class="anchored" data-anchor-id="counting-and-distribution-sorts-counting-radix-bucket">13. Counting and Distribution Sorts (Counting, Radix, Bucket)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 37%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>121</td>
+<td>Counting Sort</td>
+<td>Count key occurrences</td>
+</tr>
+<tr class="even">
+<td>122</td>
+<td>Stable Counting Sort</td>
+<td>Preserve order of equals</td>
+</tr>
+<tr class="odd">
+<td>123</td>
+<td>Radix Sort (LSD)</td>
+<td>Least significant digit first</td>
+</tr>
+<tr class="even">
+<td>124</td>
+<td>Radix Sort (MSD)</td>
+<td>Most significant digit first</td>
+</tr>
+<tr class="odd">
+<td>125</td>
+<td>Bucket Sort</td>
+<td>Distribute into buckets</td>
+</tr>
+<tr class="even">
+<td>126</td>
+<td>Pigeonhole Sort</td>
+<td>Simple bucket variant</td>
+</tr>
+<tr class="odd">
+<td>127</td>
+<td>Flash Sort</td>
+<td>Distribution with in-place correction</td>
+</tr>
+<tr class="even">
+<td>128</td>
+<td>Postman Sort</td>
+<td>Stable multi-key sort</td>
+</tr>
+<tr class="odd">
+<td>129</td>
+<td>Address Calculation Sort</td>
+<td>Hash-like distribution</td>
+</tr>
+<tr class="even">
+<td>130</td>
+<td>Spread Sort</td>
+<td>Hybrid radix/quick strategy</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="hybrid-sorts-introsort-timsort" class="level3">
+<h3 class="anchored" data-anchor-id="hybrid-sorts-introsort-timsort">14. Hybrid Sorts (IntroSort, Timsort)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>131</td>
+<td>IntroSort</td>
+<td>Quick + Heap fallback</td>
+</tr>
+<tr class="even">
+<td>132</td>
+<td>TimSort</td>
+<td>Merge + Insertion + Runs</td>
+</tr>
+<tr class="odd">
+<td>133</td>
+<td>Dual-Pivot QuickSort</td>
+<td>Modern quicksort optimization</td>
+</tr>
+<tr class="even">
+<td>134</td>
+<td>SmoothSort</td>
+<td>Heap-like adaptive sort</td>
+</tr>
+<tr class="odd">
+<td>135</td>
+<td>Block Merge Sort</td>
+<td>Cache-efficient merge variant</td>
+</tr>
+<tr class="even">
+<td>136</td>
+<td>Adaptive Merge Sort</td>
+<td>Adjusts to partially sorted data</td>
+</tr>
+<tr class="odd">
+<td>137</td>
+<td>PDQSort</td>
+<td>Pattern-defeating quicksort</td>
+</tr>
+<tr class="even">
+<td>138</td>
+<td>WikiSort</td>
+<td>Stable in-place merge</td>
+</tr>
+<tr class="odd">
+<td>139</td>
+<td>GrailSort</td>
+<td>In-place stable mergesort</td>
+</tr>
+<tr class="even">
+<td>140</td>
+<td>Adaptive Hybrid Sort</td>
+<td>Dynamically selects strategy</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="special-sorts-cycle-gnome-comb-pancake" class="level3">
+<h3 class="anchored" data-anchor-id="special-sorts-cycle-gnome-comb-pancake">15. Special Sorts (Cycle, Gnome, Comb, Pancake)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>141</td>
+<td>Cycle Sort</td>
+<td>Minimal writes</td>
+</tr>
+<tr class="even">
+<td>142</td>
+<td>Comb Sort</td>
+<td>Shrinking gap bubble</td>
+</tr>
+<tr class="odd">
+<td>143</td>
+<td>Gnome Sort</td>
+<td>Insertion-like with swaps</td>
+</tr>
+<tr class="even">
+<td>144</td>
+<td>Cocktail Sort</td>
+<td>Two-way bubble</td>
+</tr>
+<tr class="odd">
+<td>145</td>
+<td>Pancake Sort</td>
+<td>Flip-based sorting</td>
+</tr>
+<tr class="even">
+<td>146</td>
+<td>Bitonic Sort</td>
+<td>Parallel network sorting</td>
+</tr>
+<tr class="odd">
+<td>147</td>
+<td>Odd-Even Merge Sort</td>
+<td>Sorting network design</td>
+</tr>
+<tr class="even">
+<td>148</td>
+<td>Sleep Sort</td>
+<td>Uses timing as order key</td>
+</tr>
+<tr class="odd">
+<td>149</td>
+<td>Bead Sort</td>
+<td>Simulates gravity</td>
+</tr>
+<tr class="even">
+<td>150</td>
+<td>Bogo Sort</td>
+<td>Randomly permute until sorted</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="linear-and-binary-search" class="level3">
+<h3 class="anchored" data-anchor-id="linear-and-binary-search">16. Linear and Binary Search</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>151</td>
+<td>Linear Search</td>
+<td>Scan sequentially</td>
+</tr>
+<tr class="even">
+<td>152</td>
+<td>Linear Search (Sentinel)</td>
+<td>Guard element at end</td>
+</tr>
+<tr class="odd">
+<td>153</td>
+<td>Binary Search (Iterative)</td>
+<td>Halve interval each loop</td>
+</tr>
+<tr class="even">
+<td>154</td>
+<td>Binary Search (Recursive)</td>
+<td>Halve interval via recursion</td>
+</tr>
+<tr class="odd">
+<td>155</td>
+<td>Binary Search (Lower Bound)</td>
+<td>First &gt;= target</td>
+</tr>
+<tr class="even">
+<td>156</td>
+<td>Binary Search (Upper Bound)</td>
+<td>First &gt; target</td>
+</tr>
+<tr class="odd">
+<td>157</td>
+<td>Exponential Search</td>
+<td>Double step size</td>
+</tr>
+<tr class="even">
+<td>158</td>
+<td>Jump Search</td>
+<td>Jump fixed steps then linear</td>
+</tr>
+<tr class="odd">
+<td>159</td>
+<td>Fibonacci Search</td>
+<td>Golden-ratio style jumps</td>
+</tr>
+<tr class="even">
+<td>160</td>
+<td>Uniform Binary Search</td>
+<td>Avoid recomputing midpoints</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="interpolation-and-exponential-search" class="level3">
+<h3 class="anchored" data-anchor-id="interpolation-and-exponential-search">17. Interpolation and Exponential Search</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>161</td>
+<td>Interpolation Search</td>
+<td>Estimate index by value</td>
+</tr>
+<tr class="even">
+<td>162</td>
+<td>Recursive Interpolation Search</td>
+<td>Divide by estimated midpoint</td>
+</tr>
+<tr class="odd">
+<td>163</td>
+<td>Exponential Search</td>
+<td>Double and binary refine</td>
+</tr>
+<tr class="even">
+<td>164</td>
+<td>Doubling Search</td>
+<td>Generic exponential pattern</td>
+</tr>
+<tr class="odd">
+<td>165</td>
+<td>Galloping Search</td>
+<td>Used in TimSort merges</td>
+</tr>
+<tr class="even">
+<td>166</td>
+<td>Unbounded Binary Search</td>
+<td>Find bounds dynamically</td>
+</tr>
+<tr class="odd">
+<td>167</td>
+<td>Root-Finding Bisection</td>
+<td>Search zero-crossing</td>
+</tr>
+<tr class="even">
+<td>168</td>
+<td>Golden Section Search</td>
+<td>Optimize unimodal function</td>
+</tr>
+<tr class="odd">
+<td>169</td>
+<td>Fibonacci Search (Optimum)</td>
+<td>Similar to golden search</td>
+</tr>
+<tr class="even">
+<td>170</td>
+<td>Jump + Binary Hybrid</td>
+<td>Combined probing strategy</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="selection-algorithms-quickselect-median-of-medians" class="level3">
+<h3 class="anchored" data-anchor-id="selection-algorithms-quickselect-median-of-medians">18. Selection Algorithms (Quickselect, Median of Medians)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>171</td>
+<td>Quickselect</td>
+<td>Partition-based selection</td>
+</tr>
+<tr class="even">
+<td>172</td>
+<td>Median of Medians</td>
+<td>Deterministic pivot</td>
+</tr>
+<tr class="odd">
+<td>173</td>
+<td>Randomized Select</td>
+<td>Random pivot version</td>
+</tr>
+<tr class="even">
+<td>174</td>
+<td>Binary Search on Answer</td>
+<td>Range-based selection</td>
+</tr>
+<tr class="odd">
+<td>175</td>
+<td>Order Statistics Tree</td>
+<td>BST with rank queries</td>
+</tr>
+<tr class="even">
+<td>176</td>
+<td>Tournament Tree Selection</td>
+<td>Hierarchical comparison</td>
+</tr>
+<tr class="odd">
+<td>177</td>
+<td>Heap Select (Min-Heap)</td>
+<td>Maintain top-k elements</td>
+</tr>
+<tr class="even">
+<td>178</td>
+<td>Partial QuickSort</td>
+<td>Sort partial prefix</td>
+</tr>
+<tr class="odd">
+<td>179</td>
+<td>BFPRT Algorithm</td>
+<td>Linear-time selection</td>
+</tr>
+<tr class="even">
+<td>180</td>
+<td>Kth Largest Stream</td>
+<td>Streaming selection</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="range-searching-and-nearest-neighbor" class="level3">
+<h3 class="anchored" data-anchor-id="range-searching-and-nearest-neighbor">19. Range Searching and Nearest Neighbor</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>181</td>
+<td>Binary Search Range</td>
+<td>Find lower and upper bounds</td>
+</tr>
+<tr class="even">
+<td>182</td>
+<td>Segment Tree Query</td>
+<td>Sum/min/max over interval</td>
+</tr>
+<tr class="odd">
+<td>183</td>
+<td>Fenwick Tree Query</td>
+<td>Efficient prefix sums</td>
+</tr>
+<tr class="even">
+<td>184</td>
+<td>Interval Tree Search</td>
+<td>Overlap queries</td>
+</tr>
+<tr class="odd">
+<td>185</td>
+<td>KD-Tree Search</td>
+<td>Spatial nearest neighbor</td>
+</tr>
+<tr class="even">
+<td>186</td>
+<td>R-Tree Query</td>
+<td>Range search in geometry</td>
+</tr>
+<tr class="odd">
+<td>187</td>
+<td>Range Minimum Query (RMQ)</td>
+<td>Sparse table approach</td>
+</tr>
+<tr class="even">
+<td>188</td>
+<td>Mo’s Algorithm</td>
+<td>Offline query reordering</td>
+</tr>
+<tr class="odd">
+<td>189</td>
+<td>Sweep Line Range Search</td>
+<td>Sort + scan technique</td>
+</tr>
+<tr class="even">
+<td>190</td>
+<td>Ball Tree Nearest Neighbor</td>
+<td>Metric-space search</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="search-optimizations-and-variants" class="level3">
+<h3 class="anchored" data-anchor-id="search-optimizations-and-variants">20. Search Optimizations and Variants</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>191</td>
+<td>Binary Search with Tolerance</td>
+<td>For floating values</td>
+</tr>
+<tr class="even">
+<td>192</td>
+<td>Ternary Search</td>
+<td>Unimodal optimization</td>
+</tr>
+<tr class="odd">
+<td>193</td>
+<td>Hash-Based Search</td>
+<td>O(1) expected lookup</td>
+</tr>
+<tr class="even">
+<td>194</td>
+<td>Bloom Filter Lookup</td>
+<td>Probabilistic membership</td>
+</tr>
+<tr class="odd">
+<td>195</td>
+<td>Cuckoo Hash Search</td>
+<td>Dual-hash relocation</td>
+</tr>
+<tr class="even">
+<td>196</td>
+<td>Robin Hood Hashing</td>
+<td>Equalize probe lengths</td>
+</tr>
+<tr class="odd">
+<td>197</td>
+<td>Jump Consistent Hashing</td>
+<td>Stable hash assignment</td>
+</tr>
+<tr class="even">
+<td>198</td>
+<td>Prefix Search in Trie</td>
+<td>Auto-completion lookup</td>
+</tr>
+<tr class="odd">
+<td>199</td>
+<td>Pattern Search in Suffix Array</td>
+<td>Fast substring lookup</td>
+</tr>
+<tr class="even">
+<td>200</td>
+<td>Search in Infinite Array</td>
+<td>Dynamic bound finding</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chapter-3.-data-structures-in-action" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-3.-data-structures-in-action">Chapter 3. Data Structures in Action</h2>
+<section id="arrays-linked-lists-stacks-queues" class="level3">
+<h3 class="anchored" data-anchor-id="arrays-linked-lists-stacks-queues">21. Arrays, Linked Lists, Stacks, Queues</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 47%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>201</td>
+<td>Dynamic Array Resize</td>
+<td>Doubling strategy for capacity</td>
+</tr>
+<tr class="even">
+<td>202</td>
+<td>Circular Array Implementation</td>
+<td>Wrap-around indexing</td>
+</tr>
+<tr class="odd">
+<td>203</td>
+<td>Singly Linked List Insert/Delete</td>
+<td>Basic node manipulation</td>
+</tr>
+<tr class="even">
+<td>204</td>
+<td>Doubly Linked List Insert/Delete</td>
+<td>Two-way linkage</td>
+</tr>
+<tr class="odd">
+<td>205</td>
+<td>Stack Push/Pop</td>
+<td>LIFO structure</td>
+</tr>
+<tr class="even">
+<td>206</td>
+<td>Queue Enqueue/Dequeue</td>
+<td>FIFO structure</td>
+</tr>
+<tr class="odd">
+<td>207</td>
+<td>Deque Implementation</td>
+<td>Double-ended queue</td>
+</tr>
+<tr class="even">
+<td>208</td>
+<td>Circular Queue</td>
+<td>Fixed-size queue with wrap-around</td>
+</tr>
+<tr class="odd">
+<td>209</td>
+<td>Stack via Queue</td>
+<td>Implement stack using two queues</td>
+</tr>
+<tr class="even">
+<td>210</td>
+<td>Queue via Stack</td>
+<td>Implement queue using two stacks</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="hash-tables-and-variants-cuckoo-robin-hood-consistent" class="level3">
+<h3 class="anchored" data-anchor-id="hash-tables-and-variants-cuckoo-robin-hood-consistent">22. Hash Tables and Variants (Cuckoo, Robin Hood, Consistent)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>211</td>
+<td>Hash Table Insertion</td>
+<td>Key-value pair with modulo</td>
+</tr>
+<tr class="even">
+<td>212</td>
+<td>Linear Probing</td>
+<td>Resolve collisions sequentially</td>
+</tr>
+<tr class="odd">
+<td>213</td>
+<td>Quadratic Probing</td>
+<td>Nonlinear probing sequence</td>
+</tr>
+<tr class="even">
+<td>214</td>
+<td>Double Hashing</td>
+<td>Alternate hash on collision</td>
+</tr>
+<tr class="odd">
+<td>215</td>
+<td>Cuckoo Hashing</td>
+<td>Two-table relocation strategy</td>
+</tr>
+<tr class="even">
+<td>216</td>
+<td>Robin Hood Hashing</td>
+<td>Equalize probe length fairness</td>
+</tr>
+<tr class="odd">
+<td>217</td>
+<td>Chained Hash Table</td>
+<td>Linked list buckets</td>
+</tr>
+<tr class="even">
+<td>218</td>
+<td>Perfect Hashing</td>
+<td>No-collision mapping</td>
+</tr>
+<tr class="odd">
+<td>219</td>
+<td>Consistent Hashing</td>
+<td>Stable distribution across nodes</td>
+</tr>
+<tr class="even">
+<td>220</td>
+<td>Dynamic Rehashing</td>
+<td>Resize on load factor threshold</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="heaps-binary-fibonacci-pairing" class="level3">
+<h3 class="anchored" data-anchor-id="heaps-binary-fibonacci-pairing">23. Heaps (Binary, Fibonacci, Pairing)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>221</td>
+<td>Binary Heap Insert</td>
+<td>Bubble-up maintenance</td>
+</tr>
+<tr class="even">
+<td>222</td>
+<td>Binary Heap Delete</td>
+<td>Heapify-down maintenance</td>
+</tr>
+<tr class="odd">
+<td>223</td>
+<td>Build Heap (Heapify)</td>
+<td>Bottom-up O(n) build</td>
+</tr>
+<tr class="even">
+<td>224</td>
+<td>Heap Sort</td>
+<td>Extract max repeatedly</td>
+</tr>
+<tr class="odd">
+<td>225</td>
+<td>Min Heap Implementation</td>
+<td>For smallest element access</td>
+</tr>
+<tr class="even">
+<td>226</td>
+<td>Max Heap Implementation</td>
+<td>For largest element access</td>
+</tr>
+<tr class="odd">
+<td>227</td>
+<td>Fibonacci Heap Insert/Delete</td>
+<td>Amortized efficient operations</td>
+</tr>
+<tr class="even">
+<td>228</td>
+<td>Pairing Heap Merge</td>
+<td>Lightweight mergeable heap</td>
+</tr>
+<tr class="odd">
+<td>229</td>
+<td>Binomial Heap Merge</td>
+<td>Merge trees of equal order</td>
+</tr>
+<tr class="even">
+<td>230</td>
+<td>Leftist Heap Merge</td>
+<td>Maintain rank-skewed heap</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="balanced-trees-avl-red-black-splay-treap" class="level3">
+<h3 class="anchored" data-anchor-id="balanced-trees-avl-red-black-splay-treap">24. Balanced Trees (AVL, Red-Black, Splay, Treap)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>231</td>
+<td>AVL Tree Insert</td>
+<td>Rotate to maintain balance</td>
+</tr>
+<tr class="even">
+<td>232</td>
+<td>AVL Tree Delete</td>
+<td>Balance after deletion</td>
+</tr>
+<tr class="odd">
+<td>233</td>
+<td>Red-Black Tree Insert</td>
+<td>Color fix and rotations</td>
+</tr>
+<tr class="even">
+<td>234</td>
+<td>Red-Black Tree Delete</td>
+<td>Maintain invariants</td>
+</tr>
+<tr class="odd">
+<td>235</td>
+<td>Splay Tree Access</td>
+<td>Move accessed node to root</td>
+</tr>
+<tr class="even">
+<td>236</td>
+<td>Treap Insert</td>
+<td>Priority-based rotation</td>
+</tr>
+<tr class="odd">
+<td>237</td>
+<td>Treap Delete</td>
+<td>Randomized balance</td>
+</tr>
+<tr class="even">
+<td>238</td>
+<td>Weight Balanced Tree</td>
+<td>Maintain subtree weights</td>
+</tr>
+<tr class="odd">
+<td>239</td>
+<td>Scapegoat Tree Rebuild</td>
+<td>Rebalance on size threshold</td>
+</tr>
+<tr class="even">
+<td>240</td>
+<td>AA Tree</td>
+<td>Simplified red-black variant</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="segment-trees-and-fenwick-trees" class="level3">
+<h3 class="anchored" data-anchor-id="segment-trees-and-fenwick-trees">25. Segment Trees and Fenwick Trees</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>241</td>
+<td>Build Segment Tree</td>
+<td>Recursive construction</td>
+</tr>
+<tr class="even">
+<td>242</td>
+<td>Range Sum Query</td>
+<td>Recursive or iterative query</td>
+</tr>
+<tr class="odd">
+<td>243</td>
+<td>Range Update</td>
+<td>Lazy propagation technique</td>
+</tr>
+<tr class="even">
+<td>244</td>
+<td>Point Update</td>
+<td>Modify single element</td>
+</tr>
+<tr class="odd">
+<td>245</td>
+<td>Fenwick Tree Build</td>
+<td>Incremental binary index</td>
+</tr>
+<tr class="even">
+<td>246</td>
+<td>Fenwick Update</td>
+<td>Update cumulative sums</td>
+</tr>
+<tr class="odd">
+<td>247</td>
+<td>Fenwick Query</td>
+<td>Prefix sum retrieval</td>
+</tr>
+<tr class="even">
+<td>248</td>
+<td>Segment Tree Merge</td>
+<td>Combine child results</td>
+</tr>
+<tr class="odd">
+<td>249</td>
+<td>Persistent Segment Tree</td>
+<td>Maintain history of versions</td>
+</tr>
+<tr class="even">
+<td>250</td>
+<td>2D Segment Tree</td>
+<td>For matrix range queries</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="disjoint-set-union-union-find" class="level3">
+<h3 class="anchored" data-anchor-id="disjoint-set-union-union-find">26. Disjoint Set Union (Union-Find)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>251</td>
+<td>Make-Set</td>
+<td>Initialize each element</td>
+</tr>
+<tr class="even">
+<td>252</td>
+<td>Find</td>
+<td>Locate representative</td>
+</tr>
+<tr class="odd">
+<td>253</td>
+<td>Union</td>
+<td>Merge two sets</td>
+</tr>
+<tr class="even">
+<td>254</td>
+<td>Union by Rank</td>
+<td>Attach smaller tree to larger</td>
+</tr>
+<tr class="odd">
+<td>255</td>
+<td>Path Compression</td>
+<td>Flatten tree structure</td>
+</tr>
+<tr class="even">
+<td>256</td>
+<td>DSU with Rollback</td>
+<td>Support undo operations</td>
+</tr>
+<tr class="odd">
+<td>257</td>
+<td>DSU on Tree</td>
+<td>Track subtree connectivity</td>
+</tr>
+<tr class="even">
+<td>258</td>
+<td>Kruskal’s MST</td>
+<td>Edge selection with DSU</td>
+</tr>
+<tr class="odd">
+<td>259</td>
+<td>Connected Components</td>
+<td>Group graph nodes</td>
+</tr>
+<tr class="even">
+<td>260</td>
+<td>Offline Query DSU</td>
+<td>Handle dynamic unions</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="probabilistic-data-structures-bloom-count-min-hyperloglog" class="level3">
+<h3 class="anchored" data-anchor-id="probabilistic-data-structures-bloom-count-min-hyperloglog">27. Probabilistic Data Structures (Bloom, Count-Min, HyperLogLog)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>261</td>
+<td>Bloom Filter Insert</td>
+<td>Hash to bit array</td>
+</tr>
+<tr class="even">
+<td>262</td>
+<td>Bloom Filter Query</td>
+<td>Probabilistic membership check</td>
+</tr>
+<tr class="odd">
+<td>263</td>
+<td>Counting Bloom Filter</td>
+<td>Support deletions via counters</td>
+</tr>
+<tr class="even">
+<td>264</td>
+<td>Cuckoo Filter</td>
+<td>Space-efficient alternative</td>
+</tr>
+<tr class="odd">
+<td>265</td>
+<td>Count-Min Sketch</td>
+<td>Approximate frequency table</td>
+</tr>
+<tr class="even">
+<td>266</td>
+<td>HyperLogLog</td>
+<td>Cardinality estimation</td>
+</tr>
+<tr class="odd">
+<td>267</td>
+<td>Flajolet-Martin</td>
+<td>Early probabilistic counting</td>
+</tr>
+<tr class="even">
+<td>268</td>
+<td>MinHash</td>
+<td>Estimate Jaccard similarity</td>
+</tr>
+<tr class="odd">
+<td>269</td>
+<td>Reservoir Sampling</td>
+<td>Random k-sample stream</td>
+</tr>
+<tr class="even">
+<td>270</td>
+<td>Skip Bloom Filter</td>
+<td>Range queries on Bloom</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="skip-lists-and-b-trees" class="level3">
+<h3 class="anchored" data-anchor-id="skip-lists-and-b-trees">28. Skip Lists and B-Trees</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>271</td>
+<td>Skip List Insert</td>
+<td>Probabilistic layered list</td>
+</tr>
+<tr class="even">
+<td>272</td>
+<td>Skip List Delete</td>
+<td>Adjust pointers</td>
+</tr>
+<tr class="odd">
+<td>273</td>
+<td>Skip List Search</td>
+<td>Jump via tower levels</td>
+</tr>
+<tr class="even">
+<td>274</td>
+<td>B-Tree Insert</td>
+<td>Split on overflow</td>
+</tr>
+<tr class="odd">
+<td>275</td>
+<td>B-Tree Delete</td>
+<td>Merge on underflow</td>
+</tr>
+<tr class="even">
+<td>276</td>
+<td>B+ Tree Search</td>
+<td>Leaf-based sequential scan</td>
+</tr>
+<tr class="odd">
+<td>277</td>
+<td>B+ Tree Range Query</td>
+<td>Efficient ordered access</td>
+</tr>
+<tr class="even">
+<td>278</td>
+<td>B* Tree</td>
+<td>More space-efficient variant</td>
+</tr>
+<tr class="odd">
+<td>279</td>
+<td>Adaptive Radix Tree</td>
+<td>Byte-wise branching</td>
+</tr>
+<tr class="even">
+<td>280</td>
+<td>Trie Compression</td>
+<td>Path compression optimization</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="persistent-and-functional-data-structures" class="level3">
+<h3 class="anchored" data-anchor-id="persistent-and-functional-data-structures">29. Persistent and Functional Data Structures</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>281</td>
+<td>Persistent Stack</td>
+<td>Keep all versions</td>
+</tr>
+<tr class="even">
+<td>282</td>
+<td>Persistent Array</td>
+<td>Copy-on-write segments</td>
+</tr>
+<tr class="odd">
+<td>283</td>
+<td>Persistent Segment Tree</td>
+<td>Versioned updates</td>
+</tr>
+<tr class="even">
+<td>284</td>
+<td>Persistent Linked List</td>
+<td>Immutable nodes</td>
+</tr>
+<tr class="odd">
+<td>285</td>
+<td>Functional Queue</td>
+<td>Amortized reverse lists</td>
+</tr>
+<tr class="even">
+<td>286</td>
+<td>Finger Tree</td>
+<td>Fast concat and split</td>
+</tr>
+<tr class="odd">
+<td>287</td>
+<td>Zipper Structure</td>
+<td>Localized mutation</td>
+</tr>
+<tr class="even">
+<td>288</td>
+<td>Red-Black Persistent Tree</td>
+<td>Immutable balanced tree</td>
+</tr>
+<tr class="odd">
+<td>289</td>
+<td>Trie with Versioning</td>
+<td>Historical string lookup</td>
+</tr>
+<tr class="even">
+<td>290</td>
+<td>Persistent Union-Find</td>
+<td>Time-travel connectivity</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="advanced-trees-and-range-queries" class="level3">
+<h3 class="anchored" data-anchor-id="advanced-trees-and-range-queries">30. Advanced Trees and Range Queries</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>291</td>
+<td>Sparse Table Build</td>
+<td>Static range min/max</td>
+</tr>
+<tr class="even">
+<td>292</td>
+<td>Cartesian Tree</td>
+<td>RMQ to LCA transformation</td>
+</tr>
+<tr class="odd">
+<td>293</td>
+<td>Segment Tree Beats</td>
+<td>Handle complex queries</td>
+</tr>
+<tr class="even">
+<td>294</td>
+<td>Merge Sort Tree</td>
+<td>Range count queries</td>
+</tr>
+<tr class="odd">
+<td>295</td>
+<td>Wavelet Tree</td>
+<td>Rank/select by value</td>
+</tr>
+<tr class="even">
+<td>296</td>
+<td>KD-Tree</td>
+<td>Multidimensional queries</td>
+</tr>
+<tr class="odd">
+<td>297</td>
+<td>Range Tree</td>
+<td>Orthogonal range queries</td>
+</tr>
+<tr class="even">
+<td>298</td>
+<td>Fenwick 2D Tree</td>
+<td>Matrix prefix sums</td>
+</tr>
+<tr class="odd">
+<td>299</td>
+<td>Treap Split/Merge</td>
+<td>Range-based treap ops</td>
+</tr>
+<tr class="even">
+<td>300</td>
+<td>Mo’s Algorithm on Tree</td>
+<td>Offline subtree queries</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chapter-4.-graph-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-4.-graph-algorithms">Chapter 4. Graph Algorithms</h2>
+<section id="traversals-dfs-bfs-iterative-deepening" class="level3">
+<h3 class="anchored" data-anchor-id="traversals-dfs-bfs-iterative-deepening">31. Traversals (DFS, BFS, Iterative Deepening)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 47%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>301</td>
+<td>Depth-First Search (Recursive)</td>
+<td>Explore deeply before backtracking</td>
+</tr>
+<tr class="even">
+<td>302</td>
+<td>Depth-First Search (Iterative)</td>
+<td>Stack-based exploration</td>
+</tr>
+<tr class="odd">
+<td>303</td>
+<td>Breadth-First Search (Queue)</td>
+<td>Level-order traversal</td>
+</tr>
+<tr class="even">
+<td>304</td>
+<td>Iterative Deepening DFS</td>
+<td>Combine depth-limit + completeness</td>
+</tr>
+<tr class="odd">
+<td>305</td>
+<td>Bidirectional BFS</td>
+<td>Search from both ends</td>
+</tr>
+<tr class="even">
+<td>306</td>
+<td>DFS on Grid</td>
+<td>Maze solving / connected components</td>
+</tr>
+<tr class="odd">
+<td>307</td>
+<td>BFS on Grid</td>
+<td>Shortest path in unweighted graph</td>
+</tr>
+<tr class="even">
+<td>308</td>
+<td>Multi-Source BFS</td>
+<td>Parallel layer expansion</td>
+</tr>
+<tr class="odd">
+<td>309</td>
+<td>Topological Sort (DFS-based)</td>
+<td>DAG ordering</td>
+</tr>
+<tr class="even">
+<td>310</td>
+<td>Topological Sort (Kahn’s Algorithm)</td>
+<td>In-degree tracking</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="strongly-connected-components-tarjan-kosaraju" class="level3">
+<h3 class="anchored" data-anchor-id="strongly-connected-components-tarjan-kosaraju">32. Strongly Connected Components (Tarjan, Kosaraju)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>311</td>
+<td>Kosaraju’s Algorithm</td>
+<td>Two-pass DFS</td>
+</tr>
+<tr class="even">
+<td>312</td>
+<td>Tarjan’s Algorithm</td>
+<td>Low-link discovery</td>
+</tr>
+<tr class="odd">
+<td>313</td>
+<td>Gabow’s Algorithm</td>
+<td>Stack pair tracking</td>
+</tr>
+<tr class="even">
+<td>314</td>
+<td>SCC DAG Construction</td>
+<td>Condensed component graph</td>
+</tr>
+<tr class="odd">
+<td>315</td>
+<td>SCC Online Merge</td>
+<td>Incremental condensation</td>
+</tr>
+<tr class="even">
+<td>316</td>
+<td>Component Label Propagation</td>
+<td>Iterative labeling</td>
+</tr>
+<tr class="odd">
+<td>317</td>
+<td>Path-Based SCC</td>
+<td>DFS with path stack</td>
+</tr>
+<tr class="even">
+<td>318</td>
+<td>Kosaraju Parallel Version</td>
+<td>SCC via parallel DFS</td>
+</tr>
+<tr class="odd">
+<td>319</td>
+<td>Dynamic SCC Maintenance</td>
+<td>Add/remove edges</td>
+</tr>
+<tr class="even">
+<td>320</td>
+<td>SCC for Weighted Graph</td>
+<td>Combine with edge weights</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="shortest-paths-dijkstra-bellman-ford-a-johnson" class="level3">
+<h3 class="anchored" data-anchor-id="shortest-paths-dijkstra-bellman-ford-a-johnson">33. Shortest Paths (Dijkstra, Bellman-Ford, A*, Johnson)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>321</td>
+<td>Dijkstra (Binary Heap)</td>
+<td>Greedy edge relaxation</td>
+</tr>
+<tr class="even">
+<td>322</td>
+<td>Dijkstra (Fibonacci Heap)</td>
+<td>Improved priority queue</td>
+</tr>
+<tr class="odd">
+<td>323</td>
+<td>Bellman-Ford</td>
+<td>Negative weights support</td>
+</tr>
+<tr class="even">
+<td>324</td>
+<td>SPFA (Queue Optimization)</td>
+<td>Faster average Bellman-Ford</td>
+</tr>
+<tr class="odd">
+<td>325</td>
+<td>A* Search</td>
+<td>Heuristic-guided path</td>
+</tr>
+<tr class="even">
+<td>326</td>
+<td>Floyd–Warshall</td>
+<td>All-pairs shortest path</td>
+</tr>
+<tr class="odd">
+<td>327</td>
+<td>Johnson’s Algorithm</td>
+<td>All-pairs using reweighting</td>
+</tr>
+<tr class="even">
+<td>328</td>
+<td>0-1 BFS</td>
+<td>Deque-based shortest path</td>
+</tr>
+<tr class="odd">
+<td>329</td>
+<td>Dial’s Algorithm</td>
+<td>Integer weight buckets</td>
+</tr>
+<tr class="even">
+<td>330</td>
+<td>Multi-Source Dijkstra</td>
+<td>Multiple starting points</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="shortest-path-variants-01-bfs-bidirectional-heuristic-a" class="level3">
+<h3 class="anchored" data-anchor-id="shortest-path-variants-01-bfs-bidirectional-heuristic-a">34. Shortest Path Variants (0–1 BFS, Bidirectional, Heuristic A*)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 42%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>331</td>
+<td>0–1 BFS</td>
+<td>For edges with weight 0 or 1</td>
+</tr>
+<tr class="even">
+<td>332</td>
+<td>Bidirectional Dijkstra</td>
+<td>Meet in the middle</td>
+</tr>
+<tr class="odd">
+<td>333</td>
+<td>A* with Euclidean Heuristic</td>
+<td>Spatial shortest path</td>
+</tr>
+<tr class="even">
+<td>334</td>
+<td>ALT Algorithm</td>
+<td>A* landmarks + triangle inequality</td>
+</tr>
+<tr class="odd">
+<td>335</td>
+<td>Contraction Hierarchies</td>
+<td>Preprocessing for road networks</td>
+</tr>
+<tr class="even">
+<td>336</td>
+<td>CH Query Algorithm</td>
+<td>Shortcut-based routing</td>
+</tr>
+<tr class="odd">
+<td>337</td>
+<td>Bellman-Ford Queue Variant</td>
+<td>Early termination</td>
+</tr>
+<tr class="even">
+<td>338</td>
+<td>Dijkstra with Early Stop</td>
+<td>Halt on target</td>
+</tr>
+<tr class="odd">
+<td>339</td>
+<td>Goal-Directed Search</td>
+<td>Restrict expansion direction</td>
+</tr>
+<tr class="even">
+<td>340</td>
+<td>Yen’s K Shortest Paths</td>
+<td>Enumerate multiple best paths</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="minimum-spanning-trees-kruskal-prim-borůvka" class="level3">
+<h3 class="anchored" data-anchor-id="minimum-spanning-trees-kruskal-prim-borůvka">35. Minimum Spanning Trees (Kruskal, Prim, Borůvka)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>341</td>
+<td>Kruskal’s Algorithm</td>
+<td>Sort edges + union-find</td>
+</tr>
+<tr class="even">
+<td>342</td>
+<td>Prim’s Algorithm (Heap)</td>
+<td>Grow MST from seed</td>
+</tr>
+<tr class="odd">
+<td>343</td>
+<td>Prim’s Algorithm (Adj Matrix)</td>
+<td>Dense graph variant</td>
+</tr>
+<tr class="even">
+<td>344</td>
+<td>Borůvka’s Algorithm</td>
+<td>Component merging</td>
+</tr>
+<tr class="odd">
+<td>345</td>
+<td>Reverse-Delete MST</td>
+<td>Remove heavy edges</td>
+</tr>
+<tr class="even">
+<td>346</td>
+<td>MST via Dijkstra Trick</td>
+<td>For positive weights</td>
+</tr>
+<tr class="odd">
+<td>347</td>
+<td>Dynamic MST Maintenance</td>
+<td>Handle edge updates</td>
+</tr>
+<tr class="even">
+<td>348</td>
+<td>Minimum Bottleneck Spanning Tree</td>
+<td>Max edge minimization</td>
+</tr>
+<tr class="odd">
+<td>349</td>
+<td>Manhattan MST</td>
+<td>Grid graph optimization</td>
+</tr>
+<tr class="even">
+<td>350</td>
+<td>Euclidean MST (Kruskal + Geometry)</td>
+<td>Use Delaunay graph</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="flows-fordfulkerson-edmondskarp-dinic" class="level3">
+<h3 class="anchored" data-anchor-id="flows-fordfulkerson-edmondskarp-dinic">36. Flows (Ford–Fulkerson, Edmonds–Karp, Dinic)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 50%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>351</td>
+<td>Ford–Fulkerson</td>
+<td>Augmenting path method</td>
+</tr>
+<tr class="even">
+<td>352</td>
+<td>Edmonds–Karp</td>
+<td>BFS-based Ford–Fulkerson</td>
+</tr>
+<tr class="odd">
+<td>353</td>
+<td>Dinic’s Algorithm</td>
+<td>Level graph + blocking flow</td>
+</tr>
+<tr class="even">
+<td>354</td>
+<td>Push–Relabel</td>
+<td>Local preflow push</td>
+</tr>
+<tr class="odd">
+<td>355</td>
+<td>Capacity Scaling</td>
+<td>Speed-up with capacity tiers</td>
+</tr>
+<tr class="even">
+<td>356</td>
+<td>Cost Scaling</td>
+<td>Min-cost optimization</td>
+</tr>
+<tr class="odd">
+<td>357</td>
+<td>Min-Cost Max-Flow (Bellman-Ford)</td>
+<td>Costed augmenting paths</td>
+</tr>
+<tr class="even">
+<td>358</td>
+<td>Min-Cost Max-Flow (SPFA)</td>
+<td>Faster average</td>
+</tr>
+<tr class="odd">
+<td>359</td>
+<td>Circulation with Demands</td>
+<td>Generalized flow formulation</td>
+</tr>
+<tr class="even">
+<td>360</td>
+<td>Successive Shortest Path</td>
+<td>Incremental min-cost updates</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cuts-stoerwagner-karger-gomoryhu" class="level3">
+<h3 class="anchored" data-anchor-id="cuts-stoerwagner-karger-gomoryhu">37. Cuts (Stoer–Wagner, Karger, Gomory–Hu)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>361</td>
+<td>Stoer–Wagner Minimum Cut</td>
+<td>Global min cut</td>
+</tr>
+<tr class="even">
+<td>362</td>
+<td>Karger’s Randomized Cut</td>
+<td>Contract edges randomly</td>
+</tr>
+<tr class="odd">
+<td>363</td>
+<td>Karger–Stein</td>
+<td>Recursive randomized cut</td>
+</tr>
+<tr class="even">
+<td>364</td>
+<td>Gomory–Hu Tree</td>
+<td>All-pairs min-cut</td>
+</tr>
+<tr class="odd">
+<td>365</td>
+<td>Max-Flow Min-Cut</td>
+<td>Duality theorem application</td>
+</tr>
+<tr class="even">
+<td>366</td>
+<td>Stoer–Wagner Repeated Phase</td>
+<td>Multiple passes</td>
+</tr>
+<tr class="odd">
+<td>367</td>
+<td>Dynamic Min Cut</td>
+<td>Maintain on edge update</td>
+</tr>
+<tr class="even">
+<td>368</td>
+<td>Minimum s–t Cut (Edmonds–Karp)</td>
+<td>Based on flow</td>
+</tr>
+<tr class="odd">
+<td>369</td>
+<td>Approximate Min Cut</td>
+<td>Random sampling</td>
+</tr>
+<tr class="even">
+<td>370</td>
+<td>Min k-Cut</td>
+<td>Partition graph into k parts</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="matchings-hopcroftkarp-hungarian-blossom" class="level3">
+<h3 class="anchored" data-anchor-id="matchings-hopcroftkarp-hungarian-blossom">38. Matchings (Hopcroft–Karp, Hungarian, Blossom)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>371</td>
+<td>Bipartite Matching (DFS)</td>
+<td>Simple augmenting path</td>
+</tr>
+<tr class="even">
+<td>372</td>
+<td>Hopcroft–Karp</td>
+<td>O(E√V) bipartite matching</td>
+</tr>
+<tr class="odd">
+<td>373</td>
+<td>Hungarian Algorithm</td>
+<td>Weighted assignment</td>
+</tr>
+<tr class="even">
+<td>374</td>
+<td>Kuhn–Munkres</td>
+<td>Max-weight matching</td>
+</tr>
+<tr class="odd">
+<td>375</td>
+<td>Blossom Algorithm</td>
+<td>General graph matching</td>
+</tr>
+<tr class="even">
+<td>376</td>
+<td>Edmonds’ Blossom Shrinking</td>
+<td>Odd cycle contraction</td>
+</tr>
+<tr class="odd">
+<td>377</td>
+<td>Greedy Matching</td>
+<td>Fast approximate</td>
+</tr>
+<tr class="even">
+<td>378</td>
+<td>Stable Marriage (Gale–Shapley)</td>
+<td>Stable pairing</td>
+</tr>
+<tr class="odd">
+<td>379</td>
+<td>Weighted b-Matching</td>
+<td>Capacity-constrained</td>
+</tr>
+<tr class="even">
+<td>380</td>
+<td>Maximal Matching</td>
+<td>Local greedy maximal set</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tree-algorithms-lca-hld-centroid-decomposition" class="level3">
+<h3 class="anchored" data-anchor-id="tree-algorithms-lca-hld-centroid-decomposition">39. Tree Algorithms (LCA, HLD, Centroid Decomposition)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>381</td>
+<td>Euler Tour LCA</td>
+<td>Flatten tree to array</td>
+</tr>
+<tr class="even">
+<td>382</td>
+<td>Binary Lifting LCA</td>
+<td>Jump powers of two</td>
+</tr>
+<tr class="odd">
+<td>383</td>
+<td>Tarjan’s LCA (Offline DSU)</td>
+<td>Query via union-find</td>
+</tr>
+<tr class="even">
+<td>384</td>
+<td>Heavy-Light Decomposition</td>
+<td>Decompose paths</td>
+</tr>
+<tr class="odd">
+<td>385</td>
+<td>Centroid Decomposition</td>
+<td>Recursive split on centroid</td>
+</tr>
+<tr class="even">
+<td>386</td>
+<td>Tree Diameter (DFS Twice)</td>
+<td>Farthest pair</td>
+</tr>
+<tr class="odd">
+<td>387</td>
+<td>Tree DP</td>
+<td>Subtree-based optimization</td>
+</tr>
+<tr class="even">
+<td>388</td>
+<td>Rerooting DP</td>
+<td>Compute all roots’ answers</td>
+</tr>
+<tr class="odd">
+<td>389</td>
+<td>Binary Search on Tree</td>
+<td>Edge weight constraints</td>
+</tr>
+<tr class="even">
+<td>390</td>
+<td>Virtual Tree</td>
+<td>Build on query subset</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="advanced-graph-algorithms-and-tricks" class="level3">
+<h3 class="anchored" data-anchor-id="advanced-graph-algorithms-and-tricks">40. Advanced Graph Algorithms and Tricks</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 52%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>391</td>
+<td>Topological DP</td>
+<td>DP on DAG order</td>
+</tr>
+<tr class="even">
+<td>392</td>
+<td>SCC Condensed Graph DP</td>
+<td>Meta-graph processing</td>
+</tr>
+<tr class="odd">
+<td>393</td>
+<td>Eulerian Path</td>
+<td>Trail covering all edges</td>
+</tr>
+<tr class="even">
+<td>394</td>
+<td>Hamiltonian Path</td>
+<td>NP-complete exploration</td>
+</tr>
+<tr class="odd">
+<td>395</td>
+<td>Chinese Postman</td>
+<td>Eulerian circuit with repeats</td>
+</tr>
+<tr class="even">
+<td>396</td>
+<td>Hierholzer’s Algorithm</td>
+<td>Construct Eulerian circuit</td>
+</tr>
+<tr class="odd">
+<td>397</td>
+<td>Johnson’s Cycle Finding</td>
+<td>Enumerate all cycles</td>
+</tr>
+<tr class="even">
+<td>398</td>
+<td>Transitive Closure (Floyd–Warshall)</td>
+<td>Reachability matrix</td>
+</tr>
+<tr class="odd">
+<td>399</td>
+<td>Graph Coloring (Backtracking)</td>
+<td>Constraint satisfaction</td>
+</tr>
+<tr class="even">
+<td>400</td>
+<td>Articulation Points &amp; Bridges</td>
+<td>Critical structure detection</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chapter-5.-dynamic-programming" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-5.-dynamic-programming">Chapter 5. Dynamic Programming</h2>
+<section id="dp-basics-and-state-transitions" class="level3">
+<h3 class="anchored" data-anchor-id="dp-basics-and-state-transitions">41. DP Basics and State Transitions</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 50%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>401</td>
+<td>Fibonacci DP</td>
+<td>Classic top-down vs bottom-up</td>
+</tr>
+<tr class="even">
+<td>402</td>
+<td>Climbing Stairs</td>
+<td>Count paths with small steps</td>
+</tr>
+<tr class="odd">
+<td>403</td>
+<td>Grid Paths</td>
+<td>DP over 2D lattice</td>
+</tr>
+<tr class="even">
+<td>404</td>
+<td>Min Cost Path</td>
+<td>Accumulate minimal sums</td>
+</tr>
+<tr class="odd">
+<td>405</td>
+<td>Coin Change (Count Ways)</td>
+<td>Combinatorial sums</td>
+</tr>
+<tr class="even">
+<td>406</td>
+<td>Coin Change (Min Coins)</td>
+<td>Minimize step count</td>
+</tr>
+<tr class="odd">
+<td>407</td>
+<td>Knapsack 0/1</td>
+<td>Select items under weight limit</td>
+</tr>
+<tr class="even">
+<td>408</td>
+<td>Knapsack Unbounded</td>
+<td>Repeatable items</td>
+</tr>
+<tr class="odd">
+<td>409</td>
+<td>Longest Increasing Subsequence (DP)</td>
+<td>Subsequence optimization</td>
+</tr>
+<tr class="even">
+<td>410</td>
+<td>Edit Distance (Levenshtein)</td>
+<td>Measure similarity step-by-step</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classic-problems-knapsack-subset-sum-coin-change" class="level3">
+<h3 class="anchored" data-anchor-id="classic-problems-knapsack-subset-sum-coin-change">42. Classic Problems (Knapsack, Subset Sum, Coin Change)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>411</td>
+<td>0/1 Knapsack</td>
+<td>Value maximization under capacity</td>
+</tr>
+<tr class="even">
+<td>412</td>
+<td>Subset Sum</td>
+<td>Boolean feasibility DP</td>
+</tr>
+<tr class="odd">
+<td>413</td>
+<td>Equal Partition</td>
+<td>Divide set into equal halves</td>
+</tr>
+<tr class="even">
+<td>414</td>
+<td>Count of Subsets with Sum</td>
+<td>Counting variant</td>
+</tr>
+<tr class="odd">
+<td>415</td>
+<td>Target Sum</td>
+<td>DP with +/- transitions</td>
+</tr>
+<tr class="even">
+<td>416</td>
+<td>Unbounded Knapsack</td>
+<td>Reuse items</td>
+</tr>
+<tr class="odd">
+<td>417</td>
+<td>Fractional Knapsack</td>
+<td>Greedy + DP comparison</td>
+</tr>
+<tr class="even">
+<td>418</td>
+<td>Coin Change (Min Coins)</td>
+<td>DP shortest path</td>
+</tr>
+<tr class="odd">
+<td>419</td>
+<td>Coin Change (Count Ways)</td>
+<td>Combinatorial counting</td>
+</tr>
+<tr class="even">
+<td>420</td>
+<td>Multi-Dimensional Knapsack</td>
+<td>Capacity in multiple dimensions</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sequence-problems-lis-lcs-edit-distance" class="level3">
+<h3 class="anchored" data-anchor-id="sequence-problems-lis-lcs-edit-distance">43. Sequence Problems (LIS, LCS, Edit Distance)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 52%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>421</td>
+<td>Longest Increasing Subsequence</td>
+<td>O(n²) DP</td>
+</tr>
+<tr class="even">
+<td>422</td>
+<td>LIS (Patience Sorting)</td>
+<td>O(n log n) optimized</td>
+</tr>
+<tr class="odd">
+<td>423</td>
+<td>Longest Common Subsequence</td>
+<td>Two-sequence DP</td>
+</tr>
+<tr class="even">
+<td>424</td>
+<td>Edit Distance (Levenshtein)</td>
+<td>Transform operations</td>
+</tr>
+<tr class="odd">
+<td>425</td>
+<td>Longest Palindromic Subsequence</td>
+<td>Symmetric DP</td>
+</tr>
+<tr class="even">
+<td>426</td>
+<td>Shortest Common Supersequence</td>
+<td>Merge sequences</td>
+</tr>
+<tr class="odd">
+<td>427</td>
+<td>Longest Repeated Subsequence</td>
+<td>DP with overlap</td>
+</tr>
+<tr class="even">
+<td>428</td>
+<td>String Interleaving</td>
+<td>Merge with order preservation</td>
+</tr>
+<tr class="odd">
+<td>429</td>
+<td>Sequence Alignment (Bioinformatics)</td>
+<td>Gap penalties</td>
+</tr>
+<tr class="even">
+<td>430</td>
+<td>Diff Algorithm (Myers/DP)</td>
+<td>Minimal edit path</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="matrix-and-chain-problems" class="level3">
+<h3 class="anchored" data-anchor-id="matrix-and-chain-problems">44. Matrix and Chain Problems</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>431</td>
+<td>Matrix Chain Multiplication</td>
+<td>Parenthesization cost</td>
+</tr>
+<tr class="even">
+<td>432</td>
+<td>Boolean Parenthesization</td>
+<td>Count true outcomes</td>
+</tr>
+<tr class="odd">
+<td>433</td>
+<td>Burst Balloons</td>
+<td>Interval DP</td>
+</tr>
+<tr class="even">
+<td>434</td>
+<td>Optimal BST</td>
+<td>Weighted search cost</td>
+</tr>
+<tr class="odd">
+<td>435</td>
+<td>Polygon Triangulation</td>
+<td>DP over partitions</td>
+</tr>
+<tr class="even">
+<td>436</td>
+<td>Matrix Path Sum</td>
+<td>DP on 2D grid</td>
+</tr>
+<tr class="odd">
+<td>437</td>
+<td>Largest Square Submatrix</td>
+<td>Dynamic growth check</td>
+</tr>
+<tr class="even">
+<td>438</td>
+<td>Max Rectangle in Binary Matrix</td>
+<td>Histogram + DP</td>
+</tr>
+<tr class="odd">
+<td>439</td>
+<td>Submatrix Sum Queries</td>
+<td>Prefix sum DP</td>
+</tr>
+<tr class="even">
+<td>440</td>
+<td>Palindrome Partitioning</td>
+<td>DP with cuts</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bitmask-dp-and-traveling-salesman" class="level3">
+<h3 class="anchored" data-anchor-id="bitmask-dp-and-traveling-salesman">45. Bitmask DP and Traveling Salesman</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>441</td>
+<td>Traveling Salesman (TSP)</td>
+<td>Visit all cities</td>
+</tr>
+<tr class="even">
+<td>442</td>
+<td>Subset DP</td>
+<td>Over subsets of states</td>
+</tr>
+<tr class="odd">
+<td>443</td>
+<td>Hamiltonian Path DP</td>
+<td>State compression</td>
+</tr>
+<tr class="even">
+<td>444</td>
+<td>Assignment Problem DP</td>
+<td>Mask over tasks</td>
+</tr>
+<tr class="odd">
+<td>445</td>
+<td>Partition into Two Sets</td>
+<td>Balanced load</td>
+</tr>
+<tr class="even">
+<td>446</td>
+<td>Count Hamiltonian Cycles</td>
+<td>Bitmask enumeration</td>
+</tr>
+<tr class="odd">
+<td>447</td>
+<td>Steiner Tree DP</td>
+<td>Minimal connection of terminals</td>
+</tr>
+<tr class="even">
+<td>448</td>
+<td>SOS DP (Sum Over Subsets)</td>
+<td>Precompute sums</td>
+</tr>
+<tr class="odd">
+<td>449</td>
+<td>Bitmask Knapsack</td>
+<td>State compression</td>
+</tr>
+<tr class="even">
+<td>450</td>
+<td>Bitmask Independent Set</td>
+<td>Graph subset optimization</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="digit-dp-and-sos-dp" class="level3">
+<h3 class="anchored" data-anchor-id="digit-dp-and-sos-dp">46. Digit DP and SOS DP</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>451</td>
+<td>Count Numbers with Property</td>
+<td>Digit-state transitions</td>
+</tr>
+<tr class="even">
+<td>452</td>
+<td>Count Without Adjacent Duplicates</td>
+<td>Adjacent constraints</td>
+</tr>
+<tr class="odd">
+<td>453</td>
+<td>Sum of Digits in Range</td>
+<td>Carry-dependent states</td>
+</tr>
+<tr class="even">
+<td>454</td>
+<td>Count with Mod Condition</td>
+<td>DP over digit sum mod M</td>
+</tr>
+<tr class="odd">
+<td>455</td>
+<td>Count of Increasing Digits</td>
+<td>Ordered constraint</td>
+</tr>
+<tr class="even">
+<td>456</td>
+<td>Count with Forbidden Digits</td>
+<td>Exclusion transitions</td>
+</tr>
+<tr class="odd">
+<td>457</td>
+<td>SOS DP Subset Sum</td>
+<td>Sum over bitmask subsets</td>
+</tr>
+<tr class="even">
+<td>458</td>
+<td>SOS DP Superset Sum</td>
+<td>Sum over supersets</td>
+</tr>
+<tr class="odd">
+<td>459</td>
+<td>XOR Basis DP</td>
+<td>Combine digit and bit DP</td>
+</tr>
+<tr class="even">
+<td>460</td>
+<td>Digit DP for Palindromes</td>
+<td>Symmetric digit state</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dp-optimizations-divide-conquer-convex-hull-trick-knuth" class="level3">
+<h3 class="anchored" data-anchor-id="dp-optimizations-divide-conquer-convex-hull-trick-knuth">47. DP Optimizations (Divide &amp; Conquer, Convex Hull Trick, Knuth)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>461</td>
+<td>Divide &amp; Conquer DP</td>
+<td>Monotone decision property</td>
+</tr>
+<tr class="even">
+<td>462</td>
+<td>Knuth Optimization</td>
+<td>DP with quadrangle inequality</td>
+</tr>
+<tr class="odd">
+<td>463</td>
+<td>Convex Hull Trick</td>
+<td>Linear recurrence min queries</td>
+</tr>
+<tr class="even">
+<td>464</td>
+<td>Li Chao Tree</td>
+<td>Segment-based hull maintenance</td>
+</tr>
+<tr class="odd">
+<td>465</td>
+<td>Slope Trick</td>
+<td>Piecewise-linear optimization</td>
+</tr>
+<tr class="even">
+<td>466</td>
+<td>Monotonic Queue Optimization</td>
+<td>Sliding DP state</td>
+</tr>
+<tr class="odd">
+<td>467</td>
+<td>Bitset DP</td>
+<td>Speed via bit-parallel</td>
+</tr>
+<tr class="even">
+<td>468</td>
+<td>Offline DP Queries</td>
+<td>Preprocessing state</td>
+</tr>
+<tr class="odd">
+<td>469</td>
+<td>DP + Segment Tree</td>
+<td>Range-based optimization</td>
+</tr>
+<tr class="even">
+<td>470</td>
+<td>Divide &amp; Conquer Knapsack</td>
+<td>Split-space DP</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tree-dp-and-rerooting" class="level3">
+<h3 class="anchored" data-anchor-id="tree-dp-and-rerooting">48. Tree DP and Rerooting</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>471</td>
+<td>Subtree Sum DP</td>
+<td>Aggregate values</td>
+</tr>
+<tr class="even">
+<td>472</td>
+<td>Diameter DP</td>
+<td>Max path via child states</td>
+</tr>
+<tr class="odd">
+<td>473</td>
+<td>Independent Set DP</td>
+<td>Choose or skip nodes</td>
+</tr>
+<tr class="even">
+<td>474</td>
+<td>Vertex Cover DP</td>
+<td>Tree constraint problem</td>
+</tr>
+<tr class="odd">
+<td>475</td>
+<td>Path Counting DP</td>
+<td>Count root-leaf paths</td>
+</tr>
+<tr class="even">
+<td>476</td>
+<td>DP on Rooted Tree</td>
+<td>Bottom-up aggregation</td>
+</tr>
+<tr class="odd">
+<td>477</td>
+<td>Rerooting Technique</td>
+<td>Compute for all roots</td>
+</tr>
+<tr class="even">
+<td>478</td>
+<td>Distance Sum Rerooting</td>
+<td>Efficient recomputation</td>
+</tr>
+<tr class="odd">
+<td>479</td>
+<td>Tree Coloring DP</td>
+<td>Combinatorial counting</td>
+</tr>
+<tr class="even">
+<td>480</td>
+<td>Binary Search on Tree DP</td>
+<td>Monotonic transitions</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dp-reconstruction-and-traceback" class="level3">
+<h3 class="anchored" data-anchor-id="dp-reconstruction-and-traceback">49. DP Reconstruction and Traceback</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>481</td>
+<td>Reconstruct LCS</td>
+<td>Backtrack table</td>
+</tr>
+<tr class="even">
+<td>482</td>
+<td>Reconstruct LIS</td>
+<td>Track predecessors</td>
+</tr>
+<tr class="odd">
+<td>483</td>
+<td>Reconstruct Knapsack</td>
+<td>Recover selected items</td>
+</tr>
+<tr class="even">
+<td>484</td>
+<td>Edit Distance Alignment</td>
+<td>Trace insert/delete/substitute</td>
+</tr>
+<tr class="odd">
+<td>485</td>
+<td>Matrix Chain Parentheses</td>
+<td>Rebuild parenthesization</td>
+</tr>
+<tr class="even">
+<td>486</td>
+<td>Coin Change Reconstruction</td>
+<td>Backtrack last used coin</td>
+</tr>
+<tr class="odd">
+<td>487</td>
+<td>Path Reconstruction DP</td>
+<td>Trace minimal route</td>
+</tr>
+<tr class="even">
+<td>488</td>
+<td>Sequence Reconstruction</td>
+<td>Rebuild from states</td>
+</tr>
+<tr class="odd">
+<td>489</td>
+<td>Multi-Choice Reconstruction</td>
+<td>Combine best subpaths</td>
+</tr>
+<tr class="even">
+<td>490</td>
+<td>Traceback Visualization</td>
+<td>Visual DP backtrack tool</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="meta-dp-and-optimization-templates" class="level3">
+<h3 class="anchored" data-anchor-id="meta-dp-and-optimization-templates">50. Meta-DP and Optimization Templates</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>491</td>
+<td>State Compression Template</td>
+<td>Represent subsets compactly</td>
+</tr>
+<tr class="even">
+<td>492</td>
+<td>Transition Optimization Template</td>
+<td>Precompute transitions</td>
+</tr>
+<tr class="odd">
+<td>493</td>
+<td>Space Optimization Template</td>
+<td>Rolling arrays</td>
+</tr>
+<tr class="even">
+<td>494</td>
+<td>Multi-Dimensional DP Template</td>
+<td>Nested loops version</td>
+</tr>
+<tr class="odd">
+<td>495</td>
+<td>Decision Monotonicity</td>
+<td>Optimization hint</td>
+</tr>
+<tr class="even">
+<td>496</td>
+<td>Monge Array Optimization</td>
+<td>Matrix property leverage</td>
+</tr>
+<tr class="odd">
+<td>497</td>
+<td>Divide &amp; Conquer Template</td>
+<td>Half-split recursion</td>
+</tr>
+<tr class="even">
+<td>498</td>
+<td>Rerooting Template</td>
+<td>Generalized tree DP</td>
+</tr>
+<tr class="odd">
+<td>499</td>
+<td>Iterative DP Pattern</td>
+<td>Bottom-up unrolling</td>
+</tr>
+<tr class="even">
+<td>500</td>
+<td>Memoization Template</td>
+<td>Recursive caching skeleton</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chapter-6.-mathematics-for-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-6.-mathematics-for-algorithms">Chapter 6. Mathematics for Algorithms</h2>
+<section id="number-theory-gcd-modular-arithmetic-crt" class="level3">
+<h3 class="anchored" data-anchor-id="number-theory-gcd-modular-arithmetic-crt">51. Number Theory (GCD, Modular Arithmetic, CRT)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>501</td>
+<td>Euclidean Algorithm</td>
+<td>Compute gcd(a, b)</td>
+</tr>
+<tr class="even">
+<td>502</td>
+<td>Extended Euclidean Algorithm</td>
+<td>Solve ax + by = gcd(a, b)</td>
+</tr>
+<tr class="odd">
+<td>503</td>
+<td>Modular Addition</td>
+<td>Add under modulo M</td>
+</tr>
+<tr class="even">
+<td>504</td>
+<td>Modular Multiplication</td>
+<td>Multiply under modulo M</td>
+</tr>
+<tr class="odd">
+<td>505</td>
+<td>Modular Exponentiation</td>
+<td>Fast power mod M</td>
+</tr>
+<tr class="even">
+<td>506</td>
+<td>Modular Inverse</td>
+<td>Compute a⁻¹ mod M</td>
+</tr>
+<tr class="odd">
+<td>507</td>
+<td>Chinese Remainder Theorem</td>
+<td>Combine modular systems</td>
+</tr>
+<tr class="even">
+<td>508</td>
+<td>Binary GCD (Stein’s Algorithm)</td>
+<td>Bitwise gcd</td>
+</tr>
+<tr class="odd">
+<td>509</td>
+<td>Modular Reduction</td>
+<td>Normalize residues</td>
+</tr>
+<tr class="even">
+<td>510</td>
+<td>Modular Linear Equation Solver</td>
+<td>Solve ax ≡ b (mod m)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primality-and-factorization-millerrabin-pollard-rho" class="level3">
+<h3 class="anchored" data-anchor-id="primality-and-factorization-millerrabin-pollard-rho">52. Primality and Factorization (Miller–Rabin, Pollard Rho)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>511</td>
+<td>Trial Division</td>
+<td>Simple prime test</td>
+</tr>
+<tr class="even">
+<td>512</td>
+<td>Sieve of Eratosthenes</td>
+<td>Generate primes up to n</td>
+</tr>
+<tr class="odd">
+<td>513</td>
+<td>Sieve of Atkin</td>
+<td>Faster sieve variant</td>
+</tr>
+<tr class="even">
+<td>514</td>
+<td>Miller–Rabin Primality Test</td>
+<td>Probabilistic primality</td>
+</tr>
+<tr class="odd">
+<td>515</td>
+<td>Fermat Primality Test</td>
+<td>Modular power check</td>
+</tr>
+<tr class="even">
+<td>516</td>
+<td>Pollard’s Rho</td>
+<td>Randomized factorization</td>
+</tr>
+<tr class="odd">
+<td>517</td>
+<td>Pollard’s p−1 Method</td>
+<td>Factor using smoothness</td>
+</tr>
+<tr class="even">
+<td>518</td>
+<td>Wheel Factorization</td>
+<td>Skip known composites</td>
+</tr>
+<tr class="odd">
+<td>519</td>
+<td>AKS Primality Test</td>
+<td>Deterministic polynomial test</td>
+</tr>
+<tr class="even">
+<td>520</td>
+<td>Segmented Sieve</td>
+<td>Prime generation for large n</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="combinatorics-permutations-combinations-subsets" class="level3">
+<h3 class="anchored" data-anchor-id="combinatorics-permutations-combinations-subsets">53. Combinatorics (Permutations, Combinations, Subsets)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>521</td>
+<td>Factorial Precomputation</td>
+<td>Build n! table</td>
+</tr>
+<tr class="even">
+<td>522</td>
+<td>nCr Computation</td>
+<td>Use Pascal’s or factorials</td>
+</tr>
+<tr class="odd">
+<td>523</td>
+<td>Pascal’s Triangle</td>
+<td>Binomial coefficients</td>
+</tr>
+<tr class="even">
+<td>524</td>
+<td>Multiset Combination</td>
+<td>Repetition allowed</td>
+</tr>
+<tr class="odd">
+<td>525</td>
+<td>Permutation Generation</td>
+<td>Lexicographic order</td>
+</tr>
+<tr class="even">
+<td>526</td>
+<td>Next Permutation</td>
+<td>STL-style increment</td>
+</tr>
+<tr class="odd">
+<td>527</td>
+<td>Subset Generation</td>
+<td>Bitmask or recursion</td>
+</tr>
+<tr class="even">
+<td>528</td>
+<td>Gray Code Generation</td>
+<td>Single-bit flips</td>
+</tr>
+<tr class="odd">
+<td>529</td>
+<td>Catalan Number DP</td>
+<td>Count valid parentheses</td>
+</tr>
+<tr class="even">
+<td>530</td>
+<td>Stirling Numbers</td>
+<td>Partition counting</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="probability-and-randomized-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="probability-and-randomized-algorithms">54. Probability and Randomized Algorithms</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>531</td>
+<td>Monte Carlo Simulation</td>
+<td>Approximate via randomness</td>
+</tr>
+<tr class="even">
+<td>532</td>
+<td>Las Vegas Algorithm</td>
+<td>Always correct, variable time</td>
+</tr>
+<tr class="odd">
+<td>533</td>
+<td>Reservoir Sampling</td>
+<td>Uniform sampling from stream</td>
+</tr>
+<tr class="even">
+<td>534</td>
+<td>Randomized QuickSort</td>
+<td>Expected O(n log n)</td>
+</tr>
+<tr class="odd">
+<td>535</td>
+<td>Randomized QuickSelect</td>
+<td>Random pivot</td>
+</tr>
+<tr class="even">
+<td>536</td>
+<td>Birthday Paradox Simulation</td>
+<td>Probability collision</td>
+</tr>
+<tr class="odd">
+<td>537</td>
+<td>Random Hashing</td>
+<td>Reduce collision chance</td>
+</tr>
+<tr class="even">
+<td>538</td>
+<td>Random Walk Simulation</td>
+<td>State transitions</td>
+</tr>
+<tr class="odd">
+<td>539</td>
+<td>Coupon Collector Estimation</td>
+<td>Expected trials</td>
+</tr>
+<tr class="even">
+<td>540</td>
+<td>Markov Chain Simulation</td>
+<td>Transition matrix sampling</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sieve-methods-and-modular-math" class="level3">
+<h3 class="anchored" data-anchor-id="sieve-methods-and-modular-math">55. Sieve Methods and Modular Math</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 50%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>541</td>
+<td>Sieve of Eratosthenes</td>
+<td>Base prime sieve</td>
+</tr>
+<tr class="even">
+<td>542</td>
+<td>Linear Sieve</td>
+<td>O(n) sieve variant</td>
+</tr>
+<tr class="odd">
+<td>543</td>
+<td>Segmented Sieve</td>
+<td>Range prime generation</td>
+</tr>
+<tr class="even">
+<td>544</td>
+<td>SPF (Smallest Prime Factor) Table</td>
+<td>Factorization via sieve</td>
+</tr>
+<tr class="odd">
+<td>545</td>
+<td>Möbius Function Sieve</td>
+<td>Multiplicative function calc</td>
+</tr>
+<tr class="even">
+<td>546</td>
+<td>Euler’s Totient Sieve</td>
+<td>Compute φ(n) for all n</td>
+</tr>
+<tr class="odd">
+<td>547</td>
+<td>Divisor Count Sieve</td>
+<td>Count divisors efficiently</td>
+</tr>
+<tr class="even">
+<td>548</td>
+<td>Modular Precomputation</td>
+<td>Store inverses, factorials</td>
+</tr>
+<tr class="odd">
+<td>549</td>
+<td>Fermat Little Theorem</td>
+<td>a^(p−1) ≡ 1 mod p</td>
+</tr>
+<tr class="even">
+<td>550</td>
+<td>Wilson’s Theorem</td>
+<td>Prime test via factorial mod p</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="linear-algebra-gaussian-elimination-lu-svd" class="level3">
+<h3 class="anchored" data-anchor-id="linear-algebra-gaussian-elimination-lu-svd">56. Linear Algebra (Gaussian Elimination, LU, SVD)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 47%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>551</td>
+<td>Gaussian Elimination</td>
+<td>Solve Ax = b</td>
+</tr>
+<tr class="even">
+<td>552</td>
+<td>Gauss-Jordan Elimination</td>
+<td>Reduced row echelon</td>
+</tr>
+<tr class="odd">
+<td>553</td>
+<td>LU Decomposition</td>
+<td>Factor A into L·U</td>
+</tr>
+<tr class="even">
+<td>554</td>
+<td>Cholesky Decomposition</td>
+<td>A = L·Lᵀ for SPD</td>
+</tr>
+<tr class="odd">
+<td>555</td>
+<td>QR Decomposition</td>
+<td>Orthogonal factorization</td>
+</tr>
+<tr class="even">
+<td>556</td>
+<td>Matrix Inversion (Gauss-Jordan)</td>
+<td>Find A⁻¹</td>
+</tr>
+<tr class="odd">
+<td>557</td>
+<td>Determinant by Elimination</td>
+<td>Product of pivots</td>
+</tr>
+<tr class="even">
+<td>558</td>
+<td>Rank of Matrix</td>
+<td>Count non-zero rows</td>
+</tr>
+<tr class="odd">
+<td>559</td>
+<td>Eigenvalue Power Method</td>
+<td>Approximate dominant eigenvalue</td>
+</tr>
+<tr class="even">
+<td>560</td>
+<td>Singular Value Decomposition</td>
+<td>A = UΣVᵀ</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fft-and-ntt-fast-transforms" class="level3">
+<h3 class="anchored" data-anchor-id="fft-and-ntt-fast-transforms">57. FFT and NTT (Fast Transforms)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 50%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>561</td>
+<td>Discrete Fourier Transform (DFT)</td>
+<td>O(n²) baseline</td>
+</tr>
+<tr class="even">
+<td>562</td>
+<td>Fast Fourier Transform (FFT)</td>
+<td>O(n log n) convolution</td>
+</tr>
+<tr class="odd">
+<td>563</td>
+<td>Cooley–Tukey FFT</td>
+<td>Recursive divide and conquer</td>
+</tr>
+<tr class="even">
+<td>564</td>
+<td>Iterative FFT</td>
+<td>In-place bit reversal</td>
+</tr>
+<tr class="odd">
+<td>565</td>
+<td>Inverse FFT</td>
+<td>Recover time-domain</td>
+</tr>
+<tr class="even">
+<td>566</td>
+<td>Convolution via FFT</td>
+<td>Polynomial multiplication</td>
+</tr>
+<tr class="odd">
+<td>567</td>
+<td>Number Theoretic Transform (NTT)</td>
+<td>Modulo prime FFT</td>
+</tr>
+<tr class="even">
+<td>568</td>
+<td>Inverse NTT</td>
+<td>Modular inverse transform</td>
+</tr>
+<tr class="odd">
+<td>569</td>
+<td>Bluestein’s Algorithm</td>
+<td>FFT of arbitrary size</td>
+</tr>
+<tr class="even">
+<td>570</td>
+<td>FFT-Based Multiplication</td>
+<td>Big integer product</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="numerical-methods-newton-simpson-rungekutta" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-methods-newton-simpson-rungekutta">58. Numerical Methods (Newton, Simpson, Runge–Kutta)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>571</td>
+<td>Newton–Raphson</td>
+<td>Root finding via tangent</td>
+</tr>
+<tr class="even">
+<td>572</td>
+<td>Bisection Method</td>
+<td>Interval halving</td>
+</tr>
+<tr class="odd">
+<td>573</td>
+<td>Secant Method</td>
+<td>Approximate derivative</td>
+</tr>
+<tr class="even">
+<td>574</td>
+<td>Fixed-Point Iteration</td>
+<td>x = f(x) convergence</td>
+</tr>
+<tr class="odd">
+<td>575</td>
+<td>Gaussian Quadrature</td>
+<td>Weighted integration</td>
+</tr>
+<tr class="even">
+<td>576</td>
+<td>Simpson’s Rule</td>
+<td>Piecewise quadratic integral</td>
+</tr>
+<tr class="odd">
+<td>577</td>
+<td>Trapezoidal Rule</td>
+<td>Linear interpolation integral</td>
+</tr>
+<tr class="even">
+<td>578</td>
+<td>Runge–Kutta (RK4)</td>
+<td>ODE solver</td>
+</tr>
+<tr class="odd">
+<td>579</td>
+<td>Euler’s Method</td>
+<td>Step-by-step ODE</td>
+</tr>
+<tr class="even">
+<td>580</td>
+<td>Gradient Descent (1D)</td>
+<td>Numerical optimization</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mathematical-optimization-simplex-gradient-convex" class="level3">
+<h3 class="anchored" data-anchor-id="mathematical-optimization-simplex-gradient-convex">59. Mathematical Optimization (Simplex, Gradient, Convex)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>581</td>
+<td>Simplex Method</td>
+<td>Linear programming solver</td>
+</tr>
+<tr class="even">
+<td>582</td>
+<td>Dual Simplex Method</td>
+<td>Solve dual constraints</td>
+</tr>
+<tr class="odd">
+<td>583</td>
+<td>Interior-Point Method</td>
+<td>Convex optimization</td>
+</tr>
+<tr class="even">
+<td>584</td>
+<td>Gradient Descent</td>
+<td>Unconstrained optimization</td>
+</tr>
+<tr class="odd">
+<td>585</td>
+<td>Stochastic Gradient Descent</td>
+<td>Sample-based updates</td>
+</tr>
+<tr class="even">
+<td>586</td>
+<td>Newton’s Method (Multivariate)</td>
+<td>Quadratic convergence</td>
+</tr>
+<tr class="odd">
+<td>587</td>
+<td>Conjugate Gradient</td>
+<td>Solve SPD systems</td>
+</tr>
+<tr class="even">
+<td>588</td>
+<td>Lagrange Multipliers</td>
+<td>Constrained optimization</td>
+</tr>
+<tr class="odd">
+<td>589</td>
+<td>KKT Conditions Solver</td>
+<td>Convex constraint handling</td>
+</tr>
+<tr class="even">
+<td>590</td>
+<td>Coordinate Descent</td>
+<td>Sequential variable updates</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="algebraic-tricks-and-transform-techniques" class="level3">
+<h3 class="anchored" data-anchor-id="algebraic-tricks-and-transform-techniques">60. Algebraic Tricks and Transform Techniques</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>591</td>
+<td>Polynomial Multiplication (FFT)</td>
+<td>Fast convolution</td>
+</tr>
+<tr class="even">
+<td>592</td>
+<td>Polynomial Inversion</td>
+<td>Newton iteration</td>
+</tr>
+<tr class="odd">
+<td>593</td>
+<td>Polynomial Derivative</td>
+<td>Term-wise multiply by index</td>
+</tr>
+<tr class="even">
+<td>594</td>
+<td>Polynomial Integration</td>
+<td>Divide by index+1</td>
+</tr>
+<tr class="odd">
+<td>595</td>
+<td>Formal Power Series Composition</td>
+<td>Substitute series</td>
+</tr>
+<tr class="even">
+<td>596</td>
+<td>Exponentiation by Squaring</td>
+<td>Fast powering</td>
+</tr>
+<tr class="odd">
+<td>597</td>
+<td>Modular Exponentiation</td>
+<td>Fast power mod M</td>
+</tr>
+<tr class="even">
+<td>598</td>
+<td>Fast Walsh–Hadamard Transform</td>
+<td>XOR convolution</td>
+</tr>
+<tr class="odd">
+<td>599</td>
+<td>Zeta Transform</td>
+<td>Subset summation</td>
+</tr>
+<tr class="even">
+<td>600</td>
+<td>Möbius Inversion</td>
+<td>Recover original from sums</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chapter-7.-strings-and-text-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-7.-strings-and-text-algorithms">Chapter 7. Strings and Text Algorithms</h2>
+<section id="string-matching-kmp-z-rabinkarp-boyermoore" class="level3">
+<h3 class="anchored" data-anchor-id="string-matching-kmp-z-rabinkarp-boyermoore">61. String Matching (KMP, Z, Rabin–Karp, Boyer–Moore)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>601</td>
+<td>Naive String Matching</td>
+<td>Compare every position</td>
+</tr>
+<tr class="even">
+<td>602</td>
+<td>Knuth–Morris–Pratt (KMP)</td>
+<td>Prefix function skipping</td>
+</tr>
+<tr class="odd">
+<td>603</td>
+<td>Z-Algorithm</td>
+<td>Match using Z-values</td>
+</tr>
+<tr class="even">
+<td>604</td>
+<td>Rabin–Karp</td>
+<td>Rolling hash comparison</td>
+</tr>
+<tr class="odd">
+<td>605</td>
+<td>Boyer–Moore</td>
+<td>Backward skip based on mismatch</td>
+</tr>
+<tr class="even">
+<td>606</td>
+<td>Boyer–Moore–Horspool</td>
+<td>Simplified shift table</td>
+</tr>
+<tr class="odd">
+<td>607</td>
+<td>Sunday Algorithm</td>
+<td>Last-character shift</td>
+</tr>
+<tr class="even">
+<td>608</td>
+<td>Finite Automaton Matching</td>
+<td>DFA-based matching</td>
+</tr>
+<tr class="odd">
+<td>609</td>
+<td>Bitap Algorithm</td>
+<td>Bitmask approximate matching</td>
+</tr>
+<tr class="even">
+<td>610</td>
+<td>Two-Way Algorithm</td>
+<td>Optimal linear matching</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="multi-pattern-search-ahocorasick" class="level3">
+<h3 class="anchored" data-anchor-id="multi-pattern-search-ahocorasick">62. Multi-Pattern Search (Aho–Corasick)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>611</td>
+<td>Aho–Corasick Automaton</td>
+<td>Trie + failure links</td>
+</tr>
+<tr class="even">
+<td>612</td>
+<td>Trie Construction</td>
+<td>Prefix tree build</td>
+</tr>
+<tr class="odd">
+<td>613</td>
+<td>Failure Link Computation</td>
+<td>BFS for transitions</td>
+</tr>
+<tr class="even">
+<td>614</td>
+<td>Output Link Management</td>
+<td>Handle overlapping patterns</td>
+</tr>
+<tr class="odd">
+<td>615</td>
+<td>Multi-Pattern Search</td>
+<td>Find all keywords</td>
+</tr>
+<tr class="even">
+<td>616</td>
+<td>Dictionary Matching</td>
+<td>Find multiple substrings</td>
+</tr>
+<tr class="odd">
+<td>617</td>
+<td>Dynamic Aho–Corasick</td>
+<td>Add/remove patterns</td>
+</tr>
+<tr class="even">
+<td>618</td>
+<td>Parallel AC Search</td>
+<td>Multi-threaded traversal</td>
+</tr>
+<tr class="odd">
+<td>619</td>
+<td>Compressed AC Automaton</td>
+<td>Memory-optimized</td>
+</tr>
+<tr class="even">
+<td>620</td>
+<td>Extended AC with Wildcards</td>
+<td>Flexible matching</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="suffix-structures-suffix-array-suffix-tree-lcp" class="level3">
+<h3 class="anchored" data-anchor-id="suffix-structures-suffix-array-suffix-tree-lcp">63. Suffix Structures (Suffix Array, Suffix Tree, LCP)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>621</td>
+<td>Suffix Array (Naive)</td>
+<td>Sort all suffixes</td>
+</tr>
+<tr class="even">
+<td>622</td>
+<td>Suffix Array (Doubling)</td>
+<td>O(n log n) rank-based</td>
+</tr>
+<tr class="odd">
+<td>623</td>
+<td>Kasai’s LCP Algorithm</td>
+<td>Longest common prefix</td>
+</tr>
+<tr class="even">
+<td>624</td>
+<td>Suffix Tree (Ukkonen)</td>
+<td>Linear-time online</td>
+</tr>
+<tr class="odd">
+<td>625</td>
+<td>Suffix Automaton</td>
+<td>Minimal DFA of substrings</td>
+</tr>
+<tr class="even">
+<td>626</td>
+<td>SA-IS Algorithm</td>
+<td>O(n) suffix array</td>
+</tr>
+<tr class="odd">
+<td>627</td>
+<td>LCP RMQ Query</td>
+<td>Range minimum for substring</td>
+</tr>
+<tr class="even">
+<td>628</td>
+<td>Generalized Suffix Array</td>
+<td>Multiple strings</td>
+</tr>
+<tr class="odd">
+<td>629</td>
+<td>Enhanced Suffix Array</td>
+<td>Combine SA + LCP</td>
+</tr>
+<tr class="even">
+<td>630</td>
+<td>Sparse Suffix Tree</td>
+<td>Space-efficient variant</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="palindromes-and-periodicity-manacher" class="level3">
+<h3 class="anchored" data-anchor-id="palindromes-and-periodicity-manacher">64. Palindromes and Periodicity (Manacher)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 49%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>631</td>
+<td>Naive Palindrome Check</td>
+<td>Expand around center</td>
+</tr>
+<tr class="even">
+<td>632</td>
+<td>Manacher’s Algorithm</td>
+<td>O(n) longest palindrome</td>
+</tr>
+<tr class="odd">
+<td>633</td>
+<td>Longest Palindromic Substring</td>
+<td>Center expansion</td>
+</tr>
+<tr class="even">
+<td>634</td>
+<td>Palindrome DP Table</td>
+<td>Substring boolean matrix</td>
+</tr>
+<tr class="odd">
+<td>635</td>
+<td>Palindromic Tree (Eertree)</td>
+<td>Track distinct palindromes</td>
+</tr>
+<tr class="even">
+<td>636</td>
+<td>Prefix Function Periodicity</td>
+<td>Detect repetition patterns</td>
+</tr>
+<tr class="odd">
+<td>637</td>
+<td>Z-Function Periodicity</td>
+<td>Identify periodic suffix</td>
+</tr>
+<tr class="even">
+<td>638</td>
+<td>KMP Prefix Period Check</td>
+<td>Shortest repeating unit</td>
+</tr>
+<tr class="odd">
+<td>639</td>
+<td>Lyndon Factorization</td>
+<td>Decompose string into Lyndon words</td>
+</tr>
+<tr class="even">
+<td>640</td>
+<td>Minimal Rotation (Booth’s Algorithm)</td>
+<td>Lexicographically minimal shift</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edit-distance-and-alignment" class="level3">
+<h3 class="anchored" data-anchor-id="edit-distance-and-alignment">65. Edit Distance and Alignment</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>641</td>
+<td>Levenshtein Distance</td>
+<td>Insert/delete/replace cost</td>
+</tr>
+<tr class="even">
+<td>642</td>
+<td>Damerau–Levenshtein</td>
+<td>Swap included</td>
+</tr>
+<tr class="odd">
+<td>643</td>
+<td>Hamming Distance</td>
+<td>Count differing bits</td>
+</tr>
+<tr class="even">
+<td>644</td>
+<td>Needleman–Wunsch</td>
+<td>Global alignment</td>
+</tr>
+<tr class="odd">
+<td>645</td>
+<td>Smith–Waterman</td>
+<td>Local alignment</td>
+</tr>
+<tr class="even">
+<td>646</td>
+<td>Hirschberg’s Algorithm</td>
+<td>Memory-optimized alignment</td>
+</tr>
+<tr class="odd">
+<td>647</td>
+<td>Edit Script Reconstruction</td>
+<td>Backtrack operations</td>
+</tr>
+<tr class="even">
+<td>648</td>
+<td>Affine Gap Penalty DP</td>
+<td>Varying gap cost</td>
+</tr>
+<tr class="odd">
+<td>649</td>
+<td>Myers Bit-Vector Algorithm</td>
+<td>Fast edit distance</td>
+</tr>
+<tr class="even">
+<td>650</td>
+<td>Longest Common Subsequence</td>
+<td>Alignment by inclusion</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="compression-huffman-arithmetic-lz77-bwt" class="level3">
+<h3 class="anchored" data-anchor-id="compression-huffman-arithmetic-lz77-bwt">66. Compression (Huffman, Arithmetic, LZ77, BWT)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>651</td>
+<td>Huffman Coding</td>
+<td>Optimal prefix tree</td>
+</tr>
+<tr class="even">
+<td>652</td>
+<td>Canonical Huffman</td>
+<td>Deterministic ordering</td>
+</tr>
+<tr class="odd">
+<td>653</td>
+<td>Arithmetic Coding</td>
+<td>Interval probability coding</td>
+</tr>
+<tr class="even">
+<td>654</td>
+<td>Shannon–Fano Coding</td>
+<td>Early prefix method</td>
+</tr>
+<tr class="odd">
+<td>655</td>
+<td>Run-Length Encoding (RLE)</td>
+<td>Repeat compression</td>
+</tr>
+<tr class="even">
+<td>656</td>
+<td>LZ77</td>
+<td>Sliding-window match</td>
+</tr>
+<tr class="odd">
+<td>657</td>
+<td>LZ78</td>
+<td>Dictionary building</td>
+</tr>
+<tr class="even">
+<td>658</td>
+<td>LZW</td>
+<td>Variant used in GIF</td>
+</tr>
+<tr class="odd">
+<td>659</td>
+<td>Burrows–Wheeler Transform</td>
+<td>Block reordering</td>
+</tr>
+<tr class="even">
+<td>660</td>
+<td>Move-to-Front Encoding</td>
+<td>Locality boosting transform</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cryptographic-hashes-and-checksums" class="level3">
+<h3 class="anchored" data-anchor-id="cryptographic-hashes-and-checksums">67. Cryptographic Hashes and Checksums</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>661</td>
+<td>Rolling Hash</td>
+<td>Polynomial mod-based</td>
+</tr>
+<tr class="even">
+<td>662</td>
+<td>CRC32</td>
+<td>Cyclic redundancy check</td>
+</tr>
+<tr class="odd">
+<td>663</td>
+<td>Adler-32</td>
+<td>Lightweight checksum</td>
+</tr>
+<tr class="even">
+<td>664</td>
+<td>MD5</td>
+<td>Legacy cryptographic hash</td>
+</tr>
+<tr class="odd">
+<td>665</td>
+<td>SHA-1</td>
+<td>Deprecated hash function</td>
+</tr>
+<tr class="even">
+<td>666</td>
+<td>SHA-256</td>
+<td>Secure hash standard</td>
+</tr>
+<tr class="odd">
+<td>667</td>
+<td>SHA-3 (Keccak)</td>
+<td>Sponge construction</td>
+</tr>
+<tr class="even">
+<td>668</td>
+<td>HMAC</td>
+<td>Keyed message authentication</td>
+</tr>
+<tr class="odd">
+<td>669</td>
+<td>Merkle Tree</td>
+<td>Hierarchical hashing</td>
+</tr>
+<tr class="even">
+<td>670</td>
+<td>Hash Collision Detection</td>
+<td>Birthday bound simulation</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="approximate-and-streaming-matching" class="level3">
+<h3 class="anchored" data-anchor-id="approximate-and-streaming-matching">68. Approximate and Streaming Matching</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>671</td>
+<td>K-Approximate Matching</td>
+<td>Allow k mismatches</td>
+</tr>
+<tr class="even">
+<td>672</td>
+<td>Bitap Algorithm</td>
+<td>Bitwise dynamic programming</td>
+</tr>
+<tr class="odd">
+<td>673</td>
+<td>Landau–Vishkin Algorithm</td>
+<td>Edit distance ≤ k</td>
+</tr>
+<tr class="even">
+<td>674</td>
+<td>Filtering Algorithm</td>
+<td>Fast approximate search</td>
+</tr>
+<tr class="odd">
+<td>675</td>
+<td>Wu–Manber</td>
+<td>Multi-pattern approximate search</td>
+</tr>
+<tr class="even">
+<td>676</td>
+<td>Streaming KMP</td>
+<td>Online prefix updates</td>
+</tr>
+<tr class="odd">
+<td>677</td>
+<td>Rolling Hash Sketch</td>
+<td>Sliding window hashing</td>
+</tr>
+<tr class="even">
+<td>678</td>
+<td>Sketch-based Similarity</td>
+<td>MinHash / LSH variants</td>
+</tr>
+<tr class="odd">
+<td>679</td>
+<td>Weighted Edit Distance</td>
+<td>Weighted operations</td>
+</tr>
+<tr class="even">
+<td>680</td>
+<td>Online Levenshtein</td>
+<td>Dynamic stream update</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bioinformatics-alignment-needlemanwunsch-smithwaterman" class="level3">
+<h3 class="anchored" data-anchor-id="bioinformatics-alignment-needlemanwunsch-smithwaterman">69. Bioinformatics Alignment (Needleman–Wunsch, Smith–Waterman)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>681</td>
+<td>Needleman–Wunsch</td>
+<td>Global sequence alignment</td>
+</tr>
+<tr class="even">
+<td>682</td>
+<td>Smith–Waterman</td>
+<td>Local alignment</td>
+</tr>
+<tr class="odd">
+<td>683</td>
+<td>Gotoh Algorithm</td>
+<td>Affine gap penalties</td>
+</tr>
+<tr class="even">
+<td>684</td>
+<td>Hirschberg Alignment</td>
+<td>Linear-space alignment</td>
+</tr>
+<tr class="odd">
+<td>685</td>
+<td>Multiple Sequence Alignment (MSA)</td>
+<td>Progressive methods</td>
+</tr>
+<tr class="even">
+<td>686</td>
+<td>Profile Alignment</td>
+<td>Align sequence to profile</td>
+</tr>
+<tr class="odd">
+<td>687</td>
+<td>Hidden Markov Model Alignment</td>
+<td>Probabilistic alignment</td>
+</tr>
+<tr class="even">
+<td>688</td>
+<td>BLAST</td>
+<td>Heuristic local search</td>
+</tr>
+<tr class="odd">
+<td>689</td>
+<td>FASTA</td>
+<td>Word-based alignment</td>
+</tr>
+<tr class="even">
+<td>690</td>
+<td>Pairwise DP Alignment</td>
+<td>General DP framework</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="text-indexing-and-search-structures" class="level3">
+<h3 class="anchored" data-anchor-id="text-indexing-and-search-structures">70. Text Indexing and Search Structures</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 53%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>691</td>
+<td>Inverted Index Build</td>
+<td>Word-to-document mapping</td>
+</tr>
+<tr class="even">
+<td>692</td>
+<td>Positional Index</td>
+<td>Store word positions</td>
+</tr>
+<tr class="odd">
+<td>693</td>
+<td>TF-IDF Weighting</td>
+<td>Importance scoring</td>
+</tr>
+<tr class="even">
+<td>694</td>
+<td>BM25 Ranking</td>
+<td>Modern ranking formula</td>
+</tr>
+<tr class="odd">
+<td>695</td>
+<td>Trie Index</td>
+<td>Prefix search structure</td>
+</tr>
+<tr class="even">
+<td>696</td>
+<td>Suffix Array Index</td>
+<td>Substring search</td>
+</tr>
+<tr class="odd">
+<td>697</td>
+<td>Compressed Suffix Array</td>
+<td>Space-optimized</td>
+</tr>
+<tr class="even">
+<td>698</td>
+<td>FM-Index</td>
+<td>BWT-based compressed index</td>
+</tr>
+<tr class="odd">
+<td>699</td>
+<td>DAWG (Directed Acyclic Word Graph)</td>
+<td>Shared suffix graph</td>
+</tr>
+<tr class="even">
+<td>700</td>
+<td>Wavelet Tree for Text</td>
+<td>Rank/select on sequences</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chapter-8.-geometry-graphics-and-spatial-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-8.-geometry-graphics-and-spatial-algorithms">Chapter 8. Geometry, Graphics, and Spatial Algorithms</h2>
+<section id="convex-hull-graham-andrew-chan" class="level3">
+<h3 class="anchored" data-anchor-id="convex-hull-graham-andrew-chan">71. Convex Hull (Graham, Andrew, Chan)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 39%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>701</td>
+<td>Gift Wrapping (Jarvis March)</td>
+<td>Wrap hull one point at a time</td>
+</tr>
+<tr class="even">
+<td>702</td>
+<td>Graham Scan</td>
+<td>Sort by angle, maintain stack</td>
+</tr>
+<tr class="odd">
+<td>703</td>
+<td>Andrew’s Monotone Chain</td>
+<td>Sort by x, upper + lower hull</td>
+</tr>
+<tr class="even">
+<td>704</td>
+<td>Chan’s Algorithm</td>
+<td>Output-sensitive O(n log h)</td>
+</tr>
+<tr class="odd">
+<td>705</td>
+<td>QuickHull</td>
+<td>Divide-and-conquer hull</td>
+</tr>
+<tr class="even">
+<td>706</td>
+<td>Incremental Convex Hull</td>
+<td>Add points one by one</td>
+</tr>
+<tr class="odd">
+<td>707</td>
+<td>Divide &amp; Conquer Hull</td>
+<td>Merge two partial hulls</td>
+</tr>
+<tr class="even">
+<td>708</td>
+<td>3D Convex Hull</td>
+<td>Extend to 3D geometry</td>
+</tr>
+<tr class="odd">
+<td>709</td>
+<td>Dynamic Convex Hull</td>
+<td>Maintain hull with inserts</td>
+</tr>
+<tr class="even">
+<td>710</td>
+<td>Rotating Calipers</td>
+<td>Compute diameter, width, antipodal pairs</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="closest-pair-and-segment-intersection" class="level3">
+<h3 class="anchored" data-anchor-id="closest-pair-and-segment-intersection">72. Closest Pair and Segment Intersection</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 49%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>711</td>
+<td>Closest Pair (Divide &amp; Conquer)</td>
+<td>Split, merge minimal distance</td>
+</tr>
+<tr class="even">
+<td>712</td>
+<td>Closest Pair (Sweep Line)</td>
+<td>Maintain active window</td>
+</tr>
+<tr class="odd">
+<td>713</td>
+<td>Brute Force Closest Pair</td>
+<td>Check all O(n²) pairs</td>
+</tr>
+<tr class="even">
+<td>714</td>
+<td>Bentley–Ottmann</td>
+<td>Find all line intersections</td>
+</tr>
+<tr class="odd">
+<td>715</td>
+<td>Segment Intersection Test</td>
+<td>Cross product orientation</td>
+</tr>
+<tr class="even">
+<td>716</td>
+<td>Line Sweep for Segments</td>
+<td>Event-based intersection</td>
+</tr>
+<tr class="odd">
+<td>717</td>
+<td>Intersection via Orientation</td>
+<td>CCW test</td>
+</tr>
+<tr class="even">
+<td>718</td>
+<td>Circle Intersection</td>
+<td>Geometry of two circles</td>
+</tr>
+<tr class="odd">
+<td>719</td>
+<td>Polygon Intersection</td>
+<td>Clip overlapping polygons</td>
+</tr>
+<tr class="even">
+<td>720</td>
+<td>Nearest Neighbor Pair</td>
+<td>Combine KD-tree + search</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="line-sweep-and-plane-sweep-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="line-sweep-and-plane-sweep-algorithms">73. Line Sweep and Plane Sweep Algorithms</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 52%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>721</td>
+<td>Sweep Line for Events</td>
+<td>Process sorted events</td>
+</tr>
+<tr class="even">
+<td>722</td>
+<td>Interval Scheduling</td>
+<td>Select non-overlapping intervals</td>
+</tr>
+<tr class="odd">
+<td>723</td>
+<td>Rectangle Union Area</td>
+<td>Sweep edges to count area</td>
+</tr>
+<tr class="even">
+<td>724</td>
+<td>Segment Intersection (Bentley–Ottmann)</td>
+<td>Detect all crossings</td>
+</tr>
+<tr class="odd">
+<td>725</td>
+<td>Skyline Problem</td>
+<td>Merge height profiles</td>
+</tr>
+<tr class="even">
+<td>726</td>
+<td>Closest Pair Sweep</td>
+<td>Maintain active set</td>
+</tr>
+<tr class="odd">
+<td>727</td>
+<td>Circle Arrangement</td>
+<td>Sweep and count regions</td>
+</tr>
+<tr class="even">
+<td>728</td>
+<td>Sweep for Overlapping Rectangles</td>
+<td>Detect collisions</td>
+</tr>
+<tr class="odd">
+<td>729</td>
+<td>Range Counting</td>
+<td>Count points in rectangle</td>
+</tr>
+<tr class="even">
+<td>730</td>
+<td>Plane Sweep for Triangles</td>
+<td>Polygon overlay computation</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="delaunay-and-voronoi-diagrams" class="level3">
+<h3 class="anchored" data-anchor-id="delaunay-and-voronoi-diagrams">74. Delaunay and Voronoi Diagrams</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 50%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>731</td>
+<td>Delaunay Triangulation (Incremental)</td>
+<td>Add points, maintain Delaunay</td>
+</tr>
+<tr class="even">
+<td>732</td>
+<td>Delaunay (Divide &amp; Conquer)</td>
+<td>Merge triangulations</td>
+</tr>
+<tr class="odd">
+<td>733</td>
+<td>Delaunay (Fortune’s Sweep)</td>
+<td>O(n log n) construction</td>
+</tr>
+<tr class="even">
+<td>734</td>
+<td>Voronoi Diagram (Fortune’s)</td>
+<td>Sweep line beachline</td>
+</tr>
+<tr class="odd">
+<td>735</td>
+<td>Incremental Voronoi</td>
+<td>Update on insertion</td>
+</tr>
+<tr class="even">
+<td>736</td>
+<td>Bowyer–Watson</td>
+<td>Empty circle criterion</td>
+</tr>
+<tr class="odd">
+<td>737</td>
+<td>Duality Transform</td>
+<td>Convert between Voronoi/Delaunay</td>
+</tr>
+<tr class="even">
+<td>738</td>
+<td>Power Diagram</td>
+<td>Weighted Voronoi</td>
+</tr>
+<tr class="odd">
+<td>739</td>
+<td>Lloyd’s Relaxation</td>
+<td>Smooth Voronoi cells</td>
+</tr>
+<tr class="even">
+<td>740</td>
+<td>Voronoi Nearest Neighbor</td>
+<td>Region-based lookup</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="point-in-polygon-and-polygon-triangulation" class="level3">
+<h3 class="anchored" data-anchor-id="point-in-polygon-and-polygon-triangulation">75. Point in Polygon and Polygon Triangulation</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 58%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>741</td>
+<td>Ray Casting</td>
+<td>Count edge crossings</td>
+</tr>
+<tr class="even">
+<td>742</td>
+<td>Winding Number</td>
+<td>Angle sum method</td>
+</tr>
+<tr class="odd">
+<td>743</td>
+<td>Convex Polygon Point Test</td>
+<td>Orientation checks</td>
+</tr>
+<tr class="even">
+<td>744</td>
+<td>Ear Clipping Triangulation</td>
+<td>Remove ears iteratively</td>
+</tr>
+<tr class="odd">
+<td>745</td>
+<td>Monotone Polygon Triangulation</td>
+<td>Sweep line triangulation</td>
+</tr>
+<tr class="even">
+<td>746</td>
+<td>Delaunay Triangulation</td>
+<td>Optimal triangle quality</td>
+</tr>
+<tr class="odd">
+<td>747</td>
+<td>Convex Decomposition</td>
+<td>Split into convex parts</td>
+</tr>
+<tr class="even">
+<td>748</td>
+<td>Polygon Area (Shoelace Formula)</td>
+<td>Signed area computation</td>
+</tr>
+<tr class="odd">
+<td>749</td>
+<td>Minkowski Sum</td>
+<td>Add shapes geometrically</td>
+</tr>
+<tr class="even">
+<td>750</td>
+<td>Polygon Intersection (Weiler–Atherton)</td>
+<td>Clip overlapping shapes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="spatial-data-structures-kd-r-tree" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-data-structures-kd-r-tree">76. Spatial Data Structures (KD, R-tree)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>751</td>
+<td>KD-Tree Build</td>
+<td>Recursive median split</td>
+</tr>
+<tr class="even">
+<td>752</td>
+<td>KD-Tree Search</td>
+<td>Axis-aligned query</td>
+</tr>
+<tr class="odd">
+<td>753</td>
+<td>Range Search KD-Tree</td>
+<td>Orthogonal query</td>
+</tr>
+<tr class="even">
+<td>754</td>
+<td>Nearest Neighbor KD-Tree</td>
+<td>Closest point search</td>
+</tr>
+<tr class="odd">
+<td>755</td>
+<td>R-Tree Build</td>
+<td>Bounding box hierarchy</td>
+</tr>
+<tr class="even">
+<td>756</td>
+<td>R*-Tree</td>
+<td>Optimized split strategy</td>
+</tr>
+<tr class="odd">
+<td>757</td>
+<td>Quad Tree</td>
+<td>Spatial decomposition</td>
+</tr>
+<tr class="even">
+<td>758</td>
+<td>Octree</td>
+<td>3D spatial decomposition</td>
+</tr>
+<tr class="odd">
+<td>759</td>
+<td>BSP Tree (Binary Space Partition)</td>
+<td>Split by planes</td>
+</tr>
+<tr class="even">
+<td>760</td>
+<td>Morton Order (Z-Curve)</td>
+<td>Spatial locality index</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rasterization-and-scanline-techniques" class="level3">
+<h3 class="anchored" data-anchor-id="rasterization-and-scanline-techniques">77. Rasterization and Scanline Techniques</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>761</td>
+<td>Bresenham’s Line Algorithm</td>
+<td>Efficient integer drawing</td>
+</tr>
+<tr class="even">
+<td>762</td>
+<td>Midpoint Circle Algorithm</td>
+<td>Circle rasterization</td>
+</tr>
+<tr class="odd">
+<td>763</td>
+<td>Scanline Fill</td>
+<td>Polygon interior fill</td>
+</tr>
+<tr class="even">
+<td>764</td>
+<td>Edge Table Fill</td>
+<td>Sort edges by y</td>
+</tr>
+<tr class="odd">
+<td>765</td>
+<td>Z-Buffer Algorithm</td>
+<td>Hidden surface removal</td>
+</tr>
+<tr class="even">
+<td>766</td>
+<td>Painter’s Algorithm</td>
+<td>Sort by depth</td>
+</tr>
+<tr class="odd">
+<td>767</td>
+<td>Gouraud Shading</td>
+<td>Vertex interpolation shading</td>
+</tr>
+<tr class="even">
+<td>768</td>
+<td>Phong Shading</td>
+<td>Normal interpolation</td>
+</tr>
+<tr class="odd">
+<td>769</td>
+<td>Anti-Aliasing (Supersampling)</td>
+<td>Smooth jagged edges</td>
+</tr>
+<tr class="even">
+<td>770</td>
+<td>Scanline Polygon Clipping</td>
+<td>Efficient clipping</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="computer-vision-canny-hough-sift" class="level3">
+<h3 class="anchored" data-anchor-id="computer-vision-canny-hough-sift">78. Computer Vision (Canny, Hough, SIFT)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 54%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>771</td>
+<td>Canny Edge Detector</td>
+<td>Gradient + hysteresis</td>
+</tr>
+<tr class="even">
+<td>772</td>
+<td>Sobel Operator</td>
+<td>Gradient magnitude filter</td>
+</tr>
+<tr class="odd">
+<td>773</td>
+<td>Hough Transform (Lines)</td>
+<td>Accumulator for line detection</td>
+</tr>
+<tr class="even">
+<td>774</td>
+<td>Hough Transform (Circles)</td>
+<td>Radius-based accumulator</td>
+</tr>
+<tr class="odd">
+<td>775</td>
+<td>Harris Corner Detector</td>
+<td>Eigenvalue-based corners</td>
+</tr>
+<tr class="even">
+<td>776</td>
+<td>FAST Corner Detector</td>
+<td>Intensity circle test</td>
+</tr>
+<tr class="odd">
+<td>777</td>
+<td>SIFT (Scale-Invariant Feature Transform)</td>
+<td>Keypoint detection</td>
+</tr>
+<tr class="even">
+<td>778</td>
+<td>SURF (Speeded-Up Robust Features)</td>
+<td>Faster descriptor</td>
+</tr>
+<tr class="odd">
+<td>779</td>
+<td>ORB (Oriented FAST + BRIEF)</td>
+<td>Binary robust feature</td>
+</tr>
+<tr class="even">
+<td>780</td>
+<td>RANSAC</td>
+<td>Robust model fitting</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pathfinding-in-space-a-rrt-prm" class="level3">
+<h3 class="anchored" data-anchor-id="pathfinding-in-space-a-rrt-prm">79. Pathfinding in Space (A*, RRT, PRM)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 52%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>781</td>
+<td>A* Search</td>
+<td>Heuristic pathfinding</td>
+</tr>
+<tr class="even">
+<td>782</td>
+<td>Dijkstra for Grid</td>
+<td>Weighted shortest path</td>
+</tr>
+<tr class="odd">
+<td>783</td>
+<td>Theta*</td>
+<td>Any-angle pathfinding</td>
+</tr>
+<tr class="even">
+<td>784</td>
+<td>Jump Point Search</td>
+<td>Grid acceleration</td>
+</tr>
+<tr class="odd">
+<td>785</td>
+<td>RRT (Rapidly-Exploring Random Tree)</td>
+<td>Random sampling tree</td>
+</tr>
+<tr class="even">
+<td>786</td>
+<td>RRT*</td>
+<td>Optimal variant with rewiring</td>
+</tr>
+<tr class="odd">
+<td>787</td>
+<td>PRM (Probabilistic Roadmap)</td>
+<td>Graph sampling planner</td>
+</tr>
+<tr class="even">
+<td>788</td>
+<td>Visibility Graph</td>
+<td>Connect visible vertices</td>
+</tr>
+<tr class="odd">
+<td>789</td>
+<td>Potential Field Pathfinding</td>
+<td>Gradient-based navigation</td>
+</tr>
+<tr class="even">
+<td>790</td>
+<td>Bug Algorithms</td>
+<td>Simple obstacle avoidance</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="computational-geometry-variants-and-applications" class="level3">
+<h3 class="anchored" data-anchor-id="computational-geometry-variants-and-applications">80. Computational Geometry Variants and Applications</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>791</td>
+<td>Convex Polygon Intersection</td>
+<td>Clip convex sets</td>
+</tr>
+<tr class="even">
+<td>792</td>
+<td>Minkowski Sum</td>
+<td>Shape convolution</td>
+</tr>
+<tr class="odd">
+<td>793</td>
+<td>Rotating Calipers</td>
+<td>Closest/farthest pair</td>
+</tr>
+<tr class="even">
+<td>794</td>
+<td>Half-Plane Intersection</td>
+<td>Feasible region</td>
+</tr>
+<tr class="odd">
+<td>795</td>
+<td>Line Arrangement</td>
+<td>Count regions</td>
+</tr>
+<tr class="even">
+<td>796</td>
+<td>Point Location (Trapezoidal Map)</td>
+<td>Query region lookup</td>
+</tr>
+<tr class="odd">
+<td>797</td>
+<td>Voronoi Nearest Facility</td>
+<td>Region query</td>
+</tr>
+<tr class="even">
+<td>798</td>
+<td>Delaunay Mesh Generation</td>
+<td>Triangulation refinement</td>
+</tr>
+<tr class="odd">
+<td>799</td>
+<td>Smallest Enclosing Circle</td>
+<td>Welzl’s algorithm</td>
+</tr>
+<tr class="even">
+<td>800</td>
+<td>Collision Detection (SAT)</td>
+<td>Separating axis theorem</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chapter-9.-systems-databases-and-distributed-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-9.-systems-databases-and-distributed-algorithms">Chapter 9. Systems, Databases, and Distributed Algorithms</h2>
+<section id="concurrency-control-2pl-mvcc-occ" class="level3">
+<h3 class="anchored" data-anchor-id="concurrency-control-2pl-mvcc-occ">81. Concurrency Control (2PL, MVCC, OCC)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 54%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>801</td>
+<td>Two-Phase Locking (2PL)</td>
+<td>Acquire-then-release locks</td>
+</tr>
+<tr class="even">
+<td>802</td>
+<td>Strict 2PL</td>
+<td>Hold locks until commit</td>
+</tr>
+<tr class="odd">
+<td>803</td>
+<td>Conservative 2PL</td>
+<td>Prevent deadlocks via prelock</td>
+</tr>
+<tr class="even">
+<td>804</td>
+<td>Timestamp Ordering</td>
+<td>Schedule by timestamps</td>
+</tr>
+<tr class="odd">
+<td>805</td>
+<td>Multiversion Concurrency Control (MVCC)</td>
+<td>Snapshot isolation</td>
+</tr>
+<tr class="even">
+<td>806</td>
+<td>Optimistic Concurrency Control (OCC)</td>
+<td>Validate at commit</td>
+</tr>
+<tr class="odd">
+<td>807</td>
+<td>Serializable Snapshot Isolation</td>
+<td>Merge read/write sets</td>
+</tr>
+<tr class="even">
+<td>808</td>
+<td>Lock-Free Algorithm</td>
+<td>Atomic CAS updates</td>
+</tr>
+<tr class="odd">
+<td>809</td>
+<td>Wait-Die / Wound-Wait</td>
+<td>Deadlock prevention policies</td>
+</tr>
+<tr class="even">
+<td>810</td>
+<td>Deadlock Detection (Wait-for Graph)</td>
+<td>Cycle detection in waits</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="logging-recovery-and-commit-protocols" class="level3">
+<h3 class="anchored" data-anchor-id="logging-recovery-and-commit-protocols">82. Logging, Recovery, and Commit Protocols</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>811</td>
+<td>Write-Ahead Logging (WAL)</td>
+<td>Log before commit</td>
+</tr>
+<tr class="even">
+<td>812</td>
+<td>ARIES Recovery</td>
+<td>Re-do/undo with LSNs</td>
+</tr>
+<tr class="odd">
+<td>813</td>
+<td>Shadow Paging</td>
+<td>Copy-on-write persistence</td>
+</tr>
+<tr class="even">
+<td>814</td>
+<td>Two-Phase Commit (2PC)</td>
+<td>Coordinator-driven commit</td>
+</tr>
+<tr class="odd">
+<td>815</td>
+<td>Three-Phase Commit (3PC)</td>
+<td>Non-blocking variant</td>
+</tr>
+<tr class="even">
+<td>816</td>
+<td>Checkpointing</td>
+<td>Save state for recovery</td>
+</tr>
+<tr class="odd">
+<td>817</td>
+<td>Undo Logging</td>
+<td>Rollback uncommitted</td>
+</tr>
+<tr class="even">
+<td>818</td>
+<td>Redo Logging</td>
+<td>Reapply committed</td>
+</tr>
+<tr class="odd">
+<td>819</td>
+<td>Quorum Commit</td>
+<td>Majority agreement</td>
+</tr>
+<tr class="even">
+<td>820</td>
+<td>Consensus Commit</td>
+<td>Combine 2PC + Paxos</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scheduling-round-robin-edf-rate-monotonic" class="level3">
+<h3 class="anchored" data-anchor-id="scheduling-round-robin-edf-rate-monotonic">83. Scheduling (Round Robin, EDF, Rate-Monotonic)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 47%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>821</td>
+<td>First-Come First-Served (FCFS)</td>
+<td>Sequential job order</td>
+</tr>
+<tr class="even">
+<td>822</td>
+<td>Shortest Job First (SJF)</td>
+<td>Optimal average wait</td>
+</tr>
+<tr class="odd">
+<td>823</td>
+<td>Round Robin (RR)</td>
+<td>Time-slice fairness</td>
+</tr>
+<tr class="even">
+<td>824</td>
+<td>Priority Scheduling</td>
+<td>Weighted selection</td>
+</tr>
+<tr class="odd">
+<td>825</td>
+<td>Multilevel Queue</td>
+<td>Tiered priority queues</td>
+</tr>
+<tr class="even">
+<td>826</td>
+<td>Earliest Deadline First (EDF)</td>
+<td>Real-time optimal</td>
+</tr>
+<tr class="odd">
+<td>827</td>
+<td>Rate Monotonic Scheduling (RMS)</td>
+<td>Fixed periodic priority</td>
+</tr>
+<tr class="even">
+<td>828</td>
+<td>Lottery Scheduling</td>
+<td>Probabilistic fairness</td>
+</tr>
+<tr class="odd">
+<td>829</td>
+<td>Multilevel Feedback Queue</td>
+<td>Adaptive behavior</td>
+</tr>
+<tr class="even">
+<td>830</td>
+<td>Fair Queuing (FQ)</td>
+<td>Flow-based proportional sharing</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="caching-and-replacement-lru-lfu-clock" class="level3">
+<h3 class="anchored" data-anchor-id="caching-and-replacement-lru-lfu-clock">84. Caching and Replacement (LRU, LFU, CLOCK)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 56%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>831</td>
+<td>LRU (Least Recently Used)</td>
+<td>Evict oldest used</td>
+</tr>
+<tr class="even">
+<td>832</td>
+<td>LFU (Least Frequently Used)</td>
+<td>Evict lowest frequency</td>
+</tr>
+<tr class="odd">
+<td>833</td>
+<td>FIFO Cache</td>
+<td>Simple queue eviction</td>
+</tr>
+<tr class="even">
+<td>834</td>
+<td>CLOCK Algorithm</td>
+<td>Approximate LRU</td>
+</tr>
+<tr class="odd">
+<td>835</td>
+<td>ARC (Adaptive Replacement Cache)</td>
+<td>Mix of recency + frequency</td>
+</tr>
+<tr class="even">
+<td>836</td>
+<td>Two-Queue (2Q)</td>
+<td>Separate recent/frequent</td>
+</tr>
+<tr class="odd">
+<td>837</td>
+<td>LIRS (Low Inter-reference Recency Set)</td>
+<td>Predict reuse distance</td>
+</tr>
+<tr class="even">
+<td>838</td>
+<td>TinyLFU</td>
+<td>Frequency sketch admission</td>
+</tr>
+<tr class="odd">
+<td>839</td>
+<td>Random Replacement</td>
+<td>Simple stochastic policy</td>
+</tr>
+<tr class="even">
+<td>840</td>
+<td>Belady’s Optimal</td>
+<td>Evict farthest future use</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="networking-routing-congestion-control" class="level3">
+<h3 class="anchored" data-anchor-id="networking-routing-congestion-control">85. Networking (Routing, Congestion Control)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 59%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>841</td>
+<td>Dijkstra’s Routing</td>
+<td>Shortest path routing</td>
+</tr>
+<tr class="even">
+<td>842</td>
+<td>Bellman–Ford Routing</td>
+<td>Distance-vector routing</td>
+</tr>
+<tr class="odd">
+<td>843</td>
+<td>Link-State Routing (OSPF)</td>
+<td>Global view routing</td>
+</tr>
+<tr class="even">
+<td>844</td>
+<td>Distance-Vector Routing (RIP)</td>
+<td>Local neighbor updates</td>
+</tr>
+<tr class="odd">
+<td>845</td>
+<td>Path Vector (BGP)</td>
+<td>Route advertisement</td>
+</tr>
+<tr class="even">
+<td>846</td>
+<td>Flooding</td>
+<td>Broadcast to all nodes</td>
+</tr>
+<tr class="odd">
+<td>847</td>
+<td>Spanning Tree Protocol</td>
+<td>Loop-free topology</td>
+</tr>
+<tr class="even">
+<td>848</td>
+<td>Congestion Control (AIMD)</td>
+<td>TCP window control</td>
+</tr>
+<tr class="odd">
+<td>849</td>
+<td>Random Early Detection (RED)</td>
+<td>Queue preemptive drop</td>
+</tr>
+<tr class="even">
+<td>850</td>
+<td>ECN (Explicit Congestion Notification)</td>
+<td>Mark packets early</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="distributed-consensus-paxos-raft-pbft" class="level3">
+<h3 class="anchored" data-anchor-id="distributed-consensus-paxos-raft-pbft">86. Distributed Consensus (Paxos, Raft, PBFT)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 53%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>851</td>
+<td>Basic Paxos</td>
+<td>Majority consensus</td>
+</tr>
+<tr class="even">
+<td>852</td>
+<td>Multi-Paxos</td>
+<td>Sequence of agreements</td>
+</tr>
+<tr class="odd">
+<td>853</td>
+<td>Raft</td>
+<td>Log replication + leader election</td>
+</tr>
+<tr class="even">
+<td>854</td>
+<td>Viewstamped Replication</td>
+<td>Alternative consensus design</td>
+</tr>
+<tr class="odd">
+<td>855</td>
+<td>PBFT (Practical Byzantine Fault Tolerance)</td>
+<td>Byzantine safety</td>
+</tr>
+<tr class="even">
+<td>856</td>
+<td>Zab (Zookeeper Atomic Broadcast)</td>
+<td>Broadcast + ordering</td>
+</tr>
+<tr class="odd">
+<td>857</td>
+<td>EPaxos</td>
+<td>Leaderless fast path</td>
+</tr>
+<tr class="even">
+<td>858</td>
+<td>VRR (Virtual Ring Replication)</td>
+<td>Log around ring</td>
+</tr>
+<tr class="odd">
+<td>859</td>
+<td>Two-Phase Commit with Consensus</td>
+<td>Transactional commit</td>
+</tr>
+<tr class="even">
+<td>860</td>
+<td>Chain Replication</td>
+<td>Ordered state replication</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="load-balancing-and-rate-limiting" class="level3">
+<h3 class="anchored" data-anchor-id="load-balancing-and-rate-limiting">87. Load Balancing and Rate Limiting</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>861</td>
+<td>Round Robin Load Balancing</td>
+<td>Sequential distribution</td>
+</tr>
+<tr class="even">
+<td>862</td>
+<td>Weighted Round Robin</td>
+<td>Proportional to weight</td>
+</tr>
+<tr class="odd">
+<td>863</td>
+<td>Least Connections</td>
+<td>Pick least loaded node</td>
+</tr>
+<tr class="even">
+<td>864</td>
+<td>Consistent Hashing</td>
+<td>Map requests stably</td>
+</tr>
+<tr class="odd">
+<td>865</td>
+<td>Power of Two Choices</td>
+<td>Sample and choose lesser load</td>
+</tr>
+<tr class="even">
+<td>866</td>
+<td>Random Load Balancing</td>
+<td>Simple uniform random</td>
+</tr>
+<tr class="odd">
+<td>867</td>
+<td>Token Bucket</td>
+<td>Rate-based limiter</td>
+</tr>
+<tr class="even">
+<td>868</td>
+<td>Leaky Bucket</td>
+<td>Steady flow shaping</td>
+</tr>
+<tr class="odd">
+<td>869</td>
+<td>Sliding Window Counter</td>
+<td>Rolling time window</td>
+</tr>
+<tr class="even">
+<td>870</td>
+<td>Fixed Window Counter</td>
+<td>Resettable counter limiter</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="search-and-indexing-inverted-bm25-wand" class="level3">
+<h3 class="anchored" data-anchor-id="search-and-indexing-inverted-bm25-wand">88. Search and Indexing (Inverted, BM25, WAND)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>871</td>
+<td>Inverted Index Construction</td>
+<td>Word → document list</td>
+</tr>
+<tr class="even">
+<td>872</td>
+<td>Positional Index Build</td>
+<td>Store term positions</td>
+</tr>
+<tr class="odd">
+<td>873</td>
+<td>TF-IDF Scoring</td>
+<td>Term frequency weighting</td>
+</tr>
+<tr class="even">
+<td>874</td>
+<td>BM25 Ranking</td>
+<td>Modern scoring model</td>
+</tr>
+<tr class="odd">
+<td>875</td>
+<td>Boolean Retrieval</td>
+<td>Logical AND/OR/NOT</td>
+</tr>
+<tr class="even">
+<td>876</td>
+<td>WAND Algorithm</td>
+<td>Efficient top-k retrieval</td>
+</tr>
+<tr class="odd">
+<td>877</td>
+<td>Block-Max WAND (BMW)</td>
+<td>Early skipping optimization</td>
+</tr>
+<tr class="even">
+<td>878</td>
+<td>Impact-Ordered Indexing</td>
+<td>Sort by contribution</td>
+</tr>
+<tr class="odd">
+<td>879</td>
+<td>Tiered Indexing</td>
+<td>Prioritize high-score docs</td>
+</tr>
+<tr class="even">
+<td>880</td>
+<td>DAAT vs SAAT Evaluation</td>
+<td>Document vs score-at-a-time</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="compression-and-encoding-in-systems" class="level3">
+<h3 class="anchored" data-anchor-id="compression-and-encoding-in-systems">89. Compression and Encoding in Systems</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>881</td>
+<td>Run-Length Encoding (RLE)</td>
+<td>Simple repetition encoding</td>
+</tr>
+<tr class="even">
+<td>882</td>
+<td>Huffman Coding</td>
+<td>Optimal variable-length code</td>
+</tr>
+<tr class="odd">
+<td>883</td>
+<td>Arithmetic Coding</td>
+<td>Fractional interval coding</td>
+</tr>
+<tr class="even">
+<td>884</td>
+<td>Delta Encoding</td>
+<td>Store differences</td>
+</tr>
+<tr class="odd">
+<td>885</td>
+<td>Variable Byte Encoding</td>
+<td>Compact integers</td>
+</tr>
+<tr class="even">
+<td>886</td>
+<td>Elias Gamma Coding</td>
+<td>Prefix integer encoding</td>
+</tr>
+<tr class="odd">
+<td>887</td>
+<td>Rice Coding</td>
+<td>Unary + remainder scheme</td>
+</tr>
+<tr class="even">
+<td>888</td>
+<td>Snappy</td>
+<td>Fast block compression</td>
+</tr>
+<tr class="odd">
+<td>889</td>
+<td>Zstandard (Zstd)</td>
+<td>Modern adaptive codec</td>
+</tr>
+<tr class="even">
+<td>890</td>
+<td>LZ4</td>
+<td>High-speed dictionary compressor</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fault-tolerance-and-replication" class="level3">
+<h3 class="anchored" data-anchor-id="fault-tolerance-and-replication">90. Fault Tolerance and Replication</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>891</td>
+<td>Primary–Backup Replication</td>
+<td>One leader, one standby</td>
+</tr>
+<tr class="even">
+<td>892</td>
+<td>Quorum Replication</td>
+<td>Majority write/read rule</td>
+</tr>
+<tr class="odd">
+<td>893</td>
+<td>Chain Replication</td>
+<td>Ordered consistency</td>
+</tr>
+<tr class="even">
+<td>894</td>
+<td>Gossip Protocol</td>
+<td>Epidemic state exchange</td>
+</tr>
+<tr class="odd">
+<td>895</td>
+<td>Anti-Entropy Repair</td>
+<td>Periodic reconciliation</td>
+</tr>
+<tr class="even">
+<td>896</td>
+<td>Erasure Coding</td>
+<td>Redundant data blocks</td>
+</tr>
+<tr class="odd">
+<td>897</td>
+<td>Checksum Verification</td>
+<td>Detect corruption</td>
+</tr>
+<tr class="even">
+<td>898</td>
+<td>Heartbeat Monitoring</td>
+<td>Liveness detection</td>
+</tr>
+<tr class="odd">
+<td>899</td>
+<td>Leader Election (Bully)</td>
+<td>Highest ID wins</td>
+</tr>
+<tr class="even">
+<td>900</td>
+<td>Leader Election (Ring)</td>
+<td>Token-based rotation</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chapter-10.-ai-ml-and-optimization" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-10.-ai-ml-and-optimization">Chapter 10. AI, ML, and Optimization</h2>
+<section id="classical-ml-k-means-naive-bayes-svm-decision-trees" class="level3">
+<h3 class="anchored" data-anchor-id="classical-ml-k-means-naive-bayes-svm-decision-trees">91. Classical ML (k-means, Naive Bayes, SVM, Decision Trees)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 47%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>901</td>
+<td>k-Means Clustering</td>
+<td>Partition by centroid iteration</td>
+</tr>
+<tr class="even">
+<td>902</td>
+<td>k-Medoids (PAM)</td>
+<td>Cluster by exemplars</td>
+</tr>
+<tr class="odd">
+<td>903</td>
+<td>Gaussian Mixture Model (EM)</td>
+<td>Soft probabilistic clustering</td>
+</tr>
+<tr class="even">
+<td>904</td>
+<td>Naive Bayes Classifier</td>
+<td>Probabilistic feature independence</td>
+</tr>
+<tr class="odd">
+<td>905</td>
+<td>Logistic Regression</td>
+<td>Sigmoid linear classifier</td>
+</tr>
+<tr class="even">
+<td>906</td>
+<td>Perceptron</td>
+<td>Online linear separator</td>
+</tr>
+<tr class="odd">
+<td>907</td>
+<td>Decision Tree (CART)</td>
+<td>Recursive partition by impurity</td>
+</tr>
+<tr class="even">
+<td>908</td>
+<td>ID3 Algorithm</td>
+<td>Information gain splitting</td>
+</tr>
+<tr class="odd">
+<td>909</td>
+<td>k-Nearest Neighbors (kNN)</td>
+<td>Distance-based classification</td>
+</tr>
+<tr class="even">
+<td>910</td>
+<td>Linear Discriminant Analysis (LDA)</td>
+<td>Projection for separation</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ensemble-methods-bagging-boosting-random-forests" class="level3">
+<h3 class="anchored" data-anchor-id="ensemble-methods-bagging-boosting-random-forests">92. Ensemble Methods (Bagging, Boosting, Random Forests)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>911</td>
+<td>Bagging</td>
+<td>Bootstrap aggregation</td>
+</tr>
+<tr class="even">
+<td>912</td>
+<td>Random Forest</td>
+<td>Ensemble of decision trees</td>
+</tr>
+<tr class="odd">
+<td>913</td>
+<td>AdaBoost</td>
+<td>Weighted error correction</td>
+</tr>
+<tr class="even">
+<td>914</td>
+<td>Gradient Boosting</td>
+<td>Sequential residual fitting</td>
+</tr>
+<tr class="odd">
+<td>915</td>
+<td>XGBoost</td>
+<td>Optimized gradient boosting</td>
+</tr>
+<tr class="even">
+<td>916</td>
+<td>LightGBM</td>
+<td>Histogram-based leaf growth</td>
+</tr>
+<tr class="odd">
+<td>917</td>
+<td>CatBoost</td>
+<td>Ordered boosting for categoricals</td>
+</tr>
+<tr class="even">
+<td>918</td>
+<td>Stacking</td>
+<td>Meta-model ensemble</td>
+</tr>
+<tr class="odd">
+<td>919</td>
+<td>Voting Classifier</td>
+<td>Majority aggregation</td>
+</tr>
+<tr class="even">
+<td>920</td>
+<td>Snapshot Ensemble</td>
+<td>Averaged checkpoints</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gradient-methods-sgd-adam-rmsprop" class="level3">
+<h3 class="anchored" data-anchor-id="gradient-methods-sgd-adam-rmsprop">93. Gradient Methods (SGD, Adam, RMSProp)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 52%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>921</td>
+<td>Gradient Descent</td>
+<td>Batch full-gradient step</td>
+</tr>
+<tr class="even">
+<td>922</td>
+<td>Stochastic Gradient Descent (SGD)</td>
+<td>Sample-wise updates</td>
+</tr>
+<tr class="odd">
+<td>923</td>
+<td>Mini-Batch SGD</td>
+<td>Tradeoff speed and variance</td>
+</tr>
+<tr class="even">
+<td>924</td>
+<td>Momentum</td>
+<td>Add velocity to descent</td>
+</tr>
+<tr class="odd">
+<td>925</td>
+<td>Nesterov Accelerated Gradient</td>
+<td>Lookahead correction</td>
+</tr>
+<tr class="even">
+<td>926</td>
+<td>AdaGrad</td>
+<td>Adaptive per-parameter rate</td>
+</tr>
+<tr class="odd">
+<td>927</td>
+<td>RMSProp</td>
+<td>Exponential moving average</td>
+</tr>
+<tr class="even">
+<td>928</td>
+<td>Adam</td>
+<td>Momentum + adaptive rate</td>
+</tr>
+<tr class="odd">
+<td>929</td>
+<td>AdamW</td>
+<td>Decoupled weight decay</td>
+</tr>
+<tr class="even">
+<td>930</td>
+<td>L-BFGS</td>
+<td>Limited-memory quasi-Newton</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="deep-learning-backpropagation-dropout-normalization" class="level3">
+<h3 class="anchored" data-anchor-id="deep-learning-backpropagation-dropout-normalization">94. Deep Learning (Backpropagation, Dropout, Normalization)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>931</td>
+<td>Backpropagation</td>
+<td>Gradient chain rule</td>
+</tr>
+<tr class="even">
+<td>932</td>
+<td>Xavier/He Initialization</td>
+<td>Scaled variance init</td>
+</tr>
+<tr class="odd">
+<td>933</td>
+<td>Dropout</td>
+<td>Random neuron deactivation</td>
+</tr>
+<tr class="even">
+<td>934</td>
+<td>Batch Normalization</td>
+<td>Normalize per batch</td>
+</tr>
+<tr class="odd">
+<td>935</td>
+<td>Layer Normalization</td>
+<td>Normalize per feature</td>
+</tr>
+<tr class="even">
+<td>936</td>
+<td>Gradient Clipping</td>
+<td>Prevent explosion</td>
+</tr>
+<tr class="odd">
+<td>937</td>
+<td>Early Stopping</td>
+<td>Prevent overfitting</td>
+</tr>
+<tr class="even">
+<td>938</td>
+<td>Weight Decay</td>
+<td>Regularization via penalty</td>
+</tr>
+<tr class="odd">
+<td>939</td>
+<td>Learning Rate Scheduling</td>
+<td>Dynamic LR adjustment</td>
+</tr>
+<tr class="even">
+<td>940</td>
+<td>Residual Connections</td>
+<td>Skip layer improvement</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sequence-models-viterbi-beam-search-ctc" class="level3">
+<h3 class="anchored" data-anchor-id="sequence-models-viterbi-beam-search-ctc">95. Sequence Models (Viterbi, Beam Search, CTC)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 58%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>941</td>
+<td>Hidden Markov Model (Forward–Backward)</td>
+<td>Probabilistic sequence model</td>
+</tr>
+<tr class="even">
+<td>942</td>
+<td>Viterbi Algorithm</td>
+<td>Most probable path</td>
+</tr>
+<tr class="odd">
+<td>943</td>
+<td>Baum–Welch</td>
+<td>EM training for HMMs</td>
+</tr>
+<tr class="even">
+<td>944</td>
+<td>Beam Search</td>
+<td>Top-k path exploration</td>
+</tr>
+<tr class="odd">
+<td>945</td>
+<td>Greedy Decoding</td>
+<td>Fast approximate decoding</td>
+</tr>
+<tr class="even">
+<td>946</td>
+<td>Connectionist Temporal Classification (CTC)</td>
+<td>Unaligned sequence training</td>
+</tr>
+<tr class="odd">
+<td>947</td>
+<td>Attention Mechanism</td>
+<td>Weighted context aggregation</td>
+</tr>
+<tr class="even">
+<td>948</td>
+<td>Transformer Decoder</td>
+<td>Self-attention stack</td>
+</tr>
+<tr class="odd">
+<td>949</td>
+<td>Seq2Seq with Attention</td>
+<td>Encoder-decoder framework</td>
+</tr>
+<tr class="even">
+<td>950</td>
+<td>Pointer Network</td>
+<td>Output index selection</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="metaheuristics-ga-sa-pso-aco" class="level3">
+<h3 class="anchored" data-anchor-id="metaheuristics-ga-sa-pso-aco">96. Metaheuristics (GA, SA, PSO, ACO)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 50%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>951</td>
+<td>Genetic Algorithm (GA)</td>
+<td>Evolutionary optimization</td>
+</tr>
+<tr class="even">
+<td>952</td>
+<td>Simulated Annealing (SA)</td>
+<td>Temperature-controlled search</td>
+</tr>
+<tr class="odd">
+<td>953</td>
+<td>Tabu Search</td>
+<td>Memory of forbidden moves</td>
+</tr>
+<tr class="even">
+<td>954</td>
+<td>Particle Swarm Optimization (PSO)</td>
+<td>Velocity-based search</td>
+</tr>
+<tr class="odd">
+<td>955</td>
+<td>Ant Colony Optimization (ACO)</td>
+<td>Pheromone-guided path</td>
+</tr>
+<tr class="even">
+<td>956</td>
+<td>Differential Evolution (DE)</td>
+<td>Vector-based mutation</td>
+</tr>
+<tr class="odd">
+<td>957</td>
+<td>Harmony Search</td>
+<td>Music-inspired improvisation</td>
+</tr>
+<tr class="even">
+<td>958</td>
+<td>Firefly Algorithm</td>
+<td>Brightness-attraction movement</td>
+</tr>
+<tr class="odd">
+<td>959</td>
+<td>Bee Colony Optimization</td>
+<td>Explore-exploit via scouts</td>
+</tr>
+<tr class="even">
+<td>960</td>
+<td>Hill Climbing</td>
+<td>Local incremental improvement</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reinforcement-learning-q-learning-policy-gradients" class="level3">
+<h3 class="anchored" data-anchor-id="reinforcement-learning-q-learning-policy-gradients">97. Reinforcement Learning (Q-learning, Policy Gradients)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 53%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>961</td>
+<td>Monte Carlo Control</td>
+<td>Average returns</td>
+</tr>
+<tr class="even">
+<td>962</td>
+<td>Temporal Difference (TD) Learning</td>
+<td>Bootstrap updates</td>
+</tr>
+<tr class="odd">
+<td>963</td>
+<td>SARSA</td>
+<td>On-policy TD learning</td>
+</tr>
+<tr class="even">
+<td>964</td>
+<td>Q-Learning</td>
+<td>Off-policy TD learning</td>
+</tr>
+<tr class="odd">
+<td>965</td>
+<td>Double Q-Learning</td>
+<td>Reduce overestimation</td>
+</tr>
+<tr class="even">
+<td>966</td>
+<td>Deep Q-Network (DQN)</td>
+<td>Neural Q approximator</td>
+</tr>
+<tr class="odd">
+<td>967</td>
+<td>REINFORCE</td>
+<td>Policy gradient by sampling</td>
+</tr>
+<tr class="even">
+<td>968</td>
+<td>Actor–Critic</td>
+<td>Value-guided policy update</td>
+</tr>
+<tr class="odd">
+<td>969</td>
+<td>PPO (Proximal Policy Optimization)</td>
+<td>Clipped surrogate objective</td>
+</tr>
+<tr class="even">
+<td>970</td>
+<td>DDPG / SAC</td>
+<td>Continuous action RL</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="approximation-and-online-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="approximation-and-online-algorithms">98. Approximation and Online Algorithms</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 43%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>971</td>
+<td>Greedy Set Cover</td>
+<td>ln(n)-approximation</td>
+</tr>
+<tr class="even">
+<td>972</td>
+<td>Vertex Cover Approximation</td>
+<td>Double-matching heuristic</td>
+</tr>
+<tr class="odd">
+<td>973</td>
+<td>Traveling Salesman Approximation</td>
+<td>MST-based 2-approx</td>
+</tr>
+<tr class="even">
+<td>974</td>
+<td>k-Center Approximation</td>
+<td>Farthest-point heuristic</td>
+</tr>
+<tr class="odd">
+<td>975</td>
+<td>Online Paging (LRU)</td>
+<td>Competitive analysis</td>
+</tr>
+<tr class="even">
+<td>976</td>
+<td>Online Matching (Ranking)</td>
+<td>Adversarial input resilience</td>
+</tr>
+<tr class="odd">
+<td>977</td>
+<td>Online Knapsack</td>
+<td>Ratio-based acceptance</td>
+</tr>
+<tr class="even">
+<td>978</td>
+<td>Competitive Ratio Evaluation</td>
+<td>Bound worst-case performance</td>
+</tr>
+<tr class="odd">
+<td>979</td>
+<td>PTAS / FPTAS Schemes</td>
+<td>Polynomial approximation</td>
+</tr>
+<tr class="even">
+<td>980</td>
+<td>Primal–Dual Method</td>
+<td>Approximate combinatorial optimization</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fairness-causal-inference-and-robust-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="fairness-causal-inference-and-robust-optimization">99. Fairness, Causal Inference, and Robust Optimization</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 52%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>981</td>
+<td>Reweighting for Fairness</td>
+<td>Adjust sample weights</td>
+</tr>
+<tr class="even">
+<td>982</td>
+<td>Demographic Parity Constraint</td>
+<td>Equalize positive rates</td>
+</tr>
+<tr class="odd">
+<td>983</td>
+<td>Equalized Odds</td>
+<td>Align error rates</td>
+</tr>
+<tr class="even">
+<td>984</td>
+<td>Adversarial Debiasing</td>
+<td>Learn fair representations</td>
+</tr>
+<tr class="odd">
+<td>985</td>
+<td>Causal DAG Discovery</td>
+<td>Graphical causal inference</td>
+</tr>
+<tr class="even">
+<td>986</td>
+<td>Propensity Score Matching</td>
+<td>Estimate treatment effect</td>
+</tr>
+<tr class="odd">
+<td>987</td>
+<td>Instrumental Variable Estimation</td>
+<td>Handle confounders</td>
+</tr>
+<tr class="even">
+<td>988</td>
+<td>Robust Optimization</td>
+<td>Worst-case aware optimization</td>
+</tr>
+<tr class="odd">
+<td>989</td>
+<td>Distributionally Robust Optimization</td>
+<td>Minimax over uncertainty sets</td>
+</tr>
+<tr class="even">
+<td>990</td>
+<td>Counterfactual Fairness</td>
+<td>Simulate do-interventions</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ai-planning-search-and-learning-systems" class="level3">
+<h3 class="anchored" data-anchor-id="ai-planning-search-and-learning-systems">100. AI Planning, Search, and Learning Systems</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 48%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Algorithm</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>991</td>
+<td>Breadth-First Search (BFS)</td>
+<td>Uninformed search</td>
+</tr>
+<tr class="even">
+<td>992</td>
+<td>Depth-First Search (DFS)</td>
+<td>Backtracking search</td>
+</tr>
+<tr class="odd">
+<td>993</td>
+<td>A* Search</td>
+<td>Heuristic guided</td>
+</tr>
+<tr class="even">
+<td>994</td>
+<td>Iterative Deepening A* (IDA*)</td>
+<td>Memory-bounded heuristic</td>
+</tr>
+<tr class="odd">
+<td>995</td>
+<td>Uniform Cost Search</td>
+<td>Expand by path cost</td>
+</tr>
+<tr class="even">
+<td>996</td>
+<td>Monte Carlo Tree Search (MCTS)</td>
+<td>Exploration vs exploitation</td>
+</tr>
+<tr class="odd">
+<td>997</td>
+<td>Minimax</td>
+<td>Game tree evaluation</td>
+</tr>
+<tr class="even">
+<td>998</td>
+<td>Alpha–Beta Pruning</td>
+<td>Prune unneeded branches</td>
+</tr>
+<tr class="odd">
+<td>999</td>
+<td>STRIPS Planning</td>
+<td>Action-based state transition</td>
+</tr>
+<tr class="even">
+<td>1000</td>
+<td>Hierarchical Task Network (HTN)</td>
+<td>Structured AI planning</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../books/en-us/book.html" class="pagination-link" aria-label="The Book">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">The Book</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
