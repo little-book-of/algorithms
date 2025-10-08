@@ -12,30 +12,30 @@ Licensed under CC BY-NC-SA 4.0.
 
 ### 1. What Is an Algorithm?
 
-Let's begin at the very heart of computer science. Before we dive into code, data, or performance, we need to understand what an algorithm *really is*.
+Let's start at the beginning. Before code, data, or performance, we need a clear idea of what an algorithm really is.
 
 An algorithm is a clear, step-by-step procedure to solve a problem. Think of it like a recipe: you have inputs (ingredients), a series of steps (instructions), and an output (the finished dish).
 
-At its core, an algorithm must be:
+At its core, an algorithm should be:
 
-- Precise: Every step is well-defined and unambiguous.- Finite: It must finish after a certain number of steps.- Effective: Each step is doable by a machine or human.- Deterministic (usually): Same input, same output.
-When you write an algorithm, you're describing *how* to get from question to answer, not just *what* the answer is.
+- Precise: every step is well defined and unambiguous
+- Finite: it finishes after a limited number of steps
+- Effective: each step is simple enough to carry out
+- Deterministic (usually): the same input gives the same output
 
+When you write an algorithm, you are describing how to get from question to answer, not just what the answer is.
 
-#### Example: A Simple Sum
+#### Example: Sum from 1 to (n)
 
-Suppose you want to find the sum of numbers from 1 to ( n ).
+Suppose you want the sum of the numbers from 1 to (n).
 
-You could describe it like this:
+Natural language steps
 
-1. Start with total = 0
-2. For i = 1 to n
-   3. Add i to total
-3. Return total
+1. Set `total = 0`
+2. For each `i` from `1` to `n`, add `i` to `total`
+3. Return `total`
 
-That's an algorithm! It's clear, finite, and mechanical.
-
-You can express it in pseudocode:
+Pseudocode
 
 ```text
 Algorithm SumToN(n):
@@ -45,7 +45,7 @@ Algorithm SumToN(n):
     return total
 ```
 
-Or even write it in C:
+C code
 
 ```c
 int sum_to_n(int n) {
@@ -57,57 +57,54 @@ int sum_to_n(int n) {
 }
 ```
 
-
 #### Tiny Code
 
-Let's run a quick example by hand.
+Try a quick run by hand with (n = 5):
 
-If ( n = 5 ):
+- start `total = 0`
+- add 1 → `total = 1`
+- add 2 → `total = 3`
+- add 3 → `total = 6`
+- add 4 → `total = 10`
+- add 5 → `total = 15`
 
-- total = 0- Add 1 → total = 1- Add 2 → total = 3- Add 3 → total = 6- Add 4 → total = 10- Add 5 → total = 15
-Output = 15
+Output is `15`.
 
-We can even derive a formula later (you'll see it soon!):
+You will also see this closed-form formula soon:
+
 $$
 1 + 2 + 3 + \dots + n = \frac{n(n+1)}{2}
 $$
 
-
 #### Why It Matters
 
-Algorithms are the blueprints of computation. Every software system, from a calculator to an AI model, is built from algorithms.
-
-Without algorithms, computers would be powerless ,  they're just fast machines following instructions. Algorithms give them purpose and direction.
-
-Understanding algorithms means you understand how thinking turns into code.
-
-Later, you'll learn to analyze them (how fast, how big, how smart), but for now, remember:
+Algorithms are the blueprints of computation. Every program, from a calculator to an AI model, is built from algorithms. Computers are fast at following instructions. Algorithms give those instructions structure and purpose.
 
 > Algorithms are the language of problem solving.
 
-
 #### Try It Yourself
 
-1. Write a simple algorithm to find the maximum number in a list.
-2. Write an algorithm to reverse a string.
-3. For extra fun, describe your morning routine as an algorithm (inputs, steps, output).
+1. Write an algorithm to find the maximum number in a list
+2. Write an algorithm to reverse a string
+3. Describe your morning routine as an algorithm: list the inputs, the steps, and the final output
 
-The best way to learn is to think algorithmically ,  break problems into small, clear, executable steps.
+Tip: the best way to learn is to think in small, clear steps. Break a problem into simple actions you can execute one by one.
 
 ### 2. Measuring Time and Space
 
 Now that you know what an algorithm is, it's time to ask a deeper question:
 
-> How do we know if one algorithm is *better* than another?
+> How do we know if one algorithm is better than another?
 
-It's not enough for an algorithm to be correct ,  it should also be *efficient*. We measure efficiency in two key ways: time and space.
-
+It's not enough for an algorithm to be correct. It should also be efficient. We measure efficiency in two key ways: time and space.
 
 #### Time Complexity
 
-Time means how long an algorithm takes to run, relative to its input size. We don't measure in seconds, because hardware changes. Instead, we count steps or operations.
+Time measures how long an algorithm takes to run, relative to its input size.
+We don't measure in seconds, because hardware speed varies.
+Instead, we count steps or operations.
 
-For example:
+Example:
 
 ```c
 for (int i = 0; i < n; i++) {
@@ -115,7 +112,8 @@ for (int i = 0; i < n; i++) {
 }
 ```
 
-This loop runs ( n ) times, so we say it has time complexity O(n) ,  it grows linearly with input size.
+This loop runs $n$ times, so it has time complexity $O(n)$.
+The time grows linearly with input size.
 
 Another example:
 
@@ -125,38 +123,38 @@ for (int i = 0; i < n; i++)
     printf("*");
 ```
 
-This one runs $n \times n = n^2$ times → O(n²).
+This runs $n \times n = n^2$ times, so it has $O(n^2)$ time complexity.
 
-You'll see these "Big-O" symbols a lot ,  they express how runtime grows as inputs grow.
-
+These Big-O symbols describe how runtime grows as the input grows.
 
 #### Space Complexity
 
-Space means how much memory the algorithm uses.
+Space measures how much memory an algorithm uses.
 
 Example:
 
 ```c
-int sum = 0;        // O(1) space
+int sum = 0;  // O(1) space
 ```
 
-Uses a constant amount of memory.
+This uses a constant amount of memory, regardless of input size.
 
-But an array like:
+But if we allocate an array:
 
 ```c
-int arr[n];         // O(n) space
+int arr[n];   // O(n) space
 ```
 
-uses space proportional to the input size.
+This uses space proportional to $n$.
 
-Sometimes you'll trade time for space. For example:
+Often, we trade time for space:
 
-- Using a hash table speeds up lookups (more memory, less time)- Using a streaming algorithm saves memory (less space, more time)
+- Using a hash table speeds up lookups (more memory, less time)
+- Using a streaming algorithm saves memory (less space, more time)
 
 #### Tiny Code
 
-Let's compare two ways to compute a sum from 1 to n:
+Compare two ways to compute the sum from 1 to $n$:
 
 Method 1: Loop
 
@@ -168,7 +166,9 @@ int sum_loop(int n) {
 }
 ```
 
-- Time: ( O(n) )- Space: ( O(1) )
+Time: $O(n)$
+Space: $O(1)$
+
 Method 2: Formula
 
 ```c
@@ -177,82 +177,87 @@ int sum_formula(int n) {
 }
 ```
 
-- Time: ( O(1) )- Space: ( O(1) )
-Both are correct ,  but one is *faster*. That's why analyzing time and space matters.
+Time: $O(1)$
+Space: $O(1)$
 
+Both are correct, but one is faster.
+Analyzing time and space helps you understand why.
 
 #### Why It Matters
 
-When data grows huge (millions, billions), small inefficiencies explode.
+When data grows huge (millions or billions), small inefficiencies explode.
 
-An algorithm that takes ( O$n^2$ ) might seem fine for 10 elements, but impossible for 1,000,000.
+An algorithm that takes $O(n^2)$ time might feel fine for 10 elements,
+but impossible for 1,000,000.
 
-Knowing how to measure time and space helps you:
+Measuring time and space helps you:
 
-- Predict performance- Compare solutions- Optimize intelligently
+- Predict performance
+- Compare different solutions
+- Optimize intelligently
+
 It's your compass for navigating complexity.
-
 
 #### Try It Yourself
 
 1. Write a simple algorithm to find the minimum in an array. Estimate its time and space complexity.
-2. Compare two algorithms that solve the same problem ,  which one scales better?
-3. Can you think of a task in daily life that's O(n)? What about O(1)?
+2. Compare two algorithms that solve the same problem. Which one scales better?
+3. Think of a daily task that feels like $O(n)$. Can you imagine one that's $O(1)$?
 
-Understanding these measurements early will make every algorithm you meet more meaningful.
+Understanding these measurements early makes every future algorithm more meaningful.
+
 
 ### 3. Big-O, Big-Theta, Big-Omega
 
-Now that you can *measure* time and space, let's learn the language used to describe those measurements.
+Now that you can measure time and space, let's learn the language used to describe those measurements.
 
-When we say an algorithm is O(n), we're using asymptotic notation ,  a way to describe how an algorithm's running time or memory grows as input size ( n ) increases.
+When we say an algorithm is $O(n)$, we're using asymptotic notation, a way to describe how an algorithm's running time or memory grows as input size $n$ increases.
 
-It's not about exact steps, but how the cost *scales* for very large ( n ).
-
+It's not about exact steps, but about how the cost scales for very large $n$.
 
 #### The Big-O (Upper Bound)
 
-Big-O answers: *"How bad can it get?"*
-It gives an upper bound on growth ,  the worst-case scenario.
+Big-O answers the question: *"How bad can it get?"*
+It gives an upper bound on growth, the worst-case scenario.
 
-If an algorithm takes at most ( 5n + 20 ) steps, we write ( O(n) ).
+If an algorithm takes at most $5n + 20$ steps, we write $O(n)$.
 We drop constants and lower-order terms because they don't matter at scale.
 
 Common Big-O notations:
 
-| Name        | Notation | Growth           | Example                     |
-| ----------- | -------- | ---------------- | --------------------------- |
-| Constant    | O(1)     | Flat             | Accessing array element     |
-| Logarithmic | O(log n) | Very slow growth | Binary search               |
-| Linear      | O(n)     | Proportional     | Single loop                 |
-| Quadratic   | O(n²)    | Grows quickly    | Double loop                 |
-| Exponential | O(2ⁿ)    | Explodes         | Recursive subset generation |
+| Name        | Notation    | Growth           | Example                     |
+| ----------- | ----------- | ---------------- | --------------------------- |
+| Constant    | $O(1)$      | Flat             | Accessing array element     |
+| Logarithmic | $O(\log n)$ | Very slow growth | Binary search               |
+| Linear      | $O(n)$      | Proportional     | Single loop                 |
+| Quadratic   | $O(n^2)$    | Grows quickly    | Double loop                 |
+| Exponential | $O(2^n)$    | Explodes         | Recursive subset generation |
 
-So if your algorithm is ( O(n) ), doubling input size doubles runtime.
-If it's ( O$n^2$ ), doubling input size makes it four times slower.
-
+If your algorithm is $O(n)$, doubling input size roughly doubles runtime.
+If it's $O(n^2)$, doubling input size makes it about four times slower.
 
 #### The Big-Theta (Tight Bound)
 
-Big-Theta (Θ) gives a tight bound ,  when you know the algorithm's growth from above and below.
+Big-Theta ($\Theta$) gives a tight bound, when you know the algorithm's growth from above and below.
 
-If runtime is roughly ( 3n + 2 ), then ( T(n) = Θ(n) ).
-That means it's both ( O(n) ) and ( Ω(n) ).
-
+If runtime is roughly $3n + 2$, then $T(n) = \Theta(n)$.
+That means it's both $O(n)$ and $\Omega(n)$.
 
 #### The Big-Omega (Lower Bound)
 
-Big-Omega (Ω) answers: *"How fast can it possibly be?"*
-It's the best-case growth ,  the lower limit.
+Big-Omega ($\Omega$) answers: *"How fast can it possibly be?"*
+It's the best-case growth, the lower limit.
 
 Example:
 
-- Linear search: ( Ω(1) ) if the element is at the start- ( O(n) ) in the worst case if it's at the end
-So we might say:
-$$
-T(n) = Ω(1),\ Θ(n) = O(n)
-$$
+- Linear search: $\Omega(1)$ if the element is at the start
+- $O(n)$ in the worst case if it's at the end
 
+So we might say:
+
+$$
+T(n) = \Omega(1),\quad T(n) = O(n)
+$$
 
 #### Tiny Code
 
@@ -269,26 +274,28 @@ int sum_pairs(int n) {
 ```
 
 Total steps ≈ $n \times n = n^2$.
-So ( T(n) = O$n^2$ ).
+So $T(n) = O(n^2)$.
 
 If we added a constant-time operation before or after the loops, it wouldn't matter. Constants vanish in asymptotic notation.
-
 
 #### Why It Matters
 
 Big-O, Big-Theta, and Big-Omega let you talk precisely about performance.
-They're like the grammar of efficiency.
+They are the grammar of efficiency.
 
 When you can write:
 
-> "Algorithm A runs in O(n log n) time, O(n) space,"
-> you've captured its essence clearly and compared it meaningfully.
+> Algorithm A runs in $O(n \log n)$ time, $O(n)$ space
+
+you've captured its essence clearly and compared it meaningfully.
 
 They help you:
 
-- Predict behavior at scale- Choose better data structures- Communicate efficiency in interviews and papers
-It's not about exact timing ,  it's about growth.
+- Predict behavior at scale
+- Choose better data structures
+- Communicate efficiency in interviews and papers
 
+It's not about exact timing, it's about growth.
 
 #### Try It Yourself
 
@@ -301,16 +308,16 @@ It's not about exact timing ,  it's about growth.
 
    What's the time complexity?
 
-2. Write an algorithm that's O(n log n) ,  hint: merge sort!
+2. Write an algorithm that's $O(n \log n)$ (hint: merge sort).
 
 3. Identify the best, worst, and average-case complexities for linear search and binary search.
 
-Learning Big-O is like learning a new language ,  once you're fluent, you can *see* how code grows before you even run it.
+Learning Big-O is like learning a new language, once you're fluent, you can see how code grows before you even run it.
 
 ### 4. Algorithmic Paradigms (Greedy, Divide and Conquer, DP)
 
 Once you can measure performance, it's time to explore how algorithms are designed.
-Behind every clever solution is a guiding paradigm ,  a way of thinking about problems.
+Behind every clever solution is a guiding paradigm, a way of thinking about problems.
 
 Three of the most powerful are:
 
@@ -318,8 +325,7 @@ Three of the most powerful are:
 2. Divide and Conquer
 3. Dynamic Programming (DP)
 
-Each one represents a different mindset for problem-solving.
-
+Each represents a different mindset for problem solving.
 
 #### 1. Greedy Algorithms
 
@@ -327,39 +333,48 @@ A greedy algorithm makes the best local choice at each step, hoping it leads to 
 
 Think of it like:
 
-> "Take what looks best right now, don't worry about the future."
+> "Take what looks best right now, and don't worry about the future."
 
-They're fast and simple, but not always correct ,  they only work when the greedy choice property holds.
+They are fast and simple, but not always correct. They only work when the greedy choice property holds.
 
 Example: Coin Change (Greedy version)
 Suppose you want to make 63 cents using US coins (25, 10, 5, 1).
 The greedy approach:
 
-- Take 25 → 38 left- Take 25 → 13 left- Take 10 → 3 left- Take 1 × 3
-Works here, but not always (try coins 1, 3, 4 for 6).
+- Take 25 → 38 left
+- Take 25 → 13 left
+- Take 10 → 3 left
+- Take 1 × 3
 
-Simple but not guaranteed optimal.
+This works here, but not always (try coins 1, 3, 4 for amount 6).
+Simple, but not guaranteed optimal.
 
 Common greedy algorithms:
 
-- Kruskal's MST- Prim's MST- Dijkstra's (non-negative weights)- Huffman coding
+- Kruskal's Minimum Spanning Tree
+- Prim's Minimum Spanning Tree
+- Dijkstra's Shortest Path (non-negative weights)
+- Huffman Coding
 
 #### 2. Divide and Conquer
 
-This one's a classic. You break the problem into smaller subproblems, solve each recursively, and then combine the results.
+This is a classic paradigm. You break the problem into smaller subproblems, solve each recursively, and then combine the results.
 
-It's like splitting a task among friends, then merging the answers.
+It's like splitting a task among friends, then merging their answers.
 
 Formally:
+
 $$
 T(n) = aT\left(\frac{n}{b}\right) + f(n)
 $$
 
 Examples:
 
-- Merge Sort: divide the array, sort halves, merge- Quick Sort: partition around pivot- Binary Search: halve the range each step
-Elegant and powerful, but recursion overhead can add cost if poorly structured.
+- Merge Sort: divide the array, sort halves, merge
+- Quick Sort: partition around a pivot
+- Binary Search: halve the range each step
 
+Elegant and powerful, but recursion overhead can add cost if poorly structured.
 
 #### 3. Dynamic Programming (DP)
 
@@ -369,8 +384,8 @@ You solve smaller subproblems once and store the results to avoid recomputation.
 It's like divide and conquer with memory.
 
 Example: Fibonacci
-Naive recursion: exponential
-DP with memoization: linear
+Naive recursion is exponential.
+DP with memoization is linear.
 
 ```c
 int fib(int n) {
@@ -384,10 +399,9 @@ int fib(int n) {
 
 Efficient reuse, but requires insight into subproblem structure.
 
-
 #### Tiny Code
 
-Here's a quick comparison using Fibonacci:
+Quick comparison using Fibonacci:
 
 Naive (Divide and Conquer)
 
@@ -408,51 +422,56 @@ int fib_dp(int n, int memo[]) {
 }
 ```
 
-
 #### Why It Matters
 
 Algorithmic paradigms give you patterns for design:
 
-- Greedy: when local choices lead to global optimum- Divide & Conquer: when the problem splits naturally- Dynamic Programming: when subproblems overlap
+- Greedy: when local choices lead to a global optimum
+- Divide and Conquer: when the problem splits naturally
+- Dynamic Programming: when subproblems overlap
+
 Once you recognize a problem's structure, you'll instantly know which mindset fits best.
 
-Think of paradigms as *templates for reasoning* ,  not just techniques, but philosophies.
-
+Think of paradigms as templates for reasoning, not just techniques but philosophies.
 
 #### Try It Yourself
 
 1. Write a greedy algorithm to make change using coins [1, 3, 4] for amount 6. Does it work?
 2. Implement merge sort using divide and conquer.
 3. Solve Fibonacci both ways (naive vs DP) and compare speeds.
-4. Can you think of a real-life task you solve greedily?
+4. Think of a real-life task you solve greedily.
 
-Learning paradigms is like learning styles of thought ,  once you know them, every problem starts to look familiar.
+Learning paradigms is like learning styles of thought. Once you know them, every problem starts to look familiar.
 
 ### 5. Recurrence Relations
 
-Every time you break a problem into smaller subproblems, you create a recurrence ,  a mathematical way to describe how the total cost grows.
+Every time you break a problem into smaller subproblems, you create a recurrence, a mathematical way to describe how the total cost grows.
 
 Recurrence relations are the backbone of analyzing recursive algorithms.
 They tell us how much time or space an algorithm uses, based on the cost of its subproblems.
 
-
 #### What Is a Recurrence?
 
-A recurrence relation expresses ( T(n) ), the total cost for input size ( n ), in terms of smaller instances.
+A recurrence relation expresses $T(n)$, the total cost for input size $n$, in terms of smaller instances.
 
-Example:
-For merge sort:
+Example (Merge Sort):
+
 $$
 T(n) = 2T(n/2) + O(n)
 $$
+
 That means:
 
-- It divides the problem into 2 halves (2T(n/2))- Merges results in O(n) time
-You'll often see recurrences like:
+- It divides the problem into 2 halves ($2T(n/2)$)
+- Merges results in $O(n)$ time
 
-- ( T(n) = T(n - 1) + O(1) )- ( T(n) = 2T(n/2) + O(n) )- ( T(n) = T(n/2) + O(1) )
+You will often see recurrences like:
+
+- $T(n) = T(n - 1) + O(1)$
+- $T(n) = 2T(n/2) + O(n)$
+- $T(n) = T(n/2) + O(1)$
+
 Each one represents a different structure of recursion.
-
 
 #### Example 1: Simple Linear Recurrence
 
@@ -465,18 +484,19 @@ int count_down(int n) {
 }
 ```
 
-This calls itself once for each smaller input →
+This calls itself once for each smaller input:
+
 $$
 T(n) = T(n - 1) + O(1)
 $$
 
 Solve it:
+
 $$
 T(n) = O(n)
 $$
 
 Because it runs once per level.
-
 
 #### Example 2: Binary Recurrence
 
@@ -489,42 +509,45 @@ int sum_tree(int n) {
 }
 ```
 
-Here we do two subcalls on ( n/2 ) and a constant amount of extra work.
+Here we do two subcalls on $n/2$ and a constant amount of extra work:
+
 $$
 T(n) = 2T(n/2) + O(1)
 $$
-Solve it: ( T(n) = O(n) )
 
-Why? Each level doubles calls, but halves size.
-There are log n levels, and total work adds up to O(n).
+Solve it: $T(n) = O(n)$
 
+Why? Each level doubles the number of calls but halves the size.
+There are $\log n$ levels, and total work adds up to $O(n)$.
 
 #### Solving Recurrences
 
 There are several ways to solve them:
 
-1. Substitution Method
-   Guess the solution, then prove it by induction.
-2. Recursion Tree Method
-   Expand the recurrence into a tree and sum the cost per level.
-3. Master Theorem
-   Use a formula when recurrence matches:
-$$
-T(n) = aT(n/b) + f(n)
-$$
+- Substitution Method
+  Guess the solution, then prove it by induction.
+- Recursion Tree Method
+  Expand the recurrence into a tree and sum the cost per level.
+- Master Theorem
+  Use a formula when the recurrence matches:
 
+  $$
+  T(n) = aT(n/b) + f(n)
+  $$
 
 #### Master Theorem (Quick Summary)
 
-If ( T(n) = aT(n/b) + f(n) ), then:
+If $T(n) = aT(n/b) + f(n)$, then:
 
-- If ( f(n) = O$n^{\log_b a - \epsilon}$ ), then ( T(n) = Θ$n^{\log_b a}$ )- If ( f(n) = Θ$n^{\log_b a}$ ), then ( T(n) = Θ$n^{\log_b a} \log n$ )- If ( f(n) = Ω$n^{\log_b a + \epsilon}$ ), and regularity condition holds, then ( T(n) = Θ(f(n)) )
-Example:
-Merge Sort → ( a = 2, b = 2, f(n) = O(n) )
+- If $f(n) = O(n^{\log_b a - \epsilon})$, then $T(n) = \Theta(n^{\log_b a})$
+- If $f(n) = \Theta(n^{\log_b a})$, then $T(n) = \Theta(n^{\log_b a} \log n)$
+- If $f(n) = \Omega(n^{\log_b a + \epsilon})$, and the regularity condition holds, then $T(n) = \Theta(f(n))$
+
+Example (Merge Sort): $a = 2$, $b = 2$, $f(n) = O(n)$
+
 $$
 T(n) = 2T(n/2) + O(n) = O(n \log n)
 $$
-
 
 #### Tiny Code
 
@@ -539,26 +562,30 @@ int sum_array(int arr[], int l, int r) {
 ```
 
 Recurrence:
+
 $$
 T(n) = 2T(n/2) + O(1)
 $$
-→ ( O(n) )
 
-If you added merging (like in merge sort), you'd get ( +O(n) ),
-→ ( O$n \log n$ )
+→ $O(n)$
 
+If you added merging (like in merge sort), you would get $+O(n)$:
+
+→ $O(n \log n)$
 
 #### Why It Matters
 
 Recurrence relations let you predict the cost of recursive solutions.
 
-Without them, recursion feels like magic ,  with them, you can quantify efficiency.
+Without them, recursion feels like magic. With them, you can quantify efficiency.
 
-They're key to understanding:
+They are key to understanding:
 
-- Divide and conquer- Dynamic programming- Backtracking
+- Divide and Conquer
+- Dynamic Programming
+- Backtracking
+
 Once you can set up a recurrence, solving it becomes a game of algebra and logic.
-
 
 #### Try It Yourself
 
@@ -576,25 +603,28 @@ Once you can set up a recurrence, solving it becomes a game of algebra and logic
    ```
 
    What's the recurrence? Approximate the complexity.
-4. Expand ( T(n) = T(n-1) + 1 ) into its explicit sum.
+4. Expand $T(n) = T(n-1) + 1$ into its explicit sum.
 
-Learning recurrences helps you *see inside* recursion ,  they turn code into equations.
+Learning recurrences helps you see inside recursion. They turn code into equations.
+
 
 ### 6. Searching Basics
 
-Before we sort or optimize, we need a way to find things. Searching is one of the most fundamental actions in computing ,  whether it's looking up a name, finding a key, or checking if something exists.
+Before we sort or optimize, we need a way to find things. Searching is one of the most fundamental actions in computing, whether it's looking up a name, finding a key, or checking if something exists.
 
 A search algorithm takes a collection (array, list, tree, etc.) and a target, and returns whether the target is present (and often its position).
 
 Let's begin with two foundational techniques: Linear Search and Binary Search.
 
-
 #### 1. Linear Search
 
 Linear search is the simplest method:
 
-- Start at the beginning- Check each element in turn- Stop if you find the target
-It works on any list ,  sorted or not ,  but can be slow for large data.
+- Start at the beginning
+- Check each element in turn
+- Stop if you find the target
+
+It works on any list, sorted or not, but can be slow for large data.
 
 ```c
 int linear_search(int arr[], int n, int key) {
@@ -606,13 +636,14 @@ int linear_search(int arr[], int n, int key) {
 ```
 
 Example:
-If arr = [2, 4, 6, 8, 10] and key = 6, it finds it at index 2.
+If `arr = [2, 4, 6, 8, 10]` and `key = 6`, it finds it at index 2.
 
 Complexity:
 
-- Time: ( O(n) )- Space: ( O(1) )
-Linear search is simple and guaranteed to find the target if it exists, but slow when lists are large.
+- Time: $O(n)$
+- Space: $O(1)$
 
+Linear search is simple and guaranteed to find the target if it exists, but slow when lists are large.
 
 #### 2. Binary Search
 
@@ -621,10 +652,10 @@ Binary search repeatedly divides the search space in half.
 
 Steps:
 
-1. Check the middle element.
-2. If it matches, you're done.
-3. If target < mid, search left half.
-4. Else search right half.
+1. Check the middle element
+2. If it matches, you're done
+3. If `target < mid`, search the left half
+4. Else, search the right half
 
 ```c
 int binary_search(int arr[], int n, int key) {
@@ -640,14 +671,17 @@ int binary_search(int arr[], int n, int key) {
 ```
 
 Example:
-arr = [2, 4, 6, 8, 10], key = 8
+`arr = [2, 4, 6, 8, 10]`, `key = 8`
 
-- mid = 6 → key > mid → search right half- mid = 8 → found
+- mid = 6 → key > mid → search right half
+- mid = 8 → found
+
 Complexity:
 
-- Time: ( O$\log n$ )- Space: ( O(1) )
-Binary search is a massive improvement ,  doubling input only adds one extra step.
+- Time: $O(\log n)$
+- Space: $O(1)$
 
+Binary search is a massive improvement; doubling input only adds one extra step.
 
 #### 3. Recursive Binary Search
 
@@ -666,7 +700,6 @@ int binary_search_rec(int arr[], int low, int high, int key) {
 Same logic, different structure.
 Both iterative and recursive forms are equally efficient.
 
-
 #### 4. Choosing Between Them
 
 | Method        | Works On    | Time     | Space | Needs Sorting |
@@ -677,25 +710,27 @@ Both iterative and recursive forms are equally efficient.
 If data is unsorted or very small, linear search is fine.
 If data is sorted and large, binary search is far superior.
 
-
 #### Tiny Code
 
 Compare the steps:
-For n = 16:
+For $n = 16$:
 
-- Linear search → up to 16 comparisons- Binary search → $\log_2 16 = 4$ comparisons
+- Linear search → up to 16 comparisons
+- Binary search → $\log_2 16 = 4$ comparisons
+
 That's a huge difference.
-
 
 #### Why It Matters
 
-Searching is the core of information retrieval ,  every database, compiler, and system relies on it.
+Searching is the core of information retrieval. Every database, compiler, and system relies on it.
 
 Understanding simple searches prepares you for:
 
-- Hash tables (constant-time lookups)- Tree searches (ordered structures)- Graph traversals (structured exploration)
-It's not just about finding values ,  it's about learning how data structure and algorithm design fit together.
+- Hash tables (constant-time lookups)
+- Tree searches (ordered structures)
+- Graph traversals (structured exploration)
 
+It's not just about finding values; it's about learning how data structure and algorithm design fit together.
 
 #### Try It Yourself
 
@@ -704,29 +739,31 @@ It's not just about finding values ,  it's about learning how data structure and
 3. Compare runtime on arrays of size 10, 100, 1000.
 4. What happens if you run binary search on an unsorted list?
 
-Search is the foundation ,  once you master it, you'll recognize its patterns everywhere.
+Search is the foundation. Once you master it, you'll recognize its patterns everywhere.
 
 ### 7. Sorting Basics
 
 Sorting is one of the most studied problems in computer science.
-Why? Because order matters ,  it makes searching faster, patterns clearer, and data easier to manage.
+Why? Because order matters. It makes searching faster, patterns clearer, and data easier to manage.
 
 A sorting algorithm arranges elements in a specific order (usually ascending or descending). Once sorted, many operations (like binary search, merging, or deduplication) become much simpler.
 
 Let's explore the foundational sorting methods and the principles behind them.
 
-
 #### 1. What Makes a Sort Algorithm
 
 A sorting algorithm should define:
 
-- Input: A sequence of elements- Output: The same elements, in sorted order- Stability: Keeps equal elements in the same order (important for multi-key sorts)- In-place: Uses only a constant amount of extra space
-Different algorithms balance speed, memory, and simplicity.
+- Input: a sequence of elements
+- Output: the same elements, in sorted order
+- Stability: keeps equal elements in the same order (important for multi-key sorts)
+- In-place: uses only a constant amount of extra space
 
+Different algorithms balance speed, memory, and simplicity.
 
 #### 2. Bubble Sort
 
-Idea: Repeatedly "bubble up" the largest element to the end by swapping adjacent pairs.
+Idea: repeatedly "bubble up" the largest element to the end by swapping adjacent pairs.
 
 ```c
 void bubble_sort(int arr[], int n) {
@@ -744,13 +781,15 @@ void bubble_sort(int arr[], int n) {
 
 Each pass moves the largest remaining item to its final position.
 
-- Time: ( O$n^2$ )- Space: ( O(1) )- Stable: Yes
-Simple but inefficient for large data.
+- Time: $O(n^2)$
+- Space: $O(1)$
+- Stable: Yes
 
+Simple but inefficient for large data.
 
 #### 3. Selection Sort
 
-Idea: Repeatedly select the smallest element and put it in the correct position.
+Idea: repeatedly select the smallest element and put it in the correct position.
 
 ```c
 void selection_sort(int arr[], int n) {
@@ -766,13 +805,15 @@ void selection_sort(int arr[], int n) {
 }
 ```
 
-- Time: ( O$n^2$ )- Space: ( O(1) )- Stable: No
-Fewer swaps, but still quadratic.
+- Time: $O(n^2)$
+- Space: $O(1)$
+- Stable: No
 
+Fewer swaps, but still quadratic in time.
 
 #### 4. Insertion Sort
 
-Idea: Build the sorted list one item at a time, inserting each new item in the right place.
+Idea: build the sorted list one item at a time, inserting each new item in the right place.
 
 ```c
 void insertion_sort(int arr[], int n) {
@@ -788,9 +829,11 @@ void insertion_sort(int arr[], int n) {
 }
 ```
 
-- Time: ( O$n^2$ ) (best case ( O(n) ) when nearly sorted)- Space: ( O(1) )- Stable: Yes
-Insertion sort is great for small or nearly sorted datasets ,  used as a base in hybrid sorts like Timsort.
+- Time: $O(n^2)$ (best case $O(n)$ when nearly sorted)
+- Space: $O(1)$
+- Stable: Yes
 
+Insertion sort is great for small or nearly sorted datasets. It is often used as a base in hybrid sorts like Timsort.
 
 #### 5. Comparing the Basics
 
@@ -800,8 +843,7 @@ Insertion sort is great for small or nearly sorted datasets ,  used as a base in
 | Selection Sort | O(n²)     | O(n²)        | O(n²)      | No     | Yes      |
 | Insertion Sort | O(n)      | O(n²)        | O(n²)      | Yes    | Yes      |
 
-All three are quadratic in time, but Insertion Sort performs best on small, partially sorted data.
-
+All three are quadratic in time, but Insertion Sort performs best on small or partially sorted data.
 
 #### Tiny Code
 
@@ -809,28 +851,33 @@ Quick check with `arr = [5, 3, 4, 1, 2]`:
 
 Insertion Sort (step by step)
 
-- Insert 3 before 5 → [3, 5, 4, 1, 2]- Insert 4 → [3, 4, 5, 1, 2]- Insert 1 → [1, 3, 4, 5, 2]- Insert 2 → [1, 2, 3, 4, 5]
-Sorted!
+- Insert 3 before 5 → [3, 5, 4, 1, 2]
+- Insert 4 → [3, 4, 5, 1, 2]
+- Insert 1 → [1, 3, 4, 5, 2]
+- Insert 2 → [1, 2, 3, 4, 5]
 
+Sorted!
 
 #### Why It Matters
 
-Sorting is a gateway algorithm ,  it teaches you about iteration, swapping, and optimization.
+Sorting is a gateway algorithm. It teaches you about iteration, swapping, and optimization.
 
 Efficient sorting is critical for:
 
-- Preprocessing data for binary search- Organizing data for analysis- Building indexes and ranking systems
-It's the first step toward deeper concepts like divide-and-conquer and hybrid optimization.
+- Preprocessing data for binary search
+- Organizing data for analysis
+- Building indexes and ranking systems
 
+It's the first step toward deeper concepts like divide and conquer and hybrid optimization.
 
 #### Try It Yourself
 
-1. Implement all three: bubble, selection, insertion.
-2. Test them on arrays of size 10, 100, 1000 ,  note timing differences.
+1. Implement all three: bubble, selection, insertion
+2. Test them on arrays of size 10, 100, 1000, and note timing differences
 3. Try sorting an array that's already sorted. Which one adapts best?
-4. Modify insertion sort to sort in descending order.
+4. Modify insertion sort to sort in descending order
 
-Sorting may seem simple, but it's a cornerstone ,  mastering it will shape your intuition for almost every other algorithm.
+Sorting may seem simple, but it's a cornerstone. Mastering it will shape your intuition for almost every other algorithm.
 
 ### 8. Data Structures Overview
 
@@ -838,49 +885,56 @@ Algorithms and data structures are two sides of the same coin.
 An algorithm is how you solve a problem.
 A data structure is where you store and organize data so that your algorithm can work efficiently.
 
-You can think of data structures as containers ,  each one shaped for specific access patterns, trade-offs, and performance needs. Choosing the right one is often the *key* to designing a fast algorithm.
-
+You can think of data structures as containers, each one shaped for specific access patterns, trade-offs, and performance needs. Choosing the right one is often the key to designing a fast algorithm.
 
 #### 1. Why Data Structures Matter
 
 Imagine you want to find a book quickly.
 
-- If all books are piled randomly → you must scan every one (O(n)).- If they're sorted on a shelf → you can use binary search (O(log n)).- If you have an index or catalog → you can find it instantly (O(1)).
-Different structures unlock different efficiencies.
+- If all books are piled randomly → you must scan every one ($O(n)$)
+- If they're sorted on a shelf → you can use binary search ($O(\log n)$)
+- If you have an index or catalog → you can find it instantly ($O(1)$)
 
+Different structures unlock different efficiencies.
 
 #### 2. The Core Data Structures
 
 Let's walk through the most essential ones:
 
-| Type            | Description                                   | Key Operations                                  | Typical Use         |
-| --------------- | --------------------------------------------- | ----------------------------------------------- | ------------------- |
-| Array       | Fixed-size contiguous memory                  | Access ( O(1) ), Insert/Delete ( O(n) )         | Fast index access   |
-| Linked List | Sequence of nodes with pointers               | Insert/Delete ( O(1) ), Access ( O(n) )         | Dynamic sequences   |
-| Stack       | LIFO (last-in, first-out)                     | push(), pop() in ( O(1) )                       | Undo, recursion     |
-| Queue       | FIFO (first-in, first-out)                    | enqueue(), dequeue() in ( O(1) )                | Scheduling, buffers |
-| Hash Table  | Key-value pairs via hashing                   | Average ( O(1) ), Worst ( O(n) )                | Lookup, caching     |
-| Heap        | Partially ordered tree                        | Insert ( O$\log n$ ), Extract-Min ( O$\log n$ ) | Priority queues     |
-| Tree        | Hierarchical structure                        | Access ( O$\log n$ ) (balanced)                 | Sorted storage      |
-| Graph       | Nodes + edges                                 | Traversal ( O(V+E) )                            | Networks, paths     |
-| Set / Map   | Collections of unique keys or key-value pairs | ( O$\log n$ ) or ( O(1) )                       | Membership tests    |
+| Type        | Description                     | Key Operations                              | Typical Use         |
+| ----------- | ------------------------------- | ------------------------------------------- | ------------------- |
+| Array       | Fixed-size contiguous memory    | Access ($O(1)$), Insert/Delete ($O(n)$)     | Fast index access   |
+| Linked List | Sequence of nodes with pointers | Insert/Delete ($O(1)$), Access ($O(n)$)     | Dynamic sequences   |
+| Stack       | LIFO (last-in, first-out)       | push(), pop() in $O(1)$                     | Undo, recursion     |
+| Queue       | FIFO (first-in, first-out)      | enqueue(), dequeue() in $O(1)$              | Scheduling, buffers |
+| Hash Table  | Key-value pairs via hashing     | Average $O(1)$, Worst $O(n)$                | Lookup, caching     |
+| Heap        | Partially ordered tree          | Insert $O(\log n)$, Extract-Min $O(\log n)$ | Priority queues     |
+| Tree        | Hierarchical structure          | Access $O(\log n)$ (balanced)               | Sorted storage      |
+| Graph       | Nodes + edges                   | Traversal $O(V+E)$                          | Networks, paths     |
+| Set / Map   | Unique keys or key-value pairs  | $O(\log n)$ or $O(1)$                       | Membership tests    |
 
-Each comes with trade-offs ,  arrays are fast but rigid, linked lists are flexible but slower to access, and hash tables are lightning-fast but unordered.
-
+Each comes with trade-offs. Arrays are fast but rigid, linked lists are flexible but slower to access, and hash tables are lightning-fast but unordered.
 
 #### 3. Abstract Data Types (ADTs)
 
 An ADT defines what operations you can do, not how they're implemented.
 For example, a Stack ADT promises:
 
-- `push(x)`- `pop()`- `peek()`
-It can be implemented with arrays or linked lists ,  the *behavior* stays the same.
+- `push(x)`
+- `pop()`
+- `peek()`
+
+It can be implemented with arrays or linked lists, the behavior stays the same.
 
 Common ADTs:
 
-- Stack- Queue- Deque- Priority Queue- Map / Dictionary
-This separation of interface and implementation helps design flexible systems.
+- Stack
+- Queue
+- Deque
+- Priority Queue
+- Map / Dictionary
 
+This separation of interface and implementation helps design flexible systems.
 
 #### 4. The Right Tool for the Job
 
@@ -895,8 +949,7 @@ Choosing the correct data structure often decides the performance of your algori
 | Dynamic median       | Heap + Heap    | Balance two halves        |
 | Search by prefix     | Trie           | Fast prefix lookups       |
 
-Good programmers don't just write code ,  they pick the right structure.
-
+Good programmers don't just write code. They pick the right structure.
 
 #### Tiny Code
 
@@ -915,18 +968,20 @@ Linked List:
 struct Node { int val; struct Node* next; };
 ```
 
-To get the 4th element, you must traverse → ( O(n) )
+To get the 4th element, you must traverse → $O(n)$
 
 Different structures, different access costs.
-
 
 #### Why It Matters
 
 Every efficient algorithm depends on the right data structure.
 
-- Searching, sorting, and storing all rely on structure.- Memory layout affects cache performance.- The wrong choice can turn O(1) into O(n²).
-Understanding these structures is like knowing the tools in a workshop ,  once you recognize their shapes, you'll instinctively know which to grab.
+- Searching, sorting, and storing all rely on structure
+- Memory layout affects cache performance
+- The wrong choice can turn $O(1)$ into $O(n^2)$
 
+Understanding these structures is like knowing the tools in a workshop.
+Once you recognize their shapes, you'll instinctively know which to grab.
 
 #### Try It Yourself
 
@@ -935,29 +990,37 @@ Understanding these structures is like knowing the tools in a workshop ,  once y
 3. Try storing key-value pairs in a hash table (hint: mod by table size).
 4. Compare access times for arrays vs linked lists experimentally.
 
-Data structures aren't just storage ,  they are the *skeletons* your algorithms stand on.
+Data structures aren't just storage. They are the skeletons your algorithms stand on.
 
 ### 9. Graphs and Trees Overview
 
-Now that you've seen linear structures like arrays and linked lists, it's time to explore nonlinear structures ,  graphs and trees.
+Now that you've seen linear structures like arrays and linked lists, it's time to explore nonlinear structures, graphs and trees.
 These are the shapes behind networks, hierarchies, and relationships.
 
-They're everywhere: family trees, file systems, maps, social networks, and knowledge graphs all rely on them.
-
+They appear everywhere: family trees, file systems, maps, social networks, and knowledge graphs all rely on them.
 
 #### 1. Trees
 
 A tree is a connected structure with no cycles.
-It's a hierarchy ,  every node (except the root) has one parent.
+It's a hierarchy, and every node (except the root) has one parent.
 
-- Root: the top node- Child: a node directly connected below- Leaf: a node with no children- Height: the longest path from root to a leaf
+- Root: the top node
+- Child: a node directly connected below
+- Leaf: a node with no children
+- Height: the longest path from root to a leaf
+
 A binary tree is one where each node has at most two children.
 A binary search tree (BST) keeps elements ordered:
 
-- Left child < parent < Right child
-Basic Operations:
+- Left child < parent < right child
 
-- Insert- Search- Delete- Traverse (preorder, inorder, postorder, level-order)
+Basic operations:
+
+- Insert
+- Search
+- Delete
+- Traverse (preorder, inorder, postorder, level-order)
+
 Example:
 
 ```c
@@ -978,42 +1041,45 @@ struct Node* insert(struct Node* root, int val) {
 }
 ```
 
-
 #### 2. Common Tree Types
 
-| Type                         | Description                                  | Use Case           |
-| ---------------------------- | -------------------------------------------- | ------------------ |
-| Binary Tree              | Each node has ≤ 2 children                   | General hierarchy  |
-| Binary Search Tree (BST) | Left < Root < Right                          | Ordered data       |
-| AVL / Red-Black Tree     | Self-balancing BST                           | Fast search/insert |
-| Heap                     | Complete binary tree, parent ≥ or ≤ children | Priority queues    |
-| Trie                     | Tree of characters                           | Prefix search      |
-| Segment Tree             | Tree over ranges                             | Range queries      |
-| Fenwick Tree             | Tree with prefix sums                        | Efficient updates  |
+| Type                 | Description                                  | Use Case           |
+| -------------------- | -------------------------------------------- | ------------------ |
+| Binary Tree          | Each node has ≤ 2 children                   | General hierarchy  |
+| Binary Search Tree   | Left < Root < Right                          | Ordered data       |
+| AVL / Red-Black Tree | Self-balancing BST                           | Fast search/insert |
+| Heap                 | Complete binary tree, parent ≥ or ≤ children | Priority queues    |
+| Trie                 | Tree of characters                           | Prefix search      |
+| Segment Tree         | Tree over ranges                             | Range queries      |
+| Fenwick Tree         | Tree with prefix sums                        | Efficient updates  |
 
-Balanced trees keep height ( O$\log n$ ), guaranteeing fast operations.
-
+Balanced trees keep height $O(\log n)$, guaranteeing fast operations.
 
 #### 3. Graphs
 
-A graph generalizes the idea of trees ,  now, nodes (vertices) can connect freely.
-A graph is a set of vertices ( V ) and edges ( E ):
+A graph generalizes the idea of trees.
+In graphs, nodes (vertices) can connect freely.
+
+A graph is a set of vertices ($V$) and edges ($E$):
+
 $$
 G = (V, E)
 $$
 
-Directed vs Undirected
+Directed vs Undirected:
 
-- Directed: edges have direction (A → B)- Undirected: edges connect both ways (A ,  B)
-Weighted vs Unweighted
+- Directed: edges have direction (A → B)
+- Undirected: edges connect both ways (A, B)
 
-- Weighted: each edge has a cost- Unweighted: all edges equal
+Weighted vs Unweighted:
+
+- Weighted: each edge has a cost
+- Unweighted: all edges are equal
+
 Representation:
 
-1. Adjacency Matrix
-   $n \times n$ matrix; entry (i, j) = 1 if edge exists
-2. Adjacency List
-   Array of lists: each vertex stores neighbors
+1. Adjacency Matrix: $n \times n$ matrix; entry $(i, j) = 1$ if edge exists
+2. Adjacency List: array of lists; each vertex stores its neighbors
 
 Example adjacency list:
 
@@ -1023,26 +1089,28 @@ graph[0].push_back(1);
 graph[0].push_back(2);
 ```
 
-
 #### 4. Common Graph Types
 
-| Graph Type                       | Description               | Example               |
-| -------------------------------- | ------------------------- | --------------------- |
-| Undirected                   | Edges without direction   | Friendship network    |
-| Directed                     | Arrows indicate direction | Web links             |
-| Weighted                     | Edges have costs          | Road network          |
-| Cyclic                       | Contains loops            | Task dependencies     |
-| Acyclic                      | No loops                  | Family tree           |
-| DAG (Directed Acyclic Graph) | Directed, no cycles       | Scheduling, compilers |
-| Complete                     | All pairs connected       | Dense networks        |
-| Sparse                       | Few edges                 | Real-world graphs     |
-
+| Graph Type             | Description               | Example               |
+| ---------------------- | ------------------------- | --------------------- |
+| Undirected             | Edges without direction   | Friendship network    |
+| Directed               | Arrows indicate direction | Web links             |
+| Weighted               | Edges have costs          | Road network          |
+| Cyclic                 | Contains loops            | Task dependencies     |
+| Acyclic                | No loops                  | Family tree           |
+| DAG (Directed Acyclic) | Directed, no cycles       | Scheduling, compilers |
+| Complete               | All pairs connected       | Dense networks        |
+| Sparse                 | Few edges                 | Real-world graphs     |
 
 #### 5. Basic Graph Operations
 
-- Add Vertex / Edge- Traversal: Depth-First Search (DFS), Breadth-First Search (BFS)- Path Finding: Dijkstra, Bellman-Ford- Connectivity: Union-Find, Tarjan (SCC)- Spanning Trees: Kruskal, Prim
-Each graph problem has its own flavor ,  from finding shortest paths to detecting cycles.
+- Add Vertex / Edge
+- Traversal: Depth-First Search (DFS), Breadth-First Search (BFS)
+- Path Finding: Dijkstra, Bellman-Ford
+- Connectivity: Union-Find, Tarjan (SCC)
+- Spanning Trees: Kruskal, Prim
 
+Each graph problem has its own flavor, from finding shortest paths to detecting cycles.
 
 #### Tiny Code
 
@@ -1068,17 +1136,19 @@ void bfs(int start, vector<int> graph[], int n) {
 }
 ```
 
-This explores level by level ,  perfect for shortest paths in unweighted graphs.
-
+This explores level by level, perfect for shortest paths in unweighted graphs.
 
 #### Why It Matters
 
 Trees and graphs model relationships and connections, not just sequences.
-They're essential for:
+They are essential for:
 
-- Search engines (web graph)- Compilers (syntax trees, dependency DAGs)- AI (state spaces, decision trees)- Databases (indexes, joins, relationships)
-Understanding them unlocks an entire world of algorithms ,  from DFS and BFS to Dijkstra, Kruskal, and beyond.
+- Search engines (web graph)
+- Compilers (syntax trees, dependency DAGs)
+- AI (state spaces, decision trees)
+- Databases (indexes, joins, relationships)
 
+Understanding them unlocks an entire world of algorithms, from DFS and BFS to Dijkstra, Kruskal, and beyond.
 
 #### Try It Yourself
 
@@ -1087,26 +1157,27 @@ Understanding them unlocks an entire world of algorithms ,  from DFS and BFS to 
 3. Write a DFS and BFS for a small graph.
 4. Draw a directed graph with a cycle and detect it manually.
 
-Graphs and trees move you beyond linear thinking ,  they let you explore *connections*, not just collections.
+Graphs and trees move you beyond linear thinking. They let you explore *connections*, not just collections.
 
 ### 10. Algorithm Design Patterns
 
-By now, you've seen what algorithms *are* and how they're *analyzed*. You've explored searches, sorts, structures, and recursion. The next step is learning patterns ,  reusable *strategies* that guide how you build new algorithms from scratch.
+By now, you've seen what algorithms are and how they're analyzed. You've explored searches, sorts, structures, and recursion. The next step is learning patterns, reusable strategies that guide how you build new algorithms from scratch.
 
 Just like design patterns in software architecture, algorithmic design patterns give structure to your thinking. Once you recognize them, many problems suddenly feel familiar.
 
-
 #### 1. Brute Force
 
-Start simple. Try every possibility, pick the best result.
-Brute force is often your baseline ,  clear but inefficient.
+Start simple. Try every possibility and pick the best result.
+Brute force is often your baseline, clear but inefficient.
 
 Example:
 Find the maximum subarray sum by checking all subarrays.
 
-- Time: ( O$n^2$ )- Advantage: easy to reason about- Disadvantage: explodes for large input
-Sometimes, brute force helps you see the structure needed for a better approach.
+- Time: $O(n^2)$
+- Advantage: easy to reason about
+- Disadvantage: explodes for large input
 
+Sometimes, brute force helps you see the structure needed for a better approach.
 
 #### 2. Divide and Conquer
 
@@ -1115,14 +1186,17 @@ Ideal for problems with self-similarity.
 
 Classic examples:
 
-- Merge Sort → split and merge- Binary Search → halve the search space- Quick Sort → partition and sort
+- Merge Sort → split and merge
+- Binary Search → halve the search space
+- Quick Sort → partition and sort
+
 General form:
+
 $$
 T(n) = aT(n/b) + f(n)
 $$
 
 Use recurrence relations and the Master Theorem to analyze them.
-
 
 #### 3. Greedy
 
@@ -1131,34 +1205,44 @@ Works only when local optimal choices lead to a global optimum.
 
 Examples:
 
-- Activity Selection- Huffman Coding- Dijkstra's (for non-negative weights)
-Greedy algorithms are simple and fast ,  when they fit.
+- Activity Selection
+- Huffman Coding
+- Dijkstra (for non-negative weights)
 
+Greedy algorithms are simple and fast when they fit.
 
 #### 4. Dynamic Programming (DP)
 
 When subproblems overlap, store results and reuse them.
-Think recursion + memory.
+Think recursion plus memory.
 
 Two main styles:
 
-- Top-Down (Memoization): recursive with caching- Bottom-Up (Tabulation): iterative filling table
+- Top-Down (Memoization): recursive with caching
+- Bottom-Up (Tabulation): iterative filling table
+
 Used in:
 
-- Fibonacci numbers- Knapsack- Longest Increasing Subsequence (LIS)- Matrix Chain Multiplication
-DP transforms exponential recursion into polynomial time.
+- Fibonacci numbers
+- Knapsack
+- Longest Increasing Subsequence (LIS)
+- Matrix Chain Multiplication
 
+DP transforms exponential recursion into polynomial time.
 
 #### 5. Backtracking
 
 Explore all possibilities, but prune when constraints fail.
-It's brute force with early exits.
+It is brute force with early exits.
 
 Perfect for:
 
-- N-Queens- Sudoku- Permutation generation- Subset sums
-Backtracking builds solutions incrementally, abandoning paths that cannot lead to a valid result.
+- N-Queens
+- Sudoku
+- Permutation generation
+- Subset sums
 
+Backtracking builds solutions incrementally, abandoning paths that cannot lead to a valid result.
 
 #### 6. Two Pointers
 
@@ -1166,9 +1250,11 @@ Move two indices through a sequence to find patterns or meet conditions.
 
 Common use:
 
-- Sorted arrays (sum pairs, partitions)- String problems (palindromes, sliding windows)- Linked lists (slow/fast pointers)
-Simple, but surprisingly powerful.
+- Sorted arrays (sum pairs, partitions)
+- String problems (palindromes, sliding windows)
+- Linked lists (slow and fast pointers)
 
+Simple, but surprisingly powerful.
 
 #### 7. Sliding Window
 
@@ -1176,20 +1262,23 @@ Maintain a window over data, expand or shrink it as needed.
 
 Used for:
 
-- Maximum sum subarray (Kadane's algorithm)- Substrings of length k- Longest substring without repeating characters
-Helps reduce ( O$n^2$ ) to ( O(n) ) in sequence problems.
+- Maximum sum subarray (Kadane's algorithm)
+- Substrings of length $k$
+- Longest substring without repeating characters
 
+Helps reduce $O(n^2)$ to $O(n)$ in sequence problems.
 
 #### 8. Binary Search on Answer
 
-Sometimes, the input isn't sorted ,  but the answer space is.
-If you can define a function `check(mid)` that's monotonic (true/false changes once), you can apply binary search on possible answers.
+Sometimes, the input is not sorted, but the answer space is.
+If you can define a function `check(mid)` that is monotonic (true or false changes once), you can apply binary search on possible answers.
 
-Example:
+Examples:
 
-- Minimum capacity to ship packages in D days- Smallest feasible value satisfying a constraint
+- Minimum capacity to ship packages in D days
+- Smallest feasible value satisfying a constraint
+
 Powerful for optimization under monotonic conditions.
-
 
 #### 9. Graph-Based
 
@@ -1197,24 +1286,29 @@ Think in terms of nodes and edges, paths and flows.
 
 Patterns include:
 
-- BFS / DFS (exploration)- Topological Sort (ordering)- Dijkstra / Bellman-Ford (shortest paths)- Union-Find (connectivity)- Kruskal / Prim (spanning trees)
+- BFS and DFS (exploration)
+- Topological Sort (ordering)
+- Dijkstra and Bellman-Ford (shortest paths)
+- Union-Find (connectivity)
+- Kruskal and Prim (spanning trees)
+
 Graphs often reveal relationships hidden in data.
 
+#### 10. Meet in the Middle
 
-#### 10. Meet-in-the-Middle
+Split the problem into two halves, compute all possibilities for each, and combine efficiently.
+Used in problems where brute force $O(2^n)$ is too large but $O(2^{n/2})$ is manageable.
 
-Split problem into two halves, compute all possibilities for each, and combine efficiently.
-Used in problems where brute force ( O$2^n$ ) is too large but ( O$2^{n/2}$ ) is manageable.
+Examples:
 
-Example:
+- Subset sum (divide into two halves)
+- Search problems in combinatorics
 
-- Subset sum (divide into two halves)- Search problems in combinatorics
 A clever compromise between brute force and efficiency.
-
 
 #### Tiny Code
 
-Example: Two Pointers to find pair sum:
+Example: Two Pointers to find a pair sum
 
 ```c
 int find_pair_sum(int arr[], int n, int target) {
@@ -1229,8 +1323,7 @@ int find_pair_sum(int arr[], int n, int target) {
 }
 ```
 
-Works in ( O(n) ) for sorted arrays ,  elegant and fast.
-
+Works in $O(n)$ for sorted arrays, elegant and fast.
 
 #### Why It Matters
 
@@ -1238,8 +1331,7 @@ Patterns are mental shortcuts.
 They turn "blank page" problems into "I've seen this shape before."
 
 Once you recognize the structure, you can choose a suitable pattern and adapt it.
-This is how top coders solve complex problems under time pressure ,  not by memorizing algorithms, but by *seeing patterns*.
-
+This is how top coders solve complex problems under time pressure, not by memorizing algorithms, but by seeing patterns.
 
 #### Try It Yourself
 
@@ -1247,9 +1339,20 @@ This is how top coders solve complex problems under time pressure ,  not by memo
 2. Solve the coin change problem using both greedy and DP.
 3. Implement N-Queens with backtracking.
 4. Use two pointers to find the smallest window with a given sum.
-5. Pick a problem you've solved before ,  can you reframe it using a different design pattern?
+5. Pick a problem you've solved before. Can you reframe it using a different design pattern?
 
-The more patterns you practice, the faster you'll map new problems to known strategies ,  and the more powerful your algorithmic intuition will become.
+The more patterns you practice, the faster you will map new problems to known strategies, and the more powerful your algorithmic intuition will become.
+
+
+
+
+
+
+
+
+
+
+
 
 ## Chapter 2. Sorting and Searching
 
@@ -10679,7 +10782,7 @@ Properties:
 
 - $(C(n, 0) = 1),\ (C(n, n) = 1)$
 - $C(n, r) = C(n, n - r)$
-- Pascal’s Rule: $C(n, r) = C(n - 1, r - 1) + C(n - 1, r)$
+- Pascal's Rule: $C(n, r) = C(n - 1, r - 1) + C(n - 1, r)$
 
 #### Example
 
@@ -13035,7 +13138,7 @@ It cleverly reuses previous computations using mirror symmetry and a current rig
 3. For each position `i`:
 
    - mirror position `mirror = 2*C - i`   - initialize `P[i] = min(R - i, P[mirror])`   - expand around `i` while characters match   - if new palindrome extends past `R`, update `C` and `R`
-4. The **maximum value of `P[i]`** gives the longest palindrome.
+4. The maximum value of `P[i]` gives the longest palindrome.
 
 
 #### Example
@@ -14825,7 +14928,7 @@ Each event (site or circle) updates the structure ,  building Voronoi edges incr
 Time Complexity: ( O$n \log n$ )
 
 
-#### D. Bowyer-Watson (Delaunay via Circumcircle Test)**
+#### D. Bowyer-Watson (Delaunay via Circumcircle Test)
 
 A practical incremental version widely used in graphics and simulation.
 

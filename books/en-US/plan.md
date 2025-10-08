@@ -1,8 +1,8 @@
 # The Plan 
 
-## Chapter 1. Foundations of Algorithms
+### Chapter 1. Foundations of Algorithms
 
-### 1. What Is an Algorithm?
+#### 1. What Is an Algorithm?
 
 | #  | Algorithm                  | Note                                               |
 | -- | -------------------------- | -------------------------------------------------- |
@@ -18,7 +18,7 @@
 | 10 | Tower of Hanoi             | Recursive problem-solving pattern                  |
 
 
-### 2. Measuring Time and Space
+#### 2. Measuring Time and Space
 
 | #  | Algorithm                  | Note                                |
 | -- | -------------------------- | ----------------------------------- |
@@ -34,7 +34,7 @@
 | 20 | Benchmarking Framework     | Compare algorithm performance       |
 
 
-### 3. Big-O, Big-Theta, Big-Omega
+#### 3. Big-O, Big-Theta, Big-Omega
 
 | #  | Algorithm                      | Note                                  |
 | -- | ------------------------------ | ------------------------------------- |
@@ -50,7 +50,7 @@
 | 30 | Complexity Class Identifier    | Match runtime to known class          |
 
 
-### 4. Algorithmic Paradigms (Greedy, Divide and Conquer, DP)
+#### 4. Algorithmic Paradigms (Greedy, Divide and Conquer, DP)
 
 | #  | Algorithm                   | Note                       |
 | -- | --------------------------- | -------------------------- |
@@ -66,7 +66,7 @@
 | 40 | Optimal Merge Patterns      | Greedy file merging        |
 
 
-### 5. Recurrence Relations
+#### 5. Recurrence Relations
 
 | #  | Algorithm                 | Note                               |
 | -- | ------------------------- | ---------------------------------- |
@@ -82,7 +82,7 @@
 | 50 | Characteristic Polynomial | Solve homogeneous recurrence       |
 
 
-### 6. Searching Basics
+#### 6. Searching Basics
 
 | #  | Algorithm               | Note                           |
 | -- | ----------------------- | ------------------------------ |
@@ -98,7 +98,7 @@
 | 60 | Search in Rotated Array | Adapted binary search          |
 
 
-### 7. Sorting Basics
+#### 7. Sorting Basics
 
 | #  | Algorithm      | Note                     |
 | -- | -------------- | ------------------------ |
@@ -114,7 +114,7 @@
 | 70 | Bucket Sort    | Group into ranges        |
 
 
-### 8. Data Structures Overview
+#### 8. Data Structures Overview
 
 | #  | Algorithm                  | Note                    |
 | -- | -------------------------- | ----------------------- |
@@ -130,7 +130,7 @@
 | 80 | Trie Insertion/Search      | Prefix tree for strings |
 
 
-### 9. Graphs and Trees Overview
+#### 9. Graphs and Trees Overview
 
 | #  | Algorithm                    | Note                          |
 | -- | ---------------------------- | ----------------------------- |
@@ -146,7 +146,7 @@
 | 90 | LCA (Lowest Common Ancestor) | Common node in tree           |
 
 
-### 10. Algorithm Design Patterns
+#### 10. Algorithm Design Patterns
 
 | #   | Algorithm               | Note                   |
 | --- | ----------------------- | ---------------------- |
@@ -164,9 +164,9 @@
 
 
 
-## Chapter 2. Sorting and Searching
+### Chapter 2. Sorting and Searching
 
-### 11. Elementary Sorting (Bubble, Insertion, Selection)
+#### 11. Elementary Sorting (Bubble, Insertion, Selection)
 
 | #   | Algorithm             | Note                                  |
 | --- | --------------------- | ------------------------------------- |
@@ -182,7 +182,7 @@
 | 110 | Stooge Sort           | Recursive quirky educational sort     |
 
 
-### 12. Divide-and-Conquer Sorting (Merge, Quick, Heap)
+#### 12. Divide-and-Conquer Sorting (Merge, Quick, Heap)
 
 | #   | Algorithm               | Note                             |
 | --- | ----------------------- | -------------------------------- |
@@ -198,7 +198,7 @@
 | 120 | Parallel Merge Sort     | Divide work among threads        |
 
 
-### 13. Counting and Distribution Sorts (Counting, Radix, Bucket)
+#### 13. Counting and Distribution Sorts (Counting, Radix, Bucket)
 
 | #   | Algorithm                | Note                                  |
 | --- | ------------------------ | ------------------------------------- |
@@ -214,7 +214,7 @@
 | 130 | Spread Sort              | Hybrid radix/quick strategy           |
 
 
-### 14. Hybrid Sorts (IntroSort, Timsort)
+#### 14. Hybrid Sorts (IntroSort, Timsort)
 
 | #   | Algorithm            | Note                             |
 | --- | -------------------- | -------------------------------- |
@@ -230,7 +230,7 @@
 | 140 | Adaptive Hybrid Sort | Dynamically selects strategy     |
 
 
-### 15. Special Sorts (Cycle, Gnome, Comb, Pancake)
+#### 15. Special Sorts (Cycle, Gnome, Comb, Pancake)
 
 | #   | Algorithm           | Note                          |
 | --- | ------------------- | ----------------------------- |
@@ -246,7 +246,7 @@
 | 150 | Bogo Sort           | Randomly permute until sorted |
 
 
-### 16. Linear and Binary Search
+#### 16. Linear and Binary Search
 
 | #   | Algorithm                   | Note                         |
 | --- | --------------------------- | ---------------------------- |
@@ -262,7 +262,7 @@
 | 160 | Uniform Binary Search       | Avoid recomputing midpoints  |
 
 
-### 17. Interpolation and Exponential Search
+#### 17. Interpolation and Exponential Search
 
 | #   | Algorithm                      | Note                         |
 | --- | ------------------------------ | ---------------------------- |
@@ -278,7 +278,7 @@
 | 170 | Jump + Binary Hybrid           | Combined probing strategy    |
 
 
-### 18. Selection Algorithms (Quickselect, Median of Medians)
+#### 18. Selection Algorithms (Quickselect, Median of Medians)
 
 | #   | Algorithm                 | Note                      |
 | --- | ------------------------- | ------------------------- |
@@ -294,7 +294,7 @@
 | 180 | Kth Largest Stream        | Streaming selection       |
 
 
-### 19. Range Searching and Nearest Neighbor
+#### 19. Range Searching and Nearest Neighbor
 
 | #   | Algorithm                  | Note                        |
 | --- | -------------------------- | --------------------------- |
@@ -310,7 +310,7 @@
 | 190 | Ball Tree Nearest Neighbor | Metric-space search         |
 
 
-### 20. Search Optimizations and Variants
+#### 20. Search Optimizations and Variants
 
 | #   | Algorithm                      | Note                     |
 | --- | ------------------------------ | ------------------------ |
@@ -326,9 +326,9 @@
 | 200 | Search in Infinite Array       | Dynamic bound finding    |
 
 
-## Chapter 3. Data Structures in Action
+### Chapter 3. Data Structures in Action
 
-### 21. Arrays, Linked Lists, Stacks, Queues
+#### 21. Arrays, Linked Lists, Stacks, Queues
 
 | #   | Algorithm                        | Note                              |
 | --- | -------------------------------- | --------------------------------- |
@@ -344,7 +344,7 @@
 | 210 | Queue via Stack                  | Implement queue using two stacks  |
 
 
-### 22. Hash Tables and Variants (Cuckoo, Robin Hood, Consistent)
+#### 22. Hash Tables and Variants (Cuckoo, Robin Hood, Consistent)
 
 | #   | Algorithm            | Note                             |
 | --- | -------------------- | -------------------------------- |
@@ -360,7 +360,7 @@
 | 220 | Dynamic Rehashing    | Resize on load factor threshold  |
 
 
-### 23. Heaps (Binary, Fibonacci, Pairing)
+#### 23. Heaps (Binary, Fibonacci, Pairing)
 
 | #   | Algorithm                    | Note                           |
 | --- | ---------------------------- | ------------------------------ |
@@ -376,7 +376,7 @@
 | 230 | Leftist Heap Merge           | Maintain rank-skewed heap      |
 
 
-### 24. Balanced Trees (AVL, Red-Black, Splay, Treap)
+#### 24. Balanced Trees (AVL, Red-Black, Splay, Treap)
 
 | #   | Algorithm              | Note                         |
 | --- | ---------------------- | ---------------------------- |
@@ -392,7 +392,7 @@
 | 240 | AA Tree                | Simplified red-black variant |
 
 
-### 25. Segment Trees and Fenwick Trees
+#### 25. Segment Trees and Fenwick Trees
 
 | #   | Algorithm               | Note                         |
 | --- | ----------------------- | ---------------------------- |
@@ -408,7 +408,7 @@
 | 250 | 2D Segment Tree         | For matrix range queries     |
 
 
-### 26. Disjoint Set Union (Union-Find)
+#### 26. Disjoint Set Union (Union-Find)
 
 | #   | Algorithm            | Note                          |
 | --- | -------------------- | ----------------------------- |
@@ -424,7 +424,7 @@
 | 260 | Offline Query DSU    | Handle dynamic unions         |
 
 
-### 27. Probabilistic Data Structures (Bloom, Count-Min, HyperLogLog)
+#### 27. Probabilistic Data Structures (Bloom, Count-Min, HyperLogLog)
 
 | #   | Algorithm             | Note                           |
 | --- | --------------------- | ------------------------------ |
@@ -440,7 +440,7 @@
 | 270 | Skip Bloom Filter     | Range queries on Bloom         |
 
 
-### 28. Skip Lists and B-Trees
+#### 28. Skip Lists and B-Trees
 
 | #   | Algorithm           | Note                          |
 | --- | ------------------- | ----------------------------- |
@@ -456,7 +456,7 @@
 | 280 | Trie Compression    | Path compression optimization |
 
 
-### 29. Persistent and Functional Data Structures
+#### 29. Persistent and Functional Data Structures
 
 | #   | Algorithm                 | Note                     |
 | --- | ------------------------- | ------------------------ |
@@ -472,7 +472,7 @@
 | 290 | Persistent Union-Find     | Time-travel connectivity |
 
 
-### 30. Advanced Trees and Range Queries
+#### 30. Advanced Trees and Range Queries
 
 | #   | Algorithm              | Note                      |
 | --- | ---------------------- | ------------------------- |
@@ -488,9 +488,9 @@
 | 300 | Mo’s Algorithm on Tree | Offline subtree queries   |
 
 
-## Chapter 4. Graph Algorithms
+### Chapter 4. Graph Algorithms
 
-### 31. Traversals (DFS, BFS, Iterative Deepening)
+#### 31. Traversals (DFS, BFS, Iterative Deepening)
 
 | #   | Algorithm                           | Note                                |
 | --- | ----------------------------------- | ----------------------------------- |
@@ -506,7 +506,7 @@
 | 310 | Topological Sort (Kahn’s Algorithm) | In-degree tracking                  |
 
 
-### 32. Strongly Connected Components (Tarjan, Kosaraju)
+#### 32. Strongly Connected Components (Tarjan, Kosaraju)
 
 | #   | Algorithm                   | Note                      |
 | --- | --------------------------- | ------------------------- |
@@ -522,7 +522,7 @@
 | 320 | SCC for Weighted Graph      | Combine with edge weights |
 
 
-### 33. Shortest Paths (Dijkstra, Bellman-Ford, A*, Johnson)
+#### 33. Shortest Paths (Dijkstra, Bellman-Ford, A*, Johnson)
 
 | #   | Algorithm                 | Note                        |
 | --- | ------------------------- | --------------------------- |
@@ -538,7 +538,7 @@
 | 330 | Multi-Source Dijkstra     | Multiple starting points    |
 
 
-### 34. Shortest Path Variants (0–1 BFS, Bidirectional, Heuristic A*)
+#### 34. Shortest Path Variants (0–1 BFS, Bidirectional, Heuristic A*)
 
 | #   | Algorithm                   | Note                               |
 | --- | --------------------------- | ---------------------------------- |
@@ -554,7 +554,7 @@
 | 340 | Yen’s K Shortest Paths      | Enumerate multiple best paths      |
 
 
-### 35. Minimum Spanning Trees (Kruskal, Prim, Borůvka)
+#### 35. Minimum Spanning Trees (Kruskal, Prim, Borůvka)
 
 | #   | Algorithm                          | Note                    |
 | --- | ---------------------------------- | ----------------------- |
@@ -570,7 +570,7 @@
 | 350 | Euclidean MST (Kruskal + Geometry) | Use Delaunay graph      |
 
 
-### 36. Flows (Ford–Fulkerson, Edmonds–Karp, Dinic)
+#### 36. Flows (Ford–Fulkerson, Edmonds–Karp, Dinic)
 
 | #   | Algorithm                        | Note                         |
 | --- | -------------------------------- | ---------------------------- |
@@ -586,7 +586,7 @@
 | 360 | Successive Shortest Path         | Incremental min-cost updates |
 
 
-### 37. Cuts (Stoer–Wagner, Karger, Gomory–Hu)
+#### 37. Cuts (Stoer–Wagner, Karger, Gomory–Hu)
 
 | #   | Algorithm                      | Note                         |
 | --- | ------------------------------ | ---------------------------- |
@@ -602,7 +602,7 @@
 | 370 | Min k-Cut                      | Partition graph into k parts |
 
 
-### 38. Matchings (Hopcroft–Karp, Hungarian, Blossom)
+#### 38. Matchings (Hopcroft–Karp, Hungarian, Blossom)
 
 | #   | Algorithm                      | Note                      |
 | --- | ------------------------------ | ------------------------- |
@@ -618,7 +618,7 @@
 | 380 | Maximal Matching               | Local greedy maximal set  |
 
 
-### 39. Tree Algorithms (LCA, HLD, Centroid Decomposition)
+#### 39. Tree Algorithms (LCA, HLD, Centroid Decomposition)
 
 | #   | Algorithm                  | Note                        |
 | --- | -------------------------- | --------------------------- |
@@ -634,7 +634,7 @@
 | 390 | Virtual Tree               | Build on query subset       |
 
 
-### 40. Advanced Graph Algorithms and Tricks
+#### 40. Advanced Graph Algorithms and Tricks
 
 | #   | Algorithm                           | Note                          |
 | --- | ----------------------------------- | ----------------------------- |
@@ -650,9 +650,9 @@
 | 400 | Articulation Points & Bridges       | Critical structure detection  |
 
 
-## Chapter 5. Dynamic Programming
+### Chapter 5. Dynamic Programming
 
-### 41. DP Basics and State Transitions
+#### 41. DP Basics and State Transitions
 
 | #   | Algorithm                           | Note                            |
 | --- | ----------------------------------- | ------------------------------- |
@@ -668,7 +668,7 @@
 | 410 | Edit Distance (Levenshtein)         | Measure similarity step-by-step |
 
 
-### 42. Classic Problems (Knapsack, Subset Sum, Coin Change)
+#### 42. Classic Problems (Knapsack, Subset Sum, Coin Change)
 
 | #   | Algorithm                  | Note                              |
 | --- | -------------------------- | --------------------------------- |
@@ -684,7 +684,7 @@
 | 420 | Multi-Dimensional Knapsack | Capacity in multiple dimensions   |
 
 
-### 43. Sequence Problems (LIS, LCS, Edit Distance)
+#### 43. Sequence Problems (LIS, LCS, Edit Distance)
 
 | #   | Algorithm                           | Note                          |
 | --- | ----------------------------------- | ----------------------------- |
@@ -700,7 +700,7 @@
 | 430 | Diff Algorithm (Myers/DP)           | Minimal edit path             |
 
 
-### 44. Matrix and Chain Problems
+#### 44. Matrix and Chain Problems
 
 | #   | Algorithm                      | Note                  |
 | --- | ------------------------------ | --------------------- |
@@ -716,7 +716,7 @@
 | 440 | Palindrome Partitioning        | DP with cuts          |
 
 
-### 45. Bitmask DP and Traveling Salesman
+#### 45. Bitmask DP and Traveling Salesman
 
 | #   | Algorithm                 | Note                            |
 | --- | ------------------------- | ------------------------------- |
@@ -732,7 +732,7 @@
 | 450 | Bitmask Independent Set   | Graph subset optimization       |
 
 
-### 46. Digit DP and SOS DP
+#### 46. Digit DP and SOS DP
 
 | #   | Algorithm                         | Note                     |
 | --- | --------------------------------- | ------------------------ |
@@ -748,7 +748,7 @@
 | 460 | Digit DP for Palindromes          | Symmetric digit state    |
 
 
-### 47. DP Optimizations (Divide & Conquer, Convex Hull Trick, Knuth)
+#### 47. DP Optimizations (Divide & Conquer, Convex Hull Trick, Knuth)
 
 | #   | Algorithm                    | Note                           |
 | --- | ---------------------------- | ------------------------------ |
@@ -764,7 +764,7 @@
 | 470 | Divide & Conquer Knapsack    | Split-space DP                 |
 
 
-### 48. Tree DP and Rerooting
+#### 48. Tree DP and Rerooting
 
 | #   | Algorithm                | Note                      |
 | --- | ------------------------ | ------------------------- |
@@ -780,7 +780,7 @@
 | 480 | Binary Search on Tree DP | Monotonic transitions     |
 
 
-### 49. DP Reconstruction and Traceback
+#### 49. DP Reconstruction and Traceback
 
 | #   | Algorithm                   | Note                           |
 | --- | --------------------------- | ------------------------------ |
@@ -796,7 +796,7 @@
 | 490 | Traceback Visualization     | Visual DP backtrack tool       |
 
 
-### 50. Meta-DP and Optimization Templates
+#### 50. Meta-DP and Optimization Templates
 
 | #   | Algorithm                        | Note                        |
 | --- | -------------------------------- | --------------------------- |
@@ -812,9 +812,9 @@
 | 500 | Memoization Template             | Recursive caching skeleton  |
 
 
-## Chapter 6. Mathematics for Algorithms
+### Chapter 6. Mathematics for Algorithms
 
-### 51. Number Theory (GCD, Modular Arithmetic, CRT)
+#### 51. Number Theory (GCD, Modular Arithmetic, CRT)
 
 | #   | Algorithm                      | Note                      |
 | --- | ------------------------------ | ------------------------- |
@@ -830,7 +830,7 @@
 | 510 | Modular Linear Equation Solver | Solve ax ≡ b (mod m)      |
 
 
-### 52. Primality and Factorization (Miller–Rabin, Pollard Rho)
+#### 52. Primality and Factorization (Miller–Rabin, Pollard Rho)
 
 | #   | Algorithm                   | Note                          |
 | --- | --------------------------- | ----------------------------- |
@@ -846,7 +846,7 @@
 | 520 | Segmented Sieve             | Prime generation for large n  |
 
 
-### 53. Combinatorics (Permutations, Combinations, Subsets)
+#### 53. Combinatorics (Permutations, Combinations, Subsets)
 
 | #   | Algorithm                | Note                       |
 | --- | ------------------------ | -------------------------- |
@@ -862,7 +862,7 @@
 | 530 | Stirling Numbers         | Partition counting         |
 
 
-### 54. Probability and Randomized Algorithms
+#### 54. Probability and Randomized Algorithms
 
 | #   | Algorithm                   | Note                          |
 | --- | --------------------------- | ----------------------------- |
@@ -878,7 +878,7 @@
 | 540 | Markov Chain Simulation     | Transition matrix sampling    |
 
 
-### 55. Sieve Methods and Modular Math
+#### 55. Sieve Methods and Modular Math
 
 | #   | Algorithm                         | Note                           |
 | --- | --------------------------------- | ------------------------------ |
@@ -894,7 +894,7 @@
 | 550 | Wilson’s Theorem                  | Prime test via factorial mod p |
 
 
-### 56. Linear Algebra (Gaussian Elimination, LU, SVD)
+#### 56. Linear Algebra (Gaussian Elimination, LU, SVD)
 
 | #   | Algorithm                       | Note                            |
 | --- | ------------------------------- | ------------------------------- |
@@ -910,7 +910,7 @@
 | 560 | Singular Value Decomposition    | A = UΣVᵀ                        |
 
 
-### 57. FFT and NTT (Fast Transforms)
+#### 57. FFT and NTT (Fast Transforms)
 
 | #   | Algorithm                        | Note                         |
 | --- | -------------------------------- | ---------------------------- |
@@ -926,7 +926,7 @@
 | 570 | FFT-Based Multiplication         | Big integer product          |
 
 
-### 58. Numerical Methods (Newton, Simpson, Runge–Kutta)
+#### 58. Numerical Methods (Newton, Simpson, Runge–Kutta)
 
 | #   | Algorithm             | Note                          |
 | --- | --------------------- | ----------------------------- |
@@ -942,7 +942,7 @@
 | 580 | Gradient Descent (1D) | Numerical optimization        |
 
 
-### 59. Mathematical Optimization (Simplex, Gradient, Convex)
+#### 59. Mathematical Optimization (Simplex, Gradient, Convex)
 
 | #   | Algorithm                      | Note                        |
 | --- | ------------------------------ | --------------------------- |
@@ -958,7 +958,7 @@
 | 590 | Coordinate Descent             | Sequential variable updates |
 
 
-### 60. Algebraic Tricks and Transform Techniques
+#### 60. Algebraic Tricks and Transform Techniques
 
 | #   | Algorithm                       | Note                        |
 | --- | ------------------------------- | --------------------------- |
@@ -974,9 +974,9 @@
 | 600 | Möbius Inversion                | Recover original from sums  |
 
 
-## Chapter 7. Strings and Text Algorithms
+### Chapter 7. Strings and Text Algorithms
 
-### 61. String Matching (KMP, Z, Rabin–Karp, Boyer–Moore)
+#### 61. String Matching (KMP, Z, Rabin–Karp, Boyer–Moore)
 
 | #   | Algorithm                 | Note                            |
 | --- | ------------------------- | ------------------------------- |
@@ -992,7 +992,7 @@
 | 610 | Two-Way Algorithm         | Optimal linear matching         |
 
 
-### 62. Multi-Pattern Search (Aho–Corasick)
+#### 62. Multi-Pattern Search (Aho–Corasick)
 
 | #   | Algorithm                  | Note                        |
 | --- | -------------------------- | --------------------------- |
@@ -1008,7 +1008,7 @@
 | 620 | Extended AC with Wildcards | Flexible matching           |
 
 
-### 63. Suffix Structures (Suffix Array, Suffix Tree, LCP)
+#### 63. Suffix Structures (Suffix Array, Suffix Tree, LCP)
 
 | #   | Algorithm                | Note                        |
 | --- | ------------------------ | --------------------------- |
@@ -1024,7 +1024,7 @@
 | 630 | Sparse Suffix Tree       | Space-efficient variant     |
 
 
-### 64. Palindromes and Periodicity (Manacher)
+#### 64. Palindromes and Periodicity (Manacher)
 
 | #   | Algorithm                            | Note                               |
 | --- | ------------------------------------ | ---------------------------------- |
@@ -1040,7 +1040,7 @@
 | 640 | Minimal Rotation (Booth’s Algorithm) | Lexicographically minimal shift    |
 
 
-### 65. Edit Distance and Alignment
+#### 65. Edit Distance and Alignment
 
 | #   | Algorithm                  | Note                       |
 | --- | -------------------------- | -------------------------- |
@@ -1056,7 +1056,7 @@
 | 650 | Longest Common Subsequence | Alignment by inclusion     |
 
 
-### 66. Compression (Huffman, Arithmetic, LZ77, BWT)
+#### 66. Compression (Huffman, Arithmetic, LZ77, BWT)
 
 | #   | Algorithm                 | Note                        |
 | --- | ------------------------- | --------------------------- |
@@ -1072,7 +1072,7 @@
 | 660 | Move-to-Front Encoding    | Locality boosting transform |
 
 
-### 67. Cryptographic Hashes and Checksums
+#### 67. Cryptographic Hashes and Checksums
 
 | #   | Algorithm                | Note                         |
 | --- | ------------------------ | ---------------------------- |
@@ -1088,7 +1088,7 @@
 | 670 | Hash Collision Detection | Birthday bound simulation    |
 
 
-### 68. Approximate and Streaming Matching
+#### 68. Approximate and Streaming Matching
 
 | #   | Algorithm                | Note                             |
 | --- | ------------------------ | -------------------------------- |
@@ -1104,7 +1104,7 @@
 | 680 | Online Levenshtein       | Dynamic stream update            |
 
 
-### 69. Bioinformatics Alignment (Needleman–Wunsch, Smith–Waterman)
+#### 69. Bioinformatics Alignment (Needleman–Wunsch, Smith–Waterman)
 
 | #   | Algorithm                         | Note                      |
 | --- | --------------------------------- | ------------------------- |
@@ -1120,7 +1120,7 @@
 | 690 | Pairwise DP Alignment             | General DP framework      |
 
 
-### 70. Text Indexing and Search Structures
+#### 70. Text Indexing and Search Structures
 
 | #   | Algorithm                          | Note                       |
 | --- | ---------------------------------- | -------------------------- |
@@ -1136,9 +1136,9 @@
 | 700 | Wavelet Tree for Text              | Rank/select on sequences   |
 
 
-## Chapter 8. Geometry, Graphics, and Spatial Algorithms
+### Chapter 8. Geometry, Graphics, and Spatial Algorithms
 
-### 71. Convex Hull (Graham, Andrew, Chan)
+#### 71. Convex Hull (Graham, Andrew, Chan)
 
 | #   | Algorithm                    | Note                                     |
 | --- | ---------------------------- | ---------------------------------------- |
@@ -1154,7 +1154,7 @@
 | 710 | Rotating Calipers            | Compute diameter, width, antipodal pairs |
 
 
-### 72. Closest Pair and Segment Intersection
+#### 72. Closest Pair and Segment Intersection
 
 | #   | Algorithm                       | Note                          |
 | --- | ------------------------------- | ----------------------------- |
@@ -1170,7 +1170,7 @@
 | 720 | Nearest Neighbor Pair           | Combine KD-tree + search      |
 
 
-### 73. Line Sweep and Plane Sweep Algorithms
+#### 73. Line Sweep and Plane Sweep Algorithms
 
 | #   | Algorithm                              | Note                             |
 | --- | -------------------------------------- | -------------------------------- |
@@ -1186,7 +1186,7 @@
 | 730 | Plane Sweep for Triangles              | Polygon overlay computation      |
 
 
-### 74. Delaunay and Voronoi Diagrams
+#### 74. Delaunay and Voronoi Diagrams
 
 | #   | Algorithm                            | Note                             |
 | --- | ------------------------------------ | -------------------------------- |
@@ -1202,7 +1202,7 @@
 | 740 | Voronoi Nearest Neighbor             | Region-based lookup              |
 
 
-### 75. Point in Polygon and Polygon Triangulation
+#### 75. Point in Polygon and Polygon Triangulation
 
 | #   | Algorithm                              | Note                     |
 | --- | -------------------------------------- | ------------------------ |
@@ -1218,7 +1218,7 @@
 | 750 | Polygon Intersection (Weiler–Atherton) | Clip overlapping shapes  |
 
 
-### 76. Spatial Data Structures (KD, R-tree)
+#### 76. Spatial Data Structures (KD, R-tree)
 
 | #   | Algorithm                         | Note                     |
 | --- | --------------------------------- | ------------------------ |
@@ -1234,7 +1234,7 @@
 | 760 | Morton Order (Z-Curve)            | Spatial locality index   |
 
 
-### 77. Rasterization and Scanline Techniques
+#### 77. Rasterization and Scanline Techniques
 
 | #   | Algorithm                     | Note                         |
 | --- | ----------------------------- | ---------------------------- |
@@ -1250,7 +1250,7 @@
 | 770 | Scanline Polygon Clipping     | Efficient clipping           |
 
 
-### 78. Computer Vision (Canny, Hough, SIFT)
+#### 78. Computer Vision (Canny, Hough, SIFT)
 
 | #   | Algorithm                                | Note                           |
 | --- | ---------------------------------------- | ------------------------------ |
@@ -1266,7 +1266,7 @@
 | 780 | RANSAC                                   | Robust model fitting           |
 
 
-### 79. Pathfinding in Space (A*, RRT, PRM)
+#### 79. Pathfinding in Space (A*, RRT, PRM)
 
 | #   | Algorithm                           | Note                          |
 | --- | ----------------------------------- | ----------------------------- |
@@ -1282,7 +1282,7 @@
 | 790 | Bug Algorithms                      | Simple obstacle avoidance     |
 
 
-### 80. Computational Geometry Variants and Applications
+#### 80. Computational Geometry Variants and Applications
 
 | #   | Algorithm                        | Note                     |
 | --- | -------------------------------- | ------------------------ |
@@ -1298,9 +1298,9 @@
 | 800 | Collision Detection (SAT)        | Separating axis theorem  |
 
 
-## Chapter 9. Systems, Databases, and Distributed Algorithms
+### Chapter 9. Systems, Databases, and Distributed Algorithms
 
-### 81. Concurrency Control (2PL, MVCC, OCC)
+#### 81. Concurrency Control (2PL, MVCC, OCC)
 
 | #   | Algorithm                               | Note                          |
 | --- | --------------------------------------- | ----------------------------- |
@@ -1316,7 +1316,7 @@
 | 810 | Deadlock Detection (Wait-for Graph)     | Cycle detection in waits      |
 
 
-### 82. Logging, Recovery, and Commit Protocols
+#### 82. Logging, Recovery, and Commit Protocols
 
 | #   | Algorithm                 | Note                      |
 | --- | ------------------------- | ------------------------- |
@@ -1332,7 +1332,7 @@
 | 820 | Consensus Commit          | Combine 2PC + Paxos       |
 
 
-### 83. Scheduling (Round Robin, EDF, Rate-Monotonic)
+#### 83. Scheduling (Round Robin, EDF, Rate-Monotonic)
 
 | #   | Algorithm                       | Note                            |
 | --- | ------------------------------- | ------------------------------- |
@@ -1348,7 +1348,7 @@
 | 830 | Fair Queuing (FQ)               | Flow-based proportional sharing |
 
 
-### 84. Caching and Replacement (LRU, LFU, CLOCK)
+#### 84. Caching and Replacement (LRU, LFU, CLOCK)
 
 | #   | Algorithm                              | Note                       |
 | --- | -------------------------------------- | -------------------------- |
@@ -1364,7 +1364,7 @@
 | 840 | Belady’s Optimal                       | Evict farthest future use  |
 
 
-### 85. Networking (Routing, Congestion Control)
+#### 85. Networking (Routing, Congestion Control)
 
 | #   | Algorithm                              | Note                    |
 | --- | -------------------------------------- | ----------------------- |
@@ -1380,7 +1380,7 @@
 | 850 | ECN (Explicit Congestion Notification) | Mark packets early      |
 
 
-### 86. Distributed Consensus (Paxos, Raft, PBFT)
+#### 86. Distributed Consensus (Paxos, Raft, PBFT)
 
 | #   | Algorithm                                  | Note                              |
 | --- | ------------------------------------------ | --------------------------------- |
@@ -1396,7 +1396,7 @@
 | 860 | Chain Replication                          | Ordered state replication         |
 
 
-### 87. Load Balancing and Rate Limiting
+#### 87. Load Balancing and Rate Limiting
 
 | #   | Algorithm                  | Note                          |
 | --- | -------------------------- | ----------------------------- |
@@ -1412,7 +1412,7 @@
 | 870 | Fixed Window Counter       | Resettable counter limiter    |
 
 
-### 88. Search and Indexing (Inverted, BM25, WAND)
+#### 88. Search and Indexing (Inverted, BM25, WAND)
 
 | #   | Algorithm                   | Note                        |
 | --- | --------------------------- | --------------------------- |
@@ -1428,7 +1428,7 @@
 | 880 | DAAT vs SAAT Evaluation     | Document vs score-at-a-time |
 
 
-### 89. Compression and Encoding in Systems
+#### 89. Compression and Encoding in Systems
 
 | #   | Algorithm                 | Note                             |
 | --- | ------------------------- | -------------------------------- |
@@ -1444,7 +1444,7 @@
 | 890 | LZ4                       | High-speed dictionary compressor |
 
 
-### 90. Fault Tolerance and Replication
+#### 90. Fault Tolerance and Replication
 
 | #   | Algorithm                  | Note                     |
 | --- | -------------------------- | ------------------------ |
@@ -1460,9 +1460,9 @@
 | 900 | Leader Election (Ring)     | Token-based rotation     |
 
 
-## Chapter 10. AI, ML, and Optimization
+### Chapter 10. AI, ML, and Optimization
 
-### 91. Classical ML (k-means, Naive Bayes, SVM, Decision Trees)
+#### 91. Classical ML (k-means, Naive Bayes, SVM, Decision Trees)
 
 | #   | Algorithm                          | Note                               |
 | --- | ---------------------------------- | ---------------------------------- |
@@ -1478,7 +1478,7 @@
 | 910 | Linear Discriminant Analysis (LDA) | Projection for separation          |
 
 
-### 92. Ensemble Methods (Bagging, Boosting, Random Forests)
+#### 92. Ensemble Methods (Bagging, Boosting, Random Forests)
 
 | #   | Algorithm         | Note                              |
 | --- | ----------------- | --------------------------------- |
@@ -1494,7 +1494,7 @@
 | 920 | Snapshot Ensemble | Averaged checkpoints              |
 
 
-### 93. Gradient Methods (SGD, Adam, RMSProp)
+#### 93. Gradient Methods (SGD, Adam, RMSProp)
 
 | #   | Algorithm                         | Note                        |
 | --- | --------------------------------- | --------------------------- |
@@ -1510,7 +1510,7 @@
 | 930 | L-BFGS                            | Limited-memory quasi-Newton |
 
 
-### 94. Deep Learning (Backpropagation, Dropout, Normalization)
+#### 94. Deep Learning (Backpropagation, Dropout, Normalization)
 
 | #   | Algorithm                | Note                       |
 | --- | ------------------------ | -------------------------- |
@@ -1526,7 +1526,7 @@
 | 940 | Residual Connections     | Skip layer improvement     |
 
 
-### 95. Sequence Models (Viterbi, Beam Search, CTC)
+#### 95. Sequence Models (Viterbi, Beam Search, CTC)
 
 | #   | Algorithm                                   | Note                         |
 | --- | ------------------------------------------- | ---------------------------- |
@@ -1542,7 +1542,7 @@
 | 950 | Pointer Network                             | Output index selection       |
 
 
-### 96. Metaheuristics (GA, SA, PSO, ACO)
+#### 96. Metaheuristics (GA, SA, PSO, ACO)
 
 | #   | Algorithm                         | Note                           |
 | --- | --------------------------------- | ------------------------------ |
@@ -1558,7 +1558,7 @@
 | 960 | Hill Climbing                     | Local incremental improvement  |
 
 
-### 97. Reinforcement Learning (Q-learning, Policy Gradients)
+#### 97. Reinforcement Learning (Q-learning, Policy Gradients)
 
 | #   | Algorithm                          | Note                        |
 | --- | ---------------------------------- | --------------------------- |
@@ -1574,7 +1574,7 @@
 | 970 | DDPG / SAC                         | Continuous action RL        |
 
 
-### 98. Approximation and Online Algorithms
+#### 98. Approximation and Online Algorithms
 
 | #   | Algorithm                        | Note                                   |
 | --- | -------------------------------- | -------------------------------------- |
@@ -1590,7 +1590,7 @@
 | 980 | Primal–Dual Method               | Approximate combinatorial optimization |
 
 
-### 99. Fairness, Causal Inference, and Robust Optimization
+#### 99. Fairness, Causal Inference, and Robust Optimization
 
 | #   | Algorithm                            | Note                          |
 | --- | ------------------------------------ | ----------------------------- |
@@ -1606,7 +1606,7 @@
 | 990 | Counterfactual Fairness              | Simulate do-interventions     |
 
 
-### 100. AI Planning, Search, and Learning Systems
+#### 100. AI Planning, Search, and Learning Systems
 
 | #    | Algorithm                       | Note                          |
 | ---- | ------------------------------- | ----------------------------- |

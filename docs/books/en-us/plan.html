@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../books/en-us/list-1.html" rel="next">
 <link href="../../books/en-us/book.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -116,6 +117,11 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../books/en-us/cheatsheet.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Cheatsheet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../books/en-us/book.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Book</span></a>
   </div>
 </li>
@@ -124,142 +130,27 @@ ul.task-list li input[type="checkbox"] {
   <a href="../../books/en-us/plan.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The Plan</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../books/en-us/list-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1. Foundatmemtions of Algorithms</span></a>
+  </div>
+</li>
     </ul>
     </div>
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#chapter-1.-foundations-of-algorithms" id="toc-chapter-1.-foundations-of-algorithms" class="nav-link active" data-scroll-target="#chapter-1.-foundations-of-algorithms">Chapter 1. Foundations of Algorithms</a>
-  <ul class="collapse">
-  <li><a href="#what-is-an-algorithm" id="toc-what-is-an-algorithm" class="nav-link" data-scroll-target="#what-is-an-algorithm">1. What Is an Algorithm?</a></li>
-  <li><a href="#measuring-time-and-space" id="toc-measuring-time-and-space" class="nav-link" data-scroll-target="#measuring-time-and-space">2. Measuring Time and Space</a></li>
-  <li><a href="#big-o-big-theta-big-omega" id="toc-big-o-big-theta-big-omega" class="nav-link" data-scroll-target="#big-o-big-theta-big-omega">3. Big-O, Big-Theta, Big-Omega</a></li>
-  <li><a href="#algorithmic-paradigms-greedy-divide-and-conquer-dp" id="toc-algorithmic-paradigms-greedy-divide-and-conquer-dp" class="nav-link" data-scroll-target="#algorithmic-paradigms-greedy-divide-and-conquer-dp">4. Algorithmic Paradigms (Greedy, Divide and Conquer, DP)</a></li>
-  <li><a href="#recurrence-relations" id="toc-recurrence-relations" class="nav-link" data-scroll-target="#recurrence-relations">5. Recurrence Relations</a></li>
-  <li><a href="#searching-basics" id="toc-searching-basics" class="nav-link" data-scroll-target="#searching-basics">6. Searching Basics</a></li>
-  <li><a href="#sorting-basics" id="toc-sorting-basics" class="nav-link" data-scroll-target="#sorting-basics">7. Sorting Basics</a></li>
-  <li><a href="#data-structures-overview" id="toc-data-structures-overview" class="nav-link" data-scroll-target="#data-structures-overview">8. Data Structures Overview</a></li>
-  <li><a href="#graphs-and-trees-overview" id="toc-graphs-and-trees-overview" class="nav-link" data-scroll-target="#graphs-and-trees-overview">9. Graphs and Trees Overview</a></li>
-  <li><a href="#algorithm-design-patterns" id="toc-algorithm-design-patterns" class="nav-link" data-scroll-target="#algorithm-design-patterns">10. Algorithm Design Patterns</a></li>
-  </ul></li>
-  <li><a href="#chapter-2.-sorting-and-searching" id="toc-chapter-2.-sorting-and-searching" class="nav-link" data-scroll-target="#chapter-2.-sorting-and-searching">Chapter 2. Sorting and Searching</a>
-  <ul class="collapse">
-  <li><a href="#elementary-sorting-bubble-insertion-selection" id="toc-elementary-sorting-bubble-insertion-selection" class="nav-link" data-scroll-target="#elementary-sorting-bubble-insertion-selection">11. Elementary Sorting (Bubble, Insertion, Selection)</a></li>
-  <li><a href="#divide-and-conquer-sorting-merge-quick-heap" id="toc-divide-and-conquer-sorting-merge-quick-heap" class="nav-link" data-scroll-target="#divide-and-conquer-sorting-merge-quick-heap">12. Divide-and-Conquer Sorting (Merge, Quick, Heap)</a></li>
-  <li><a href="#counting-and-distribution-sorts-counting-radix-bucket" id="toc-counting-and-distribution-sorts-counting-radix-bucket" class="nav-link" data-scroll-target="#counting-and-distribution-sorts-counting-radix-bucket">13. Counting and Distribution Sorts (Counting, Radix, Bucket)</a></li>
-  <li><a href="#hybrid-sorts-introsort-timsort" id="toc-hybrid-sorts-introsort-timsort" class="nav-link" data-scroll-target="#hybrid-sorts-introsort-timsort">14. Hybrid Sorts (IntroSort, Timsort)</a></li>
-  <li><a href="#special-sorts-cycle-gnome-comb-pancake" id="toc-special-sorts-cycle-gnome-comb-pancake" class="nav-link" data-scroll-target="#special-sorts-cycle-gnome-comb-pancake">15. Special Sorts (Cycle, Gnome, Comb, Pancake)</a></li>
-  <li><a href="#linear-and-binary-search" id="toc-linear-and-binary-search" class="nav-link" data-scroll-target="#linear-and-binary-search">16. Linear and Binary Search</a></li>
-  <li><a href="#interpolation-and-exponential-search" id="toc-interpolation-and-exponential-search" class="nav-link" data-scroll-target="#interpolation-and-exponential-search">17. Interpolation and Exponential Search</a></li>
-  <li><a href="#selection-algorithms-quickselect-median-of-medians" id="toc-selection-algorithms-quickselect-median-of-medians" class="nav-link" data-scroll-target="#selection-algorithms-quickselect-median-of-medians">18. Selection Algorithms (Quickselect, Median of Medians)</a></li>
-  <li><a href="#range-searching-and-nearest-neighbor" id="toc-range-searching-and-nearest-neighbor" class="nav-link" data-scroll-target="#range-searching-and-nearest-neighbor">19. Range Searching and Nearest Neighbor</a></li>
-  <li><a href="#search-optimizations-and-variants" id="toc-search-optimizations-and-variants" class="nav-link" data-scroll-target="#search-optimizations-and-variants">20. Search Optimizations and Variants</a></li>
-  </ul></li>
-  <li><a href="#chapter-3.-data-structures-in-action" id="toc-chapter-3.-data-structures-in-action" class="nav-link" data-scroll-target="#chapter-3.-data-structures-in-action">Chapter 3. Data Structures in Action</a>
-  <ul class="collapse">
-  <li><a href="#arrays-linked-lists-stacks-queues" id="toc-arrays-linked-lists-stacks-queues" class="nav-link" data-scroll-target="#arrays-linked-lists-stacks-queues">21. Arrays, Linked Lists, Stacks, Queues</a></li>
-  <li><a href="#hash-tables-and-variants-cuckoo-robin-hood-consistent" id="toc-hash-tables-and-variants-cuckoo-robin-hood-consistent" class="nav-link" data-scroll-target="#hash-tables-and-variants-cuckoo-robin-hood-consistent">22. Hash Tables and Variants (Cuckoo, Robin Hood, Consistent)</a></li>
-  <li><a href="#heaps-binary-fibonacci-pairing" id="toc-heaps-binary-fibonacci-pairing" class="nav-link" data-scroll-target="#heaps-binary-fibonacci-pairing">23. Heaps (Binary, Fibonacci, Pairing)</a></li>
-  <li><a href="#balanced-trees-avl-red-black-splay-treap" id="toc-balanced-trees-avl-red-black-splay-treap" class="nav-link" data-scroll-target="#balanced-trees-avl-red-black-splay-treap">24. Balanced Trees (AVL, Red-Black, Splay, Treap)</a></li>
-  <li><a href="#segment-trees-and-fenwick-trees" id="toc-segment-trees-and-fenwick-trees" class="nav-link" data-scroll-target="#segment-trees-and-fenwick-trees">25. Segment Trees and Fenwick Trees</a></li>
-  <li><a href="#disjoint-set-union-union-find" id="toc-disjoint-set-union-union-find" class="nav-link" data-scroll-target="#disjoint-set-union-union-find">26. Disjoint Set Union (Union-Find)</a></li>
-  <li><a href="#probabilistic-data-structures-bloom-count-min-hyperloglog" id="toc-probabilistic-data-structures-bloom-count-min-hyperloglog" class="nav-link" data-scroll-target="#probabilistic-data-structures-bloom-count-min-hyperloglog">27. Probabilistic Data Structures (Bloom, Count-Min, HyperLogLog)</a></li>
-  <li><a href="#skip-lists-and-b-trees" id="toc-skip-lists-and-b-trees" class="nav-link" data-scroll-target="#skip-lists-and-b-trees">28. Skip Lists and B-Trees</a></li>
-  <li><a href="#persistent-and-functional-data-structures" id="toc-persistent-and-functional-data-structures" class="nav-link" data-scroll-target="#persistent-and-functional-data-structures">29. Persistent and Functional Data Structures</a></li>
-  <li><a href="#advanced-trees-and-range-queries" id="toc-advanced-trees-and-range-queries" class="nav-link" data-scroll-target="#advanced-trees-and-range-queries">30. Advanced Trees and Range Queries</a></li>
-  </ul></li>
-  <li><a href="#chapter-4.-graph-algorithms" id="toc-chapter-4.-graph-algorithms" class="nav-link" data-scroll-target="#chapter-4.-graph-algorithms">Chapter 4. Graph Algorithms</a>
-  <ul class="collapse">
-  <li><a href="#traversals-dfs-bfs-iterative-deepening" id="toc-traversals-dfs-bfs-iterative-deepening" class="nav-link" data-scroll-target="#traversals-dfs-bfs-iterative-deepening">31. Traversals (DFS, BFS, Iterative Deepening)</a></li>
-  <li><a href="#strongly-connected-components-tarjan-kosaraju" id="toc-strongly-connected-components-tarjan-kosaraju" class="nav-link" data-scroll-target="#strongly-connected-components-tarjan-kosaraju">32. Strongly Connected Components (Tarjan, Kosaraju)</a></li>
-  <li><a href="#shortest-paths-dijkstra-bellman-ford-a-johnson" id="toc-shortest-paths-dijkstra-bellman-ford-a-johnson" class="nav-link" data-scroll-target="#shortest-paths-dijkstra-bellman-ford-a-johnson">33. Shortest Paths (Dijkstra, Bellman-Ford, A*, Johnson)</a></li>
-  <li><a href="#shortest-path-variants-01-bfs-bidirectional-heuristic-a" id="toc-shortest-path-variants-01-bfs-bidirectional-heuristic-a" class="nav-link" data-scroll-target="#shortest-path-variants-01-bfs-bidirectional-heuristic-a">34. Shortest Path Variants (0–1 BFS, Bidirectional, Heuristic A*)</a></li>
-  <li><a href="#minimum-spanning-trees-kruskal-prim-borůvka" id="toc-minimum-spanning-trees-kruskal-prim-borůvka" class="nav-link" data-scroll-target="#minimum-spanning-trees-kruskal-prim-borůvka">35. Minimum Spanning Trees (Kruskal, Prim, Borůvka)</a></li>
-  <li><a href="#flows-fordfulkerson-edmondskarp-dinic" id="toc-flows-fordfulkerson-edmondskarp-dinic" class="nav-link" data-scroll-target="#flows-fordfulkerson-edmondskarp-dinic">36. Flows (Ford–Fulkerson, Edmonds–Karp, Dinic)</a></li>
-  <li><a href="#cuts-stoerwagner-karger-gomoryhu" id="toc-cuts-stoerwagner-karger-gomoryhu" class="nav-link" data-scroll-target="#cuts-stoerwagner-karger-gomoryhu">37. Cuts (Stoer–Wagner, Karger, Gomory–Hu)</a></li>
-  <li><a href="#matchings-hopcroftkarp-hungarian-blossom" id="toc-matchings-hopcroftkarp-hungarian-blossom" class="nav-link" data-scroll-target="#matchings-hopcroftkarp-hungarian-blossom">38. Matchings (Hopcroft–Karp, Hungarian, Blossom)</a></li>
-  <li><a href="#tree-algorithms-lca-hld-centroid-decomposition" id="toc-tree-algorithms-lca-hld-centroid-decomposition" class="nav-link" data-scroll-target="#tree-algorithms-lca-hld-centroid-decomposition">39. Tree Algorithms (LCA, HLD, Centroid Decomposition)</a></li>
-  <li><a href="#advanced-graph-algorithms-and-tricks" id="toc-advanced-graph-algorithms-and-tricks" class="nav-link" data-scroll-target="#advanced-graph-algorithms-and-tricks">40. Advanced Graph Algorithms and Tricks</a></li>
-  </ul></li>
-  <li><a href="#chapter-5.-dynamic-programming" id="toc-chapter-5.-dynamic-programming" class="nav-link" data-scroll-target="#chapter-5.-dynamic-programming">Chapter 5. Dynamic Programming</a>
-  <ul class="collapse">
-  <li><a href="#dp-basics-and-state-transitions" id="toc-dp-basics-and-state-transitions" class="nav-link" data-scroll-target="#dp-basics-and-state-transitions">41. DP Basics and State Transitions</a></li>
-  <li><a href="#classic-problems-knapsack-subset-sum-coin-change" id="toc-classic-problems-knapsack-subset-sum-coin-change" class="nav-link" data-scroll-target="#classic-problems-knapsack-subset-sum-coin-change">42. Classic Problems (Knapsack, Subset Sum, Coin Change)</a></li>
-  <li><a href="#sequence-problems-lis-lcs-edit-distance" id="toc-sequence-problems-lis-lcs-edit-distance" class="nav-link" data-scroll-target="#sequence-problems-lis-lcs-edit-distance">43. Sequence Problems (LIS, LCS, Edit Distance)</a></li>
-  <li><a href="#matrix-and-chain-problems" id="toc-matrix-and-chain-problems" class="nav-link" data-scroll-target="#matrix-and-chain-problems">44. Matrix and Chain Problems</a></li>
-  <li><a href="#bitmask-dp-and-traveling-salesman" id="toc-bitmask-dp-and-traveling-salesman" class="nav-link" data-scroll-target="#bitmask-dp-and-traveling-salesman">45. Bitmask DP and Traveling Salesman</a></li>
-  <li><a href="#digit-dp-and-sos-dp" id="toc-digit-dp-and-sos-dp" class="nav-link" data-scroll-target="#digit-dp-and-sos-dp">46. Digit DP and SOS DP</a></li>
-  <li><a href="#dp-optimizations-divide-conquer-convex-hull-trick-knuth" id="toc-dp-optimizations-divide-conquer-convex-hull-trick-knuth" class="nav-link" data-scroll-target="#dp-optimizations-divide-conquer-convex-hull-trick-knuth">47. DP Optimizations (Divide &amp; Conquer, Convex Hull Trick, Knuth)</a></li>
-  <li><a href="#tree-dp-and-rerooting" id="toc-tree-dp-and-rerooting" class="nav-link" data-scroll-target="#tree-dp-and-rerooting">48. Tree DP and Rerooting</a></li>
-  <li><a href="#dp-reconstruction-and-traceback" id="toc-dp-reconstruction-and-traceback" class="nav-link" data-scroll-target="#dp-reconstruction-and-traceback">49. DP Reconstruction and Traceback</a></li>
-  <li><a href="#meta-dp-and-optimization-templates" id="toc-meta-dp-and-optimization-templates" class="nav-link" data-scroll-target="#meta-dp-and-optimization-templates">50. Meta-DP and Optimization Templates</a></li>
-  </ul></li>
-  <li><a href="#chapter-6.-mathematics-for-algorithms" id="toc-chapter-6.-mathematics-for-algorithms" class="nav-link" data-scroll-target="#chapter-6.-mathematics-for-algorithms">Chapter 6. Mathematics for Algorithms</a>
-  <ul class="collapse">
-  <li><a href="#number-theory-gcd-modular-arithmetic-crt" id="toc-number-theory-gcd-modular-arithmetic-crt" class="nav-link" data-scroll-target="#number-theory-gcd-modular-arithmetic-crt">51. Number Theory (GCD, Modular Arithmetic, CRT)</a></li>
-  <li><a href="#primality-and-factorization-millerrabin-pollard-rho" id="toc-primality-and-factorization-millerrabin-pollard-rho" class="nav-link" data-scroll-target="#primality-and-factorization-millerrabin-pollard-rho">52. Primality and Factorization (Miller–Rabin, Pollard Rho)</a></li>
-  <li><a href="#combinatorics-permutations-combinations-subsets" id="toc-combinatorics-permutations-combinations-subsets" class="nav-link" data-scroll-target="#combinatorics-permutations-combinations-subsets">53. Combinatorics (Permutations, Combinations, Subsets)</a></li>
-  <li><a href="#probability-and-randomized-algorithms" id="toc-probability-and-randomized-algorithms" class="nav-link" data-scroll-target="#probability-and-randomized-algorithms">54. Probability and Randomized Algorithms</a></li>
-  <li><a href="#sieve-methods-and-modular-math" id="toc-sieve-methods-and-modular-math" class="nav-link" data-scroll-target="#sieve-methods-and-modular-math">55. Sieve Methods and Modular Math</a></li>
-  <li><a href="#linear-algebra-gaussian-elimination-lu-svd" id="toc-linear-algebra-gaussian-elimination-lu-svd" class="nav-link" data-scroll-target="#linear-algebra-gaussian-elimination-lu-svd">56. Linear Algebra (Gaussian Elimination, LU, SVD)</a></li>
-  <li><a href="#fft-and-ntt-fast-transforms" id="toc-fft-and-ntt-fast-transforms" class="nav-link" data-scroll-target="#fft-and-ntt-fast-transforms">57. FFT and NTT (Fast Transforms)</a></li>
-  <li><a href="#numerical-methods-newton-simpson-rungekutta" id="toc-numerical-methods-newton-simpson-rungekutta" class="nav-link" data-scroll-target="#numerical-methods-newton-simpson-rungekutta">58. Numerical Methods (Newton, Simpson, Runge–Kutta)</a></li>
-  <li><a href="#mathematical-optimization-simplex-gradient-convex" id="toc-mathematical-optimization-simplex-gradient-convex" class="nav-link" data-scroll-target="#mathematical-optimization-simplex-gradient-convex">59. Mathematical Optimization (Simplex, Gradient, Convex)</a></li>
-  <li><a href="#algebraic-tricks-and-transform-techniques" id="toc-algebraic-tricks-and-transform-techniques" class="nav-link" data-scroll-target="#algebraic-tricks-and-transform-techniques">60. Algebraic Tricks and Transform Techniques</a></li>
-  </ul></li>
-  <li><a href="#chapter-7.-strings-and-text-algorithms" id="toc-chapter-7.-strings-and-text-algorithms" class="nav-link" data-scroll-target="#chapter-7.-strings-and-text-algorithms">Chapter 7. Strings and Text Algorithms</a>
-  <ul class="collapse">
-  <li><a href="#string-matching-kmp-z-rabinkarp-boyermoore" id="toc-string-matching-kmp-z-rabinkarp-boyermoore" class="nav-link" data-scroll-target="#string-matching-kmp-z-rabinkarp-boyermoore">61. String Matching (KMP, Z, Rabin–Karp, Boyer–Moore)</a></li>
-  <li><a href="#multi-pattern-search-ahocorasick" id="toc-multi-pattern-search-ahocorasick" class="nav-link" data-scroll-target="#multi-pattern-search-ahocorasick">62. Multi-Pattern Search (Aho–Corasick)</a></li>
-  <li><a href="#suffix-structures-suffix-array-suffix-tree-lcp" id="toc-suffix-structures-suffix-array-suffix-tree-lcp" class="nav-link" data-scroll-target="#suffix-structures-suffix-array-suffix-tree-lcp">63. Suffix Structures (Suffix Array, Suffix Tree, LCP)</a></li>
-  <li><a href="#palindromes-and-periodicity-manacher" id="toc-palindromes-and-periodicity-manacher" class="nav-link" data-scroll-target="#palindromes-and-periodicity-manacher">64. Palindromes and Periodicity (Manacher)</a></li>
-  <li><a href="#edit-distance-and-alignment" id="toc-edit-distance-and-alignment" class="nav-link" data-scroll-target="#edit-distance-and-alignment">65. Edit Distance and Alignment</a></li>
-  <li><a href="#compression-huffman-arithmetic-lz77-bwt" id="toc-compression-huffman-arithmetic-lz77-bwt" class="nav-link" data-scroll-target="#compression-huffman-arithmetic-lz77-bwt">66. Compression (Huffman, Arithmetic, LZ77, BWT)</a></li>
-  <li><a href="#cryptographic-hashes-and-checksums" id="toc-cryptographic-hashes-and-checksums" class="nav-link" data-scroll-target="#cryptographic-hashes-and-checksums">67. Cryptographic Hashes and Checksums</a></li>
-  <li><a href="#approximate-and-streaming-matching" id="toc-approximate-and-streaming-matching" class="nav-link" data-scroll-target="#approximate-and-streaming-matching">68. Approximate and Streaming Matching</a></li>
-  <li><a href="#bioinformatics-alignment-needlemanwunsch-smithwaterman" id="toc-bioinformatics-alignment-needlemanwunsch-smithwaterman" class="nav-link" data-scroll-target="#bioinformatics-alignment-needlemanwunsch-smithwaterman">69. Bioinformatics Alignment (Needleman–Wunsch, Smith–Waterman)</a></li>
-  <li><a href="#text-indexing-and-search-structures" id="toc-text-indexing-and-search-structures" class="nav-link" data-scroll-target="#text-indexing-and-search-structures">70. Text Indexing and Search Structures</a></li>
-  </ul></li>
-  <li><a href="#chapter-8.-geometry-graphics-and-spatial-algorithms" id="toc-chapter-8.-geometry-graphics-and-spatial-algorithms" class="nav-link" data-scroll-target="#chapter-8.-geometry-graphics-and-spatial-algorithms">Chapter 8. Geometry, Graphics, and Spatial Algorithms</a>
-  <ul class="collapse">
-  <li><a href="#convex-hull-graham-andrew-chan" id="toc-convex-hull-graham-andrew-chan" class="nav-link" data-scroll-target="#convex-hull-graham-andrew-chan">71. Convex Hull (Graham, Andrew, Chan)</a></li>
-  <li><a href="#closest-pair-and-segment-intersection" id="toc-closest-pair-and-segment-intersection" class="nav-link" data-scroll-target="#closest-pair-and-segment-intersection">72. Closest Pair and Segment Intersection</a></li>
-  <li><a href="#line-sweep-and-plane-sweep-algorithms" id="toc-line-sweep-and-plane-sweep-algorithms" class="nav-link" data-scroll-target="#line-sweep-and-plane-sweep-algorithms">73. Line Sweep and Plane Sweep Algorithms</a></li>
-  <li><a href="#delaunay-and-voronoi-diagrams" id="toc-delaunay-and-voronoi-diagrams" class="nav-link" data-scroll-target="#delaunay-and-voronoi-diagrams">74. Delaunay and Voronoi Diagrams</a></li>
-  <li><a href="#point-in-polygon-and-polygon-triangulation" id="toc-point-in-polygon-and-polygon-triangulation" class="nav-link" data-scroll-target="#point-in-polygon-and-polygon-triangulation">75. Point in Polygon and Polygon Triangulation</a></li>
-  <li><a href="#spatial-data-structures-kd-r-tree" id="toc-spatial-data-structures-kd-r-tree" class="nav-link" data-scroll-target="#spatial-data-structures-kd-r-tree">76. Spatial Data Structures (KD, R-tree)</a></li>
-  <li><a href="#rasterization-and-scanline-techniques" id="toc-rasterization-and-scanline-techniques" class="nav-link" data-scroll-target="#rasterization-and-scanline-techniques">77. Rasterization and Scanline Techniques</a></li>
-  <li><a href="#computer-vision-canny-hough-sift" id="toc-computer-vision-canny-hough-sift" class="nav-link" data-scroll-target="#computer-vision-canny-hough-sift">78. Computer Vision (Canny, Hough, SIFT)</a></li>
-  <li><a href="#pathfinding-in-space-a-rrt-prm" id="toc-pathfinding-in-space-a-rrt-prm" class="nav-link" data-scroll-target="#pathfinding-in-space-a-rrt-prm">79. Pathfinding in Space (A*, RRT, PRM)</a></li>
-  <li><a href="#computational-geometry-variants-and-applications" id="toc-computational-geometry-variants-and-applications" class="nav-link" data-scroll-target="#computational-geometry-variants-and-applications">80. Computational Geometry Variants and Applications</a></li>
-  </ul></li>
-  <li><a href="#chapter-9.-systems-databases-and-distributed-algorithms" id="toc-chapter-9.-systems-databases-and-distributed-algorithms" class="nav-link" data-scroll-target="#chapter-9.-systems-databases-and-distributed-algorithms">Chapter 9. Systems, Databases, and Distributed Algorithms</a>
-  <ul class="collapse">
-  <li><a href="#concurrency-control-2pl-mvcc-occ" id="toc-concurrency-control-2pl-mvcc-occ" class="nav-link" data-scroll-target="#concurrency-control-2pl-mvcc-occ">81. Concurrency Control (2PL, MVCC, OCC)</a></li>
-  <li><a href="#logging-recovery-and-commit-protocols" id="toc-logging-recovery-and-commit-protocols" class="nav-link" data-scroll-target="#logging-recovery-and-commit-protocols">82. Logging, Recovery, and Commit Protocols</a></li>
-  <li><a href="#scheduling-round-robin-edf-rate-monotonic" id="toc-scheduling-round-robin-edf-rate-monotonic" class="nav-link" data-scroll-target="#scheduling-round-robin-edf-rate-monotonic">83. Scheduling (Round Robin, EDF, Rate-Monotonic)</a></li>
-  <li><a href="#caching-and-replacement-lru-lfu-clock" id="toc-caching-and-replacement-lru-lfu-clock" class="nav-link" data-scroll-target="#caching-and-replacement-lru-lfu-clock">84. Caching and Replacement (LRU, LFU, CLOCK)</a></li>
-  <li><a href="#networking-routing-congestion-control" id="toc-networking-routing-congestion-control" class="nav-link" data-scroll-target="#networking-routing-congestion-control">85. Networking (Routing, Congestion Control)</a></li>
-  <li><a href="#distributed-consensus-paxos-raft-pbft" id="toc-distributed-consensus-paxos-raft-pbft" class="nav-link" data-scroll-target="#distributed-consensus-paxos-raft-pbft">86. Distributed Consensus (Paxos, Raft, PBFT)</a></li>
-  <li><a href="#load-balancing-and-rate-limiting" id="toc-load-balancing-and-rate-limiting" class="nav-link" data-scroll-target="#load-balancing-and-rate-limiting">87. Load Balancing and Rate Limiting</a></li>
-  <li><a href="#search-and-indexing-inverted-bm25-wand" id="toc-search-and-indexing-inverted-bm25-wand" class="nav-link" data-scroll-target="#search-and-indexing-inverted-bm25-wand">88. Search and Indexing (Inverted, BM25, WAND)</a></li>
-  <li><a href="#compression-and-encoding-in-systems" id="toc-compression-and-encoding-in-systems" class="nav-link" data-scroll-target="#compression-and-encoding-in-systems">89. Compression and Encoding in Systems</a></li>
-  <li><a href="#fault-tolerance-and-replication" id="toc-fault-tolerance-and-replication" class="nav-link" data-scroll-target="#fault-tolerance-and-replication">90. Fault Tolerance and Replication</a></li>
-  </ul></li>
-  <li><a href="#chapter-10.-ai-ml-and-optimization" id="toc-chapter-10.-ai-ml-and-optimization" class="nav-link" data-scroll-target="#chapter-10.-ai-ml-and-optimization">Chapter 10. AI, ML, and Optimization</a>
-  <ul class="collapse">
-  <li><a href="#classical-ml-k-means-naive-bayes-svm-decision-trees" id="toc-classical-ml-k-means-naive-bayes-svm-decision-trees" class="nav-link" data-scroll-target="#classical-ml-k-means-naive-bayes-svm-decision-trees">91. Classical ML (k-means, Naive Bayes, SVM, Decision Trees)</a></li>
-  <li><a href="#ensemble-methods-bagging-boosting-random-forests" id="toc-ensemble-methods-bagging-boosting-random-forests" class="nav-link" data-scroll-target="#ensemble-methods-bagging-boosting-random-forests">92. Ensemble Methods (Bagging, Boosting, Random Forests)</a></li>
-  <li><a href="#gradient-methods-sgd-adam-rmsprop" id="toc-gradient-methods-sgd-adam-rmsprop" class="nav-link" data-scroll-target="#gradient-methods-sgd-adam-rmsprop">93. Gradient Methods (SGD, Adam, RMSProp)</a></li>
-  <li><a href="#deep-learning-backpropagation-dropout-normalization" id="toc-deep-learning-backpropagation-dropout-normalization" class="nav-link" data-scroll-target="#deep-learning-backpropagation-dropout-normalization">94. Deep Learning (Backpropagation, Dropout, Normalization)</a></li>
-  <li><a href="#sequence-models-viterbi-beam-search-ctc" id="toc-sequence-models-viterbi-beam-search-ctc" class="nav-link" data-scroll-target="#sequence-models-viterbi-beam-search-ctc">95. Sequence Models (Viterbi, Beam Search, CTC)</a></li>
-  <li><a href="#metaheuristics-ga-sa-pso-aco" id="toc-metaheuristics-ga-sa-pso-aco" class="nav-link" data-scroll-target="#metaheuristics-ga-sa-pso-aco">96. Metaheuristics (GA, SA, PSO, ACO)</a></li>
-  <li><a href="#reinforcement-learning-q-learning-policy-gradients" id="toc-reinforcement-learning-q-learning-policy-gradients" class="nav-link" data-scroll-target="#reinforcement-learning-q-learning-policy-gradients">97. Reinforcement Learning (Q-learning, Policy Gradients)</a></li>
-  <li><a href="#approximation-and-online-algorithms" id="toc-approximation-and-online-algorithms" class="nav-link" data-scroll-target="#approximation-and-online-algorithms">98. Approximation and Online Algorithms</a></li>
-  <li><a href="#fairness-causal-inference-and-robust-optimization" id="toc-fairness-causal-inference-and-robust-optimization" class="nav-link" data-scroll-target="#fairness-causal-inference-and-robust-optimization">99. Fairness, Causal Inference, and Robust Optimization</a></li>
-  <li><a href="#ai-planning-search-and-learning-systems" id="toc-ai-planning-search-and-learning-systems" class="nav-link" data-scroll-target="#ai-planning-search-and-learning-systems">100. AI Planning, Search, and Learning Systems</a></li>
-  </ul></li>
+  <li><a href="#chapter-1.-foundations-of-algorithms" id="toc-chapter-1.-foundations-of-algorithms" class="nav-link active" data-scroll-target="#chapter-1.-foundations-of-algorithms">Chapter 1. Foundations of Algorithms</a></li>
+  <li><a href="#chapter-2.-sorting-and-searching" id="toc-chapter-2.-sorting-and-searching" class="nav-link" data-scroll-target="#chapter-2.-sorting-and-searching">Chapter 2. Sorting and Searching</a></li>
+  <li><a href="#chapter-3.-data-structures-in-action" id="toc-chapter-3.-data-structures-in-action" class="nav-link" data-scroll-target="#chapter-3.-data-structures-in-action">Chapter 3. Data Structures in Action</a></li>
+  <li><a href="#chapter-4.-graph-algorithms" id="toc-chapter-4.-graph-algorithms" class="nav-link" data-scroll-target="#chapter-4.-graph-algorithms">Chapter 4. Graph Algorithms</a></li>
+  <li><a href="#chapter-5.-dynamic-programming" id="toc-chapter-5.-dynamic-programming" class="nav-link" data-scroll-target="#chapter-5.-dynamic-programming">Chapter 5. Dynamic Programming</a></li>
+  <li><a href="#chapter-6.-mathematics-for-algorithms" id="toc-chapter-6.-mathematics-for-algorithms" class="nav-link" data-scroll-target="#chapter-6.-mathematics-for-algorithms">Chapter 6. Mathematics for Algorithms</a></li>
+  <li><a href="#chapter-7.-strings-and-text-algorithms" id="toc-chapter-7.-strings-and-text-algorithms" class="nav-link" data-scroll-target="#chapter-7.-strings-and-text-algorithms">Chapter 7. Strings and Text Algorithms</a></li>
+  <li><a href="#chapter-8.-geometry-graphics-and-spatial-algorithms" id="toc-chapter-8.-geometry-graphics-and-spatial-algorithms" class="nav-link" data-scroll-target="#chapter-8.-geometry-graphics-and-spatial-algorithms">Chapter 8. Geometry, Graphics, and Spatial Algorithms</a></li>
+  <li><a href="#chapter-9.-systems-databases-and-distributed-algorithms" id="toc-chapter-9.-systems-databases-and-distributed-algorithms" class="nav-link" data-scroll-target="#chapter-9.-systems-databases-and-distributed-algorithms">Chapter 9. Systems, Databases, and Distributed Algorithms</a></li>
+  <li><a href="#chapter-10.-ai-ml-and-optimization" id="toc-chapter-10.-ai-ml-and-optimization" class="nav-link" data-scroll-target="#chapter-10.-ai-ml-and-optimization">Chapter 10. AI, ML, and Optimization</a></li>
   </ul>
 </nav>
 </nav>
@@ -289,10 +180,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="chapter-1.-foundations-of-algorithms" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-1.-foundations-of-algorithms">Chapter 1. Foundations of Algorithms</h2>
-<section id="what-is-an-algorithm" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-an-algorithm">1. What Is an Algorithm?</h3>
+<section id="chapter-1.-foundations-of-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-1.-foundations-of-algorithms">Chapter 1. Foundations of Algorithms</h3>
+<section id="what-is-an-algorithm" class="level4">
+<h4 class="anchored" data-anchor-id="what-is-an-algorithm">1. What Is an Algorithm?</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 2%">
@@ -360,8 +251,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="measuring-time-and-space" class="level3">
-<h3 class="anchored" data-anchor-id="measuring-time-and-space">2. Measuring Time and Space</h3>
+<section id="measuring-time-and-space" class="level4">
+<h4 class="anchored" data-anchor-id="measuring-time-and-space">2. Measuring Time and Space</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 3%">
@@ -429,8 +320,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="big-o-big-theta-big-omega" class="level3">
-<h3 class="anchored" data-anchor-id="big-o-big-theta-big-omega">3. Big-O, Big-Theta, Big-Omega</h3>
+<section id="big-o-big-theta-big-omega" class="level4">
+<h4 class="anchored" data-anchor-id="big-o-big-theta-big-omega">3. Big-O, Big-Theta, Big-Omega</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 2%">
@@ -498,8 +389,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="algorithmic-paradigms-greedy-divide-and-conquer-dp" class="level3">
-<h3 class="anchored" data-anchor-id="algorithmic-paradigms-greedy-divide-and-conquer-dp">4. Algorithmic Paradigms (Greedy, Divide and Conquer, DP)</h3>
+<section id="algorithmic-paradigms-greedy-divide-and-conquer-dp" class="level4">
+<h4 class="anchored" data-anchor-id="algorithmic-paradigms-greedy-divide-and-conquer-dp">4. Algorithmic Paradigms (Greedy, Divide and Conquer, DP)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -562,8 +453,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="recurrence-relations" class="level3">
-<h3 class="anchored" data-anchor-id="recurrence-relations">5. Recurrence Relations</h3>
+<section id="recurrence-relations" class="level4">
+<h4 class="anchored" data-anchor-id="recurrence-relations">5. Recurrence Relations</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -626,8 +517,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="searching-basics" class="level3">
-<h3 class="anchored" data-anchor-id="searching-basics">6. Searching Basics</h3>
+<section id="searching-basics" class="level4">
+<h4 class="anchored" data-anchor-id="searching-basics">6. Searching Basics</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -690,8 +581,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="sorting-basics" class="level3">
-<h3 class="anchored" data-anchor-id="sorting-basics">7. Sorting Basics</h3>
+<section id="sorting-basics" class="level4">
+<h4 class="anchored" data-anchor-id="sorting-basics">7. Sorting Basics</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -754,8 +645,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="data-structures-overview" class="level3">
-<h3 class="anchored" data-anchor-id="data-structures-overview">8. Data Structures Overview</h3>
+<section id="data-structures-overview" class="level4">
+<h4 class="anchored" data-anchor-id="data-structures-overview">8. Data Structures Overview</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -818,8 +709,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="graphs-and-trees-overview" class="level3">
-<h3 class="anchored" data-anchor-id="graphs-and-trees-overview">9. Graphs and Trees Overview</h3>
+<section id="graphs-and-trees-overview" class="level4">
+<h4 class="anchored" data-anchor-id="graphs-and-trees-overview">9. Graphs and Trees Overview</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -882,8 +773,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="algorithm-design-patterns" class="level3">
-<h3 class="anchored" data-anchor-id="algorithm-design-patterns">10. Algorithm Design Patterns</h3>
+<section id="algorithm-design-patterns" class="level4">
+<h4 class="anchored" data-anchor-id="algorithm-design-patterns">10. Algorithm Design Patterns</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -947,10 +838,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="chapter-2.-sorting-and-searching" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-2.-sorting-and-searching">Chapter 2. Sorting and Searching</h2>
-<section id="elementary-sorting-bubble-insertion-selection" class="level3">
-<h3 class="anchored" data-anchor-id="elementary-sorting-bubble-insertion-selection">11. Elementary Sorting (Bubble, Insertion, Selection)</h3>
+<section id="chapter-2.-sorting-and-searching" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-2.-sorting-and-searching">Chapter 2. Sorting and Searching</h3>
+<section id="elementary-sorting-bubble-insertion-selection" class="level4">
+<h4 class="anchored" data-anchor-id="elementary-sorting-bubble-insertion-selection">11. Elementary Sorting (Bubble, Insertion, Selection)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1013,8 +904,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="divide-and-conquer-sorting-merge-quick-heap" class="level3">
-<h3 class="anchored" data-anchor-id="divide-and-conquer-sorting-merge-quick-heap">12. Divide-and-Conquer Sorting (Merge, Quick, Heap)</h3>
+<section id="divide-and-conquer-sorting-merge-quick-heap" class="level4">
+<h4 class="anchored" data-anchor-id="divide-and-conquer-sorting-merge-quick-heap">12. Divide-and-Conquer Sorting (Merge, Quick, Heap)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1077,8 +968,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="counting-and-distribution-sorts-counting-radix-bucket" class="level3">
-<h3 class="anchored" data-anchor-id="counting-and-distribution-sorts-counting-radix-bucket">13. Counting and Distribution Sorts (Counting, Radix, Bucket)</h3>
+<section id="counting-and-distribution-sorts-counting-radix-bucket" class="level4">
+<h4 class="anchored" data-anchor-id="counting-and-distribution-sorts-counting-radix-bucket">13. Counting and Distribution Sorts (Counting, Radix, Bucket)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -1146,8 +1037,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="hybrid-sorts-introsort-timsort" class="level3">
-<h3 class="anchored" data-anchor-id="hybrid-sorts-introsort-timsort">14. Hybrid Sorts (IntroSort, Timsort)</h3>
+<section id="hybrid-sorts-introsort-timsort" class="level4">
+<h4 class="anchored" data-anchor-id="hybrid-sorts-introsort-timsort">14. Hybrid Sorts (IntroSort, Timsort)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1210,8 +1101,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="special-sorts-cycle-gnome-comb-pancake" class="level3">
-<h3 class="anchored" data-anchor-id="special-sorts-cycle-gnome-comb-pancake">15. Special Sorts (Cycle, Gnome, Comb, Pancake)</h3>
+<section id="special-sorts-cycle-gnome-comb-pancake" class="level4">
+<h4 class="anchored" data-anchor-id="special-sorts-cycle-gnome-comb-pancake">15. Special Sorts (Cycle, Gnome, Comb, Pancake)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1274,8 +1165,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="linear-and-binary-search" class="level3">
-<h3 class="anchored" data-anchor-id="linear-and-binary-search">16. Linear and Binary Search</h3>
+<section id="linear-and-binary-search" class="level4">
+<h4 class="anchored" data-anchor-id="linear-and-binary-search">16. Linear and Binary Search</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1338,8 +1229,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="interpolation-and-exponential-search" class="level3">
-<h3 class="anchored" data-anchor-id="interpolation-and-exponential-search">17. Interpolation and Exponential Search</h3>
+<section id="interpolation-and-exponential-search" class="level4">
+<h4 class="anchored" data-anchor-id="interpolation-and-exponential-search">17. Interpolation and Exponential Search</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1402,8 +1293,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="selection-algorithms-quickselect-median-of-medians" class="level3">
-<h3 class="anchored" data-anchor-id="selection-algorithms-quickselect-median-of-medians">18. Selection Algorithms (Quickselect, Median of Medians)</h3>
+<section id="selection-algorithms-quickselect-median-of-medians" class="level4">
+<h4 class="anchored" data-anchor-id="selection-algorithms-quickselect-median-of-medians">18. Selection Algorithms (Quickselect, Median of Medians)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1466,8 +1357,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="range-searching-and-nearest-neighbor" class="level3">
-<h3 class="anchored" data-anchor-id="range-searching-and-nearest-neighbor">19. Range Searching and Nearest Neighbor</h3>
+<section id="range-searching-and-nearest-neighbor" class="level4">
+<h4 class="anchored" data-anchor-id="range-searching-and-nearest-neighbor">19. Range Searching and Nearest Neighbor</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1530,8 +1421,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="search-optimizations-and-variants" class="level3">
-<h3 class="anchored" data-anchor-id="search-optimizations-and-variants">20. Search Optimizations and Variants</h3>
+<section id="search-optimizations-and-variants" class="level4">
+<h4 class="anchored" data-anchor-id="search-optimizations-and-variants">20. Search Optimizations and Variants</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1595,10 +1486,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="chapter-3.-data-structures-in-action" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-3.-data-structures-in-action">Chapter 3. Data Structures in Action</h2>
-<section id="arrays-linked-lists-stacks-queues" class="level3">
-<h3 class="anchored" data-anchor-id="arrays-linked-lists-stacks-queues">21. Arrays, Linked Lists, Stacks, Queues</h3>
+<section id="chapter-3.-data-structures-in-action" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-3.-data-structures-in-action">Chapter 3. Data Structures in Action</h3>
+<section id="arrays-linked-lists-stacks-queues" class="level4">
+<h4 class="anchored" data-anchor-id="arrays-linked-lists-stacks-queues">21. Arrays, Linked Lists, Stacks, Queues</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -1666,8 +1557,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="hash-tables-and-variants-cuckoo-robin-hood-consistent" class="level3">
-<h3 class="anchored" data-anchor-id="hash-tables-and-variants-cuckoo-robin-hood-consistent">22. Hash Tables and Variants (Cuckoo, Robin Hood, Consistent)</h3>
+<section id="hash-tables-and-variants-cuckoo-robin-hood-consistent" class="level4">
+<h4 class="anchored" data-anchor-id="hash-tables-and-variants-cuckoo-robin-hood-consistent">22. Hash Tables and Variants (Cuckoo, Robin Hood, Consistent)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1730,8 +1621,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="heaps-binary-fibonacci-pairing" class="level3">
-<h3 class="anchored" data-anchor-id="heaps-binary-fibonacci-pairing">23. Heaps (Binary, Fibonacci, Pairing)</h3>
+<section id="heaps-binary-fibonacci-pairing" class="level4">
+<h4 class="anchored" data-anchor-id="heaps-binary-fibonacci-pairing">23. Heaps (Binary, Fibonacci, Pairing)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1794,8 +1685,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="balanced-trees-avl-red-black-splay-treap" class="level3">
-<h3 class="anchored" data-anchor-id="balanced-trees-avl-red-black-splay-treap">24. Balanced Trees (AVL, Red-Black, Splay, Treap)</h3>
+<section id="balanced-trees-avl-red-black-splay-treap" class="level4">
+<h4 class="anchored" data-anchor-id="balanced-trees-avl-red-black-splay-treap">24. Balanced Trees (AVL, Red-Black, Splay, Treap)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1858,8 +1749,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="segment-trees-and-fenwick-trees" class="level3">
-<h3 class="anchored" data-anchor-id="segment-trees-and-fenwick-trees">25. Segment Trees and Fenwick Trees</h3>
+<section id="segment-trees-and-fenwick-trees" class="level4">
+<h4 class="anchored" data-anchor-id="segment-trees-and-fenwick-trees">25. Segment Trees and Fenwick Trees</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1922,8 +1813,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="disjoint-set-union-union-find" class="level3">
-<h3 class="anchored" data-anchor-id="disjoint-set-union-union-find">26. Disjoint Set Union (Union-Find)</h3>
+<section id="disjoint-set-union-union-find" class="level4">
+<h4 class="anchored" data-anchor-id="disjoint-set-union-union-find">26. Disjoint Set Union (Union-Find)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1986,8 +1877,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="probabilistic-data-structures-bloom-count-min-hyperloglog" class="level3">
-<h3 class="anchored" data-anchor-id="probabilistic-data-structures-bloom-count-min-hyperloglog">27. Probabilistic Data Structures (Bloom, Count-Min, HyperLogLog)</h3>
+<section id="probabilistic-data-structures-bloom-count-min-hyperloglog" class="level4">
+<h4 class="anchored" data-anchor-id="probabilistic-data-structures-bloom-count-min-hyperloglog">27. Probabilistic Data Structures (Bloom, Count-Min, HyperLogLog)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2050,8 +1941,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="skip-lists-and-b-trees" class="level3">
-<h3 class="anchored" data-anchor-id="skip-lists-and-b-trees">28. Skip Lists and B-Trees</h3>
+<section id="skip-lists-and-b-trees" class="level4">
+<h4 class="anchored" data-anchor-id="skip-lists-and-b-trees">28. Skip Lists and B-Trees</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2114,8 +2005,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="persistent-and-functional-data-structures" class="level3">
-<h3 class="anchored" data-anchor-id="persistent-and-functional-data-structures">29. Persistent and Functional Data Structures</h3>
+<section id="persistent-and-functional-data-structures" class="level4">
+<h4 class="anchored" data-anchor-id="persistent-and-functional-data-structures">29. Persistent and Functional Data Structures</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2178,8 +2069,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="advanced-trees-and-range-queries" class="level3">
-<h3 class="anchored" data-anchor-id="advanced-trees-and-range-queries">30. Advanced Trees and Range Queries</h3>
+<section id="advanced-trees-and-range-queries" class="level4">
+<h4 class="anchored" data-anchor-id="advanced-trees-and-range-queries">30. Advanced Trees and Range Queries</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2243,10 +2134,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="chapter-4.-graph-algorithms" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-4.-graph-algorithms">Chapter 4. Graph Algorithms</h2>
-<section id="traversals-dfs-bfs-iterative-deepening" class="level3">
-<h3 class="anchored" data-anchor-id="traversals-dfs-bfs-iterative-deepening">31. Traversals (DFS, BFS, Iterative Deepening)</h3>
+<section id="chapter-4.-graph-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-4.-graph-algorithms">Chapter 4. Graph Algorithms</h3>
+<section id="traversals-dfs-bfs-iterative-deepening" class="level4">
+<h4 class="anchored" data-anchor-id="traversals-dfs-bfs-iterative-deepening">31. Traversals (DFS, BFS, Iterative Deepening)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -2314,8 +2205,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="strongly-connected-components-tarjan-kosaraju" class="level3">
-<h3 class="anchored" data-anchor-id="strongly-connected-components-tarjan-kosaraju">32. Strongly Connected Components (Tarjan, Kosaraju)</h3>
+<section id="strongly-connected-components-tarjan-kosaraju" class="level4">
+<h4 class="anchored" data-anchor-id="strongly-connected-components-tarjan-kosaraju">32. Strongly Connected Components (Tarjan, Kosaraju)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2378,8 +2269,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="shortest-paths-dijkstra-bellman-ford-a-johnson" class="level3">
-<h3 class="anchored" data-anchor-id="shortest-paths-dijkstra-bellman-ford-a-johnson">33. Shortest Paths (Dijkstra, Bellman-Ford, A*, Johnson)</h3>
+<section id="shortest-paths-dijkstra-bellman-ford-a-johnson" class="level4">
+<h4 class="anchored" data-anchor-id="shortest-paths-dijkstra-bellman-ford-a-johnson">33. Shortest Paths (Dijkstra, Bellman-Ford, A*, Johnson)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2442,8 +2333,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="shortest-path-variants-01-bfs-bidirectional-heuristic-a" class="level3">
-<h3 class="anchored" data-anchor-id="shortest-path-variants-01-bfs-bidirectional-heuristic-a">34. Shortest Path Variants (0–1 BFS, Bidirectional, Heuristic A*)</h3>
+<section id="shortest-path-variants-01-bfs-bidirectional-heuristic-a" class="level4">
+<h4 class="anchored" data-anchor-id="shortest-path-variants-01-bfs-bidirectional-heuristic-a">34. Shortest Path Variants (0–1 BFS, Bidirectional, Heuristic A*)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -2511,8 +2402,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="minimum-spanning-trees-kruskal-prim-borůvka" class="level3">
-<h3 class="anchored" data-anchor-id="minimum-spanning-trees-kruskal-prim-borůvka">35. Minimum Spanning Trees (Kruskal, Prim, Borůvka)</h3>
+<section id="minimum-spanning-trees-kruskal-prim-borůvka" class="level4">
+<h4 class="anchored" data-anchor-id="minimum-spanning-trees-kruskal-prim-borůvka">35. Minimum Spanning Trees (Kruskal, Prim, Borůvka)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2575,8 +2466,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="flows-fordfulkerson-edmondskarp-dinic" class="level3">
-<h3 class="anchored" data-anchor-id="flows-fordfulkerson-edmondskarp-dinic">36. Flows (Ford–Fulkerson, Edmonds–Karp, Dinic)</h3>
+<section id="flows-fordfulkerson-edmondskarp-dinic" class="level4">
+<h4 class="anchored" data-anchor-id="flows-fordfulkerson-edmondskarp-dinic">36. Flows (Ford–Fulkerson, Edmonds–Karp, Dinic)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -2644,8 +2535,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="cuts-stoerwagner-karger-gomoryhu" class="level3">
-<h3 class="anchored" data-anchor-id="cuts-stoerwagner-karger-gomoryhu">37. Cuts (Stoer–Wagner, Karger, Gomory–Hu)</h3>
+<section id="cuts-stoerwagner-karger-gomoryhu" class="level4">
+<h4 class="anchored" data-anchor-id="cuts-stoerwagner-karger-gomoryhu">37. Cuts (Stoer–Wagner, Karger, Gomory–Hu)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2708,8 +2599,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="matchings-hopcroftkarp-hungarian-blossom" class="level3">
-<h3 class="anchored" data-anchor-id="matchings-hopcroftkarp-hungarian-blossom">38. Matchings (Hopcroft–Karp, Hungarian, Blossom)</h3>
+<section id="matchings-hopcroftkarp-hungarian-blossom" class="level4">
+<h4 class="anchored" data-anchor-id="matchings-hopcroftkarp-hungarian-blossom">38. Matchings (Hopcroft–Karp, Hungarian, Blossom)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2772,8 +2663,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="tree-algorithms-lca-hld-centroid-decomposition" class="level3">
-<h3 class="anchored" data-anchor-id="tree-algorithms-lca-hld-centroid-decomposition">39. Tree Algorithms (LCA, HLD, Centroid Decomposition)</h3>
+<section id="tree-algorithms-lca-hld-centroid-decomposition" class="level4">
+<h4 class="anchored" data-anchor-id="tree-algorithms-lca-hld-centroid-decomposition">39. Tree Algorithms (LCA, HLD, Centroid Decomposition)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2836,8 +2727,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="advanced-graph-algorithms-and-tricks" class="level3">
-<h3 class="anchored" data-anchor-id="advanced-graph-algorithms-and-tricks">40. Advanced Graph Algorithms and Tricks</h3>
+<section id="advanced-graph-algorithms-and-tricks" class="level4">
+<h4 class="anchored" data-anchor-id="advanced-graph-algorithms-and-tricks">40. Advanced Graph Algorithms and Tricks</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -2906,10 +2797,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="chapter-5.-dynamic-programming" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-5.-dynamic-programming">Chapter 5. Dynamic Programming</h2>
-<section id="dp-basics-and-state-transitions" class="level3">
-<h3 class="anchored" data-anchor-id="dp-basics-and-state-transitions">41. DP Basics and State Transitions</h3>
+<section id="chapter-5.-dynamic-programming" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-5.-dynamic-programming">Chapter 5. Dynamic Programming</h3>
+<section id="dp-basics-and-state-transitions" class="level4">
+<h4 class="anchored" data-anchor-id="dp-basics-and-state-transitions">41. DP Basics and State Transitions</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -2977,8 +2868,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="classic-problems-knapsack-subset-sum-coin-change" class="level3">
-<h3 class="anchored" data-anchor-id="classic-problems-knapsack-subset-sum-coin-change">42. Classic Problems (Knapsack, Subset Sum, Coin Change)</h3>
+<section id="classic-problems-knapsack-subset-sum-coin-change" class="level4">
+<h4 class="anchored" data-anchor-id="classic-problems-knapsack-subset-sum-coin-change">42. Classic Problems (Knapsack, Subset Sum, Coin Change)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3041,8 +2932,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="sequence-problems-lis-lcs-edit-distance" class="level3">
-<h3 class="anchored" data-anchor-id="sequence-problems-lis-lcs-edit-distance">43. Sequence Problems (LIS, LCS, Edit Distance)</h3>
+<section id="sequence-problems-lis-lcs-edit-distance" class="level4">
+<h4 class="anchored" data-anchor-id="sequence-problems-lis-lcs-edit-distance">43. Sequence Problems (LIS, LCS, Edit Distance)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -3110,8 +3001,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="matrix-and-chain-problems" class="level3">
-<h3 class="anchored" data-anchor-id="matrix-and-chain-problems">44. Matrix and Chain Problems</h3>
+<section id="matrix-and-chain-problems" class="level4">
+<h4 class="anchored" data-anchor-id="matrix-and-chain-problems">44. Matrix and Chain Problems</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3174,8 +3065,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="bitmask-dp-and-traveling-salesman" class="level3">
-<h3 class="anchored" data-anchor-id="bitmask-dp-and-traveling-salesman">45. Bitmask DP and Traveling Salesman</h3>
+<section id="bitmask-dp-and-traveling-salesman" class="level4">
+<h4 class="anchored" data-anchor-id="bitmask-dp-and-traveling-salesman">45. Bitmask DP and Traveling Salesman</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3238,8 +3129,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="digit-dp-and-sos-dp" class="level3">
-<h3 class="anchored" data-anchor-id="digit-dp-and-sos-dp">46. Digit DP and SOS DP</h3>
+<section id="digit-dp-and-sos-dp" class="level4">
+<h4 class="anchored" data-anchor-id="digit-dp-and-sos-dp">46. Digit DP and SOS DP</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3302,8 +3193,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="dp-optimizations-divide-conquer-convex-hull-trick-knuth" class="level3">
-<h3 class="anchored" data-anchor-id="dp-optimizations-divide-conquer-convex-hull-trick-knuth">47. DP Optimizations (Divide &amp; Conquer, Convex Hull Trick, Knuth)</h3>
+<section id="dp-optimizations-divide-conquer-convex-hull-trick-knuth" class="level4">
+<h4 class="anchored" data-anchor-id="dp-optimizations-divide-conquer-convex-hull-trick-knuth">47. DP Optimizations (Divide &amp; Conquer, Convex Hull Trick, Knuth)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3366,8 +3257,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="tree-dp-and-rerooting" class="level3">
-<h3 class="anchored" data-anchor-id="tree-dp-and-rerooting">48. Tree DP and Rerooting</h3>
+<section id="tree-dp-and-rerooting" class="level4">
+<h4 class="anchored" data-anchor-id="tree-dp-and-rerooting">48. Tree DP and Rerooting</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3430,8 +3321,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="dp-reconstruction-and-traceback" class="level3">
-<h3 class="anchored" data-anchor-id="dp-reconstruction-and-traceback">49. DP Reconstruction and Traceback</h3>
+<section id="dp-reconstruction-and-traceback" class="level4">
+<h4 class="anchored" data-anchor-id="dp-reconstruction-and-traceback">49. DP Reconstruction and Traceback</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3494,8 +3385,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="meta-dp-and-optimization-templates" class="level3">
-<h3 class="anchored" data-anchor-id="meta-dp-and-optimization-templates">50. Meta-DP and Optimization Templates</h3>
+<section id="meta-dp-and-optimization-templates" class="level4">
+<h4 class="anchored" data-anchor-id="meta-dp-and-optimization-templates">50. Meta-DP and Optimization Templates</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3559,10 +3450,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="chapter-6.-mathematics-for-algorithms" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-6.-mathematics-for-algorithms">Chapter 6. Mathematics for Algorithms</h2>
-<section id="number-theory-gcd-modular-arithmetic-crt" class="level3">
-<h3 class="anchored" data-anchor-id="number-theory-gcd-modular-arithmetic-crt">51. Number Theory (GCD, Modular Arithmetic, CRT)</h3>
+<section id="chapter-6.-mathematics-for-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-6.-mathematics-for-algorithms">Chapter 6. Mathematics for Algorithms</h3>
+<section id="number-theory-gcd-modular-arithmetic-crt" class="level4">
+<h4 class="anchored" data-anchor-id="number-theory-gcd-modular-arithmetic-crt">51. Number Theory (GCD, Modular Arithmetic, CRT)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3625,8 +3516,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="primality-and-factorization-millerrabin-pollard-rho" class="level3">
-<h3 class="anchored" data-anchor-id="primality-and-factorization-millerrabin-pollard-rho">52. Primality and Factorization (Miller–Rabin, Pollard Rho)</h3>
+<section id="primality-and-factorization-millerrabin-pollard-rho" class="level4">
+<h4 class="anchored" data-anchor-id="primality-and-factorization-millerrabin-pollard-rho">52. Primality and Factorization (Miller–Rabin, Pollard Rho)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3689,8 +3580,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="combinatorics-permutations-combinations-subsets" class="level3">
-<h3 class="anchored" data-anchor-id="combinatorics-permutations-combinations-subsets">53. Combinatorics (Permutations, Combinations, Subsets)</h3>
+<section id="combinatorics-permutations-combinations-subsets" class="level4">
+<h4 class="anchored" data-anchor-id="combinatorics-permutations-combinations-subsets">53. Combinatorics (Permutations, Combinations, Subsets)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3753,8 +3644,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="probability-and-randomized-algorithms" class="level3">
-<h3 class="anchored" data-anchor-id="probability-and-randomized-algorithms">54. Probability and Randomized Algorithms</h3>
+<section id="probability-and-randomized-algorithms" class="level4">
+<h4 class="anchored" data-anchor-id="probability-and-randomized-algorithms">54. Probability and Randomized Algorithms</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3817,8 +3708,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="sieve-methods-and-modular-math" class="level3">
-<h3 class="anchored" data-anchor-id="sieve-methods-and-modular-math">55. Sieve Methods and Modular Math</h3>
+<section id="sieve-methods-and-modular-math" class="level4">
+<h4 class="anchored" data-anchor-id="sieve-methods-and-modular-math">55. Sieve Methods and Modular Math</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -3886,8 +3777,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="linear-algebra-gaussian-elimination-lu-svd" class="level3">
-<h3 class="anchored" data-anchor-id="linear-algebra-gaussian-elimination-lu-svd">56. Linear Algebra (Gaussian Elimination, LU, SVD)</h3>
+<section id="linear-algebra-gaussian-elimination-lu-svd" class="level4">
+<h4 class="anchored" data-anchor-id="linear-algebra-gaussian-elimination-lu-svd">56. Linear Algebra (Gaussian Elimination, LU, SVD)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -3955,8 +3846,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="fft-and-ntt-fast-transforms" class="level3">
-<h3 class="anchored" data-anchor-id="fft-and-ntt-fast-transforms">57. FFT and NTT (Fast Transforms)</h3>
+<section id="fft-and-ntt-fast-transforms" class="level4">
+<h4 class="anchored" data-anchor-id="fft-and-ntt-fast-transforms">57. FFT and NTT (Fast Transforms)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -4024,8 +3915,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="numerical-methods-newton-simpson-rungekutta" class="level3">
-<h3 class="anchored" data-anchor-id="numerical-methods-newton-simpson-rungekutta">58. Numerical Methods (Newton, Simpson, Runge–Kutta)</h3>
+<section id="numerical-methods-newton-simpson-rungekutta" class="level4">
+<h4 class="anchored" data-anchor-id="numerical-methods-newton-simpson-rungekutta">58. Numerical Methods (Newton, Simpson, Runge–Kutta)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4088,8 +3979,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="mathematical-optimization-simplex-gradient-convex" class="level3">
-<h3 class="anchored" data-anchor-id="mathematical-optimization-simplex-gradient-convex">59. Mathematical Optimization (Simplex, Gradient, Convex)</h3>
+<section id="mathematical-optimization-simplex-gradient-convex" class="level4">
+<h4 class="anchored" data-anchor-id="mathematical-optimization-simplex-gradient-convex">59. Mathematical Optimization (Simplex, Gradient, Convex)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4152,8 +4043,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="algebraic-tricks-and-transform-techniques" class="level3">
-<h3 class="anchored" data-anchor-id="algebraic-tricks-and-transform-techniques">60. Algebraic Tricks and Transform Techniques</h3>
+<section id="algebraic-tricks-and-transform-techniques" class="level4">
+<h4 class="anchored" data-anchor-id="algebraic-tricks-and-transform-techniques">60. Algebraic Tricks and Transform Techniques</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4217,10 +4108,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="chapter-7.-strings-and-text-algorithms" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-7.-strings-and-text-algorithms">Chapter 7. Strings and Text Algorithms</h2>
-<section id="string-matching-kmp-z-rabinkarp-boyermoore" class="level3">
-<h3 class="anchored" data-anchor-id="string-matching-kmp-z-rabinkarp-boyermoore">61. String Matching (KMP, Z, Rabin–Karp, Boyer–Moore)</h3>
+<section id="chapter-7.-strings-and-text-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-7.-strings-and-text-algorithms">Chapter 7. Strings and Text Algorithms</h3>
+<section id="string-matching-kmp-z-rabinkarp-boyermoore" class="level4">
+<h4 class="anchored" data-anchor-id="string-matching-kmp-z-rabinkarp-boyermoore">61. String Matching (KMP, Z, Rabin–Karp, Boyer–Moore)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4283,8 +4174,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="multi-pattern-search-ahocorasick" class="level3">
-<h3 class="anchored" data-anchor-id="multi-pattern-search-ahocorasick">62. Multi-Pattern Search (Aho–Corasick)</h3>
+<section id="multi-pattern-search-ahocorasick" class="level4">
+<h4 class="anchored" data-anchor-id="multi-pattern-search-ahocorasick">62. Multi-Pattern Search (Aho–Corasick)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4347,8 +4238,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="suffix-structures-suffix-array-suffix-tree-lcp" class="level3">
-<h3 class="anchored" data-anchor-id="suffix-structures-suffix-array-suffix-tree-lcp">63. Suffix Structures (Suffix Array, Suffix Tree, LCP)</h3>
+<section id="suffix-structures-suffix-array-suffix-tree-lcp" class="level4">
+<h4 class="anchored" data-anchor-id="suffix-structures-suffix-array-suffix-tree-lcp">63. Suffix Structures (Suffix Array, Suffix Tree, LCP)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4411,8 +4302,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="palindromes-and-periodicity-manacher" class="level3">
-<h3 class="anchored" data-anchor-id="palindromes-and-periodicity-manacher">64. Palindromes and Periodicity (Manacher)</h3>
+<section id="palindromes-and-periodicity-manacher" class="level4">
+<h4 class="anchored" data-anchor-id="palindromes-and-periodicity-manacher">64. Palindromes and Periodicity (Manacher)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -4480,8 +4371,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="edit-distance-and-alignment" class="level3">
-<h3 class="anchored" data-anchor-id="edit-distance-and-alignment">65. Edit Distance and Alignment</h3>
+<section id="edit-distance-and-alignment" class="level4">
+<h4 class="anchored" data-anchor-id="edit-distance-and-alignment">65. Edit Distance and Alignment</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4544,8 +4435,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="compression-huffman-arithmetic-lz77-bwt" class="level3">
-<h3 class="anchored" data-anchor-id="compression-huffman-arithmetic-lz77-bwt">66. Compression (Huffman, Arithmetic, LZ77, BWT)</h3>
+<section id="compression-huffman-arithmetic-lz77-bwt" class="level4">
+<h4 class="anchored" data-anchor-id="compression-huffman-arithmetic-lz77-bwt">66. Compression (Huffman, Arithmetic, LZ77, BWT)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4608,8 +4499,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="cryptographic-hashes-and-checksums" class="level3">
-<h3 class="anchored" data-anchor-id="cryptographic-hashes-and-checksums">67. Cryptographic Hashes and Checksums</h3>
+<section id="cryptographic-hashes-and-checksums" class="level4">
+<h4 class="anchored" data-anchor-id="cryptographic-hashes-and-checksums">67. Cryptographic Hashes and Checksums</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4672,8 +4563,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="approximate-and-streaming-matching" class="level3">
-<h3 class="anchored" data-anchor-id="approximate-and-streaming-matching">68. Approximate and Streaming Matching</h3>
+<section id="approximate-and-streaming-matching" class="level4">
+<h4 class="anchored" data-anchor-id="approximate-and-streaming-matching">68. Approximate and Streaming Matching</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4736,8 +4627,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="bioinformatics-alignment-needlemanwunsch-smithwaterman" class="level3">
-<h3 class="anchored" data-anchor-id="bioinformatics-alignment-needlemanwunsch-smithwaterman">69. Bioinformatics Alignment (Needleman–Wunsch, Smith–Waterman)</h3>
+<section id="bioinformatics-alignment-needlemanwunsch-smithwaterman" class="level4">
+<h4 class="anchored" data-anchor-id="bioinformatics-alignment-needlemanwunsch-smithwaterman">69. Bioinformatics Alignment (Needleman–Wunsch, Smith–Waterman)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -4800,8 +4691,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="text-indexing-and-search-structures" class="level3">
-<h3 class="anchored" data-anchor-id="text-indexing-and-search-structures">70. Text Indexing and Search Structures</h3>
+<section id="text-indexing-and-search-structures" class="level4">
+<h4 class="anchored" data-anchor-id="text-indexing-and-search-structures">70. Text Indexing and Search Structures</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -4870,10 +4761,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="chapter-8.-geometry-graphics-and-spatial-algorithms" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-8.-geometry-graphics-and-spatial-algorithms">Chapter 8. Geometry, Graphics, and Spatial Algorithms</h2>
-<section id="convex-hull-graham-andrew-chan" class="level3">
-<h3 class="anchored" data-anchor-id="convex-hull-graham-andrew-chan">71. Convex Hull (Graham, Andrew, Chan)</h3>
+<section id="chapter-8.-geometry-graphics-and-spatial-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-8.-geometry-graphics-and-spatial-algorithms">Chapter 8. Geometry, Graphics, and Spatial Algorithms</h3>
+<section id="convex-hull-graham-andrew-chan" class="level4">
+<h4 class="anchored" data-anchor-id="convex-hull-graham-andrew-chan">71. Convex Hull (Graham, Andrew, Chan)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -4941,8 +4832,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="closest-pair-and-segment-intersection" class="level3">
-<h3 class="anchored" data-anchor-id="closest-pair-and-segment-intersection">72. Closest Pair and Segment Intersection</h3>
+<section id="closest-pair-and-segment-intersection" class="level4">
+<h4 class="anchored" data-anchor-id="closest-pair-and-segment-intersection">72. Closest Pair and Segment Intersection</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5010,8 +4901,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="line-sweep-and-plane-sweep-algorithms" class="level3">
-<h3 class="anchored" data-anchor-id="line-sweep-and-plane-sweep-algorithms">73. Line Sweep and Plane Sweep Algorithms</h3>
+<section id="line-sweep-and-plane-sweep-algorithms" class="level4">
+<h4 class="anchored" data-anchor-id="line-sweep-and-plane-sweep-algorithms">73. Line Sweep and Plane Sweep Algorithms</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5079,8 +4970,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="delaunay-and-voronoi-diagrams" class="level3">
-<h3 class="anchored" data-anchor-id="delaunay-and-voronoi-diagrams">74. Delaunay and Voronoi Diagrams</h3>
+<section id="delaunay-and-voronoi-diagrams" class="level4">
+<h4 class="anchored" data-anchor-id="delaunay-and-voronoi-diagrams">74. Delaunay and Voronoi Diagrams</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5148,8 +5039,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="point-in-polygon-and-polygon-triangulation" class="level3">
-<h3 class="anchored" data-anchor-id="point-in-polygon-and-polygon-triangulation">75. Point in Polygon and Polygon Triangulation</h3>
+<section id="point-in-polygon-and-polygon-triangulation" class="level4">
+<h4 class="anchored" data-anchor-id="point-in-polygon-and-polygon-triangulation">75. Point in Polygon and Polygon Triangulation</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5217,8 +5108,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="spatial-data-structures-kd-r-tree" class="level3">
-<h3 class="anchored" data-anchor-id="spatial-data-structures-kd-r-tree">76. Spatial Data Structures (KD, R-tree)</h3>
+<section id="spatial-data-structures-kd-r-tree" class="level4">
+<h4 class="anchored" data-anchor-id="spatial-data-structures-kd-r-tree">76. Spatial Data Structures (KD, R-tree)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -5281,8 +5172,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="rasterization-and-scanline-techniques" class="level3">
-<h3 class="anchored" data-anchor-id="rasterization-and-scanline-techniques">77. Rasterization and Scanline Techniques</h3>
+<section id="rasterization-and-scanline-techniques" class="level4">
+<h4 class="anchored" data-anchor-id="rasterization-and-scanline-techniques">77. Rasterization and Scanline Techniques</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -5345,8 +5236,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="computer-vision-canny-hough-sift" class="level3">
-<h3 class="anchored" data-anchor-id="computer-vision-canny-hough-sift">78. Computer Vision (Canny, Hough, SIFT)</h3>
+<section id="computer-vision-canny-hough-sift" class="level4">
+<h4 class="anchored" data-anchor-id="computer-vision-canny-hough-sift">78. Computer Vision (Canny, Hough, SIFT)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5414,8 +5305,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="pathfinding-in-space-a-rrt-prm" class="level3">
-<h3 class="anchored" data-anchor-id="pathfinding-in-space-a-rrt-prm">79. Pathfinding in Space (A*, RRT, PRM)</h3>
+<section id="pathfinding-in-space-a-rrt-prm" class="level4">
+<h4 class="anchored" data-anchor-id="pathfinding-in-space-a-rrt-prm">79. Pathfinding in Space (A*, RRT, PRM)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5483,8 +5374,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="computational-geometry-variants-and-applications" class="level3">
-<h3 class="anchored" data-anchor-id="computational-geometry-variants-and-applications">80. Computational Geometry Variants and Applications</h3>
+<section id="computational-geometry-variants-and-applications" class="level4">
+<h4 class="anchored" data-anchor-id="computational-geometry-variants-and-applications">80. Computational Geometry Variants and Applications</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -5548,10 +5439,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="chapter-9.-systems-databases-and-distributed-algorithms" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-9.-systems-databases-and-distributed-algorithms">Chapter 9. Systems, Databases, and Distributed Algorithms</h2>
-<section id="concurrency-control-2pl-mvcc-occ" class="level3">
-<h3 class="anchored" data-anchor-id="concurrency-control-2pl-mvcc-occ">81. Concurrency Control (2PL, MVCC, OCC)</h3>
+<section id="chapter-9.-systems-databases-and-distributed-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-9.-systems-databases-and-distributed-algorithms">Chapter 9. Systems, Databases, and Distributed Algorithms</h3>
+<section id="concurrency-control-2pl-mvcc-occ" class="level4">
+<h4 class="anchored" data-anchor-id="concurrency-control-2pl-mvcc-occ">81. Concurrency Control (2PL, MVCC, OCC)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5619,8 +5510,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="logging-recovery-and-commit-protocols" class="level3">
-<h3 class="anchored" data-anchor-id="logging-recovery-and-commit-protocols">82. Logging, Recovery, and Commit Protocols</h3>
+<section id="logging-recovery-and-commit-protocols" class="level4">
+<h4 class="anchored" data-anchor-id="logging-recovery-and-commit-protocols">82. Logging, Recovery, and Commit Protocols</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -5683,8 +5574,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="scheduling-round-robin-edf-rate-monotonic" class="level3">
-<h3 class="anchored" data-anchor-id="scheduling-round-robin-edf-rate-monotonic">83. Scheduling (Round Robin, EDF, Rate-Monotonic)</h3>
+<section id="scheduling-round-robin-edf-rate-monotonic" class="level4">
+<h4 class="anchored" data-anchor-id="scheduling-round-robin-edf-rate-monotonic">83. Scheduling (Round Robin, EDF, Rate-Monotonic)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5752,8 +5643,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="caching-and-replacement-lru-lfu-clock" class="level3">
-<h3 class="anchored" data-anchor-id="caching-and-replacement-lru-lfu-clock">84. Caching and Replacement (LRU, LFU, CLOCK)</h3>
+<section id="caching-and-replacement-lru-lfu-clock" class="level4">
+<h4 class="anchored" data-anchor-id="caching-and-replacement-lru-lfu-clock">84. Caching and Replacement (LRU, LFU, CLOCK)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5821,8 +5712,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="networking-routing-congestion-control" class="level3">
-<h3 class="anchored" data-anchor-id="networking-routing-congestion-control">85. Networking (Routing, Congestion Control)</h3>
+<section id="networking-routing-congestion-control" class="level4">
+<h4 class="anchored" data-anchor-id="networking-routing-congestion-control">85. Networking (Routing, Congestion Control)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -5890,8 +5781,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="distributed-consensus-paxos-raft-pbft" class="level3">
-<h3 class="anchored" data-anchor-id="distributed-consensus-paxos-raft-pbft">86. Distributed Consensus (Paxos, Raft, PBFT)</h3>
+<section id="distributed-consensus-paxos-raft-pbft" class="level4">
+<h4 class="anchored" data-anchor-id="distributed-consensus-paxos-raft-pbft">86. Distributed Consensus (Paxos, Raft, PBFT)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 3%">
@@ -5959,8 +5850,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="load-balancing-and-rate-limiting" class="level3">
-<h3 class="anchored" data-anchor-id="load-balancing-and-rate-limiting">87. Load Balancing and Rate Limiting</h3>
+<section id="load-balancing-and-rate-limiting" class="level4">
+<h4 class="anchored" data-anchor-id="load-balancing-and-rate-limiting">87. Load Balancing and Rate Limiting</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -6023,8 +5914,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="search-and-indexing-inverted-bm25-wand" class="level3">
-<h3 class="anchored" data-anchor-id="search-and-indexing-inverted-bm25-wand">88. Search and Indexing (Inverted, BM25, WAND)</h3>
+<section id="search-and-indexing-inverted-bm25-wand" class="level4">
+<h4 class="anchored" data-anchor-id="search-and-indexing-inverted-bm25-wand">88. Search and Indexing (Inverted, BM25, WAND)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -6087,8 +5978,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="compression-and-encoding-in-systems" class="level3">
-<h3 class="anchored" data-anchor-id="compression-and-encoding-in-systems">89. Compression and Encoding in Systems</h3>
+<section id="compression-and-encoding-in-systems" class="level4">
+<h4 class="anchored" data-anchor-id="compression-and-encoding-in-systems">89. Compression and Encoding in Systems</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -6151,8 +6042,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="fault-tolerance-and-replication" class="level3">
-<h3 class="anchored" data-anchor-id="fault-tolerance-and-replication">90. Fault Tolerance and Replication</h3>
+<section id="fault-tolerance-and-replication" class="level4">
+<h4 class="anchored" data-anchor-id="fault-tolerance-and-replication">90. Fault Tolerance and Replication</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -6216,10 +6107,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="chapter-10.-ai-ml-and-optimization" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-10.-ai-ml-and-optimization">Chapter 10. AI, ML, and Optimization</h2>
-<section id="classical-ml-k-means-naive-bayes-svm-decision-trees" class="level3">
-<h3 class="anchored" data-anchor-id="classical-ml-k-means-naive-bayes-svm-decision-trees">91. Classical ML (k-means, Naive Bayes, SVM, Decision Trees)</h3>
+<section id="chapter-10.-ai-ml-and-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="chapter-10.-ai-ml-and-optimization">Chapter 10. AI, ML, and Optimization</h3>
+<section id="classical-ml-k-means-naive-bayes-svm-decision-trees" class="level4">
+<h4 class="anchored" data-anchor-id="classical-ml-k-means-naive-bayes-svm-decision-trees">91. Classical ML (k-means, Naive Bayes, SVM, Decision Trees)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -6287,8 +6178,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="ensemble-methods-bagging-boosting-random-forests" class="level3">
-<h3 class="anchored" data-anchor-id="ensemble-methods-bagging-boosting-random-forests">92. Ensemble Methods (Bagging, Boosting, Random Forests)</h3>
+<section id="ensemble-methods-bagging-boosting-random-forests" class="level4">
+<h4 class="anchored" data-anchor-id="ensemble-methods-bagging-boosting-random-forests">92. Ensemble Methods (Bagging, Boosting, Random Forests)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -6351,8 +6242,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="gradient-methods-sgd-adam-rmsprop" class="level3">
-<h3 class="anchored" data-anchor-id="gradient-methods-sgd-adam-rmsprop">93. Gradient Methods (SGD, Adam, RMSProp)</h3>
+<section id="gradient-methods-sgd-adam-rmsprop" class="level4">
+<h4 class="anchored" data-anchor-id="gradient-methods-sgd-adam-rmsprop">93. Gradient Methods (SGD, Adam, RMSProp)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -6420,8 +6311,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="deep-learning-backpropagation-dropout-normalization" class="level3">
-<h3 class="anchored" data-anchor-id="deep-learning-backpropagation-dropout-normalization">94. Deep Learning (Backpropagation, Dropout, Normalization)</h3>
+<section id="deep-learning-backpropagation-dropout-normalization" class="level4">
+<h4 class="anchored" data-anchor-id="deep-learning-backpropagation-dropout-normalization">94. Deep Learning (Backpropagation, Dropout, Normalization)</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -6484,8 +6375,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="sequence-models-viterbi-beam-search-ctc" class="level3">
-<h3 class="anchored" data-anchor-id="sequence-models-viterbi-beam-search-ctc">95. Sequence Models (Viterbi, Beam Search, CTC)</h3>
+<section id="sequence-models-viterbi-beam-search-ctc" class="level4">
+<h4 class="anchored" data-anchor-id="sequence-models-viterbi-beam-search-ctc">95. Sequence Models (Viterbi, Beam Search, CTC)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -6553,8 +6444,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="metaheuristics-ga-sa-pso-aco" class="level3">
-<h3 class="anchored" data-anchor-id="metaheuristics-ga-sa-pso-aco">96. Metaheuristics (GA, SA, PSO, ACO)</h3>
+<section id="metaheuristics-ga-sa-pso-aco" class="level4">
+<h4 class="anchored" data-anchor-id="metaheuristics-ga-sa-pso-aco">96. Metaheuristics (GA, SA, PSO, ACO)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -6622,8 +6513,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="reinforcement-learning-q-learning-policy-gradients" class="level3">
-<h3 class="anchored" data-anchor-id="reinforcement-learning-q-learning-policy-gradients">97. Reinforcement Learning (Q-learning, Policy Gradients)</h3>
+<section id="reinforcement-learning-q-learning-policy-gradients" class="level4">
+<h4 class="anchored" data-anchor-id="reinforcement-learning-q-learning-policy-gradients">97. Reinforcement Learning (Q-learning, Policy Gradients)</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -6691,8 +6582,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="approximation-and-online-algorithms" class="level3">
-<h3 class="anchored" data-anchor-id="approximation-and-online-algorithms">98. Approximation and Online Algorithms</h3>
+<section id="approximation-and-online-algorithms" class="level4">
+<h4 class="anchored" data-anchor-id="approximation-and-online-algorithms">98. Approximation and Online Algorithms</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -6760,8 +6651,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="fairness-causal-inference-and-robust-optimization" class="level3">
-<h3 class="anchored" data-anchor-id="fairness-causal-inference-and-robust-optimization">99. Fairness, Causal Inference, and Robust Optimization</h3>
+<section id="fairness-causal-inference-and-robust-optimization" class="level4">
+<h4 class="anchored" data-anchor-id="fairness-causal-inference-and-robust-optimization">99. Fairness, Causal Inference, and Robust Optimization</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
@@ -6829,8 +6720,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="ai-planning-search-and-learning-systems" class="level3">
-<h3 class="anchored" data-anchor-id="ai-planning-search-and-learning-systems">100. AI Planning, Search, and Learning Systems</h3>
+<section id="ai-planning-search-and-learning-systems" class="level4">
+<h4 class="anchored" data-anchor-id="ai-planning-search-and-learning-systems">100. AI Planning, Search, and Learning Systems</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 6%">
@@ -7310,6 +7201,9 @@ ul.task-list li input[type="checkbox"] {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../books/en-us/list-1.html" class="pagination-link" aria-label="Chapter 1. Foundatmemtions of Algorithms">
+        <span class="nav-page-text"><span class="chapter-title">Chapter 1. Foundatmemtions of Algorithms</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
