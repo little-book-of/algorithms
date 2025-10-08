@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../books/en-us/plan.html" rel="next">
-<link href="../../index.html" rel="prev">
+<link href="../../books/en-us/cheatsheet.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -181,12 +181,22 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../books/en-us/cheatsheet.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Cheatsheet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../books/en-us/book.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The Book</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../books/en-us/plan.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Plan</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../books/en-us/list-1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1. Foundatmemtions of Algorithms</span></a>
   </div>
 </li>
     </ul>
@@ -366,29 +376,32 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="chapter-1.-foundations-of-algorithms">Chapter 1. Foundations of algorithms</h2>
 <section id="what-is-an-algorithm" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-an-algorithm">1. What Is an Algorithm?</h3>
-<p>Let’s begin at the very heart of computer science. Before we dive into code, data, or performance, we need to understand what an algorithm <em>really is</em>.</p>
+<p>Let’s start at the beginning. Before code, data, or performance, we need a clear idea of what an algorithm really is.</p>
 <p>An algorithm is a clear, step-by-step procedure to solve a problem. Think of it like a recipe: you have inputs (ingredients), a series of steps (instructions), and an output (the finished dish).</p>
-<p>At its core, an algorithm must be:</p>
+<p>At its core, an algorithm should be:</p>
 <ul>
-<li>Precise: Every step is well-defined and unambiguous.- Finite: It must finish after a certain number of steps.- Effective: Each step is doable by a machine or human.- Deterministic (usually): Same input, same output. When you write an algorithm, you’re describing <em>how</em> to get from question to answer, not just <em>what</em> the answer is.</li>
+<li>Precise: every step is well defined and unambiguous</li>
+<li>Finite: it finishes after a limited number of steps</li>
+<li>Effective: each step is simple enough to carry out</li>
+<li>Deterministic (usually): the same input gives the same output</li>
 </ul>
-<section id="example-a-simple-sum" class="level4">
-<h4 class="anchored" data-anchor-id="example-a-simple-sum">Example: A Simple Sum</h4>
-<p>Suppose you want to find the sum of numbers from 1 to ( n ).</p>
-<p>You could describe it like this:</p>
+<p>When you write an algorithm, you are describing how to get from question to answer, not just what the answer is.</p>
+<section id="example-sum-from-1-to-n" class="level4">
+<h4 class="anchored" data-anchor-id="example-sum-from-1-to-n">Example: Sum from 1 to (n)</h4>
+<p>Suppose you want the sum of the numbers from 1 to (n).</p>
+<p>Natural language steps</p>
 <ol type="1">
-<li>Start with total = 0</li>
-<li>For i = 1 to n 3. Add i to total</li>
-<li>Return total</li>
+<li>Set <code>total = 0</code></li>
+<li>For each <code>i</code> from <code>1</code> to <code>n</code>, add <code>i</code> to <code>total</code></li>
+<li>Return <code>total</code></li>
 </ol>
-<p>That’s an algorithm! It’s clear, finite, and mechanical.</p>
-<p>You can express it in pseudocode:</p>
+<p>Pseudocode</p>
 <pre class="text"><code>Algorithm SumToN(n):
     total ← 0
     for i ← 1 to n:
         total ← total + i
     return total</code></pre>
-<p>Or even write it in C:</p>
+<p>C code</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum_to_n<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> total <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
@@ -399,21 +412,24 @@ window.Quarto = {
 </section>
 <section id="tiny-code" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code">Tiny Code</h4>
-<p>Let’s run a quick example by hand.</p>
-<p>If ( n = 5 ):</p>
+<p>Try a quick run by hand with (n = 5):</p>
 <ul>
-<li>total = 0- Add 1 → total = 1- Add 2 → total = 3- Add 3 → total = 6- Add 4 → total = 10- Add 5 → total = 15 Output = 15</li>
+<li>start <code>total = 0</code></li>
+<li>add 1 → <code>total = 1</code></li>
+<li>add 2 → <code>total = 3</code></li>
+<li>add 3 → <code>total = 6</code></li>
+<li>add 4 → <code>total = 10</code></li>
+<li>add 5 → <code>total = 15</code></li>
 </ul>
-<p>We can even derive a formula later (you’ll see it soon!): <span class="math display">\[
+<p>Output is <code>15</code>.</p>
+<p>You will also see this closed-form formula soon:</p>
+<p><span class="math display">\[
 1 + 2 + 3 + \dots + n = \frac{n(n+1)}{2}
 \]</span></p>
 </section>
 <section id="why-it-matters" class="level4">
 <h4 class="anchored" data-anchor-id="why-it-matters">Why It Matters</h4>
-<p>Algorithms are the blueprints of computation. Every software system, from a calculator to an AI model, is built from algorithms.</p>
-<p>Without algorithms, computers would be powerless , they’re just fast machines following instructions. Algorithms give them purpose and direction.</p>
-<p>Understanding algorithms means you understand how thinking turns into code.</p>
-<p>Later, you’ll learn to analyze them (how fast, how big, how smart), but for now, remember:</p>
+<p>Algorithms are the blueprints of computation. Every program, from a calculator to an AI model, is built from algorithms. Computers are fast at following instructions. Algorithms give those instructions structure and purpose.</p>
 <blockquote class="blockquote">
 <p>Algorithms are the language of problem solving.</p>
 </blockquote>
@@ -421,103 +437,105 @@ window.Quarto = {
 <section id="try-it-yourself" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself">Try It Yourself</h4>
 <ol type="1">
-<li>Write a simple algorithm to find the maximum number in a list.</li>
-<li>Write an algorithm to reverse a string.</li>
-<li>For extra fun, describe your morning routine as an algorithm (inputs, steps, output).</li>
+<li>Write an algorithm to find the maximum number in a list</li>
+<li>Write an algorithm to reverse a string</li>
+<li>Describe your morning routine as an algorithm: list the inputs, the steps, and the final output</li>
 </ol>
-<p>The best way to learn is to think algorithmically , break problems into small, clear, executable steps.</p>
+<p>Tip: the best way to learn is to think in small, clear steps. Break a problem into simple actions you can execute one by one.</p>
 </section>
 </section>
 <section id="measuring-time-and-space" class="level3">
 <h3 class="anchored" data-anchor-id="measuring-time-and-space">2. Measuring Time and Space</h3>
 <p>Now that you know what an algorithm is, it’s time to ask a deeper question:</p>
 <blockquote class="blockquote">
-<p>How do we know if one algorithm is <em>better</em> than another?</p>
+<p>How do we know if one algorithm is better than another?</p>
 </blockquote>
-<p>It’s not enough for an algorithm to be correct , it should also be <em>efficient</em>. We measure efficiency in two key ways: time and space.</p>
+<p>It’s not enough for an algorithm to be correct. It should also be efficient. We measure efficiency in two key ways: time and space.</p>
 <section id="time-complexity" class="level4">
 <h4 class="anchored" data-anchor-id="time-complexity">Time Complexity</h4>
-<p>Time means how long an algorithm takes to run, relative to its input size. We don’t measure in seconds, because hardware changes. Instead, we count steps or operations.</p>
-<p>For example:</p>
+<p>Time measures how long an algorithm takes to run, relative to its input size. We don’t measure in seconds, because hardware speed varies. Instead, we count steps or operations.</p>
+<p>Example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Hi</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This loop runs ( n ) times, so we say it has time complexity O(n) , it grows linearly with input size.</p>
+<p>This loop runs <span class="math inline">\(n\)</span> times, so it has time complexity <span class="math inline">\(O(n)\)</span>. The time grows linearly with input size.</p>
 <p>Another example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n<span class="op">;</span> j<span class="op">++)</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"*"</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This one runs <span class="math inline">\(n \times n = n^2\)</span> times → O(n²).</p>
-<p>You’ll see these “Big-O” symbols a lot , they express how runtime grows as inputs grow.</p>
+<p>This runs <span class="math inline">\(n \times n = n^2\)</span> times, so it has <span class="math inline">\(O(n^2)\)</span> time complexity.</p>
+<p>These Big-O symbols describe how runtime grows as the input grows.</p>
 </section>
 <section id="space-complexity" class="level4">
 <h4 class="anchored" data-anchor-id="space-complexity">Space Complexity</h4>
-<p>Space means how much memory the algorithm uses.</p>
+<p>Space measures how much memory an algorithm uses.</p>
 <p>Example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>        <span class="co">// O(1) space</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Uses a constant amount of memory.</p>
-<p>But an array like:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> arr<span class="op">[</span>n<span class="op">];</span>         <span class="co">// O(n) space</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>uses space proportional to the input size.</p>
-<p>Sometimes you’ll trade time for space. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// O(1) space</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This uses a constant amount of memory, regardless of input size.</p>
+<p>But if we allocate an array:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> arr<span class="op">[</span>n<span class="op">];</span>   <span class="co">// O(n) space</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This uses space proportional to <span class="math inline">\(n\)</span>.</p>
+<p>Often, we trade time for space:</p>
 <ul>
-<li>Using a hash table speeds up lookups (more memory, less time)- Using a streaming algorithm saves memory (less space, more time)</li>
+<li>Using a hash table speeds up lookups (more memory, less time)</li>
+<li>Using a streaming algorithm saves memory (less space, more time)</li>
 </ul>
 </section>
 <section id="tiny-code-1" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code-1">Tiny Code</h4>
-<p>Let’s compare two ways to compute a sum from 1 to n:</p>
+<p>Compare two ways to compute the sum from 1 to <span class="math inline">\(n\)</span>:</p>
 <p>Method 1: Loop</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum_loop<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> total <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">;</span> i<span class="op">++)</span> total <span class="op">+=</span> i<span class="op">;</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> total<span class="op">;</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Time: ( O(n) )- Space: ( O(1) ) Method 2: Formula</li>
-</ul>
+<p>Time: <span class="math inline">\(O(n)\)</span> Space: <span class="math inline">\(O(1)\)</span></p>
+<p>Method 2: Formula</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum_formula<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n <span class="op">*</span> <span class="op">(</span>n <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Time: ( O(1) )- Space: ( O(1) ) Both are correct , but one is <em>faster</em>. That’s why analyzing time and space matters.</li>
-</ul>
+<p>Time: <span class="math inline">\(O(1)\)</span> Space: <span class="math inline">\(O(1)\)</span></p>
+<p>Both are correct, but one is faster. Analyzing time and space helps you understand why.</p>
 </section>
 <section id="why-it-matters-1" class="level4">
 <h4 class="anchored" data-anchor-id="why-it-matters-1">Why It Matters</h4>
-<p>When data grows huge (millions, billions), small inefficiencies explode.</p>
-<p>An algorithm that takes ( O<span class="math inline">\(n^2\)</span> ) might seem fine for 10 elements, but impossible for 1,000,000.</p>
-<p>Knowing how to measure time and space helps you:</p>
+<p>When data grows huge (millions or billions), small inefficiencies explode.</p>
+<p>An algorithm that takes <span class="math inline">\(O(n^2)\)</span> time might feel fine for 10 elements, but impossible for 1,000,000.</p>
+<p>Measuring time and space helps you:</p>
 <ul>
-<li>Predict performance- Compare solutions- Optimize intelligently It’s your compass for navigating complexity.</li>
+<li>Predict performance</li>
+<li>Compare different solutions</li>
+<li>Optimize intelligently</li>
 </ul>
+<p>It’s your compass for navigating complexity.</p>
 </section>
 <section id="try-it-yourself-1" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself-1">Try It Yourself</h4>
 <ol type="1">
 <li>Write a simple algorithm to find the minimum in an array. Estimate its time and space complexity.</li>
-<li>Compare two algorithms that solve the same problem , which one scales better?</li>
-<li>Can you think of a task in daily life that’s O(n)? What about O(1)?</li>
+<li>Compare two algorithms that solve the same problem. Which one scales better?</li>
+<li>Think of a daily task that feels like <span class="math inline">\(O(n)\)</span>. Can you imagine one that’s <span class="math inline">\(O(1)\)</span>?</li>
 </ol>
-<p>Understanding these measurements early will make every algorithm you meet more meaningful.</p>
+<p>Understanding these measurements early makes every future algorithm more meaningful.</p>
 </section>
 </section>
 <section id="big-o-big-theta-big-omega" class="level3">
 <h3 class="anchored" data-anchor-id="big-o-big-theta-big-omega">3. Big-O, Big-Theta, Big-Omega</h3>
-<p>Now that you can <em>measure</em> time and space, let’s learn the language used to describe those measurements.</p>
-<p>When we say an algorithm is O(n), we’re using asymptotic notation , a way to describe how an algorithm’s running time or memory grows as input size ( n ) increases.</p>
-<p>It’s not about exact steps, but how the cost <em>scales</em> for very large ( n ).</p>
+<p>Now that you can measure time and space, let’s learn the language used to describe those measurements.</p>
+<p>When we say an algorithm is <span class="math inline">\(O(n)\)</span>, we’re using asymptotic notation, a way to describe how an algorithm’s running time or memory grows as input size <span class="math inline">\(n\)</span> increases.</p>
+<p>It’s not about exact steps, but about how the cost scales for very large <span class="math inline">\(n\)</span>.</p>
 <section id="the-big-o-upper-bound" class="level4">
 <h4 class="anchored" data-anchor-id="the-big-o-upper-bound">The Big-O (Upper Bound)</h4>
-<p>Big-O answers: <em>“How bad can it get?”</em> It gives an upper bound on growth , the worst-case scenario.</p>
-<p>If an algorithm takes at most ( 5n + 20 ) steps, we write ( O(n) ). We drop constants and lower-order terms because they don’t matter at scale.</p>
+<p>Big-O answers the question: <em>“How bad can it get?”</em> It gives an upper bound on growth, the worst-case scenario.</p>
+<p>If an algorithm takes at most <span class="math inline">\(5n + 20\)</span> steps, we write <span class="math inline">\(O(n)\)</span>. We drop constants and lower-order terms because they don’t matter at scale.</p>
 <p>Common Big-O notations:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 12%">
-<col style="width: 25%">
-<col style="width: 43%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 24%">
+<col style="width: 41%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -530,52 +548,55 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>Constant</td>
-<td>O(1)</td>
+<td><span class="math inline">\(O(1)\)</span></td>
 <td>Flat</td>
 <td>Accessing array element</td>
 </tr>
 <tr class="even">
 <td>Logarithmic</td>
-<td>O(log n)</td>
+<td><span class="math inline">\(O(\log n)\)</span></td>
 <td>Very slow growth</td>
 <td>Binary search</td>
 </tr>
 <tr class="odd">
 <td>Linear</td>
-<td>O(n)</td>
+<td><span class="math inline">\(O(n)\)</span></td>
 <td>Proportional</td>
 <td>Single loop</td>
 </tr>
 <tr class="even">
 <td>Quadratic</td>
-<td>O(n²)</td>
+<td><span class="math inline">\(O(n^2)\)</span></td>
 <td>Grows quickly</td>
 <td>Double loop</td>
 </tr>
 <tr class="odd">
 <td>Exponential</td>
-<td>O(2ⁿ)</td>
+<td><span class="math inline">\(O(2^n)\)</span></td>
 <td>Explodes</td>
 <td>Recursive subset generation</td>
 </tr>
 </tbody>
 </table>
-<p>So if your algorithm is ( O(n) ), doubling input size doubles runtime. If it’s ( O<span class="math inline">\(n^2\)</span> ), doubling input size makes it four times slower.</p>
+<p>If your algorithm is <span class="math inline">\(O(n)\)</span>, doubling input size roughly doubles runtime. If it’s <span class="math inline">\(O(n^2)\)</span>, doubling input size makes it about four times slower.</p>
 </section>
 <section id="the-big-theta-tight-bound" class="level4">
 <h4 class="anchored" data-anchor-id="the-big-theta-tight-bound">The Big-Theta (Tight Bound)</h4>
-<p>Big-Theta (Θ) gives a tight bound , when you know the algorithm’s growth from above and below.</p>
-<p>If runtime is roughly ( 3n + 2 ), then ( T(n) = Θ(n) ). That means it’s both ( O(n) ) and ( Ω(n) ).</p>
+<p>Big-Theta (<span class="math inline">\(\Theta\)</span>) gives a tight bound, when you know the algorithm’s growth from above and below.</p>
+<p>If runtime is roughly <span class="math inline">\(3n + 2\)</span>, then <span class="math inline">\(T(n) = \Theta(n)\)</span>. That means it’s both <span class="math inline">\(O(n)\)</span> and <span class="math inline">\(\Omega(n)\)</span>.</p>
 </section>
 <section id="the-big-omega-lower-bound" class="level4">
 <h4 class="anchored" data-anchor-id="the-big-omega-lower-bound">The Big-Omega (Lower Bound)</h4>
-<p>Big-Omega (Ω) answers: <em>“How fast can it possibly be?”</em> It’s the best-case growth , the lower limit.</p>
+<p>Big-Omega (<span class="math inline">\(\Omega\)</span>) answers: <em>“How fast can it possibly be?”</em> It’s the best-case growth, the lower limit.</p>
 <p>Example:</p>
 <ul>
-<li>Linear search: ( Ω(1) ) if the element is at the start- ( O(n) ) in the worst case if it’s at the end So we might say: <span class="math display">\[
-T(n) = Ω(1),\ Θ(n) = O(n)
-\]</span></li>
+<li>Linear search: <span class="math inline">\(\Omega(1)\)</span> if the element is at the start</li>
+<li><span class="math inline">\(O(n)\)</span> in the worst case if it’s at the end</li>
 </ul>
+<p>So we might say:</p>
+<p><span class="math display">\[
+T(n) = \Omega(1),\quad T(n) = O(n)
+\]</span></p>
 </section>
 <section id="tiny-code-2" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code-2">Tiny Code</h4>
@@ -587,20 +608,24 @@ T(n) = Ω(1),\ Θ(n) = O(n)
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            total <span class="op">+=</span> i <span class="op">+</span> j<span class="op">;</span>            <span class="co">// O(1)</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> total<span class="op">;</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Total steps ≈ <span class="math inline">\(n \times n = n^2\)</span>. So ( T(n) = O<span class="math inline">\(n^2\)</span> ).</p>
+<p>Total steps ≈ <span class="math inline">\(n \times n = n^2\)</span>. So <span class="math inline">\(T(n) = O(n^2)\)</span>.</p>
 <p>If we added a constant-time operation before or after the loops, it wouldn’t matter. Constants vanish in asymptotic notation.</p>
 </section>
 <section id="why-it-matters-2" class="level4">
 <h4 class="anchored" data-anchor-id="why-it-matters-2">Why It Matters</h4>
-<p>Big-O, Big-Theta, and Big-Omega let you talk precisely about performance. They’re like the grammar of efficiency.</p>
+<p>Big-O, Big-Theta, and Big-Omega let you talk precisely about performance. They are the grammar of efficiency.</p>
 <p>When you can write:</p>
 <blockquote class="blockquote">
-<p>“Algorithm A runs in O(n log n) time, O(n) space,” you’ve captured its essence clearly and compared it meaningfully.</p>
+<p>Algorithm A runs in <span class="math inline">\(O(n \log n)\)</span> time, <span class="math inline">\(O(n)\)</span> space</p>
 </blockquote>
+<p>you’ve captured its essence clearly and compared it meaningfully.</p>
 <p>They help you:</p>
 <ul>
-<li>Predict behavior at scale- Choose better data structures- Communicate efficiency in interviews and papers It’s not about exact timing , it’s about growth.</li>
+<li>Predict behavior at scale</li>
+<li>Choose better data structures</li>
+<li>Communicate efficiency in interviews and papers</li>
 </ul>
+<p>It’s not about exact timing, it’s about growth.</p>
 </section>
 <section id="try-it-yourself-2" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself-2">Try It Yourself</h4>
@@ -609,57 +634,67 @@ T(n) = Ω(1),\ Θ(n) = O(n)
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">;</span> i <span class="op">*=</span> <span class="dv">2</span><span class="op">)</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> i<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What’s the time complexity?</p></li>
-<li><p>Write an algorithm that’s O(n log n) , hint: merge sort!</p></li>
+<li><p>Write an algorithm that’s <span class="math inline">\(O(n \log n)\)</span> (hint: merge sort).</p></li>
 <li><p>Identify the best, worst, and average-case complexities for linear search and binary search.</p></li>
 </ol>
-<p>Learning Big-O is like learning a new language , once you’re fluent, you can <em>see</em> how code grows before you even run it.</p>
+<p>Learning Big-O is like learning a new language, once you’re fluent, you can see how code grows before you even run it.</p>
 </section>
 </section>
 <section id="algorithmic-paradigms-greedy-divide-and-conquer-dp" class="level3">
 <h3 class="anchored" data-anchor-id="algorithmic-paradigms-greedy-divide-and-conquer-dp">4. Algorithmic Paradigms (Greedy, Divide and Conquer, DP)</h3>
-<p>Once you can measure performance, it’s time to explore how algorithms are designed. Behind every clever solution is a guiding paradigm , a way of thinking about problems.</p>
+<p>Once you can measure performance, it’s time to explore how algorithms are designed. Behind every clever solution is a guiding paradigm, a way of thinking about problems.</p>
 <p>Three of the most powerful are:</p>
 <ol type="1">
 <li>Greedy Algorithms</li>
 <li>Divide and Conquer</li>
 <li>Dynamic Programming (DP)</li>
 </ol>
-<p>Each one represents a different mindset for problem-solving.</p>
+<p>Each represents a different mindset for problem solving.</p>
 <section id="greedy-algorithms" class="level4">
 <h4 class="anchored" data-anchor-id="greedy-algorithms">1. Greedy Algorithms</h4>
 <p>A greedy algorithm makes the best local choice at each step, hoping it leads to a global optimum.</p>
 <p>Think of it like:</p>
 <blockquote class="blockquote">
-<p>“Take what looks best right now, don’t worry about the future.”</p>
+<p>“Take what looks best right now, and don’t worry about the future.”</p>
 </blockquote>
-<p>They’re fast and simple, but not always correct , they only work when the greedy choice property holds.</p>
+<p>They are fast and simple, but not always correct. They only work when the greedy choice property holds.</p>
 <p>Example: Coin Change (Greedy version) Suppose you want to make 63 cents using US coins (25, 10, 5, 1). The greedy approach:</p>
 <ul>
-<li>Take 25 → 38 left- Take 25 → 13 left- Take 10 → 3 left- Take 1 × 3 Works here, but not always (try coins 1, 3, 4 for 6).</li>
+<li>Take 25 → 38 left</li>
+<li>Take 25 → 13 left</li>
+<li>Take 10 → 3 left</li>
+<li>Take 1 × 3</li>
 </ul>
-<p>Simple but not guaranteed optimal.</p>
+<p>This works here, but not always (try coins 1, 3, 4 for amount 6). Simple, but not guaranteed optimal.</p>
 <p>Common greedy algorithms:</p>
 <ul>
-<li>Kruskal’s MST- Prim’s MST- Dijkstra’s (non-negative weights)- Huffman coding</li>
+<li>Kruskal’s Minimum Spanning Tree</li>
+<li>Prim’s Minimum Spanning Tree</li>
+<li>Dijkstra’s Shortest Path (non-negative weights)</li>
+<li>Huffman Coding</li>
 </ul>
 </section>
 <section id="divide-and-conquer" class="level4">
 <h4 class="anchored" data-anchor-id="divide-and-conquer">2. Divide and Conquer</h4>
-<p>This one’s a classic. You break the problem into smaller subproblems, solve each recursively, and then combine the results.</p>
-<p>It’s like splitting a task among friends, then merging the answers.</p>
-<p>Formally: <span class="math display">\[
+<p>This is a classic paradigm. You break the problem into smaller subproblems, solve each recursively, and then combine the results.</p>
+<p>It’s like splitting a task among friends, then merging their answers.</p>
+<p>Formally:</p>
+<p><span class="math display">\[
 T(n) = aT\left(\frac{n}{b}\right) + f(n)
 \]</span></p>
 <p>Examples:</p>
 <ul>
-<li>Merge Sort: divide the array, sort halves, merge- Quick Sort: partition around pivot- Binary Search: halve the range each step Elegant and powerful, but recursion overhead can add cost if poorly structured.</li>
+<li>Merge Sort: divide the array, sort halves, merge</li>
+<li>Quick Sort: partition around a pivot</li>
+<li>Binary Search: halve the range each step</li>
 </ul>
+<p>Elegant and powerful, but recursion overhead can add cost if poorly structured.</p>
 </section>
 <section id="dynamic-programming-dp" class="level4">
 <h4 class="anchored" data-anchor-id="dynamic-programming-dp">3. Dynamic Programming (DP)</h4>
 <p>DP is for problems with overlapping subproblems and optimal substructure. You solve smaller subproblems once and store the results to avoid recomputation.</p>
 <p>It’s like divide and conquer with memory.</p>
-<p>Example: Fibonacci Naive recursion: exponential DP with memoization: linear</p>
+<p>Example: Fibonacci Naive recursion is exponential. DP with memoization is linear.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fib<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span> <span class="cf">return</span> n<span class="op">;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">static</span> <span class="dt">int</span> memo<span class="op">[</span><span class="dv">1000</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">};</span></span>
@@ -671,7 +706,7 @@ T(n) = aT\left(\frac{n}{b}\right) + f(n)
 </section>
 <section id="tiny-code-3" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code-3">Tiny Code</h4>
-<p>Here’s a quick comparison using Fibonacci:</p>
+<p>Quick comparison using Fibonacci:</p>
 <p>Naive (Divide and Conquer)</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fib_dc<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span> <span class="cf">return</span> n<span class="op">;</span></span>
@@ -688,9 +723,12 @@ T(n) = aT\left(\frac{n}{b}\right) + f(n)
 <h4 class="anchored" data-anchor-id="why-it-matters-3">Why It Matters</h4>
 <p>Algorithmic paradigms give you patterns for design:</p>
 <ul>
-<li>Greedy: when local choices lead to global optimum- Divide &amp; Conquer: when the problem splits naturally- Dynamic Programming: when subproblems overlap Once you recognize a problem’s structure, you’ll instantly know which mindset fits best.</li>
+<li>Greedy: when local choices lead to a global optimum</li>
+<li>Divide and Conquer: when the problem splits naturally</li>
+<li>Dynamic Programming: when subproblems overlap</li>
 </ul>
-<p>Think of paradigms as <em>templates for reasoning</em> , not just techniques, but philosophies.</p>
+<p>Once you recognize a problem’s structure, you’ll instantly know which mindset fits best.</p>
+<p>Think of paradigms as templates for reasoning, not just techniques but philosophies.</p>
 </section>
 <section id="try-it-yourself-3" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself-3">Try It Yourself</h4>
@@ -698,25 +736,34 @@ T(n) = aT\left(\frac{n}{b}\right) + f(n)
 <li>Write a greedy algorithm to make change using coins [1, 3, 4] for amount 6. Does it work?</li>
 <li>Implement merge sort using divide and conquer.</li>
 <li>Solve Fibonacci both ways (naive vs DP) and compare speeds.</li>
-<li>Can you think of a real-life task you solve greedily?</li>
+<li>Think of a real-life task you solve greedily.</li>
 </ol>
-<p>Learning paradigms is like learning styles of thought , once you know them, every problem starts to look familiar.</p>
+<p>Learning paradigms is like learning styles of thought. Once you know them, every problem starts to look familiar.</p>
 </section>
 </section>
 <section id="recurrence-relations" class="level3">
 <h3 class="anchored" data-anchor-id="recurrence-relations">5. Recurrence Relations</h3>
-<p>Every time you break a problem into smaller subproblems, you create a recurrence , a mathematical way to describe how the total cost grows.</p>
+<p>Every time you break a problem into smaller subproblems, you create a recurrence, a mathematical way to describe how the total cost grows.</p>
 <p>Recurrence relations are the backbone of analyzing recursive algorithms. They tell us how much time or space an algorithm uses, based on the cost of its subproblems.</p>
 <section id="what-is-a-recurrence" class="level4">
 <h4 class="anchored" data-anchor-id="what-is-a-recurrence">What Is a Recurrence?</h4>
-<p>A recurrence relation expresses ( T(n) ), the total cost for input size ( n ), in terms of smaller instances.</p>
-<p>Example: For merge sort: <span class="math display">\[
+<p>A recurrence relation expresses <span class="math inline">\(T(n)\)</span>, the total cost for input size <span class="math inline">\(n\)</span>, in terms of smaller instances.</p>
+<p>Example (Merge Sort):</p>
+<p><span class="math display">\[
 T(n) = 2T(n/2) + O(n)
-\]</span> That means:</p>
+\]</span></p>
+<p>That means:</p>
 <ul>
-<li><p>It divides the problem into 2 halves (2T(n/2))- Merges results in O(n) time You’ll often see recurrences like:</p></li>
-<li><p>( T(n) = T(n - 1) + O(1) )- ( T(n) = 2T(n/2) + O(n) )- ( T(n) = T(n/2) + O(1) ) Each one represents a different structure of recursion.</p></li>
+<li>It divides the problem into 2 halves (<span class="math inline">\(2T(n/2)\)</span>)</li>
+<li>Merges results in <span class="math inline">\(O(n)\)</span> time</li>
 </ul>
+<p>You will often see recurrences like:</p>
+<ul>
+<li><span class="math inline">\(T(n) = T(n - 1) + O(1)\)</span></li>
+<li><span class="math inline">\(T(n) = 2T(n/2) + O(n)\)</span></li>
+<li><span class="math inline">\(T(n) = T(n/2) + O(1)\)</span></li>
+</ul>
+<p>Each one represents a different structure of recursion.</p>
 </section>
 <section id="example-1-simple-linear-recurrence" class="level4">
 <h4 class="anchored" data-anchor-id="example-1-simple-linear-recurrence">Example 1: Simple Linear Recurrence</h4>
@@ -725,10 +772,12 @@ T(n) = 2T(n/2) + O(n)
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">+</span> count_down<span class="op">(</span>n <span class="op">-</span> <span class="dv">1</span><span class="op">);</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This calls itself once for each smaller input → <span class="math display">\[
+<p>This calls itself once for each smaller input:</p>
+<p><span class="math display">\[
 T(n) = T(n - 1) + O(1)
 \]</span></p>
-<p>Solve it: <span class="math display">\[
+<p>Solve it:</p>
+<p><span class="math display">\[
 T(n) = O(n)
 \]</span></p>
 <p>Because it runs once per level.</p>
@@ -740,30 +789,37 @@ T(n) = O(n)
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="dv">1</span><span class="op">)</span> <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sum_tree<span class="op">(</span>n<span class="op">/</span><span class="dv">2</span><span class="op">)</span> <span class="op">+</span> sum_tree<span class="op">(</span>n<span class="op">/</span><span class="dv">2</span><span class="op">)</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Here we do two subcalls on ( n/2 ) and a constant amount of extra work. <span class="math display">\[
+<p>Here we do two subcalls on <span class="math inline">\(n/2\)</span> and a constant amount of extra work:</p>
+<p><span class="math display">\[
 T(n) = 2T(n/2) + O(1)
-\]</span> Solve it: ( T(n) = O(n) )</p>
-<p>Why? Each level doubles calls, but halves size. There are log n levels, and total work adds up to O(n).</p>
+\]</span></p>
+<p>Solve it: <span class="math inline">\(T(n) = O(n)\)</span></p>
+<p>Why? Each level doubles the number of calls but halves the size. There are <span class="math inline">\(\log n\)</span> levels, and total work adds up to <span class="math inline">\(O(n)\)</span>.</p>
 </section>
 <section id="solving-recurrences" class="level4">
 <h4 class="anchored" data-anchor-id="solving-recurrences">Solving Recurrences</h4>
 <p>There are several ways to solve them:</p>
-<ol type="1">
-<li>Substitution Method Guess the solution, then prove it by induction.</li>
-<li>Recursion Tree Method Expand the recurrence into a tree and sum the cost per level.</li>
-<li>Master Theorem Use a formula when recurrence matches: <span class="math display">\[
+<ul>
+<li><p>Substitution Method Guess the solution, then prove it by induction.</p></li>
+<li><p>Recursion Tree Method Expand the recurrence into a tree and sum the cost per level.</p></li>
+<li><p>Master Theorem Use a formula when the recurrence matches:</p>
+<p><span class="math display">\[
 T(n) = aT(n/b) + f(n)
-\]</span></li>
-</ol>
+\]</span></p></li>
+</ul>
 </section>
 <section id="master-theorem-quick-summary" class="level4">
 <h4 class="anchored" data-anchor-id="master-theorem-quick-summary">Master Theorem (Quick Summary)</h4>
-<p>If ( T(n) = aT(n/b) + f(n) ), then:</p>
+<p>If <span class="math inline">\(T(n) = aT(n/b) + f(n)\)</span>, then:</p>
 <ul>
-<li>If ( f(n) = O<span class="math inline">\(n^{\log_b a - \epsilon}\)</span> ), then ( T(n) = Θ<span class="math inline">\(n^{\log_b a}\)</span> )- If ( f(n) = Θ<span class="math inline">\(n^{\log_b a}\)</span> ), then ( T(n) = Θ<span class="math inline">\(n^{\log_b a} \log n\)</span> )- If ( f(n) = Ω<span class="math inline">\(n^{\log_b a + \epsilon}\)</span> ), and regularity condition holds, then ( T(n) = Θ(f(n)) ) Example: Merge Sort → ( a = 2, b = 2, f(n) = O(n) ) <span class="math display">\[
-T(n) = 2T(n/2) + O(n) = O(n \log n)
-\]</span></li>
+<li>If <span class="math inline">\(f(n) = O(n^{\log_b a - \epsilon})\)</span>, then <span class="math inline">\(T(n) = \Theta(n^{\log_b a})\)</span></li>
+<li>If <span class="math inline">\(f(n) = \Theta(n^{\log_b a})\)</span>, then <span class="math inline">\(T(n) = \Theta(n^{\log_b a} \log n)\)</span></li>
+<li>If <span class="math inline">\(f(n) = \Omega(n^{\log_b a + \epsilon})\)</span>, and the regularity condition holds, then <span class="math inline">\(T(n) = \Theta(f(n))\)</span></li>
 </ul>
+<p>Example (Merge Sort): <span class="math inline">\(a = 2\)</span>, <span class="math inline">\(b = 2\)</span>, <span class="math inline">\(f(n) = O(n)\)</span></p>
+<p><span class="math display">\[
+T(n) = 2T(n/2) + O(n) = O(n \log n)
+\]</span></p>
 </section>
 <section id="tiny-code-4" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code-4">Tiny Code</h4>
@@ -773,19 +829,25 @@ T(n) = 2T(n/2) + O(n) = O(n \log n)
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> mid <span class="op">=</span> <span class="op">(</span>l <span class="op">+</span> r<span class="op">)</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sum_array<span class="op">(</span>arr<span class="op">,</span> l<span class="op">,</span> mid<span class="op">)</span> <span class="op">+</span> sum_array<span class="op">(</span>arr<span class="op">,</span> mid<span class="op">+</span><span class="dv">1</span><span class="op">,</span> r<span class="op">);</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Recurrence: <span class="math display">\[
+<p>Recurrence:</p>
+<p><span class="math display">\[
 T(n) = 2T(n/2) + O(1)
-\]</span> → ( O(n) )</p>
-<p>If you added merging (like in merge sort), you’d get ( +O(n) ), → ( O<span class="math inline">\(n \log n\)</span> )</p>
+\]</span></p>
+<p>→ <span class="math inline">\(O(n)\)</span></p>
+<p>If you added merging (like in merge sort), you would get <span class="math inline">\(+O(n)\)</span>:</p>
+<p>→ <span class="math inline">\(O(n \log n)\)</span></p>
 </section>
 <section id="why-it-matters-4" class="level4">
 <h4 class="anchored" data-anchor-id="why-it-matters-4">Why It Matters</h4>
 <p>Recurrence relations let you predict the cost of recursive solutions.</p>
-<p>Without them, recursion feels like magic , with them, you can quantify efficiency.</p>
-<p>They’re key to understanding:</p>
+<p>Without them, recursion feels like magic. With them, you can quantify efficiency.</p>
+<p>They are key to understanding:</p>
 <ul>
-<li>Divide and conquer- Dynamic programming- Backtracking Once you can set up a recurrence, solving it becomes a game of algebra and logic.</li>
+<li>Divide and Conquer</li>
+<li>Dynamic Programming</li>
+<li>Backtracking</li>
 </ul>
+<p>Once you can set up a recurrence, solving it becomes a game of algebra and logic.</p>
 </section>
 <section id="try-it-yourself-4" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself-4">Try It Yourself</h4>
@@ -800,43 +862,48 @@ T(n) = 2T(n/2) + O(1)
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    fun<span class="op">(</span>n<span class="op">/</span><span class="dv">6</span><span class="op">);</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>What’s the recurrence? Approximate the complexity.</p></li>
-<li><p>Expand ( T(n) = T(n-1) + 1 ) into its explicit sum.</p></li>
+<li><p>Expand <span class="math inline">\(T(n) = T(n-1) + 1\)</span> into its explicit sum.</p></li>
 </ol>
-<p>Learning recurrences helps you <em>see inside</em> recursion , they turn code into equations.</p>
+<p>Learning recurrences helps you see inside recursion. They turn code into equations.</p>
 </section>
 </section>
 <section id="searching-basics" class="level3">
 <h3 class="anchored" data-anchor-id="searching-basics">6. Searching Basics</h3>
-<p>Before we sort or optimize, we need a way to find things. Searching is one of the most fundamental actions in computing , whether it’s looking up a name, finding a key, or checking if something exists.</p>
+<p>Before we sort or optimize, we need a way to find things. Searching is one of the most fundamental actions in computing, whether it’s looking up a name, finding a key, or checking if something exists.</p>
 <p>A search algorithm takes a collection (array, list, tree, etc.) and a target, and returns whether the target is present (and often its position).</p>
 <p>Let’s begin with two foundational techniques: Linear Search and Binary Search.</p>
 <section id="linear-search" class="level4">
 <h4 class="anchored" data-anchor-id="linear-search">1. Linear Search</h4>
 <p>Linear search is the simplest method:</p>
 <ul>
-<li>Start at the beginning- Check each element in turn- Stop if you find the target It works on any list , sorted or not , but can be slow for large data.</li>
+<li>Start at the beginning</li>
+<li>Check each element in turn</li>
+<li>Stop if you find the target</li>
 </ul>
+<p>It works on any list, sorted or not, but can be slow for large data.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> linear_search<span class="op">(</span><span class="dt">int</span> arr<span class="op">[],</span> <span class="dt">int</span> n<span class="op">,</span> <span class="dt">int</span> key<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>arr<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> key<span class="op">)</span> <span class="cf">return</span> i<span class="op">;</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Example: If arr = [2, 4, 6, 8, 10] and key = 6, it finds it at index 2.</p>
+<p>Example: If <code>arr = [2, 4, 6, 8, 10]</code> and <code>key = 6</code>, it finds it at index 2.</p>
 <p>Complexity:</p>
 <ul>
-<li>Time: ( O(n) )- Space: ( O(1) ) Linear search is simple and guaranteed to find the target if it exists, but slow when lists are large.</li>
+<li>Time: <span class="math inline">\(O(n)\)</span></li>
+<li>Space: <span class="math inline">\(O(1)\)</span></li>
 </ul>
+<p>Linear search is simple and guaranteed to find the target if it exists, but slow when lists are large.</p>
 </section>
 <section id="binary-search" class="level4">
 <h4 class="anchored" data-anchor-id="binary-search">2. Binary Search</h4>
 <p>When the list is sorted, we can do much better. Binary search repeatedly divides the search space in half.</p>
 <p>Steps:</p>
 <ol type="1">
-<li>Check the middle element.</li>
-<li>If it matches, you’re done.</li>
-<li>If target &lt; mid, search left half.</li>
-<li>Else search right half.</li>
+<li>Check the middle element</li>
+<li>If it matches, you’re done</li>
+<li>If <code>target &lt; mid</code>, search the left half</li>
+<li>Else, search the right half</li>
 </ol>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> binary_search<span class="op">(</span><span class="dt">int</span> arr<span class="op">[],</span> <span class="dt">int</span> n<span class="op">,</span> <span class="dt">int</span> key<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> low <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> high <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
@@ -848,11 +915,17 @@ T(n) = 2T(n/2) + O(1)
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Example: arr = [2, 4, 6, 8, 10], key = 8</p>
+<p>Example: <code>arr = [2, 4, 6, 8, 10]</code>, <code>key = 8</code></p>
 <ul>
-<li><p>mid = 6 → key &gt; mid → search right half- mid = 8 → found Complexity:</p></li>
-<li><p>Time: ( O<span class="math inline">\(\log n\)</span> )- Space: ( O(1) ) Binary search is a massive improvement , doubling input only adds one extra step.</p></li>
+<li>mid = 6 → key &gt; mid → search right half</li>
+<li>mid = 8 → found</li>
 </ul>
+<p>Complexity:</p>
+<ul>
+<li>Time: <span class="math inline">\(O(\log n)\)</span></li>
+<li>Space: <span class="math inline">\(O(1)\)</span></li>
+</ul>
+<p>Binary search is a massive improvement; doubling input only adds one extra step.</p>
 </section>
 <section id="recursive-binary-search" class="level4">
 <h4 class="anchored" data-anchor-id="recursive-binary-search">3. Recursive Binary Search</h4>
@@ -899,18 +972,23 @@ T(n) = 2T(n/2) + O(1)
 </section>
 <section id="tiny-code-5" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code-5">Tiny Code</h4>
-<p>Compare the steps: For n = 16:</p>
+<p>Compare the steps: For <span class="math inline">\(n = 16\)</span>:</p>
 <ul>
-<li>Linear search → up to 16 comparisons- Binary search → <span class="math inline">\(\log_2 16 = 4\)</span> comparisons That’s a huge difference.</li>
+<li>Linear search → up to 16 comparisons</li>
+<li>Binary search → <span class="math inline">\(\log_2 16 = 4\)</span> comparisons</li>
 </ul>
+<p>That’s a huge difference.</p>
 </section>
 <section id="why-it-matters-5" class="level4">
 <h4 class="anchored" data-anchor-id="why-it-matters-5">Why It Matters</h4>
-<p>Searching is the core of information retrieval , every database, compiler, and system relies on it.</p>
+<p>Searching is the core of information retrieval. Every database, compiler, and system relies on it.</p>
 <p>Understanding simple searches prepares you for:</p>
 <ul>
-<li>Hash tables (constant-time lookups)- Tree searches (ordered structures)- Graph traversals (structured exploration) It’s not just about finding values , it’s about learning how data structure and algorithm design fit together.</li>
+<li>Hash tables (constant-time lookups)</li>
+<li>Tree searches (ordered structures)</li>
+<li>Graph traversals (structured exploration)</li>
 </ul>
+<p>It’s not just about finding values; it’s about learning how data structure and algorithm design fit together.</p>
 </section>
 <section id="try-it-yourself-5" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself-5">Try It Yourself</h4>
@@ -920,24 +998,28 @@ T(n) = 2T(n/2) + O(1)
 <li>Compare runtime on arrays of size 10, 100, 1000.</li>
 <li>What happens if you run binary search on an unsorted list?</li>
 </ol>
-<p>Search is the foundation , once you master it, you’ll recognize its patterns everywhere.</p>
+<p>Search is the foundation. Once you master it, you’ll recognize its patterns everywhere.</p>
 </section>
 </section>
 <section id="sorting-basics" class="level3">
 <h3 class="anchored" data-anchor-id="sorting-basics">7. Sorting Basics</h3>
-<p>Sorting is one of the most studied problems in computer science. Why? Because order matters , it makes searching faster, patterns clearer, and data easier to manage.</p>
+<p>Sorting is one of the most studied problems in computer science. Why? Because order matters. It makes searching faster, patterns clearer, and data easier to manage.</p>
 <p>A sorting algorithm arranges elements in a specific order (usually ascending or descending). Once sorted, many operations (like binary search, merging, or deduplication) become much simpler.</p>
 <p>Let’s explore the foundational sorting methods and the principles behind them.</p>
 <section id="what-makes-a-sort-algorithm" class="level4">
 <h4 class="anchored" data-anchor-id="what-makes-a-sort-algorithm">1. What Makes a Sort Algorithm</h4>
 <p>A sorting algorithm should define:</p>
 <ul>
-<li>Input: A sequence of elements- Output: The same elements, in sorted order- Stability: Keeps equal elements in the same order (important for multi-key sorts)- In-place: Uses only a constant amount of extra space Different algorithms balance speed, memory, and simplicity.</li>
+<li>Input: a sequence of elements</li>
+<li>Output: the same elements, in sorted order</li>
+<li>Stability: keeps equal elements in the same order (important for multi-key sorts)</li>
+<li>In-place: uses only a constant amount of extra space</li>
 </ul>
+<p>Different algorithms balance speed, memory, and simplicity.</p>
 </section>
 <section id="bubble-sort" class="level4">
 <h4 class="anchored" data-anchor-id="bubble-sort">2. Bubble Sort</h4>
-<p>Idea: Repeatedly “bubble up” the largest element to the end by swapping adjacent pairs.</p>
+<p>Idea: repeatedly “bubble up” the largest element to the end by swapping adjacent pairs.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> bubble_sort<span class="op">(</span><span class="dt">int</span> arr<span class="op">[],</span> <span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n <span class="op">-</span> i <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> j<span class="op">++)</span> <span class="op">{</span></span>
@@ -951,12 +1033,15 @@ T(n) = 2T(n/2) + O(1)
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Each pass moves the largest remaining item to its final position.</p>
 <ul>
-<li>Time: ( O<span class="math inline">\(n^2\)</span> )- Space: ( O(1) )- Stable: Yes Simple but inefficient for large data.</li>
+<li>Time: <span class="math inline">\(O(n^2)\)</span></li>
+<li>Space: <span class="math inline">\(O(1)\)</span></li>
+<li>Stable: Yes</li>
 </ul>
+<p>Simple but inefficient for large data.</p>
 </section>
 <section id="selection-sort" class="level4">
 <h4 class="anchored" data-anchor-id="selection-sort">3. Selection Sort</h4>
-<p>Idea: Repeatedly select the smallest element and put it in the correct position.</p>
+<p>Idea: repeatedly select the smallest element and put it in the correct position.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> selection_sort<span class="op">(</span><span class="dt">int</span> arr<span class="op">[],</span> <span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> min_idx <span class="op">=</span> i<span class="op">;</span></span>
@@ -969,12 +1054,15 @@ T(n) = 2T(n/2) + O(1)
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>Time: ( O<span class="math inline">\(n^2\)</span> )- Space: ( O(1) )- Stable: No Fewer swaps, but still quadratic.</li>
+<li>Time: <span class="math inline">\(O(n^2)\)</span></li>
+<li>Space: <span class="math inline">\(O(1)\)</span></li>
+<li>Stable: No</li>
 </ul>
+<p>Fewer swaps, but still quadratic in time.</p>
 </section>
 <section id="insertion-sort" class="level4">
 <h4 class="anchored" data-anchor-id="insertion-sort">4. Insertion Sort</h4>
-<p>Idea: Build the sorted list one item at a time, inserting each new item in the right place.</p>
+<p>Idea: build the sorted list one item at a time, inserting each new item in the right place.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> insertion_sort<span class="op">(</span><span class="dt">int</span> arr<span class="op">[],</span> <span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> key <span class="op">=</span> arr<span class="op">[</span>i<span class="op">];</span></span>
@@ -987,8 +1075,11 @@ T(n) = 2T(n/2) + O(1)
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li>Time: ( O<span class="math inline">\(n^2\)</span> ) (best case ( O(n) ) when nearly sorted)- Space: ( O(1) )- Stable: Yes Insertion sort is great for small or nearly sorted datasets , used as a base in hybrid sorts like Timsort.</li>
+<li>Time: <span class="math inline">\(O(n^2)\)</span> (best case <span class="math inline">\(O(n)\)</span> when nearly sorted)</li>
+<li>Space: <span class="math inline">\(O(1)\)</span></li>
+<li>Stable: Yes</li>
 </ul>
+<p>Insertion sort is great for small or nearly sorted datasets. It is often used as a base in hybrid sorts like Timsort.</p>
 </section>
 <section id="comparing-the-basics" class="level4">
 <h4 class="anchored" data-anchor-id="comparing-the-basics">5. Comparing the Basics</h4>
@@ -1038,55 +1129,65 @@ T(n) = 2T(n/2) + O(1)
 </tr>
 </tbody>
 </table>
-<p>All three are quadratic in time, but Insertion Sort performs best on small, partially sorted data.</p>
+<p>All three are quadratic in time, but Insertion Sort performs best on small or partially sorted data.</p>
 </section>
 <section id="tiny-code-6" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code-6">Tiny Code</h4>
 <p>Quick check with <code>arr = [5, 3, 4, 1, 2]</code>:</p>
 <p>Insertion Sort (step by step)</p>
 <ul>
-<li>Insert 3 before 5 → [3, 5, 4, 1, 2]- Insert 4 → [3, 4, 5, 1, 2]- Insert 1 → [1, 3, 4, 5, 2]- Insert 2 → [1, 2, 3, 4, 5] Sorted!</li>
+<li>Insert 3 before 5 → [3, 5, 4, 1, 2]</li>
+<li>Insert 4 → [3, 4, 5, 1, 2]</li>
+<li>Insert 1 → [1, 3, 4, 5, 2]</li>
+<li>Insert 2 → [1, 2, 3, 4, 5]</li>
 </ul>
+<p>Sorted!</p>
 </section>
 <section id="why-it-matters-6" class="level4">
 <h4 class="anchored" data-anchor-id="why-it-matters-6">Why It Matters</h4>
-<p>Sorting is a gateway algorithm , it teaches you about iteration, swapping, and optimization.</p>
+<p>Sorting is a gateway algorithm. It teaches you about iteration, swapping, and optimization.</p>
 <p>Efficient sorting is critical for:</p>
 <ul>
-<li>Preprocessing data for binary search- Organizing data for analysis- Building indexes and ranking systems It’s the first step toward deeper concepts like divide-and-conquer and hybrid optimization.</li>
+<li>Preprocessing data for binary search</li>
+<li>Organizing data for analysis</li>
+<li>Building indexes and ranking systems</li>
 </ul>
+<p>It’s the first step toward deeper concepts like divide and conquer and hybrid optimization.</p>
 </section>
 <section id="try-it-yourself-6" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself-6">Try It Yourself</h4>
 <ol type="1">
-<li>Implement all three: bubble, selection, insertion.</li>
-<li>Test them on arrays of size 10, 100, 1000 , note timing differences.</li>
+<li>Implement all three: bubble, selection, insertion</li>
+<li>Test them on arrays of size 10, 100, 1000, and note timing differences</li>
 <li>Try sorting an array that’s already sorted. Which one adapts best?</li>
-<li>Modify insertion sort to sort in descending order.</li>
+<li>Modify insertion sort to sort in descending order</li>
 </ol>
-<p>Sorting may seem simple, but it’s a cornerstone , mastering it will shape your intuition for almost every other algorithm.</p>
+<p>Sorting may seem simple, but it’s a cornerstone. Mastering it will shape your intuition for almost every other algorithm.</p>
 </section>
 </section>
 <section id="data-structures-overview" class="level3">
 <h3 class="anchored" data-anchor-id="data-structures-overview">8. Data Structures Overview</h3>
 <p>Algorithms and data structures are two sides of the same coin. An algorithm is how you solve a problem. A data structure is where you store and organize data so that your algorithm can work efficiently.</p>
-<p>You can think of data structures as containers , each one shaped for specific access patterns, trade-offs, and performance needs. Choosing the right one is often the <em>key</em> to designing a fast algorithm.</p>
+<p>You can think of data structures as containers, each one shaped for specific access patterns, trade-offs, and performance needs. Choosing the right one is often the key to designing a fast algorithm.</p>
 <section id="why-data-structures-matter" class="level4">
 <h4 class="anchored" data-anchor-id="why-data-structures-matter">1. Why Data Structures Matter</h4>
 <p>Imagine you want to find a book quickly.</p>
 <ul>
-<li>If all books are piled randomly → you must scan every one (O(n)).- If they’re sorted on a shelf → you can use binary search (O(log n)).- If you have an index or catalog → you can find it instantly (O(1)). Different structures unlock different efficiencies.</li>
+<li>If all books are piled randomly → you must scan every one (<span class="math inline">\(O(n)\)</span>)</li>
+<li>If they’re sorted on a shelf → you can use binary search (<span class="math inline">\(O(\log n)\)</span>)</li>
+<li>If you have an index or catalog → you can find it instantly (<span class="math inline">\(O(1)\)</span>)</li>
 </ul>
+<p>Different structures unlock different efficiencies.</p>
 </section>
 <section id="the-core-data-structures" class="level4">
 <h4 class="anchored" data-anchor-id="the-core-data-structures">2. The Core Data Structures</h4>
 <p>Let’s walk through the most essential ones:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 11%">
-<col style="width: 35%">
-<col style="width: 37%">
-<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 29%">
+<col style="width: 41%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1100,71 +1201,79 @@ T(n) = 2T(n/2) + O(1)
 <tr class="odd">
 <td>Array</td>
 <td>Fixed-size contiguous memory</td>
-<td>Access ( O(1) ), Insert/Delete ( O(n) )</td>
+<td>Access (<span class="math inline">\(O(1)\)</span>), Insert/Delete (<span class="math inline">\(O(n)\)</span>)</td>
 <td>Fast index access</td>
 </tr>
 <tr class="even">
 <td>Linked List</td>
 <td>Sequence of nodes with pointers</td>
-<td>Insert/Delete ( O(1) ), Access ( O(n) )</td>
+<td>Insert/Delete (<span class="math inline">\(O(1)\)</span>), Access (<span class="math inline">\(O(n)\)</span>)</td>
 <td>Dynamic sequences</td>
 </tr>
 <tr class="odd">
 <td>Stack</td>
 <td>LIFO (last-in, first-out)</td>
-<td>push(), pop() in ( O(1) )</td>
+<td>push(), pop() in <span class="math inline">\(O(1)\)</span></td>
 <td>Undo, recursion</td>
 </tr>
 <tr class="even">
 <td>Queue</td>
 <td>FIFO (first-in, first-out)</td>
-<td>enqueue(), dequeue() in ( O(1) )</td>
+<td>enqueue(), dequeue() in <span class="math inline">\(O(1)\)</span></td>
 <td>Scheduling, buffers</td>
 </tr>
 <tr class="odd">
 <td>Hash Table</td>
 <td>Key-value pairs via hashing</td>
-<td>Average ( O(1) ), Worst ( O(n) )</td>
+<td>Average <span class="math inline">\(O(1)\)</span>, Worst <span class="math inline">\(O(n)\)</span></td>
 <td>Lookup, caching</td>
 </tr>
 <tr class="even">
 <td>Heap</td>
 <td>Partially ordered tree</td>
-<td>Insert ( O<span class="math inline">\(\log n\)</span> ), Extract-Min ( O<span class="math inline">\(\log n\)</span> )</td>
+<td>Insert <span class="math inline">\(O(\log n)\)</span>, Extract-Min <span class="math inline">\(O(\log n)\)</span></td>
 <td>Priority queues</td>
 </tr>
 <tr class="odd">
 <td>Tree</td>
 <td>Hierarchical structure</td>
-<td>Access ( O<span class="math inline">\(\log n\)</span> ) (balanced)</td>
+<td>Access <span class="math inline">\(O(\log n)\)</span> (balanced)</td>
 <td>Sorted storage</td>
 </tr>
 <tr class="even">
 <td>Graph</td>
 <td>Nodes + edges</td>
-<td>Traversal ( O(V+E) )</td>
+<td>Traversal <span class="math inline">\(O(V+E)\)</span></td>
 <td>Networks, paths</td>
 </tr>
 <tr class="odd">
 <td>Set / Map</td>
-<td>Collections of unique keys or key-value pairs</td>
-<td>( O<span class="math inline">\(\log n\)</span> ) or ( O(1) )</td>
+<td>Unique keys or key-value pairs</td>
+<td><span class="math inline">\(O(\log n)\)</span> or <span class="math inline">\(O(1)\)</span></td>
 <td>Membership tests</td>
 </tr>
 </tbody>
 </table>
-<p>Each comes with trade-offs , arrays are fast but rigid, linked lists are flexible but slower to access, and hash tables are lightning-fast but unordered.</p>
+<p>Each comes with trade-offs. Arrays are fast but rigid, linked lists are flexible but slower to access, and hash tables are lightning-fast but unordered.</p>
 </section>
 <section id="abstract-data-types-adts" class="level4">
 <h4 class="anchored" data-anchor-id="abstract-data-types-adts">3. Abstract Data Types (ADTs)</h4>
 <p>An ADT defines what operations you can do, not how they’re implemented. For example, a Stack ADT promises:</p>
 <ul>
-<li><code>push(x)</code>- <code>pop()</code>- <code>peek()</code> It can be implemented with arrays or linked lists , the <em>behavior</em> stays the same.</li>
+<li><code>push(x)</code></li>
+<li><code>pop()</code></li>
+<li><code>peek()</code></li>
 </ul>
+<p>It can be implemented with arrays or linked lists, the behavior stays the same.</p>
 <p>Common ADTs:</p>
 <ul>
-<li>Stack- Queue- Deque- Priority Queue- Map / Dictionary This separation of interface and implementation helps design flexible systems.</li>
+<li>Stack</li>
+<li>Queue</li>
+<li>Deque</li>
+<li>Priority Queue</li>
+<li>Map / Dictionary</li>
 </ul>
+<p>This separation of interface and implementation helps design flexible systems.</p>
 </section>
 <section id="the-right-tool-for-the-job" class="level4">
 <h4 class="anchored" data-anchor-id="the-right-tool-for-the-job">4. The Right Tool for the Job</h4>
@@ -1210,7 +1319,7 @@ T(n) = 2T(n/2) + O(1)
 </tr>
 </tbody>
 </table>
-<p>Good programmers don’t just write code , they pick the right structure.</p>
+<p>Good programmers don’t just write code. They pick the right structure.</p>
 </section>
 <section id="tiny-code-7" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code-7">Tiny Code</h4>
@@ -1220,15 +1329,18 @@ T(n) = 2T(n/2) + O(1)
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> arr<span class="op">[</span><span class="dv">3</span><span class="op">]);</span> <span class="co">// O(1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Linked List:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Node <span class="op">{</span> <span class="dt">int</span> val<span class="op">;</span> <span class="kw">struct</span> Node<span class="op">*</span> next<span class="op">;</span> <span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To get the 4th element, you must traverse → ( O(n) )</p>
+<p>To get the 4th element, you must traverse → <span class="math inline">\(O(n)\)</span></p>
 <p>Different structures, different access costs.</p>
 </section>
 <section id="why-it-matters-7" class="level4">
 <h4 class="anchored" data-anchor-id="why-it-matters-7">Why It Matters</h4>
 <p>Every efficient algorithm depends on the right data structure.</p>
 <ul>
-<li>Searching, sorting, and storing all rely on structure.- Memory layout affects cache performance.- The wrong choice can turn O(1) into O(n²). Understanding these structures is like knowing the tools in a workshop , once you recognize their shapes, you’ll instinctively know which to grab.</li>
+<li>Searching, sorting, and storing all rely on structure</li>
+<li>Memory layout affects cache performance</li>
+<li>The wrong choice can turn <span class="math inline">\(O(1)\)</span> into <span class="math inline">\(O(n^2)\)</span></li>
 </ul>
+<p>Understanding these structures is like knowing the tools in a workshop. Once you recognize their shapes, you’ll instinctively know which to grab.</p>
 </section>
 <section id="try-it-yourself-7" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself-7">Try It Yourself</h4>
@@ -1238,21 +1350,34 @@ T(n) = 2T(n/2) + O(1)
 <li>Try storing key-value pairs in a hash table (hint: mod by table size).</li>
 <li>Compare access times for arrays vs linked lists experimentally.</li>
 </ol>
-<p>Data structures aren’t just storage , they are the <em>skeletons</em> your algorithms stand on.</p>
+<p>Data structures aren’t just storage. They are the skeletons your algorithms stand on.</p>
 </section>
 </section>
 <section id="graphs-and-trees-overview" class="level3">
 <h3 class="anchored" data-anchor-id="graphs-and-trees-overview">9. Graphs and Trees Overview</h3>
-<p>Now that you’ve seen linear structures like arrays and linked lists, it’s time to explore nonlinear structures , graphs and trees. These are the shapes behind networks, hierarchies, and relationships.</p>
-<p>They’re everywhere: family trees, file systems, maps, social networks, and knowledge graphs all rely on them.</p>
+<p>Now that you’ve seen linear structures like arrays and linked lists, it’s time to explore nonlinear structures, graphs and trees. These are the shapes behind networks, hierarchies, and relationships.</p>
+<p>They appear everywhere: family trees, file systems, maps, social networks, and knowledge graphs all rely on them.</p>
 <section id="trees" class="level4">
 <h4 class="anchored" data-anchor-id="trees">1. Trees</h4>
-<p>A tree is a connected structure with no cycles. It’s a hierarchy , every node (except the root) has one parent.</p>
+<p>A tree is a connected structure with no cycles. It’s a hierarchy, and every node (except the root) has one parent.</p>
 <ul>
-<li><p>Root: the top node- Child: a node directly connected below- Leaf: a node with no children- Height: the longest path from root to a leaf A binary tree is one where each node has at most two children. A binary search tree (BST) keeps elements ordered:</p></li>
-<li><p>Left child &lt; parent &lt; Right child Basic Operations:</p></li>
-<li><p>Insert- Search- Delete- Traverse (preorder, inorder, postorder, level-order) Example:</p></li>
+<li>Root: the top node</li>
+<li>Child: a node directly connected below</li>
+<li>Leaf: a node with no children</li>
+<li>Height: the longest path from root to a leaf</li>
 </ul>
+<p>A binary tree is one where each node has at most two children. A binary search tree (BST) keeps elements ordered:</p>
+<ul>
+<li>Left child &lt; parent &lt; right child</li>
+</ul>
+<p>Basic operations:</p>
+<ul>
+<li>Insert</li>
+<li>Search</li>
+<li>Delete</li>
+<li>Traverse (preorder, inorder, postorder, level-order)</li>
+</ul>
+<p>Example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Node <span class="op">{</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> val<span class="op">;</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> Node <span class="op">*</span>left<span class="op">,</span> <span class="op">*</span>right<span class="op">;</span></span>
@@ -1269,9 +1394,9 @@ T(n) = 2T(n/2) + O(1)
 <h4 class="anchored" data-anchor-id="common-tree-types">2. Common Tree Types</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 31%">
-<col style="width: 48%">
-<col style="width: 20%">
+<col style="width: 24%">
+<col style="width: 53%">
+<col style="width: 21%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1287,7 +1412,7 @@ T(n) = 2T(n/2) + O(1)
 <td>General hierarchy</td>
 </tr>
 <tr class="even">
-<td>Binary Search Tree (BST)</td>
+<td>Binary Search Tree</td>
 <td>Left &lt; Root &lt; Right</td>
 <td>Ordered data</td>
 </tr>
@@ -1318,21 +1443,29 @@ T(n) = 2T(n/2) + O(1)
 </tr>
 </tbody>
 </table>
-<p>Balanced trees keep height ( O<span class="math inline">\(\log n\)</span> ), guaranteeing fast operations.</p>
+<p>Balanced trees keep height <span class="math inline">\(O(\log n)\)</span>, guaranteeing fast operations.</p>
 </section>
 <section id="graphs" class="level4">
 <h4 class="anchored" data-anchor-id="graphs">3. Graphs</h4>
-<p>A graph generalizes the idea of trees , now, nodes (vertices) can connect freely. A graph is a set of vertices ( V ) and edges ( E ): <span class="math display">\[
+<p>A graph generalizes the idea of trees. In graphs, nodes (vertices) can connect freely.</p>
+<p>A graph is a set of vertices (<span class="math inline">\(V\)</span>) and edges (<span class="math inline">\(E\)</span>):</p>
+<p><span class="math display">\[
 G = (V, E)
 \]</span></p>
-<p>Directed vs Undirected</p>
+<p>Directed vs Undirected:</p>
 <ul>
-<li><p>Directed: edges have direction (A → B)- Undirected: edges connect both ways (A , B) Weighted vs Unweighted</p></li>
-<li><p>Weighted: each edge has a cost- Unweighted: all edges equal Representation:</p></li>
+<li>Directed: edges have direction (A → B)</li>
+<li>Undirected: edges connect both ways (A, B)</li>
 </ul>
+<p>Weighted vs Unweighted:</p>
+<ul>
+<li>Weighted: each edge has a cost</li>
+<li>Unweighted: all edges are equal</li>
+</ul>
+<p>Representation:</p>
 <ol type="1">
-<li>Adjacency Matrix <span class="math inline">\(n \times n\)</span> matrix; entry (i, j) = 1 if edge exists</li>
-<li>Adjacency List Array of lists: each vertex stores neighbors</li>
+<li>Adjacency Matrix: <span class="math inline">\(n \times n\)</span> matrix; entry <span class="math inline">\((i, j) = 1\)</span> if edge exists</li>
+<li>Adjacency List: array of lists; each vertex stores its neighbors</li>
 </ol>
 <p>Example adjacency list:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> graph<span class="op">[</span>n<span class="op">];</span></span>
@@ -1343,9 +1476,9 @@ G = (V, E)
 <h4 class="anchored" data-anchor-id="common-graph-types">4. Common Graph Types</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 41%">
 <col style="width: 32%">
-<col style="width: 26%">
+<col style="width: 36%">
+<col style="width: 30%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1381,7 +1514,7 @@ G = (V, E)
 <td>Family tree</td>
 </tr>
 <tr class="even">
-<td>DAG (Directed Acyclic Graph)</td>
+<td>DAG (Directed Acyclic)</td>
 <td>Directed, no cycles</td>
 <td>Scheduling, compilers</td>
 </tr>
@@ -1401,8 +1534,13 @@ G = (V, E)
 <section id="basic-graph-operations" class="level4">
 <h4 class="anchored" data-anchor-id="basic-graph-operations">5. Basic Graph Operations</h4>
 <ul>
-<li>Add Vertex / Edge- Traversal: Depth-First Search (DFS), Breadth-First Search (BFS)- Path Finding: Dijkstra, Bellman-Ford- Connectivity: Union-Find, Tarjan (SCC)- Spanning Trees: Kruskal, Prim Each graph problem has its own flavor , from finding shortest paths to detecting cycles.</li>
+<li>Add Vertex / Edge</li>
+<li>Traversal: Depth-First Search (DFS), Breadth-First Search (BFS)</li>
+<li>Path Finding: Dijkstra, Bellman-Ford</li>
+<li>Connectivity: Union-Find, Tarjan (SCC)</li>
+<li>Spanning Trees: Kruskal, Prim</li>
 </ul>
+<p>Each graph problem has its own flavor, from finding shortest paths to detecting cycles.</p>
 </section>
 <section id="tiny-code-8" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code-8">Tiny Code</h4>
@@ -1424,14 +1562,18 @@ G = (V, E)
 <span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This explores level by level , perfect for shortest paths in unweighted graphs.</p>
+<p>This explores level by level, perfect for shortest paths in unweighted graphs.</p>
 </section>
 <section id="why-it-matters-8" class="level4">
 <h4 class="anchored" data-anchor-id="why-it-matters-8">Why It Matters</h4>
-<p>Trees and graphs model relationships and connections, not just sequences. They’re essential for:</p>
+<p>Trees and graphs model relationships and connections, not just sequences. They are essential for:</p>
 <ul>
-<li>Search engines (web graph)- Compilers (syntax trees, dependency DAGs)- AI (state spaces, decision trees)- Databases (indexes, joins, relationships) Understanding them unlocks an entire world of algorithms , from DFS and BFS to Dijkstra, Kruskal, and beyond.</li>
+<li>Search engines (web graph)</li>
+<li>Compilers (syntax trees, dependency DAGs)</li>
+<li>AI (state spaces, decision trees)</li>
+<li>Databases (indexes, joins, relationships)</li>
 </ul>
+<p>Understanding them unlocks an entire world of algorithms, from DFS and BFS to Dijkstra, Kruskal, and beyond.</p>
 </section>
 <section id="try-it-yourself-8" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself-8">Try It Yourself</h4>
@@ -1441,30 +1583,37 @@ G = (V, E)
 <li>Write a DFS and BFS for a small graph.</li>
 <li>Draw a directed graph with a cycle and detect it manually.</li>
 </ol>
-<p>Graphs and trees move you beyond linear thinking , they let you explore <em>connections</em>, not just collections.</p>
+<p>Graphs and trees move you beyond linear thinking. They let you explore <em>connections</em>, not just collections.</p>
 </section>
 </section>
 <section id="algorithm-design-patterns" class="level3">
 <h3 class="anchored" data-anchor-id="algorithm-design-patterns">10. Algorithm Design Patterns</h3>
-<p>By now, you’ve seen what algorithms <em>are</em> and how they’re <em>analyzed</em>. You’ve explored searches, sorts, structures, and recursion. The next step is learning patterns , reusable <em>strategies</em> that guide how you build new algorithms from scratch.</p>
+<p>By now, you’ve seen what algorithms are and how they’re analyzed. You’ve explored searches, sorts, structures, and recursion. The next step is learning patterns, reusable strategies that guide how you build new algorithms from scratch.</p>
 <p>Just like design patterns in software architecture, algorithmic design patterns give structure to your thinking. Once you recognize them, many problems suddenly feel familiar.</p>
 <section id="brute-force" class="level4">
 <h4 class="anchored" data-anchor-id="brute-force">1. Brute Force</h4>
-<p>Start simple. Try every possibility, pick the best result. Brute force is often your baseline , clear but inefficient.</p>
+<p>Start simple. Try every possibility and pick the best result. Brute force is often your baseline, clear but inefficient.</p>
 <p>Example: Find the maximum subarray sum by checking all subarrays.</p>
 <ul>
-<li>Time: ( O<span class="math inline">\(n^2\)</span> )- Advantage: easy to reason about- Disadvantage: explodes for large input Sometimes, brute force helps you see the structure needed for a better approach.</li>
+<li>Time: <span class="math inline">\(O(n^2)\)</span></li>
+<li>Advantage: easy to reason about</li>
+<li>Disadvantage: explodes for large input</li>
 </ul>
+<p>Sometimes, brute force helps you see the structure needed for a better approach.</p>
 </section>
 <section id="divide-and-conquer-1" class="level4">
 <h4 class="anchored" data-anchor-id="divide-and-conquer-1">2. Divide and Conquer</h4>
 <p>Split the problem into smaller parts, solve each, and combine. Ideal for problems with self-similarity.</p>
 <p>Classic examples:</p>
 <ul>
-<li>Merge Sort → split and merge- Binary Search → halve the search space- Quick Sort → partition and sort General form: <span class="math display">\[
-T(n) = aT(n/b) + f(n)
-\]</span></li>
+<li>Merge Sort → split and merge</li>
+<li>Binary Search → halve the search space</li>
+<li>Quick Sort → partition and sort</li>
 </ul>
+<p>General form:</p>
+<p><span class="math display">\[
+T(n) = aT(n/b) + f(n)
+\]</span></p>
 <p>Use recurrence relations and the Master Theorem to analyze them.</p>
 </section>
 <section id="greedy" class="level4">
@@ -1472,69 +1621,99 @@ T(n) = aT(n/b) + f(n)
 <p>Make the best local decision at each step. Works only when local optimal choices lead to a global optimum.</p>
 <p>Examples:</p>
 <ul>
-<li>Activity Selection- Huffman Coding- Dijkstra’s (for non-negative weights) Greedy algorithms are simple and fast , when they fit.</li>
+<li>Activity Selection</li>
+<li>Huffman Coding</li>
+<li>Dijkstra (for non-negative weights)</li>
 </ul>
+<p>Greedy algorithms are simple and fast when they fit.</p>
 </section>
 <section id="dynamic-programming-dp-1" class="level4">
 <h4 class="anchored" data-anchor-id="dynamic-programming-dp-1">4. Dynamic Programming (DP)</h4>
-<p>When subproblems overlap, store results and reuse them. Think recursion + memory.</p>
+<p>When subproblems overlap, store results and reuse them. Think recursion plus memory.</p>
 <p>Two main styles:</p>
 <ul>
-<li><p>Top-Down (Memoization): recursive with caching- Bottom-Up (Tabulation): iterative filling table Used in:</p></li>
-<li><p>Fibonacci numbers- Knapsack- Longest Increasing Subsequence (LIS)- Matrix Chain Multiplication DP transforms exponential recursion into polynomial time.</p></li>
+<li>Top-Down (Memoization): recursive with caching</li>
+<li>Bottom-Up (Tabulation): iterative filling table</li>
 </ul>
+<p>Used in:</p>
+<ul>
+<li>Fibonacci numbers</li>
+<li>Knapsack</li>
+<li>Longest Increasing Subsequence (LIS)</li>
+<li>Matrix Chain Multiplication</li>
+</ul>
+<p>DP transforms exponential recursion into polynomial time.</p>
 </section>
 <section id="backtracking" class="level4">
 <h4 class="anchored" data-anchor-id="backtracking">5. Backtracking</h4>
-<p>Explore all possibilities, but prune when constraints fail. It’s brute force with early exits.</p>
+<p>Explore all possibilities, but prune when constraints fail. It is brute force with early exits.</p>
 <p>Perfect for:</p>
 <ul>
-<li>N-Queens- Sudoku- Permutation generation- Subset sums Backtracking builds solutions incrementally, abandoning paths that cannot lead to a valid result.</li>
+<li>N-Queens</li>
+<li>Sudoku</li>
+<li>Permutation generation</li>
+<li>Subset sums</li>
 </ul>
+<p>Backtracking builds solutions incrementally, abandoning paths that cannot lead to a valid result.</p>
 </section>
 <section id="two-pointers" class="level4">
 <h4 class="anchored" data-anchor-id="two-pointers">6. Two Pointers</h4>
 <p>Move two indices through a sequence to find patterns or meet conditions.</p>
 <p>Common use:</p>
 <ul>
-<li>Sorted arrays (sum pairs, partitions)- String problems (palindromes, sliding windows)- Linked lists (slow/fast pointers) Simple, but surprisingly powerful.</li>
+<li>Sorted arrays (sum pairs, partitions)</li>
+<li>String problems (palindromes, sliding windows)</li>
+<li>Linked lists (slow and fast pointers)</li>
 </ul>
+<p>Simple, but surprisingly powerful.</p>
 </section>
 <section id="sliding-window" class="level4">
 <h4 class="anchored" data-anchor-id="sliding-window">7. Sliding Window</h4>
 <p>Maintain a window over data, expand or shrink it as needed.</p>
 <p>Used for:</p>
 <ul>
-<li>Maximum sum subarray (Kadane’s algorithm)- Substrings of length k- Longest substring without repeating characters Helps reduce ( O<span class="math inline">\(n^2\)</span> ) to ( O(n) ) in sequence problems.</li>
+<li>Maximum sum subarray (Kadane’s algorithm)</li>
+<li>Substrings of length <span class="math inline">\(k\)</span></li>
+<li>Longest substring without repeating characters</li>
 </ul>
+<p>Helps reduce <span class="math inline">\(O(n^2)\)</span> to <span class="math inline">\(O(n)\)</span> in sequence problems.</p>
 </section>
 <section id="binary-search-on-answer" class="level4">
 <h4 class="anchored" data-anchor-id="binary-search-on-answer">8. Binary Search on Answer</h4>
-<p>Sometimes, the input isn’t sorted , but the answer space is. If you can define a function <code>check(mid)</code> that’s monotonic (true/false changes once), you can apply binary search on possible answers.</p>
-<p>Example:</p>
+<p>Sometimes, the input is not sorted, but the answer space is. If you can define a function <code>check(mid)</code> that is monotonic (true or false changes once), you can apply binary search on possible answers.</p>
+<p>Examples:</p>
 <ul>
-<li>Minimum capacity to ship packages in D days- Smallest feasible value satisfying a constraint Powerful for optimization under monotonic conditions.</li>
+<li>Minimum capacity to ship packages in D days</li>
+<li>Smallest feasible value satisfying a constraint</li>
 </ul>
+<p>Powerful for optimization under monotonic conditions.</p>
 </section>
 <section id="graph-based" class="level4">
 <h4 class="anchored" data-anchor-id="graph-based">9. Graph-Based</h4>
 <p>Think in terms of nodes and edges, paths and flows.</p>
 <p>Patterns include:</p>
 <ul>
-<li>BFS / DFS (exploration)- Topological Sort (ordering)- Dijkstra / Bellman-Ford (shortest paths)- Union-Find (connectivity)- Kruskal / Prim (spanning trees) Graphs often reveal relationships hidden in data.</li>
+<li>BFS and DFS (exploration)</li>
+<li>Topological Sort (ordering)</li>
+<li>Dijkstra and Bellman-Ford (shortest paths)</li>
+<li>Union-Find (connectivity)</li>
+<li>Kruskal and Prim (spanning trees)</li>
 </ul>
+<p>Graphs often reveal relationships hidden in data.</p>
 </section>
 <section id="meet-in-the-middle" class="level4">
-<h4 class="anchored" data-anchor-id="meet-in-the-middle">10. Meet-in-the-Middle</h4>
-<p>Split problem into two halves, compute all possibilities for each, and combine efficiently. Used in problems where brute force ( O<span class="math inline">\(2^n\)</span> ) is too large but ( O<span class="math inline">\(2^{n/2}\)</span> ) is manageable.</p>
-<p>Example:</p>
+<h4 class="anchored" data-anchor-id="meet-in-the-middle">10. Meet in the Middle</h4>
+<p>Split the problem into two halves, compute all possibilities for each, and combine efficiently. Used in problems where brute force <span class="math inline">\(O(2^n)\)</span> is too large but <span class="math inline">\(O(2^{n/2})\)</span> is manageable.</p>
+<p>Examples:</p>
 <ul>
-<li>Subset sum (divide into two halves)- Search problems in combinatorics A clever compromise between brute force and efficiency.</li>
+<li>Subset sum (divide into two halves)</li>
+<li>Search problems in combinatorics</li>
 </ul>
+<p>A clever compromise between brute force and efficiency.</p>
 </section>
 <section id="tiny-code-9" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-code-9">Tiny Code</h4>
-<p>Example: Two Pointers to find pair sum:</p>
+<p>Example: Two Pointers to find a pair sum</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> find_pair_sum<span class="op">(</span><span class="dt">int</span> arr<span class="op">[],</span> <span class="dt">int</span> n<span class="op">,</span> <span class="dt">int</span> target<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> j <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> j<span class="op">)</span> <span class="op">{</span></span>
@@ -1545,12 +1724,12 @@ T(n) = aT(n/b) + f(n)
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Works in ( O(n) ) for sorted arrays , elegant and fast.</p>
+<p>Works in <span class="math inline">\(O(n)\)</span> for sorted arrays, elegant and fast.</p>
 </section>
 <section id="why-it-matters-9" class="level4">
 <h4 class="anchored" data-anchor-id="why-it-matters-9">Why It Matters</h4>
 <p>Patterns are mental shortcuts. They turn “blank page” problems into “I’ve seen this shape before.”</p>
-<p>Once you recognize the structure, you can choose a suitable pattern and adapt it. This is how top coders solve complex problems under time pressure , not by memorizing algorithms, but by <em>seeing patterns</em>.</p>
+<p>Once you recognize the structure, you can choose a suitable pattern and adapt it. This is how top coders solve complex problems under time pressure, not by memorizing algorithms, but by seeing patterns.</p>
 </section>
 <section id="try-it-yourself-9" class="level4">
 <h4 class="anchored" data-anchor-id="try-it-yourself-9">Try It Yourself</h4>
@@ -1559,9 +1738,9 @@ T(n) = aT(n/b) + f(n)
 <li>Solve the coin change problem using both greedy and DP.</li>
 <li>Implement N-Queens with backtracking.</li>
 <li>Use two pointers to find the smallest window with a given sum.</li>
-<li>Pick a problem you’ve solved before , can you reframe it using a different design pattern?</li>
+<li>Pick a problem you’ve solved before. Can you reframe it using a different design pattern?</li>
 </ol>
-<p>The more patterns you practice, the faster you’ll map new problems to known strategies , and the more powerful your algorithmic intuition will become.</p>
+<p>The more patterns you practice, the faster you will map new problems to known strategies, and the more powerful your algorithmic intuition will become.</p>
 </section>
 </section>
 </section>
@@ -13539,7 +13718,7 @@ T = "^#a#b#b#a#$"</code></pre>
 <ul>
 <li>mirror position <code>mirror = 2*C - i</code> - initialize <code>P[i] = min(R - i, P[mirror])</code> - expand around <code>i</code> while characters match - if new palindrome extends past <code>R</code>, update <code>C</code> and <code>R</code></li>
 </ul></li>
-<li><p>The <strong>maximum value of <code>P[i]</code></strong> gives the longest palindrome.</p></li>
+<li><p>The maximum value of <code>P[i]</code> gives the longest palindrome.</p></li>
 </ol>
 </section>
 <section id="example-6" class="level4">
@@ -15495,7 +15674,7 @@ V(p_i) = {x \in \mathbb{R}^2 \mid d(x, p_i) \le d(x, p_j), \forall j \neq i }
 <p>Time Complexity: ( O<span class="math inline">\(n \log n\)</span> )</p>
 </section>
 <section id="d.-bowyer-watson-delaunay-via-circumcircle-test" class="level4">
-<h4 class="anchored" data-anchor-id="d.-bowyer-watson-delaunay-via-circumcircle-test">D. Bowyer-Watson (Delaunay via Circumcircle Test)**</h4>
+<h4 class="anchored" data-anchor-id="d.-bowyer-watson-delaunay-via-circumcircle-test">D. Bowyer-Watson (Delaunay via Circumcircle Test)</h4>
 <p>A practical incremental version widely used in graphics and simulation.</p>
 <p>Steps:</p>
 <ul>
@@ -21050,8 +21229,8 @@ Effect: ¬At(x), At(y)</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../index.html" class="pagination-link" aria-label="Content">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Content</span></span>
+      <a href="../../books/en-us/cheatsheet.html" class="pagination-link" aria-label="The Cheatsheet">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">The Cheatsheet</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
