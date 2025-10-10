@@ -4,9 +4,9 @@ project:
 
 book:
   title: &book_title "The Little Book of Algorithms"
-  subtitle: &book_subtitle "Version 0.3.1"
+  subtitle: &book_subtitle "Version 0.3.2"
   author: &book_author "Duc-Tam Nguyen"
-  date: &book_date "2025-10-08"
+  date: &book_date "2025-10-10"
   output-file: book
   chapters:
     - index.qmd
@@ -14,6 +14,9 @@ book:
     - books/en-us/book.md
     - books/en-us/plan.md
     - books/en-us/list-1.md
+    - books/en-us/list-2.md
+    # - books/en-us/list-3.md
+    # - books/en-us/list-4.md
 
 website:
   title: *book_title
