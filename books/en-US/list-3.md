@@ -13754,7 +13754,7 @@ Instead of storing every element, it constructs a signature of compact hash valu
 
 MinHash is foundational in large-scale similarity estimation, fast, memory-efficient, and mathematically elegant.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 To compute the exact Jaccard similarity between two sets $A$ and $B$:
 
@@ -13774,7 +13774,7 @@ MinHash meets these requirements by applying multiple random hash functions
 and recording the minimum hash value from each function as the set’s signature.
 
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 For each set, we apply several independent hash functions.
 For each hash function, we record the minimum hash value among all elements.
@@ -13801,7 +13801,7 @@ Each matching position between $\text{sig}(A)$ and $\text{sig}(B)$ corresponds
 to one agreeing hash function, and the fraction of matches approximates $J(A,B)$.
 
 
-### Example (Step by Step)
+#### Example (Step by Step)
 
 Let:
 
@@ -13844,7 +13844,7 @@ The MinHash estimate of $0.67$ is reasonably close to the true value $0.5$,
 demonstrating that even a small number of hash functions can yield a good approximation.
 
 
-### Visualization
+#### Visualization
 
 | Hash Function | $\text{sig}(A)$ | $\text{sig}(B)$ | Match |
 | -------------- | --------------- | --------------- | ------ |
@@ -13854,7 +13854,7 @@ demonstrating that even a small number of hash functions can yield a good approx
 | Similarity | – | – | $(2/3 = 0.67)$ |
 
 
-### Tiny Code (Easy Version)
+#### Tiny Code (Easy Version)
 
 ```python
 import mmh3
@@ -13888,7 +13888,7 @@ Output
 Approx similarity: 0.6
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Scalable similarity: enables fast comparison of very large sets  
 - Compact representation: stores only $k$ integers per set  
@@ -13900,7 +13900,7 @@ Approx similarity: 0.6
   - Large-scale clustering
 
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 For a random permutation $h$:
 
@@ -13919,7 +13919,7 @@ The variance decreases as $\tfrac{1}{k}$,
 so increasing the number of hash functions improves accuracy.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Choose two sets with partial overlap.  
 2. Generate MinHash signatures using $k = 20$ hash functions.  
@@ -13927,7 +13927,7 @@ so increasing the number of hash functions improves accuracy.
 4. Increase $k$ and observe how the estimated similarity converges toward the true value — larger $k$ reduces variance and improves accuracy.
 
 
-### Test Cases
+#### Test Cases
 
 | Sets                 | True $J(A,B)$ | $k$ | Estimated | Error |
 | -------------------- | ------------- | --- | ---------- | ----- |
@@ -13936,7 +13936,7 @@ so increasing the number of hash functions improves accuracy.
 | $A=B$                | 1.0 | 10 | 1.0 | 0.0  |
 
 
-### Complexity
+#### Complexity
 
 | Operation       | Time             | Space |
 | --------------- | ---------------- | ----- |
@@ -13953,7 +13953,7 @@ Reservoir Sampling is a classic algorithm for randomly sampling k elements from 
 
 It's the perfect tool when you can't store everything, like catching a few fish from an endless river, one by one, without bias.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 When data arrives as a stream too large to store in memory, we cannot know its total size in advance.  
 Yet, we often need to maintain a uniform random sample of fixed size $k$.
@@ -13968,7 +13968,7 @@ Reservoir Sampling provides a one-pass solution with these guarantees:
 - Processes data in a single pass
 
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 We maintain a reservoir (array) of size $k$.  
 As each new element arrives, we decide probabilistically whether it replaces one of the existing items.
@@ -13983,7 +13983,7 @@ Steps:
 
 This ensures every element has an equal chance $\tfrac{k}{n}$ to remain.
 
-### Example (step by step)
+#### Example (step by step)
 
 Stream: [A, B, C, D, E]  
 Goal: $k = 2$
@@ -14013,7 +14013,7 @@ $$
 Thus, every item is equally likely to be chosen, ensuring perfect uniformity in the final sample.
 
 
-### Visualization
+#### Visualization
 
 | Step | Item | Random $j$ | Action     | Reservoir |
 | ---- | ---- | ------------ | ---------- | --------- |
@@ -14023,7 +14023,7 @@ Thus, every item is equally likely to be chosen, ensuring perfect uniformity in 
 | 4    | D    | 4            | No Replace | [A, C]    |
 | 5    | E    | 1            | Replace A  | [E, C]    |
 
-### Tiny Code (Easy Version)
+#### Tiny Code (Easy Version)
 
 Python Implementation
 
@@ -14055,7 +14055,7 @@ Reservoir sample: ['E', 'C']
 
 Each run produces a different uniform random sample.
 
-### Why It Matters
+#### Why It Matters
 
 - Works on streaming data
 - Needs only O(k) memory
@@ -14067,7 +14067,7 @@ Each run produces a different uniform random sample.
   * Online learning
   * Network monitoring
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 - First $k$ elements: probability $= 1$ to enter the reservoir initially.  
 - Each new element at index $i$: probability $\tfrac{k}{i}$ to replace one of the existing items.  
@@ -14082,14 +14082,14 @@ Multiplying these terms gives the final inclusion probability $\tfrac{k}{n}$.
 Uniformity of selection is guaranteed by induction.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Stream 10 numbers with $k = 3$.  
 2. Run the algorithm multiple times — all 3-element subsets appear with roughly equal frequency.  
 3. Increase $k$ and observe that the sample becomes more stable, with less variation between runs.
 
 
-### Test Cases
+#### Test Cases
 
 | Stream      | k  | Sample Size | Notes                |
 | ----------- | -- | ----------- | -------------------- |
@@ -14097,7 +14097,7 @@ Uniformity of selection is guaranteed by induction.
 | [A,B,C,D]   | 1  | 1           | Each 25% chance      |
 | Range(1000) | 10 | 10          | Works in one pass    |
 
-### Complexity
+#### Complexity
 
 | Operation | Time   | Space  |
 | ---------- | ------ | ------ |
@@ -14113,7 +14113,7 @@ A Skip Bloom Filter is a probabilistic data structure that extends the Bloom Fil
 
 It combines Bloom filters with hierarchical range segmentation, allowing approximate range lookups while keeping space usage compact.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 A classic Bloom Filter answers only point queries:
 
@@ -14135,7 +14135,7 @@ We need a space-efficient, stream-friendly, and probabilistic structure that can
 
 The Skip Bloom Filter solves this by layering Bloom filters over aligned ranges of increasing size.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A Skip Bloom Filter maintains multiple Bloom filters, each corresponding to a level that covers intervals (buckets) of sizes $2^0, 2^1, 2^2, \ldots$
 
@@ -14150,7 +14150,7 @@ Algorithm:
 4. To query a range $[a,b]$: decompose it into a set of disjoint aligned intervals and check the corresponding Bloom filters.
 
 
-### Example (Step by Step)
+#### Example (Step by Step)
 
 Suppose we store keys
 
@@ -14200,7 +14200,7 @@ Query range [2, 6]:
 
 Result: possibly non-empty, since [2–3] contains 3.
 
-### Visualization
+#### Visualization
 
 | Level | Bucket | Contains Key | Bloom Entry |
 | ----- | ------ | ------------ | ----------- |
@@ -14211,7 +14211,7 @@ Result: possibly non-empty, since [2–3] contains 3.
 
 Each key is represented in multiple levels, enabling multi-scale range coverage.
 
-### Tiny Code (Simplified Python)
+#### Tiny Code (Simplified Python)
 
 ```python
 import math, mmh3
@@ -14262,7 +14262,7 @@ Output:
 Query [2,6]: True
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Enables range queries in probabilistic manner
 - Compact and hierarchical
@@ -14273,7 +14273,7 @@ Query [2,6]: True
   * Network prefix search
   * Time-series event detection
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each inserted key participates in $O(\log U)$ Bloom filters, one per level.  
 A range query $[a,b]$ is decomposed into $O(\log U)$ aligned subranges.
@@ -14308,14 +14308,14 @@ T_{\text{query}} = O(k \log U)
 $$
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Insert keys $\{3, 7, 14\}$  
 2. Query ranges $[2,6]$, $[8,12]$, $[0,15]$  
 3. Compare true contents with the results  
 4. Adjust parameters $m$, $k$, or the number of levels, and observe how the false positive rate changes
 
-### Test Cases
+#### Test Cases
 
 | Query Range | Result | True Contents |
 | ------------ | ------- | ------------- |
@@ -14323,7 +14323,7 @@ $$
 | [8,12]       | False   | ∅             |
 | [12,15]      | True    | {14}          |
 
-### Complexity
+#### Complexity
 
 | Operation | Time             | Space            |
 | ---------- | ---------------- | ---------------- |
@@ -14334,13 +14334,13 @@ A Skip Bloom Filter is a range-aware extension of standard Bloom filters.
 By combining hierarchical decomposition with standard hashing, it enables fast, memory-efficient, and approximate range queries across very large universes.
 
 
-# Section 28. Skip Lists and B-Trees 
+## Section 28. Skip Lists and B-Trees 
 
 ### 271 Skip List Insert
 
 Skip Lists are probabilistic alternatives to balanced trees. They maintain multiple levels of sorted linked lists, where each level skips over more elements than the one below it. Insertion relies on randomization to achieve expected O(log n) search and update times, without strict rebalancing like AVL or Red-Black trees.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We want to store elements in sorted order and support:
 
@@ -14351,7 +14351,7 @@ We want to store elements in sorted order and support:
 Balanced BSTs achieve $O(\log n)$ time but require intricate rotations.
 Skip Lists solve this with *randomized promotion*: each inserted node is promoted to higher levels with decreasing probability, forming a tower.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Skip list insertion for value $x$
 
@@ -14370,7 +14370,7 @@ Notes
 - Typical height is $O(\log n)$, expected search and insert time is $O(\log n)$, space is $O(n)$.
 
 
-### Example Step by Step
+#### Example Step by Step
 
 Let's insert $x = 17$ into a skip list that currently contains: [ 5, 10, 15, 20, 25 ]
 
@@ -14391,7 +14391,7 @@ We insert 17 at level 0 and level 1.
 | 1     | 5 → 10 → 15 → 17 → 20 → 25 |
 | 0     | 5 → 10 → 15 → 17 → 20 → 25 |
 
-### Tiny Code (Simplified Python)
+#### Tiny Code (Simplified Python)
 
 ```python
 import random
@@ -14437,14 +14437,14 @@ class SkipList:
                 update[i].forward[i] = new_node
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Expected $O(\log n)$ time for search, insert, and delete  
 - Simpler than AVL or Red-Black Trees  
 - Probabilistic balancing avoids rigid rotations  
 - Commonly used in databases and key-value stores such as LevelDB and Redis
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each node appears in level $i$ with probability $p^i$.  
 The expected number of nodes per level is $n p^i$.  
@@ -14464,7 +14464,7 @@ $$
 
 Thus, Skip Lists achieve expected logarithmic performance and linear space.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a Skip List and insert $\{5, 10, 15, 20, 25\}$.  
 2. Insert $17$ and trace which pointers are updated at each level.  
@@ -14472,7 +14472,7 @@ Thus, Skip Lists achieve expected logarithmic performance and linear space.
 4. Observe how random heights influence the overall balance.
 
 
-### Test Cases
+#### Test Cases
 
 | Operation | Input | Expected Structure (Level 0) |
 | --------- | ----- | ---------------------------- |
@@ -14483,7 +14483,7 @@ Thus, Skip Lists achieve expected logarithmic performance and linear space.
 | Search    | 15    | Found                        |
 | Search    | 12    | Not Found                    |
 
-### Complexity
+#### Complexity
 
 | Operation | Time (Expected) | Space   |
 | ---------- | --------------- | ------- |
@@ -14500,13 +14500,13 @@ With randomness as its balancing force, it achieves the elegance of trees and th
 Deletion in a Skip List mirrors insertion: we traverse levels from top to bottom, keep track of predecessor nodes at each level, and unlink the target node across all levels it appears in.
 The structure maintains probabilistic balance, so no rebalancing is needed, deletion is expected $O(\log n)$.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We want to remove an element efficiently from a sorted, probabilistically balanced structure.
 Naive linked lists require $O(n)$ traversal; balanced BSTs need complex rotations.
 A Skip List gives us a middle ground, simple pointer updates with expected logarithmic time.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Each node in a skip list can appear at multiple levels.
 To delete a key $x$:
@@ -14518,7 +14518,7 @@ To delete a key $x$:
 5. Once you reach the bottom, remove all forward references to the node from the `update` array.
 6. If the topmost level becomes empty, reduce list level.
 
-### Example Step by Step
+#### Example Step by Step
 
 Delete $x = 17$ from this skip list:
 
@@ -14545,7 +14545,7 @@ Remove all forward pointers to 17 from recorded nodes.
 | 1     | 5 → 10 → 15 → 20 → 25 |
 | 0     | 5 → 10 → 15 → 20 → 25 |
 
-### Tiny Code (Simplified Python)
+#### Tiny Code (Simplified Python)
 
 ```python
 import random
@@ -14585,14 +14585,14 @@ class SkipList:
                 self.level -= 1
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Symmetric to insertion
 - No rotations or rebalancing
 - Expected $O(\log n)$ performance
 - Perfect for ordered maps, databases, key-value stores
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each level contains a fraction $p^i$ of nodes.
 The expected number of levels traversed is $O(\log_{1/p} n)$.
@@ -14604,14 +14604,14 @@ $$
 E[T_{\text{delete}}] = O(\log n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Insert ${5, 10, 15, 17, 20, 25}$.
 2. Delete $17$.
 3. Trace all pointer changes level by level.
 4. Compare with AVL tree deletion complexity.
 
-### Test Cases
+#### Test Cases
 
 | Operation | Input         | Expected Level 0 Result |
 | --------- | ------------- | ----------------------- |
@@ -14620,7 +14620,7 @@ $$
 | Delete    | 10            | 5 → 15 → 20             |
 | Delete    | 5             | 15 → 20                 |
 
-### Complexity
+#### Complexity
 
 | Operation | Time (Expected) | Space  |
 | --------- | --------------- | ------ |
@@ -14635,13 +14635,13 @@ Skip List Deletion keeps elegance through simplicity, a clean pointer adjustment
 Searching in a Skip List is a dance across levels, we move right until we can't, then down, repeating until we either find the key or conclude it doesn't exist.
 Thanks to the randomized level structure, the expected time complexity is $O(\log n)$, just like balanced BSTs but with simpler pointer logic.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We need a fast search in a sorted collection that adapts gracefully to dynamic insertions and deletions.
 Balanced trees guarantee $O(\log n)$ search but need rotations.
 Skip Lists achieve the same expected time using randomization instead of strict balancing rules.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A skip list has multiple levels of linked lists.
 Each level acts as a fast lane, skipping over multiple nodes.
@@ -14655,7 +14655,7 @@ To search for a key $x$:
 
 The search path "zigzags" through levels, visiting roughly $\log n$ nodes on average.
 
-### Example Step by Step
+#### Example Step by Step
 
 Search for $x = 17$ in the following skip list:
 
@@ -14675,7 +14675,7 @@ Traversal:
 
 Path: 5 → 15 → (down) → 15 → (down) → 15 → 17
 
-### Visualization
+#### Visualization
 
 Skip list search follows a staircase pattern:
 
@@ -14688,7 +14688,7 @@ Level 0:  5 -> 10 -> 15 -> 17 -> 20
 
 Each "↓" means dropping a level when the next node is too large.
 
-### Tiny Code (Simplified Python)
+#### Tiny Code (Simplified Python)
 
 ```python
 class SkipList:
@@ -14708,14 +14708,14 @@ class SkipList:
         return current and current.key == key
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Simple and efficient: expected $O(\log n)$ time
 - Probabilistic balance: avoids tree rotations
 - Foundation for ordered maps, indexes, and databases
 - Search path length is logarithmic on average
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each level contains approximately a fraction $p$ of the nodes from the level below.
 Expected number of levels: $O(\log_{1/p} n)$.
@@ -14728,14 +14728,14 @@ $$
 E[T_{\text{search}}] = O(\log n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a skip list with ${5, 10, 15, 17, 20, 25}$.
 2. Search for $17$ and trace the path at each level.
 3. Search for $13$, where do you stop?
 4. Compare path length with a binary search tree of same size.
 
-### Test Cases
+#### Test Cases
 
 | Operation | Input | Expected Output | Path        |
 | --------- | ----- | --------------- | ----------- |
@@ -14744,7 +14744,7 @@ $$
 | Search    | 13    | Not Found       | 5 → 10 → 15 |
 | Search    | 5     | Found           | 5           |
 
-### Complexity
+#### Complexity
 
 | Operation | Time (Expected) | Space  |
 | --------- | --------------- | ------ |
@@ -14759,7 +14759,7 @@ Skip List Search shows how probabilistic structure yields deterministic-like eff
 A B-Tree is a balanced search tree designed for external memory systems such as disks or SSDs. Unlike binary trees, each node can store multiple keys and multiple children, minimizing disk I/O by packing more data into a single node.
 Insertion into a B-Tree preserves sorted order and balance by splitting full nodes as needed.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 When data is too large to fit in memory, standard binary trees perform poorly because each node access may trigger a disk read.
 We need a structure that:
@@ -14771,7 +14771,7 @@ We need a structure that:
 
 B-Trees solve this by storing many keys per node and balancing themselves through controlled splits.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Each B-Tree node can contain up to $2t - 1$ keys and $2t$ children, where $t$ is the minimum degree.
 
@@ -14788,7 +14788,7 @@ Splitting a full node:
 
 This ensures every node stays within allowed size bounds, keeping height $O(\log_t n)$.
 
-### Example Step by Step
+#### Example Step by Step
 
 Let $t = 2$ (max 3 keys per node).
 Insert keys in order: $[10, 20, 5, 6, 12, 30, 7, 17]$
@@ -14836,7 +14836,7 @@ Final tree:
        [5] [7] [12,17] [30]
 ```
 
-### Visualization
+#### Visualization
 
 B-Tree maintains sorted keys at each level and guarantees minimal height by splitting nodes during insertion.
 
@@ -14845,7 +14845,7 @@ Root: [6, 10, 20]
 Children: [5], [7], [12, 17], [30]
 ```
 
-### Tiny Code (Simplified Python)
+#### Tiny Code (Simplified Python)
 
 ```python
 class BTreeNode:
@@ -14903,14 +14903,14 @@ class BTree:
             r.insert_non_full(key)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Disk-friendly: each node fits into one page
 - Shallow height: $O(\log_t n)$ levels → few disk reads
 - Deterministic balance: no randomness, always balanced
 - Foundation of file systems, databases, indexes (e.g., NTFS, MySQL, PostgreSQL)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each node has between $t-1$ and $2t-1$ keys (except root).
 
@@ -14930,21 +14930,21 @@ $$
 
 So insertions and searches take $O(t \cdot \log_t n)$, often simplified to $O(\log n)$ when $t$ is constant.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a B-Tree with $t=2$.
 2. Insert $[10, 20, 5, 6, 12, 30, 7, 17]$.
 3. Draw the tree after each insertion.
 4. Observe when splits occur and which keys promote upward.
 
-### Test Cases
+#### Test Cases
 
 | Input Keys             | t | Final Root | Height |
 | ---------------------- | - | ---------- | ------ |
 | [10,20,5,6,12,30,7,17] | 2 | [6,10,20]  | 2      |
 | [1,2,3,4,5,6,7,8,9]    | 2 | [4]        | 3      |
 
-### Complexity
+#### Complexity
 
 | Operation | Time        | Space  |
 | --------- | ----------- | ------ |
@@ -14964,12 +14964,12 @@ The goal is to maintain the B-Tree invariants:
 - Node key count between $t - 1$ and $2t - 1$
 - Balanced height
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We want to remove a key from a B-Tree without violating balance or occupancy constraints.
 Unlike binary search trees, where we can simply replace or prune nodes, B-Trees must maintain minimum degree to ensure consistent height and I/O efficiency.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 To delete a key $k$ from a B-Tree:
 
@@ -14993,7 +14993,7 @@ To delete a key $k$ from a B-Tree:
 
 This ensures no underflow occurs during traversal.
 
-### Example Step by Step
+#### Example Step by Step
 
 Let $t = 2$ (max 3 keys per node).
 B-Tree before deletion:
@@ -15045,7 +15045,7 @@ Tree after rebalancing:
     [5,6] [10,12] [30]
 ```
 
-### Visualization
+#### Visualization
 
 Every deletion keeps the tree balanced by ensuring all nodes (except root) stay ≥ $t - 1$ full.
 
@@ -15056,7 +15056,7 @@ $$6,10,20]           [6,20]
 $$5][7][12,17][30]   [5][7,10,12][30]
 ```
 
-### Tiny Code (Simplified Python)
+#### Tiny Code (Simplified Python)
 
 ```python
 class BTreeNode:
@@ -15108,14 +15108,14 @@ class BTree:
 
 *(Helper methods `merge`, `fill`, `borrow_from_prev`, and `borrow_from_next` omitted for brevity)*
 
-### Why It Matters
+#### Why It Matters
 
 - Maintains balanced height after deletions
 - Prevents underflow in child nodes
 - Ensures $O(\log n)$ complexity
 - Used heavily in databases and filesystems where stable performance is critical
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 A B-Tree node always satisfies:
 
@@ -15138,14 +15138,14 @@ $$
 T_{\text{delete}} = O(\log n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a B-Tree with $t = 2$.
 2. Insert $[10, 20, 5, 6, 12, 30, 7, 17]$.
 3. Delete keys in order: $17, 10, 6$.
 4. Draw the tree after each deletion and observe merges/borrows.
 
-### Test Cases
+#### Test Cases
 
 | Input Keys             | Delete | Result (Level 0)    |
 | ---------------------- | ------ | ------------------- |
@@ -15153,7 +15153,7 @@ $$
 | [5,6,7,10,12,20,30]    | 10     | [5,6,7,12,20,30]    |
 | [5,6,7,12,20,30]       | 6      | [5,7,12,20,30]      |
 
-### Complexity
+#### Complexity
 
 | Operation | Time        | Space  |
 | --------- | ----------- | ------ |
@@ -15169,7 +15169,7 @@ A B+ Tree is an extension of the B-Tree, optimized for range queries and sequent
 
 Searching in a B+ Tree follows the same principle as a B-Tree, top-down traversal based on key comparisons, but ends at the leaf level where the actual data is stored.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We need a disk-friendly search structure that:
 
@@ -15183,7 +15183,7 @@ B+ Trees meet these needs with:
 - Linked leaves: for efficient sequential traversal
 - Deterministic balance: height always $O(\log n)$
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Each internal node acts as a router. Each leaf node contains keys + data pointers.
 
@@ -15197,7 +15197,7 @@ To search for key $k$:
 
 If not found in the leaf, $k$ is not in the tree.
 
-### Example Step by Step
+#### Example Step by Step
 
 Let $t = 2$ (each node holds up to 3 keys).
 B+ Tree:
@@ -15218,7 +15218,7 @@ Search for 17:
 - Root [10 | 20]: 17 > 10 and < 20 → middle pointer
 - Node [12 15 18]: not found → not in tree
 
-### Visualization
+#### Visualization
 
 ```
          [10 | 20]
@@ -15230,7 +15230,7 @@ Search for 17:
 - Leaf nodes hold data (and link to next leaf)
 - Search always ends at a leaf
 
-### Tiny Code (Simplified Python)
+#### Tiny Code (Simplified Python)
 
 ```python
 class BPlusNode:
@@ -15258,14 +15258,14 @@ class BPlusTree:
         return self.search(self.root, key)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Efficient disk I/O: high branching factor keeps height low
 - All data in leaves: simplifies range queries
 - Linked leaves: enable sequential traversal (sorted order)
 - Used in: databases, filesystems, key-value stores (e.g., MySQL, InnoDB, NTFS)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each internal node has between $t$ and $2t$ children.
 Each leaf holds between $t - 1$ and $2t - 1$ keys.
@@ -15289,14 +15289,14 @@ $$
 
 And since the final scan within the leaf is constant (small), total cost remains logarithmic.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a B+ Tree with $t = 2$ and insert keys $[1, 5, 8, 10, 12, 15, 18, 20, 22, 25, 30]$.
 2. Search for 15, 17, and 8.
 3. Trace your path from root → internal → leaf.
 4. Observe that all searches end in leaves.
 
-### Test Cases
+#### Test Cases
 
 | Search Key | Expected Result | Path                 |
 | ---------- | --------------- | -------------------- |
@@ -15305,7 +15305,7 @@ And since the final scan within the leaf is constant (small), total cost remains
 | 17         | Not Found       | Root → Middle → Leaf |
 | 25         | Found           | Root → Right → Leaf  |
 
-### Complexity
+#### Complexity
 
 | Operation   | Time            | Space  |
 | ----------- | --------------- | ------ |
@@ -15321,7 +15321,7 @@ A B* Tree is a refined version of the B-Tree, designed to achieve higher node oc
 
 To achieve this, B* Trees use redistribution between siblings before splitting, which improves space utilization and I/O efficiency, making them ideal for database and file system indexes.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 In a standard B-Tree, each node maintains at least $t - 1$ keys (50% occupancy). But frequent splits can cause fragmentation and wasted space.
 
@@ -15333,7 +15333,7 @@ We want to:
 
 B* Trees solve this by borrowing and redistributing keys between siblings before splitting, ensuring $\ge 2/3$ occupancy.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A B* Tree works like a B-Tree but with smarter split logic:
 
@@ -15353,7 +15353,7 @@ A B* Tree works like a B-Tree but with smarter split logic:
 
 This ensures every node (except root) is at least 2/3 full, leading to better disk utilization.
 
-### Example Step by Step
+#### Example Step by Step
 
 Let $t = 2$ (max 3 keys per node).
 Insert keys: $[5, 10, 15, 20, 25, 30, 35]$
@@ -15383,7 +15383,7 @@ Result:
 
 Each node ≥ 2/3 full, no wasted space.
 
-### Visualization
+#### Visualization
 
 ```
           [20 | 30]
@@ -15393,7 +15393,7 @@ Each node ≥ 2/3 full, no wasted space.
 
 Redistribution ensures balance and density before splitting.
 
-### Tiny Code (Simplified Pseudocode)
+#### Tiny Code (Simplified Pseudocode)
 
 ```python
 def insert_bstar(tree, key):
@@ -15409,14 +15409,14 @@ def insert_bstar(tree, key):
 
 *(Actual implementation is more complex, involving parent updates and sibling pointers.)*
 
-### Why It Matters
+#### Why It Matters
 
 - Better space utilization: nodes ≥ 66% full
 - Fewer splits: more stable performance under heavy inserts
 - Improved I/O locality: fewer disk blocks accessed
 - Used in: database systems (IBM DB2), file systems (ReiserFS), B*-based caching structures
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 In B* Trees:
 
@@ -15437,14 +15437,14 @@ Thus, height remains logarithmic, but nodes pack more data per level.
 
 Fewer levels → fewer I/Os → better performance.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a B* Tree with $t = 2$.
 2. Insert keys: $[5, 10, 15, 20, 25, 30, 35, 40]$.
 3. Watch how redistribution occurs before splits.
 4. Compare with B-Tree splits for same sequence.
 
-### Test Cases
+#### Test Cases
 
 | Input Keys            | t | Result                   | Notes                       |
 | --------------------- | - | ------------------------ | --------------------------- |
@@ -15452,7 +15452,7 @@ Fewer levels → fewer I/Os → better performance.
 | [5,10,15,20,25,30,35] | 2 | Root [20,30]             | Redistribution before split |
 | [1..15]               | 2 | Balanced, 2/3 full nodes | High density                |
 
-### Complexity
+#### Complexity
 
 | Operation | Time        | Space  | Occupancy |
 | --------- | ----------- | ------ | --------- |
@@ -15468,7 +15468,7 @@ An Adaptive Radix Tree (ART) is a space-efficient, cache-friendly data structure
 
 Unlike a fixed-size radix tree (which wastes space with sparse nodes), ART chooses a compact node type (like Node4, Node16, Node48, Node256) depending on occupancy, growing as needed.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Standard tries and radix trees are fast but memory-heavy.
 If keys share long prefixes, many nodes hold only one child, wasting memory.
@@ -15482,7 +15482,7 @@ We want a structure that:
 
 ART achieves this by dynamically switching node types as the number of children grows.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Each internal node in ART can be one of four types:
 
@@ -15506,7 +15506,7 @@ Insert keys: `["A", "AB", "AC", "AD", "AE"]`
 
 This adaptive upgrade keeps nodes dense and efficient.
 
-### Example Step by Step
+#### Example Step by Step
 
 | Step | Operation   | Node Type         | Keys Stored       | Note            |
 | ---- | ----------- | ----------------- | ----------------- | --------------- |
@@ -15516,7 +15516,7 @@ This adaptive upgrade keeps nodes dense and efficient.
 | 4    | Insert "AD" | Node4             | A, AB, AC, AD     | Full            |
 | 5    | Insert "AE" | Upgrade to Node16 | A, AB, AC, AD, AE | Adaptive growth |
 
-### Visualization
+#### Visualization
 
 ```
 Root (Node16)
@@ -15529,7 +15529,7 @@ Root (Node16)
 
 Each node type adapts its layout for the best performance.
 
-### Tiny Code (Simplified Pseudocode)
+#### Tiny Code (Simplified Pseudocode)
 
 ```python
 class Node:
@@ -15547,14 +15547,14 @@ def insert_art(root, key):
 
 *(A real ART dynamically switches between Node4, Node16, Node48, Node256 representations.)*
 
-### Why It Matters
+#### Why It Matters
 
 - Adaptive memory use, no wasted space for sparse nodes
 - Cache-friendly, contiguous memory layout
 - Fast lookups, vectorized search for Node16
 - Used in modern databases (e.g., HyPer, Umbra, DuckDB)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Let $L$ = key length, $b$ = branching factor (max 256 per byte).
 In a naive trie, each node allocates $O(b)$ slots, many unused.
@@ -15570,14 +15570,14 @@ In ART:
 
 Thus ART maintains trie-like performance with hash table-like compactness.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Insert `["dog", "dot", "door", "dorm"]`
 2. Observe how Node4 → Node16 transitions happen
 3. Count number of nodes, compare with naive trie
 4. Measure memory usage and access speed
 
-### Test Cases
+#### Test Cases
 
 | Keys                         | Resulting Root Type | Notes                    |
 | ---------------------------- | ------------------- | ------------------------ |
@@ -15585,7 +15585,7 @@ Thus ART maintains trie-like performance with hash table-like compactness.
 | `["a", "b", "c", "d", "e"]`  | Node16              | Upgrade after 5th insert |
 | `["aa", "ab", "ac"... "az"]` | Node48 or Node256   | Dense branching          |
 
-### Complexity
+#### Complexity
 
 | Operation | Time   | Space      | Adaptive Behavior   |
 | --------- | ------ | ---------- | ------------------- |
@@ -15601,7 +15601,7 @@ A compressed trie (also called a radix tree or Patricia trie) is an optimized fo
 
 This reduces the height of the trie, minimizes memory usage, and accelerates searches, perfect for applications like prefix lookup, routing tables, and dictionary storage.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 A naive trie wastes space when many nodes have only one child.
 
@@ -15623,7 +15623,7 @@ d → "og"
 
 This saves memory and reduces traversal depth.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 The key idea is path compression: whenever a node has a single child, merge them into one edge containing the combined substring.
 
@@ -15635,7 +15635,7 @@ The key idea is path compression: whenever a node has a single child, merge them
 
 Compressed tries store edge labels as substrings rather than single characters.
 
-### Example
+#### Example
 
 Insert `["bear", "bell", "bid", "bull", "buy"]`
 
@@ -15653,7 +15653,7 @@ b
 
 Each edge now carries a substring rather than a single letter.
 
-### Example Step by Step
+#### Example Step by Step
 
 | Step | Insert                      | Action                        | Result       |
 | ---- | --------------------------- | ----------------------------- | ------------ |
@@ -15662,7 +15662,7 @@ Each edge now carries a substring rather than a single letter.
 | 3    | "bid"                       | New branch at "b"             | Add new edge |
 | 4    | Compress single-child paths | Replace edges with substrings |              |
 
-### Tiny Code (Simplified Pseudocode)
+#### Tiny Code (Simplified Pseudocode)
 
 ```python
 class Node:
@@ -15696,14 +15696,14 @@ def insert_trie_compressed(root, word):
 
 This simplified version merges edges whenever possible.
 
-### Why It Matters
+#### Why It Matters
 
 - Saves memory by merging chains
 - Faster search (fewer hops per lookup)
 - Ideal for prefix-based queries
 - Used in routing tables, autocomplete systems, and dictionaries
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Let $n$ be the total length of all keys and $k$ the number of keys.
 
@@ -15718,14 +15718,14 @@ $$
 
 Search and insert remain $O(L)$, where $L$ is key length, but with fewer steps.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Insert `["car", "cat", "cart", "dog"]`
 2. Draw both naive and compressed tries
 3. Count number of nodes before and after compression
 4. Verify edge labels as substrings
 
-### Test Cases
+#### Test Cases
 
 | Keys                     | Naive Trie Nodes | Compressed Trie Nodes |
 | ------------------------ | ---------------- | --------------------- |
@@ -15734,7 +15734,7 @@ Search and insert remain $O(L)$, where $L$ is key length, but with fewer steps.
 | `["abc", "abd", "aef"]`  | 8                | 6                     |
 | `["car", "cart", "cat"]` | 9                | 6                     |
 
-### Complexity
+#### Complexity
 
 | Operation | Time   | Space  | Notes                       |
 | --------- | ------ | ------ | --------------------------- |
@@ -15752,7 +15752,7 @@ A persistent stack is a versioned data structure that remembers all its past sta
 
 This concept is part of functional data structures, where immutability and version history are first-class citizens.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 In traditional stacks, each operation mutates the structure, old versions are lost.
 
@@ -15764,7 +15764,7 @@ Persistent stacks solve this by allowing:
 
 Used in compilers, backtracking systems, and functional programming languages.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A stack is a linked list:
 
@@ -15782,7 +15782,7 @@ For persistence, we never modify nodes, instead, each operation creates a new he
 
 Each version reuses previous nodes, no data copying.
 
-### Example
+#### Example
 
 Start with an empty stack `v0`:
 
@@ -15799,7 +15799,7 @@ v2: 20 → 10
 v3: 10  
 ```
 
-### Tiny Code (Python)
+#### Tiny Code (Python)
 
 ```python
 class Node:
@@ -15835,7 +15835,7 @@ print(v3.peek())  # 10
 
 This approach reuses nodes, creating new versions without mutation.
 
-### Tiny Code (C, Conceptual)
+#### Tiny Code (C, Conceptual)
 
 ```c
 #include <stdio.h>
@@ -15870,13 +15870,13 @@ Stack* pop(Stack* s, int* popped_value) {
 
 Every `push` or `pop` creates a new `Stack*` that points to the previous structure.
 
-### Why It Matters
+#### Why It Matters
 
 - Immutability ensures data safety and concurrency-friendly design
 - Versioning allows backtracking, undo, or branching computations
 - Foundation for functional programming and persistent data stores
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each version of the stack shares unchanged nodes with previous versions.
 Because `push` and `pop` only modify the head reference, older versions remain intact.
@@ -15894,14 +15894,14 @@ $$
 
 and old versions never get overwritten, ensuring persistence.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a persistent stack with values [1, 2, 3]
 2. Pop once, and confirm earlier versions still have their values
 3. Compare with a mutable stack implementation
 4. Visualize the shared linked nodes between versions
 
-### Test Cases
+#### Test Cases
 
 | Operation           | Result           | Notes                    |
 | ------------------- | ---------------- | ------------------------ |
@@ -15910,7 +15910,7 @@ and old versions never get overwritten, ensuring persistence.
 | `v3, val = pop(v2)` | val = 20, `[10]` | old v2 intact            |
 | `v1.peek()`         | `10`             | unaffected by later pops |
 
-### Complexity
+#### Complexity
 
 | Operation          | Time   | Space  | Notes           |
 | ------------------ | ------ | ------ | --------------- |
@@ -15926,7 +15926,7 @@ A persistent array is an immutable, versioned structure that allows access to al
 
 This makes it possible to "time travel", view or restore any earlier version in constant or logarithmic time, without copying the entire array.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 A normal array is mutable, every `arr[i] = x` destroys the old value. If we want history, undo, or branching computation, this is unacceptable.
 
@@ -15940,7 +15940,7 @@ A persistent array keeps all versions:
 
 Each version reuses unmodified parts of the array, avoiding full duplication.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A persistent array can be implemented using copy-on-write or tree-based structures.
 
@@ -15957,7 +15957,7 @@ A persistent array can be implemented using copy-on-write or tree-based structur
 
 So, each version points to a root node. When you modify index $i$, a new path is created down the tree, while untouched subtrees are shared.
 
-### Example
+#### Example
 
 Let's build a persistent array of size 4.
 
@@ -15981,7 +15981,7 @@ v2 = set(v1, 1, 9)  → [0, 9, 5, 0]
 
 `v0`, `v1`, and `v2` all coexist independently.
 
-### Example Step-by-Step (Tree Representation)
+#### Example Step-by-Step (Tree Representation)
 
 Each node covers a range:
 
@@ -15997,7 +15997,7 @@ Root: [0..3]
 
 Updating index 1 copies only the path `[0..3] → [0..1] → [1]`, not the entire tree.
 
-### Tiny Code (Python, Tree-based)
+#### Tiny Code (Python, Tree-based)
 
 ```python
 class Node:
@@ -16039,14 +16039,14 @@ print(query(v1, 0, n-1, 1))  # 0
 
 Each update creates a new version root.
 
-### Why It Matters
+#### Why It Matters
 
 - Time-travel debugging: retrieve old states
 - Undo/redo systems in editors
 - Branching computations in persistent algorithms
 - Functional programming without mutation
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Let $n$ be array size, $u$ number of updates.
 
@@ -16062,7 +16062,7 @@ No version ever invalidates another, all roots remain accessible.
 
 Persistence holds because we never mutate existing nodes, only allocate new ones and reuse subtrees.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build an array of size 8, all zeros.
 2. Create v1 = set index 4 → 7
@@ -16070,7 +16070,7 @@ Persistence holds because we never mutate existing nodes, only allocate new ones
 4. Print values from v0, v1, v2
 5. Confirm that old versions remain unchanged.
 
-### Test Cases
+#### Test Cases
 
 | Operation   | Input       | Output      | Notes       |
 | ----------- | ----------- | ----------- | ----------- |
@@ -16078,7 +16078,7 @@ Persistence holds because we never mutate existing nodes, only allocate new ones
 | set(v0,2,5) |             | `[0,0,5,0]` | new version |
 | set(v1,1,9) |             | `[0,9,5,0]` | v1 reused   |
 
-### Complexity
+#### Complexity
 
 | Operation          | Time        | Space       | Notes          |
 | ------------------ | ----------- | ----------- | -------------- |
@@ -16095,7 +16095,7 @@ A persistent segment tree is a versioned data structure that supports range quer
 
 It's a powerful combination of segment trees and persistence, allowing you to query historical states, perform undo operations, and even compare past and present results efficiently.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 A standard segment tree allows:
 
@@ -16115,7 +16115,7 @@ Now you can query any version:
 - `query(v0, 1, 3)` → old sum
 - `query(v2, 1, 3)` → updated sum
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A segment tree is a binary tree where each node stores an aggregate (sum, min, max) over a segment.
 
@@ -16132,7 +16132,7 @@ So each new version costs $O(\log n)$ nodes and space.
 | 2    | Update(2, 5) | $O(\log n)$ new nodes |
 | 3    | Update(1, 7) | $O(\log n)$ new nodes |
 
-### Example
+#### Example
 
 Let initial array be `[1, 2, 3, 4]`
 
@@ -16148,7 +16148,7 @@ Now:
 
 All versions share most nodes, saving memory.
 
-### Example Step-by-Step
+#### Example Step-by-Step
 
 #### Update v0 → v1 at index 2
 
@@ -16158,7 +16158,7 @@ All versions share most nodes, saving memory.
 
 So v1 differs only along one path.
 
-### Tiny Code (Python)
+#### Tiny Code (Python)
 
 ```python
 class Node:
@@ -16205,14 +16205,14 @@ print(query(v1, 0, 3, 0, 3))  # 12
 print(query(v2, 0, 3, 0, 3))  # 17
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Access any version instantly
 - Enables time-travel queries
 - Supports immutable analytics
 - Used in offline queries, competitive programming, and functional databases
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each update only modifies $O(\log n)$ nodes.
 All other subtrees are shared, so total space:
@@ -16225,7 +16225,7 @@ Querying any version costs $O(\log n)$ since only one path is traversed.
 
 Persistence holds since no nodes are mutated, only replaced.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build `[1, 2, 3, 4]`
 2. Update index 2 → 5 (v1)
@@ -16233,7 +16233,7 @@ Persistence holds since no nodes are mutated, only replaced.
 4. Query sum(1, 4) in v0, v1, v2
 5. Verify shared subtrees via visualization
 
-### Test Cases
+#### Test Cases
 
 | Version | Operation   | Query(0,3) | Notes            |
 | ------- | ----------- | ---------- | ---------------- |
@@ -16241,7 +16241,7 @@ Persistence holds since no nodes are mutated, only replaced.
 | v1      | set(2,5)    | 12         | changed one leaf |
 | v2      | set(1,7)    | 17         | another update   |
 
-### Complexity
+#### Complexity
 
 | Operation      | Time        | Space       | Notes     |
 | -------------- | ----------- | ----------- | --------- |
@@ -16260,7 +16260,7 @@ Each version represents a distinct state of the list, and all versions coexist b
 
 This technique is core to functional programming, undo systems, and immutable data structures.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 A mutable linked list loses its history after every change.
 
@@ -16275,7 +16275,7 @@ With persistence, we preserve all past versions:
 
 Each version is a first-class citizen, you can traverse, query, or compare any version at any time.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Each node in a singly linked list has:
 
@@ -16294,7 +16294,7 @@ All old nodes remain intact and shared.
 | push_front(20) | new head        | tail reused           |
 | pop_front()    | new head (next) | old head still exists |
 
-### Example
+#### Example
 
 #### Step-by-step versioning
 
@@ -16314,7 +16314,7 @@ v3: 10
 
 All coexist and share structure.
 
-### Example (Graph View)
+#### Example (Graph View)
 
 ```
 v0: ∅
@@ -16325,7 +16325,7 @@ v3: 10 → ∅
 
 Notice: `v2.tail` is reused from `v1`.
 
-### Tiny Code (Python)
+#### Tiny Code (Python)
 
 ```python
 class Node:
@@ -16364,7 +16364,7 @@ print(v2.to_list())  # [20, 10]
 print(v3.to_list())  # [10]
 ```
 
-### Tiny Code (C, Conceptual)
+#### Tiny Code (C, Conceptual)
 
 ```c
 #include <stdio.h>
@@ -16397,14 +16397,14 @@ PList pop_front(PList list, int* popped) {
 
 No mutations, only new nodes allocated.
 
-### Why It Matters
+#### Why It Matters
 
 - Immutable, perfect for functional programs
 - Undo / Time-travel, revisit old versions
 - Safe concurrency, no data races
 - Memory-efficient, tail sharing reuses old structure
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Let $n$ be number of operations.
 Each `push_front` or `pop_front` creates at most one new node.
@@ -16424,7 +16424,7 @@ $$
 
 Hence, structure sharing is linear and safe.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Start with empty list
 2. Push 3 → Push 2 → Push 1
@@ -16432,7 +16432,7 @@ Hence, structure sharing is linear and safe.
 4. Print all versions
 5. Observe how tails are shared
 
-### Test Cases
+#### Test Cases
 
 | Operation  | Input | Output   | Version |
 | ---------- | ----- | -------- | ------- |
@@ -16441,7 +16441,7 @@ Hence, structure sharing is linear and safe.
 | pop_front  |,     | [10]     | v3      |
 | to_list    | v1    | [10]     |,       |
 
-### Complexity
+#### Complexity
 
 | Operation  | Time   | Space  | Notes               |
 | ---------- | ------ | ------ | ------------------- |
@@ -16458,7 +16458,7 @@ A finger tree is a versatile, persistent data structure that provides amortized 
 
 It's a functional, immutable sequence structure, a balanced tree augmented with *fingers* (fast access points) to its ends. Finger trees form the foundation for many persistent data types, such as queues, deques, priority sequences, and even rope-like text editors.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Immutable lists are fast at the front but slow at the back. Immutable arrays are the opposite. Deques with persistence are hard to maintain efficiently.
 
@@ -16471,7 +16471,7 @@ We want:
 
 Finger trees achieve this by combining shallow digit buffers at the edges with balanced nodes in the middle.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A finger tree is built recursively:
 
@@ -16504,7 +16504,7 @@ You can:
 
 Each operation returns a new version sharing unchanged subtrees.
 
-### Example State
+#### Example State
 
 | Operation     | Structure                | Notes           |
 | ------------- | ------------------------ | --------------- |
@@ -16516,7 +16516,7 @@ Each operation returns a new version sharing unchanged subtrees.
 
 Each version reuses most of its structure, ensuring persistence.
 
-### Tiny Code (Python – Conceptual)
+#### Tiny Code (Python – Conceptual)
 
 This is a simplified model, not a complete implementation (real finger trees rely on more type-level machinery).
 
@@ -16556,7 +16556,7 @@ def to_list(tree):
 
 This captures the core recursive flavor, constant-time fingers, logarithmic recursion.
 
-### Why It Matters
+#### Why It Matters
 
 - Generic framework for sequences
 - Amortized O(1) insertion/removal at both ends
@@ -16568,7 +16568,7 @@ This captures the core recursive flavor, constant-time fingers, logarithmic recu
   * Ordered sequences (like RRB-trees)
   * Incremental editors
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Digits store up to 4 elements, guaranteeing bounded overhead.
 Each recursive step reduces the size by a constant factor, ensuring depth = $O(\log n)$.
@@ -16586,7 +16586,7 @@ $$
 
 Persistence is ensured because all updates build new nodes without modifying existing ones.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Start with empty tree.
 2. Push 1, 2, 3, 4.
@@ -16594,7 +16594,7 @@ Persistence is ensured because all updates build new nodes without modifying exi
 4. Push 5, inspect sharing between versions.
 5. Convert each version to list, compare results.
 
-### Test Cases
+#### Test Cases
 
 | Operation     | Result    | Notes              |
 | ------------- | --------- | ------------------ |
@@ -16603,7 +16603,7 @@ Persistence is ensured because all updates build new nodes without modifying exi
 | push_back(3)  | [2, 1, 3] | suffix add         |
 | pop_front()   | [1, 3]    | remove from prefix |
 
-### Complexity
+#### Complexity
 
 | Operation       | Time             | Space       | Notes            |
 | --------------- | ---------------- | ----------- | ---------------- |
@@ -16620,7 +16620,7 @@ A zipper is a powerful technique that makes immutable data structures behave lik
 
 Think of it as a cursor in a purely functional world. Every movement or edit yields a new version, while sharing unmodified parts.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Immutable data structures can't be "modified in place." You can't just "move a cursor" or "replace an element" without reconstructing the entire structure.
 
@@ -16631,7 +16631,7 @@ A zipper solves this by maintaining:
 
 You can then move, update, or rebuild efficiently, reusing everything else.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A zipper separates a structure into:
 
@@ -16655,7 +16655,7 @@ Zipper = (ParentContext, FocusNode)
 
 You can think of it like a tape in a Turing machine—everything to the left and right is preserved.
 
-### Example (List Zipper)
+#### Example (List Zipper)
 
 We represent a list `[a, b, c, d]` with a cursor on `c`:
 
@@ -16680,7 +16680,7 @@ All in O(1), returning a new zipper version.
 | `update('X')`          | ([a], X, [c,d])   | replace focus     |
 | `to_list`              | [a,X,c,d]         | rebuild full list |
 
-### Tiny Code (Python – List Zipper)
+#### Tiny Code (Python – List Zipper)
 
 ```python
 class Zipper:
@@ -16717,7 +16717,7 @@ print(z2.to_list())  # ['a', 'b', 'X', 'd']
 
 Each operation returns a new zipper, persistent editing made simple.
 
-### Example (Tree Zipper – Conceptual)
+#### Example (Tree Zipper – Conceptual)
 
 A tree zipper stores the path to the root as context:
 
@@ -16729,14 +16729,14 @@ Each parent in the path remembers which side you came from, so you can rebuild u
 
 For example, editing a leaf `L` creates a new `L'` and rebuilds only the nodes along the path, leaving other subtrees untouched.
 
-### Why It Matters
+#### Why It Matters
 
 - Enables localized updates in immutable structures
 - Used in functional editors, parsers, navigation systems
 - Provides O(1) local movement, O(depth) rebuilds
 - Core concept in Huet's zipper, a foundational idea in functional programming
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each movement or edit affects only the local context:
 
@@ -16756,7 +16756,7 @@ $$
 $$
 ensuring reversibility.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Create a zipper from `[1,2,3,4]`
 2. Move focus to 3
@@ -16764,7 +16764,7 @@ ensuring reversibility.
 4. Rebuild full list
 5. Verify older zipper still has old value
 
-### Test Cases
+#### Test Cases
 
 | Step | Operation              | Result            | Notes       |
 | ---- | ---------------------- | ----------------- | ----------- |
@@ -16773,7 +16773,7 @@ ensuring reversibility.
 | 3    | `update('X')`          | ([a], X, [c,d])   | edit        |
 | 4    | `to_list()`            | [a, X, c, d]      | rebuild     |
 
-### Complexity
+#### Complexity
 
 | Operation          | Time   | Space  | Notes             |
 | ------------------ | ------ | ------ | ----------------- |
@@ -16790,7 +16790,7 @@ A Trie with Versioning is a persistent data structure that stores strings (or se
 
 This enables time-travel queries: you can look up keys as they existed at any point in history.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We want to maintain a versioned dictionary of strings or sequences, supporting:
 
@@ -16807,7 +16807,7 @@ Common use cases:
 - Autocomplete with rollback
 - Persistent tries in functional languages
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Each trie node contains:
 
@@ -16821,7 +16821,7 @@ For persistence:
 
 Thus, version $v_{k+1}$ differs from $v_k$ only along the modified path.
 
-### Tiny Code (Conceptual Python)
+#### Tiny Code (Conceptual Python)
 
 ```python
 class TrieNode:
@@ -16851,7 +16851,7 @@ def search(root, word):
 
 Each call to `insert` returns a new root (new version), sharing all unmodified branches.
 
-### Example
+#### Example
 
 | Version | Operation     | Trie Content            |
 | ------- | ------------- | ----------------------- |
@@ -16862,14 +16862,14 @@ Each call to `insert` returns a new root (new version), sharing all unmodified b
 
 Versions share nodes for prefix `"c"` between all earlier versions.
 
-### Why It Matters
+#### Why It Matters
 
 - Immutable and Safe: No in-place mutation, perfect for functional systems
 - Efficient Rollback: Access any prior version in $O(1)$ time
 - Prefix Sharing: Saves memory through structural reuse
 - Practical for History: Ideal for versioned dictionaries, IDEs, search indices
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each insertion copies one path of length $L$ (word length).
 Total time complexity:
@@ -16890,7 +16890,7 @@ $$
 
 Old versions remain fully usable, as they never mutate.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Insert "cat", "car", "dog" into versioned trie
 2. Delete "car" to form new version
@@ -16907,7 +16907,7 @@ Old versions remain fully usable, as they never mutate.
 | 3    | insert("dog") | v3      | cat, car, dog      | True   |
 | 4    | delete("car") | v4      | car (no), cat, dog | False  |
 
-### Complexity
+#### Complexity
 
 | Operation          | Time   | Space  | Notes                    |
 | ------------------ | ------ | ------ | ------------------------ |
@@ -16927,7 +16927,7 @@ A Persistent Union-Find extends the classical Disjoint Set Union (DSU) structure
 
 This structure is vital for dynamic connectivity problems where the history of unions matters.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Classical DSU supports `find` and `union` efficiently in near-constant time, but only for a single evolving state. Once you merge two sets, the old version is gone.
 
@@ -16937,7 +16937,7 @@ We need a versioned DSU that keeps all previous states intact, supporting:
 - Queries over past connectivity
 - Offline dynamic connectivity analysis
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A Persistent Union-Find uses path copying (similar to persistent arrays) to maintain multiple versions:
 
@@ -16952,7 +16952,7 @@ There are two main designs:
 
 We focus here on *full persistence*.
 
-### Tiny Code (Conceptual Python)
+#### Tiny Code (Conceptual Python)
 
 ```python
 class PersistentDSU:
@@ -16988,7 +16988,7 @@ class PersistentDSU:
 
 Each union returns a new version index. You can query `connected(version, a, b)` at any time.
 
-### Example
+#### Example
 
 | Step | Operation            | Version | Connections            |
 | ---- | -------------------- | ------- | ---------------------- |
@@ -17001,14 +17001,14 @@ Each union returns a new version index. You can query `connected(version, a, b)`
 
 You can check connections at any version.
 
-### Why It Matters
+#### Why It Matters
 
 - Time-travel queries across historical versions
 - Non-destructive updates allow safe rollback
 - Crucial for offline dynamic connectivity, e.g., edge insertions over time
 - Simplifies debugging, simulation, and version tracking
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Let $n$ be the number of elements and $q$ the number of versions.
 
@@ -17027,7 +17027,7 @@ $$
 
 Path compression is often replaced with *partial compression* or omitted to ensure persistence (full path compression breaks immutability).
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Initialize DSU with 5 elements
 2. Perform unions step by step, saving each version
@@ -17035,7 +17035,7 @@ Path compression is often replaced with *partial compression* or omitted to ensu
 4. Undo merges by reverting to older versions
 5. Visualize parent tree evolution
 
-### Test Cases
+#### Test Cases
 
 | Version | Query          | Result |
 | ------- | -------------- | ------ |
@@ -17045,7 +17045,7 @@ Path compression is often replaced with *partial compression* or omitted to ensu
 | v3      | connected(1,3) | True   |
 | v1      | connected(1,3) | False  |
 
-### Complexity
+#### Complexity
 
 | Operation          | Time           | Space       | Notes                  |
 | ------------------ | -------------- | ----------- | ---------------------- |
@@ -17062,7 +17062,7 @@ A Persistent Union-Find is a historical map of connectivity. Each version captur
 
 A Sparse Table is a static data structure for answering idempotent range queries in O(1) time after O(n log n) preprocessing. It is perfect for Range Minimum/Maximum Query (RMQ), GCD, and any operation where combining overlapping answers is valid, such as `min`, `max`, `gcd`, `lcm` (with care), and bitwise `and/or`. It is not suitable for sum or other non-idempotent operations if you require O(1) queries.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Given an array `A[0..n-1]`, we want to answer queries like
 
@@ -17070,7 +17070,7 @@ Given an array `A[0..n-1]`, we want to answer queries like
 - RMaxQ: maximum on interval `[L, R]`
   in O(1) time per query, with no updates.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Precompute answers for all ranges whose lengths are powers of two.
 Let `st[k][i]` store the answer on the interval of length `2^k` starting at `i`, that is `[i, i + 2^k - 1]`.
@@ -17092,7 +17092,7 @@ For idempotent operations like `min` or `max`, we can cover the range with two o
   \text{ans} = \operatorname{op}\big(\text{st}[k][L],\ \text{st}[k][R - 2^k + 1]\big)
   $$
 
-### Example Step by Step
+#### Example Step by Step
 
 Array `A = [7, 2, 3, 0, 5, 10, 3, 12, 18]`, `op = min`.
 
@@ -17121,7 +17121,7 @@ Query example: RMQ on `[3, 8]`
   \min\big(\text{st}[2][3], \text{st}[2][5]\big) = \min(0, 3) = 0
   $$
 
-### Tiny Code (Python, RMQ with min)
+#### Tiny Code (Python, RMQ with min)
 
 ```python
 import math
@@ -17158,14 +17158,14 @@ print(query(st, lg, 0, 2, op=min))  # 2
 
 For `max`, just pass `op=max`. For `gcd`, pass `math.gcd`.
 
-### Why It Matters
+#### Why It Matters
 
 - O(1) query time for static arrays
 - O(n log n) preprocessing with simple transitions
 - Excellent for RMQ style tasks, LCA via RMQ on Euler tours, and many competitive programming problems
 - Cache friendly and implementation simple compared to segment trees when no updates are needed
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 The table stores answers for all intervals of length `2^k`. Any interval `[L, R]` can be covered by two overlapping power of two blocks of equal length `2^k`, where `k = floor(log2(R - L + 1))`.
 For idempotent operations `op`, overlap does not affect correctness, so
@@ -17174,14 +17174,14 @@ $$
 $$
 Both blocks are precomputed, so the query is constant time.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a table for `A = [5, 4, 3, 6, 1, 2]` with `op = min`.
 2. Answer RMQ on `[1, 4]` and `[0, 5]`.
 3. Swap `op` to `max` and recheck.
 4. Use `op = gcd` and verify results on several ranges.
 
-### Test Cases
+#### Test Cases
 
 | Array                  | op  | Query  | Expected |
 | ---------------------- | --- | ------ | -------- |
@@ -17190,7 +17190,7 @@ Both blocks are precomputed, so the query is constant time.
 | [1, 5, 2, 4, 6, 1, 3]  | max | [2, 5] | 6        |
 | [12, 18, 6, 9, 3]      | gcd | [1, 4] | 3        |
 
-### Complexity
+#### Complexity
 
 | Phase      | Time          | Space         |
 | ---------- | ------------- | ------------- |
@@ -17209,13 +17209,13 @@ A Cartesian Tree is a binary tree built from an array such that:
 
 This structure elegantly bridges arrays and binary trees, and plays a key role in algorithms for Range Minimum Query (RMQ), Lowest Common Ancestor (LCA), and sequence decomposition.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We want to represent an array $A[0..n-1]$ as a tree that encodes range relationships. For RMQ, if the tree is a min-heap Cartesian Tree, then the LCA of nodes $i$ and $j$ corresponds to the index of the minimum element in the range $[i, j]$.
 
 Thus, building a Cartesian Tree gives us an elegant path from RMQ to LCA in $O(1)$ after $O(n)$ preprocessing.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A Cartesian Tree is built recursively:
 
@@ -17229,7 +17229,7 @@ A more efficient linear-time construction uses a stack:
 2. Maintain a stack of nodes in increasing order.
 3. For each new element, pop while the top is greater, then attach the new node as the right child of the last popped node or the left child of the current top.
 
-### Example
+#### Example
 
 Let $A = [3, 2, 6, 1, 9]$
 
@@ -17260,7 +17260,7 @@ Tree structure (min-heap):
 In-order traversal: `[3, 2, 6, 1, 9]`
 Heap property: every parent is smaller than its children ✅
 
-### Tiny Code (Python, Min-Heap Cartesian Tree)
+#### Tiny Code (Python, Min-Heap Cartesian Tree)
 
 ```python
 class Node:
@@ -17297,14 +17297,14 @@ root = build_cartesian_tree(A)
 print(inorder(root))  # [3, 2, 6, 1, 9]
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - RMQ in O(1): RMQ becomes LCA in Cartesian Tree (after Euler Tour + Sparse Table).
 - Monotonic Stack Connection: Linear construction mirrors the logic of stack-based range problems (Next Greater Element, Histogram).
 - Divide-and-Conquer Decomposition: Represents array's recursive structure.
 - Efficient Building: Linear time with stack.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each element is pushed and popped at most once, so total operations = $O(n)$.
 Heap property ensures RMQ correctness:
@@ -17318,14 +17318,14 @@ $$
 \text{RMQ}(i, j) = \text{index}( \text{LCA}(i, j) )
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a Cartesian Tree for $A = [4, 5, 2, 3, 1]$ (min-heap).
 2. Verify in-order traversal equals original array.
 3. Mark parents smaller than children.
 4. Identify RMQ(1, 3) from the tree using LCA.
 
-### Test Cases
+#### Test Cases
 
 | Array           | Tree Type | Root | RMQ(1, 3) | Inorder Matches |
 | --------------- | --------- | ---- | --------- | --------------- |
@@ -17334,7 +17334,7 @@ $$
 | [1, 2, 3, 4, 5] | min-heap  | 1    | 2         | ✅               |
 | [2, 7, 5, 9]    | min-heap  | 2    | 5         | ✅               |
 
-### Complexity
+#### Complexity
 
 | Operation      | Time          | Space         | Notes                      |
 | -------------- | ------------- | ------------- | -------------------------- |
@@ -17350,7 +17350,7 @@ Segment Tree Beats is an advanced variant of the classical segment tree that can
 
 It "beats" the limitation of classical lazy propagation by storing extra state (like second minimum, second maximum) to decide when updates can stop early.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Standard segment trees can't efficiently handle complex updates like:
 
@@ -17361,7 +17361,7 @@ Because different elements in a segment may behave differently depending on thei
 
 Segment Tree Beats solves this by maintaining extra constraints in each node so we can "beat" recursion and skip branches early when conditions are met.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Each node stores not just an aggregate but *enough info to know when an operation can be fully applied*.
 
@@ -17380,7 +17380,7 @@ Each node stores:
 
 This lets us decide update logic without touching all elements.
 
-### Example (Range Chmin)
+#### Example (Range Chmin)
 
 Let $A = [4, 7, 6, 3]$
 
@@ -17395,7 +17395,7 @@ Step:
 
 New array: `[4, 5, 5, 3]`
 
-### Tiny Code (Simplified Range Chmin)
+#### Tiny Code (Simplified Range Chmin)
 
 ```python
 class Node:
@@ -17445,14 +17445,14 @@ def update_chmin(node, l, r, ql, qr, x):
 
 This is the essence: skip updates when possible, split when necessary.
 
-### Why It Matters
+#### Why It Matters
 
 - Handles non-linear updates efficiently
 - Preserves logarithmic complexity by reducing unnecessary recursion
 - Used in many competitive programming RMQ-like challenges with range cap operations
 - Generalizes segment tree to "hard" problems (range `min` caps, range `max` caps, conditional sums)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 The trick: by storing max, second max, and count, we can stop descending if the operation affects only elements equal to max.
 At most O(log n) nodes per update because:
@@ -17465,14 +17465,14 @@ $$
 O((n + q) \log n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a Segment Tree Beats for $A = [4, 7, 6, 3]$.
 2. Apply `chmin(0,3,5)` → verify `[4,5,5,3]`.
 3. Apply `chmin(0,3,4)` → verify `[4,4,4,3]`.
 4. Track `sum` after each operation.
 
-### Test Cases
+#### Test Cases
 
 | Array      | Operation    | Result    |
 | ---------- | ------------ | --------- |
@@ -17481,7 +17481,7 @@ $$
 | [1,10,5,2] | chmin(0,3,6) | [1,6,5,2] |
 | [5,5,5]    | chmin(0,2,4) | [4,4,4]   |
 
-### Complexity
+#### Complexity
 
 | Operation   | Time (Amortized) | Space  | Notes                       |
 | ----------- | ---------------- | ------ | --------------------------- |
@@ -17497,7 +17497,7 @@ A Merge Sort Tree is a segment tree where each node stores a sorted list of the 
 
 It's called "Merge Sort Tree" because it is built exactly like merge sort: divide, conquer, and merge sorted halves.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Classical segment trees handle sum, min, or max, but not *value-based* queries. Merge Sort Trees enable operations like:
 
@@ -17507,7 +17507,7 @@ Classical segment trees handle sum, min, or max, but not *value-based* queries. 
 
 These problems often arise in range frequency queries, inversions counting, and offline queries.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Each node of the tree covers a segment `[l, r]` of the array. Instead of storing a single number, it stores a sorted list of all elements in that segment.
 
@@ -17523,7 +17523,7 @@ To count numbers $\le x$ in range `[L, R]`:
 - Visit all segment tree nodes that fully or partially overlap `[L, R]`.
 - In each node, binary search for position of `x` in the node's sorted list.
 
-### Example
+#### Example
 
 Let $A = [2, 5, 1, 4, 3]$
 
@@ -17560,7 +17560,7 @@ We query nodes that cover `[1,4]`: `[1,1]`, `[2,3]`, `[4,4]`.
 
 Total = 2 elements ≤ 3.
 
-### Tiny Code (Python, Count ≤ x)
+#### Tiny Code (Python, Count ≤ x)
 
 ```python
 import bisect
@@ -17595,13 +17595,13 @@ mst = MergeSortTree(A)
 print(mst.query_leq(1, 0, 4, 1, 4, 3))  # count ≤ 3 in [1,4] = 2
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Enables order-based queries (≤, ≥, count, rank)
 - Useful for offline range counting, kth-smallest, and inversion queries
 - Combines divide-and-conquer sorting with range decomposition
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each level of the tree merges sorted lists from children.
 
@@ -17618,14 +17618,14 @@ $$
 O(\log^2 n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build tree for $A = [5, 1, 4, 2, 3]$.
 2. Query count ≤ 3 in `[0, 4]`.
 3. Query count ≤ 2 in `[1, 3]`.
 4. Implement query for "count between $[a,b]$" using two `query_leq` calls.
 
-### Test Cases
+#### Test Cases
 
 | Array       | Query     | Condition | Answer |
 | ----------- | --------- | --------- | ------ |
@@ -17634,7 +17634,7 @@ $$
 | [1,2,3,4,5] | [2,4], ≤4 | count     | 3      |
 | [5,4,3,2,1] | [0,4], ≤3 | count     | 3      |
 
-### Complexity
+#### Complexity
 
 | Operation           | Time          | Space         |
 | ------------------- | ------------- | ------------- |
@@ -17648,7 +17648,7 @@ Merge Sort Trees elegantly bridge sorting and segmentation, empowering range que
 
 A Wavelet Tree is a compact, indexable structure over a sequence that supports rank, select, and range queries by value in O(log \sigma) time with O(n log \sigma) space, where (\sigma) is the alphabet size. Think of it as a value-aware segment tree built on bitvectors that let you jump between levels using rank counts.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Given an array $A[1..n]$ over values in $[1..\sigma]$, define the following queries:
 
@@ -17658,7 +17658,7 @@ Given an array $A[1..n]$ over values in $[1..\sigma]$, define the following quer
 - $\text{range\_count}(l, r, a, b)$: number of values in $A[l..r]$ that lie in $[a, b]$
 
 
-### How It Works
+#### How It Works
 
 1. Value partitioning by halves  
    Recursively partition the value domain $[v_{\min}, v_{\max}]$ into two halves at midpoint $m$.
@@ -17685,7 +17685,7 @@ Given an array $A[1..n]$ over values in $[1..\sigma]$, define the following quer
 Height is $O(\log \sigma)$. Each step uses $O(1)$ bitvector rank operations.
 
 
-### Example
+#### Example
 
 Array: $A = [3, 1, 4, 1, 5, 9, 2, 6]$, values in $[1..9]$
 
@@ -17777,7 +17777,7 @@ Height is $O(\log \sigma)$, each descent step uses $O(1)$ rank operations on the
    - Disjoint: add 0
 
 
-### Tiny Code Sketch in Python
+#### Tiny Code Sketch in Python
 
 This sketch shows the structure and kth query. A production version needs succinct rank structures for (B) to guarantee (O(1)) ranks.
 
@@ -17836,13 +17836,13 @@ wt = WaveletTree(A)
 print(wt.kth(1, 8, 3))  # 3rd smallest in the whole array
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Combines value partitioning with positional stability, enabling order statistics on subranges
 - Underpins succinct indexes, FM indexes, rank select dictionaries, and fast offline range queries
 - Efficient when (\sigma) is moderate or compressible
 
-### A Gentle Proof of Bounds
+#### A Gentle Proof of Bounds
 
 The tree has height $O(\log \sigma)$ since each level halves the value domain. Each query descends one level and performs $O(1)$ rank operations on a bitvector. Therefore
 $$
@@ -17854,7 +17854,7 @@ S = O(n \log \sigma)
 $$
 With compressed bitvectors supporting constant time rank and select, these bounds hold in practice.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a wavelet tree for $A = [2, 7, 1, 8, 2, 8, 1]$.
 2. Compute $\text{kth}(2, 6, 2)$.
@@ -17862,7 +17862,7 @@ With compressed bitvectors supporting constant time rank and select, these bound
 4. Compare against a naive sort on $A[l..r]$.
 
 
-### Test Cases
+#### Test Cases
 
 | Array             | Query                | Answer |
 | ----------------- | -------------------- | ------ |
@@ -17871,7 +17871,7 @@ With compressed bitvectors supporting constant time rank and select, these bound
 | [1,1,1,1,1]       | rank(1,5)            | 5      |
 | [5,4,3,2,1]       | kth(2,5,2)           | 3      |
 
-### Complexity
+#### Complexity
 
 | Operation        | Time                | Space               |
 | ---------------- | ------------------- | ------------------- |
@@ -17886,7 +17886,7 @@ Wavelet trees are a sharp tool for order aware range queries. By weaving bitvect
 
 A KD-Tree (k-dimensional tree) is a binary space partitioning data structure for organizing points in a k-dimensional space. It enables fast range searches, nearest neighbor queries, and spatial indexing, often used in geometry, graphics, and machine learning (like k-NN).
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We need to store and query $n$ points in $k$-dimensional space such that:
 
@@ -17898,7 +17898,7 @@ A naive search checks all $n$ points, which takes $O(n)$ time.
 A KD-Tree reduces this to $O(\log n)$ expected query time for balanced trees.
 
 
-### How It Works
+#### How It Works
 
 #### 1. Recursive Partitioning by Dimension
 
@@ -17922,7 +17922,7 @@ To find nearest neighbor of query $q$:
 
 This ensures pruning of subtrees that cannot contain closer points.
 
-### Example
+#### Example
 
 Suppose 2D points:
 $$
@@ -17940,7 +17940,7 @@ Step 2:
 
 This creates alternating partitions by x and y, forming axis-aligned rectangles.
 
-### Tiny Code (Python)
+#### Tiny Code (Python)
 
 ```python
 class Node:
@@ -17980,13 +17980,13 @@ For each visited node:
 | 2    | (5,4)        | y    | (5,4), 2.8   | 2.0               | Left        |
 | 3    | (2,3)        | x    | (5,4), 2.8   | 3.0               | Stop        |
 
-### Why It Matters
+#### Why It Matters
 
 - Efficient spatial querying in multidimensional data.
 - Common in k-NN classification, computer graphics, and robotics pathfinding.
 - Basis for libraries like `scipy.spatial.KDTree`.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each level splits points into halves, forming $O(\log n)$ height.
 Each query visits a bounded number of nodes (dependent on dimension).
@@ -18002,13 +18002,13 @@ $$
 T_{\text{build}} = O(n \log n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build KD-Tree for 2D points ([(2,3),(5,4),(9,6),(4,7),(8,1),(7,2)]).
 2. Query nearest neighbor of (q = (9,2)).
 3. Trace visited nodes, prune subtrees when possible.
 
-### Test Cases
+#### Test Cases
 
 | Points                                | Query | Nearest | Expected Path       |
 | ------------------------------------- | ----- | ------- | ------------------- |
@@ -18016,7 +18016,7 @@ $$
 | [(1,1),(2,2),(3,3)]                   | (2,3) | (2,2)   | Root → Right        |
 | [(0,0),(10,10)]                       | (5,5) | (10,10) | Root → Right        |
 
-### Complexity
+#### Complexity
 
 | Operation        | Time                      | Space        |
 | ---------------- | ------------------------- | ------------ |
@@ -18031,7 +18031,7 @@ KD-Trees blend geometry with binary search, cutting space by dimensions to answe
 
 A Range Tree is a multi-level search structure for answering orthogonal range queries in multidimensional space, such as finding all points inside an axis-aligned rectangle. It extends 1D balanced search trees to higher dimensions using recursive trees on projections.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Given a set of $n$ points in $k$-dimensional space, we want to efficiently answer queries like:
 
@@ -18039,7 +18039,7 @@ Given a set of $n$ points in $k$-dimensional space, we want to efficiently answe
 
 A naive scan is $O(n)$ per query. Range Trees reduce this to $O(\log^k n + m)$, where $m$ is the number of reported points.
 
-### How It Works
+#### How It Works
 
 #### 1. 1D Case (Baseline)
 
@@ -18058,7 +18058,7 @@ Each level recursively maintains sorted views along other axes.
 2. For nodes fully in $[x_1, x_2]$, query their associated $y$-tree for $[y_1, y_2]$.
 3. Combine results.
 
-### Example
+#### Example
 
 Given points:
 
@@ -18079,7 +18079,7 @@ Search path:
 
 Returned points: $(5,1), (7,2), (4,7)$ → filter $y \le 5$ → $(5,1),(7,2)$.
 
-### Tiny Code (Python-like Pseudocode)
+#### Tiny Code (Python-like Pseudocode)
 
 ```python
 class RangeTree:
@@ -18110,7 +18110,7 @@ Query recursively:
 | 3    | Right (7,2),(8,5) | x    | $x \le 7$       | Visit (7,2) subtree |
 | 4    | Filter by $y$     | y    | $1 \le y \le 5$ | Keep (5,1),(7,2)    |
 
-### Why It Matters
+#### Why It Matters
 
 Range Trees provide deterministic performance for multidimensional queries, unlike kd-trees (which may degrade). They're ideal for:
 
@@ -18120,7 +18120,7 @@ Range Trees provide deterministic performance for multidimensional queries, unli
 
 They are static structures, suited when data doesn't change often.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each dimension adds a logarithmic factor.
 In 2D, build time:
@@ -18137,14 +18137,14 @@ $$
 
 Space is $O(n \log n)$ due to secondary trees.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a 2D Range Tree for
    $P = {(1,2),(2,3),(3,4),(4,5),(5,6)}$
 2. Query rectangle $[2,4] \times [3,5]$.
 3. Trace visited nodes and verify output.
 
-### Test Cases
+#### Test Cases
 
 | Points                           | Query Rectangle | Result            |
 | -------------------------------- | --------------- | ----------------- |
@@ -18152,7 +18152,7 @@ Space is $O(n \log n)$ due to secondary trees.
 | [(1,2),(2,4),(3,6),(4,8),(5,10)] | [2,4] × [4,8]   | (2,4),(3,6),(4,8) |
 | [(1,1),(2,2),(3,3)]              | [1,2] × [1,3]   | (1,1),(2,2)       |
 
-### Complexity
+#### Complexity
 
 | Operation  | Time               | Space         |
 | ---------- | ------------------ | ------------- |
@@ -18166,7 +18166,7 @@ Range Trees are precise geometric indexes: each axis divides the space, and nest
 
 A 2D Fenwick Tree (also known as 2D Binary Indexed Tree) extends the 1D Fenwick Tree to handle range queries and point updates on 2D grids such as matrices. It efficiently computes prefix sums and supports dynamic updates in $O(\log^2 n)$ time.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 Given an $n \times m$ matrix $A$, we want to support two operations efficiently:
 
@@ -18175,7 +18175,7 @@ Given an $n \times m$ matrix $A$, we want to support two operations efficiently:
 
 A naive approach takes $O(nm)$ per query. The 2D Fenwick Tree reduces both update and query to $O(\log n \cdot \log m)$.
 
-### How It Works
+#### How It Works
 
 Each node $(i, j)$ in the tree stores the sum of a submatrix region determined by the binary representation of its indices:
 
@@ -18215,7 +18215,7 @@ $$
 S = Q(x_2, y_2) - Q(x_1-1, y_2) - Q(x_2, y_1-1) + Q(x_1-1, y_1-1)
 $$
 
-### Example
+#### Example
 
 Given a $4 \times 4$ matrix:
 
@@ -18247,7 +18247,7 @@ Suppose we add $v = 5$ at $(2, 3)$:
 | 4    | $(4,4)$          | +5          | Both indices propagate upward |
 
 
-### Tiny Code (Python-like Pseudocode)
+#### Tiny Code (Python-like Pseudocode)
 
 ```python
 class Fenwick2D:
@@ -18280,7 +18280,7 @@ class Fenwick2D:
                 - self.query(x2, y1-1) + self.query(x1-1, y1-1))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 2D Fenwick Trees are lightweight, dynamic structures for prefix sums and submatrix queries. They're widely used in:
 
@@ -18290,7 +18290,7 @@ class Fenwick2D:
 
 They trade slightly higher code complexity for excellent update-query efficiency.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each update/query operation performs $\log n$ steps on $x$ and $\log m$ on $y$:
 
@@ -18300,14 +18300,14 @@ $$
 
 Each level adds contributions from subregions determined by LSB decomposition, ensuring every cell contributes exactly once to the query sum.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Initialize $4 \times 4$ Fenwick 2D.
 2. Add $5$ to $(2,3)$.
 3. Query sum $(1,1)$ to $(2,3)$.
 4. Verify it matches manual computation.
 
-### Test Cases
+#### Test Cases
 
 | Matrix (Partial)              | Update    | Query Rectangle | Result |
 | ----------------------------- | --------- | --------------- | ------ |
@@ -18315,7 +18315,7 @@ Each level adds contributions from subregions determined by LSB decomposition, e
 | $[ [1,1,1],[1,1,1],[1,1,1] ]$ | $(3,3)+2$ | $[2,2]$–$[3,3]$ | 5      |
 | $[ [4,0],[0,4] ]$             |,         | $[1,1]$–$[2,2]$ | 8      |
 
-### Complexity
+#### Complexity
 
 | Operation | Time                     | Space   |
 | --------- | ------------------------ | ------- |
@@ -18328,7 +18328,7 @@ The 2D Fenwick Tree is an elegant bridge between prefix sums and spatial queries
 
 A Treap Split/Merge algorithm allows you to divide and combine treaps (randomized balanced binary search trees) efficiently, using priority-based rotations and key-based ordering. This is the foundation for range operations like splits, merges, range updates, and segment queries on implicit treaps.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We often need to:
 
@@ -18341,7 +18341,7 @@ We often need to:
 
 These operations enable efficient range queries, persistent edits, and order-statistics while maintaining balanced height.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 Treaps combine two properties:
 
@@ -18368,7 +18368,7 @@ Merge $T_1$ and $T_2$:
 
 Return new root.
 
-### Example
+#### Example
 
 Suppose we have treap with keys:
 $$ [1, 2, 3, 4, 5, 6, 7] $$
@@ -18390,7 +18390,7 @@ Now, merge them back restores original order.
 
 Result: left = $[1,2,3,4]$, right = $[5,6,7]$
 
-### Tiny Code (Python-like Pseudocode)
+#### Tiny Code (Python-like Pseudocode)
 
 ```python
 import random
@@ -18425,7 +18425,7 @@ def merge(t1, t2):
         return t2
 ```
 
-### Why It Matters
+#### Why It Matters
 
 Treap split/merge unlocks flexible sequence manipulation and range-based operations:
 
@@ -18436,7 +18436,7 @@ Treap split/merge unlocks flexible sequence manipulation and range-based operati
 
 It's a key building block in functional and competitive programming data structures.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each split or merge operation traverses down the height of the treap. Since treaps are expected balanced, height is $O(\log n)$.
 
@@ -18447,14 +18447,14 @@ Each split or merge operation traverses down the height of the treap. Since trea
 
 Thus, both return valid treaps.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build treap with keys $[1..7]$.
 2. Split by $k=4$.
 3. Print inorder traversals of both sub-treaps.
 4. Merge back. Confirm structure matches original.
 
-### Test Cases
+#### Test Cases
 
 | Input Keys      | Split Key | Left Treap Keys | Right Treap Keys |
 | --------------- | --------- | --------------- | ---------------- |
@@ -18462,7 +18462,7 @@ Thus, both return valid treaps.
 | [10,20,30,40]   | 25        | [10,20]         | [30,40]          |
 | [5,10,15,20]    | 5         | [5]             | [10,15,20]       |
 
-### Complexity
+#### Complexity
 
 | Operation | Time        | Space  |
 | --------- | ----------- | ------ |
@@ -18475,7 +18475,7 @@ Treap Split/Merge is the elegant heart of many dynamic set and sequence structur
 
 Mo's Algorithm on Tree is an extension of the classical Mo's algorithm used on arrays. It allows efficient processing of offline queries on trees, especially those involving subtrees or paths, by converting them into a linear order (Euler tour) and then applying a square root decomposition strategy.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 When you need to answer multiple queries like:
 
@@ -18485,7 +18485,7 @@ When you need to answer multiple queries like:
 A naive approach may require $O(n)$ traversal per query, leading to $O(nq)$ total complexity.
 Mo's algorithm on trees reduces this to approximately $O((n + q)\sqrt{n})$, by reusing results from nearby queries.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 1. Euler Tour Flattening
    Transform the tree into a linear array using an Euler tour. Each node's first appearance marks its position in the linearized sequence.
@@ -18504,7 +18504,7 @@ Mo's algorithm on trees reduces this to approximately $O((n + q)\sqrt{n})$, by r
 4. Add/Remove Function
    Maintain a frequency map or running result as the window moves.
 
-### Example
+#### Example
 
 Given a tree:
 
@@ -18533,7 +18533,7 @@ Mo's algorithm processes ranges efficiently in sorted order.
 
 Each query is answered by incremental adjustment, not recomputation.
 
-### Tiny Code (Python-like Pseudocode)
+#### Tiny Code (Python-like Pseudocode)
 
 ```python
 import math
@@ -18591,14 +18591,14 @@ def mo_on_tree(n, queries, order, value):
     return answer
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Converts tree queries into range queries efficiently
 - Reuses computation by sliding window technique
 - Useful for frequency, sum, or distinct count queries
 - Supports subtree queries, path queries (with LCA handling), and color-based queries
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 1. Euler Tour guarantees every subtree is a contiguous range.
 2. Mo's algorithm ensures total number of add/remove operations is $O((n + q)\sqrt{n})$.
@@ -18606,7 +18606,7 @@ def mo_on_tree(n, queries, order, value):
 
 Thus, offline complexity is sublinear per query.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build Euler tour for tree of 7 nodes.
 2. Write subtree queries for nodes $2,3,4$.
@@ -18614,7 +18614,7 @@ Thus, offline complexity is sublinear per query.
 4. Implement add/remove logic to count distinct colors or sums.
 5. Compare performance with naive DFS per query.
 
-### Test Cases
+#### Test Cases
 
 | Nodes               | Query      | Expected Result             |
 | ------------------- | ---------- | --------------------------- |
@@ -18622,7 +18622,7 @@ Thus, offline complexity is sublinear per query.
 | [1: {2,3}, 2:{4,5}] | Subtree(1) | All nodes                   |
 | [1-2,1-3]           | Path(2,3)  | LCA=1 handled separately    |
 
-### Complexity
+#### Complexity
 
 | Operation             | Time                 | Space  |
 | --------------------- | -------------------- | ------ |

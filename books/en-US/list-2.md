@@ -1,12 +1,12 @@
 # Chapter 2. Sorting and searching 
 
-## 11. Elementary sorting 
+## Section 11. Elementary sorting 
 
 ### 101 Bubble Sort
 
 Bubble Sort is like washing dishes one by one, you keep moving the biggest plate to the bottom until everything is clean and sorted. It is simple, visual, and perfect for building your sorting intuition before diving into more advanced methods.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving?
 
 We want to arrange a list of elements in order (ascending or descending) by repeatedly comparing and swapping adjacent items that are out of order.
 
@@ -23,7 +23,7 @@ Each pass bubbles up the largest remaining element to its final position.
 | 2    | [3, 1, 4, 5] | 4 bubbled to position 3 |
 | 3    | [1, 3, 4, 5] | Array fully sorted      |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine bubbles rising to the surface, the biggest one reaches the top first. In Bubble Sort, each sweep through the list compares neighboring pairs, swapping them if they are in the wrong order. After each full pass, one more element settles into place.
 
@@ -38,9 +38,9 @@ We repeat until a pass finishes with no swaps, meaning the array is sorted.
 | 3    | Continue through A[n-2]    | Repeat comparisons   |
 | 4    | Repeat passes until sorted | Early stop if sorted |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -71,7 +71,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def bubble_sort(a):
@@ -90,14 +90,14 @@ bubble_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Teaches comparison-based sorting through intuition
 - Builds understanding of adjacent swaps and pass-based progress
 - Introduces stability (equal elements keep their relative order)
 - Sets the stage for improved versions (Improved Bubble Sort, Cocktail Shaker Sort, Comb Sort)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 After the first pass, the largest element moves to the last position.
 After the second pass, the second largest is in position n-2.
@@ -122,7 +122,7 @@ Total comparisons = (n−1) + (n−2) + ... + 1 = n(n−1)/2
 So time = O(n²) in the worst case.
 If already sorted, early exit makes it O(n).
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                                  |
 | ---- | -------------------------------------------- |
@@ -132,7 +132,7 @@ If already sorted, early exit makes it O(n).
 | 4    | Compare with Insertion Sort on the same data |
 | 5    | Modify to sort descending                    |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Passes | Swaps |
 | --------------- | --------------- | ------ | ----- |
@@ -140,7 +140,7 @@ If already sorted, early exit makes it O(n).
 | [1, 2, 3]       | [1, 2, 3]       | 1      | 0     |
 | [5, 1, 4, 2, 8] | [1, 2, 4, 5, 8] | 4      | 5     |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value                       |
 | ------------ | --------------------------- |
@@ -156,7 +156,7 @@ Bubble Sort is your first step into the sorting world, simple enough to code by 
 
 Improved Bubble Sort builds on the basic version by recognizing that once part of the array is sorted, there's no need to revisit it. It introduces small optimizations like early termination and tracking the last swap position to reduce unnecessary comparisons.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Basic Bubble Sort keeps scanning the whole array every pass, even when the tail is already sorted.
 Improved Bubble Sort fixes this by remembering where the last swap happened. Elements beyond that index are already in place, so the next pass can stop earlier.
@@ -173,7 +173,7 @@ This optimization is especially effective for arrays that are nearly sorted.
 | 3    | [1, 2, 3, 4, 5] | 1               | 0 to 1        |
 | 4    | [1, 2, 3, 4, 5] | 0               | Stop early    |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 We improve efficiency by narrowing each pass to only the unsorted part.
 We also stop early when no swaps occur, signaling the array is already sorted.
@@ -186,9 +186,9 @@ Step by step:
 
 This reduces unnecessary comparisons in nearly sorted arrays.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -218,7 +218,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def improved_bubble_sort(a):
@@ -236,14 +236,14 @@ improved_bubble_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Reduces redundant comparisons
 - Automatically adapts to partially sorted data
 - Stops as soon as the array is sorted
 - Retains stability and simplicity
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 If the last swap occurs at index `k`, all elements after `k` are already in order.
 Next pass only needs to scan up to `k`.
@@ -258,7 +258,7 @@ If no swaps occur (`k = 0`), the array is sorted.
 In the best case (already sorted), only one pass occurs: O(n)
 Worst case remains O(n²)
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                                         |
 | ---- | --------------------------------------------------- |
@@ -268,7 +268,7 @@ Worst case remains O(n²)
 | 4    | Compare with standard Bubble Sort pass count        |
 | 5    | Try arrays with repeated values to verify stability |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Passes | Improvement            |
 | --------------- | --------------- | ------ | ---------------------- |
@@ -276,7 +276,7 @@ Worst case remains O(n²)
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | 4      | Fewer checks each pass |
 | [2, 1, 3, 4, 5] | [1, 2, 3, 4, 5] | 1      | Detects sorted tail    |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value |
 | ------------ | ----- |
@@ -292,7 +292,7 @@ Improved Bubble Sort shows how a small observation can make a classic algorithm 
 
 Cocktail Shaker Sort, also known as Bidirectional Bubble Sort, improves on Bubble Sort by sorting in both directions during each pass. It moves the largest element to the end and the smallest to the beginning, reducing the number of passes required.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard Bubble Sort only bubbles up in one direction, pushing the largest element to the end each pass.
 If small elements start near the end, they take many passes to reach their position.
@@ -311,7 +311,7 @@ Cocktail Shaker Sort fixes this by sweeping back and forth, bubbling both ends a
 
 Sorted after 4 directional passes.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Cocktail Shaker Sort is like stirring from both sides of the array.
 Each forward pass moves the largest unsorted element to the end.
@@ -327,9 +327,9 @@ The unsorted region shrinks from both ends with each full cycle.
 | 2    | Sweep right to left, bubble smallest to start |        |
 | 3    | Narrow bounds, repeat until sorted            |        |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -377,7 +377,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def cocktail_shaker_sort(a):
@@ -406,14 +406,14 @@ cocktail_shaker_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Sorts in both directions, reducing unnecessary passes
 - Performs better than Bubble Sort on many practical inputs
 - Stable and easy to visualize
 - Demonstrates bidirectional improvement, a foundation for adaptive sorting
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each forward pass moves the maximum element of the unsorted range to the end.
 Each backward pass moves the minimum element of the unsorted range to the start.
@@ -427,7 +427,7 @@ Thus, the unsorted range shrinks from both sides, guaranteeing progress each cyc
 
 Worst case still O(n²), best case O(n) if already sorted.
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                                            |
 | ---- | ------------------------------------------------------ |
@@ -437,7 +437,7 @@ Worst case still O(n²), best case O(n) if already sorted.
 | 4    | Modify code to print array after each pass             |
 | 5    | Test stability with duplicate values                   |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Passes | Notes                         |
 | --------------- | --------------- | ------ | ----------------------------- |
@@ -445,7 +445,7 @@ Worst case still O(n²), best case O(n) if already sorted.
 | [1, 2, 3, 4, 5] | [1, 2, 3, 4, 5] | 1      | Early termination             |
 | [2, 1, 3, 5, 4] | [1, 2, 3, 4, 5] | 2      | Moves smallest quickly        |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value |
 | ------------ | ----- |
@@ -461,7 +461,7 @@ Cocktail Shaker Sort takes the simplicity of Bubble Sort and doubles its efficie
 
 Selection Sort is like organizing a deck of cards by repeatedly picking the smallest card and placing it in order. It is simple, predictable, and useful for understanding how selection-based sorting works.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want to sort an array by repeatedly selecting the smallest (or largest) element from the unsorted part and swapping it into the correct position.
 
@@ -481,7 +481,7 @@ Selection Sort separates the array into two parts:
 | 4    | [1, 2, 3, 4, 5] | Place 4 at index 3 | [1,2,3,4]   | [5]           |
 | 5    | [1, 2, 3, 4, 5] | Done               | [1,2,3,4,5] | []            |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Selection Sort looks through the unsorted portion, finds the smallest element, and moves it to the front. It does not care about intermediate order until each selection is done.
 
@@ -495,9 +495,9 @@ Each pass fixes one position permanently.
 | 2    | Repeat for next unsorted index | Grow sorted prefix |
 | 3    | Stop when entire array sorted  |                    |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -525,7 +525,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def selection_sort(a):
@@ -542,14 +542,14 @@ selection_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Simple, deterministic sorting algorithm
 - Demonstrates selection rather than swapping neighbors
 - Good for small lists and teaching purposes
 - Useful when minimizing number of swaps matters
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 At each iteration, the smallest remaining element is placed at its correct position.
 Once placed, it never moves again.
@@ -566,7 +566,7 @@ Each selection requires scanning the unsorted part: O(n) comparisons.
 
 Total comparisons = n(n−1)/2 = O(n²)
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                                         |
 | ---- | --------------------------------------------------- |
@@ -576,7 +576,7 @@ Total comparisons = n(n−1)/2 = O(n²)
 | 4    | Add print statements to see progress                |
 | 5    | Compare with Bubble Sort efficiency                 |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Passes | Swaps |
 | --------------- | --------------- | ------ | ----- |
@@ -584,7 +584,7 @@ Total comparisons = n(n−1)/2 = O(n²)
 | [1, 2, 3]       | [1, 2, 3]       | 2      | 0     |
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | 4      | 4     |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value                     |
 | ------------ | ------------------------- |
@@ -600,7 +600,7 @@ Selection Sort is a calm, methodical sorter. It does not adapt, but it does not 
 
 Double Selection Sort is a refined version of Selection Sort. Instead of finding just the smallest element each pass, it finds both the smallest and the largest, placing them at the beginning and end simultaneously. This halves the number of passes needed.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard Selection Sort finds one element per pass.
 Double Selection Sort improves efficiency by selecting two elements per pass, one from each end, reducing total iterations by about half.
@@ -617,7 +617,7 @@ It is useful when both extremes can be found in a single scan, improving constan
 
 Sorted in 3 passes instead of 5.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Double Selection Sort narrows the unsorted range from both sides.
 Each pass:
@@ -636,9 +636,9 @@ Then it shrinks the bounds and repeats.
 | 2    | Shrink unsorted range                 | Repeat search                     |
 | 3    | Stop when range collapses             | Array sorted                      |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -681,7 +681,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def double_selection_sort(a):
@@ -707,14 +707,14 @@ double_selection_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Improves Selection Sort by reducing passes
 - Selects two extremes in one scan
 - Fewer total swaps and comparisons
 - Demonstrates bidirectional selection
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each pass moves two elements to their correct final positions.
 Thus, after k passes, the first k and last k positions are sorted.
@@ -728,7 +728,7 @@ The unsorted range shrinks by 2 each pass.
 
 Total passes = n/2, each O(n) scan ⇒ O(n²) overall.
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                      |
 | ---- | -------------------------------- |
@@ -738,7 +738,7 @@ Total passes = n/2, each O(n) scan ⇒ O(n²) overall.
 | 4    | Compare to Selection Sort passes |
 | 5    | Modify for descending order      |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Passes | Swaps |
 | --------------- | --------------- | ------ | ----- |
@@ -746,7 +746,7 @@ Total passes = n/2, each O(n) scan ⇒ O(n²) overall.
 | [1, 2, 3, 4, 5] | [1, 2, 3, 4, 5] | 2      | 0     |
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | 3      | 6     |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value |
 | ------------ | ----- |
@@ -762,7 +762,7 @@ Double Selection Sort keeps Selection Sort's simplicity but doubles its reach. B
 
 Insertion Sort builds the sorted array one element at a time, like sorting playing cards in your hand. It takes each new element and inserts it into the correct position among those already sorted.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want a simple, stable way to sort elements by inserting each into place within the growing sorted section.
 This works especially well for small arrays or nearly sorted data.
@@ -782,7 +782,7 @@ Insertion Sort splits the array into two parts:
 | 3    | [1, 3, 4, 5, 2] | 1                | Insert 1 at front               | [1, 3, 4, 5]    |
 | 4    | [1, 2, 3, 4, 5] | 2                | Insert 2 after 1                | [1, 2, 3, 4, 5] |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine picking cards one by one and placing each into the correct spot among those already held.
 Insertion Sort repeats this logic for arrays:
@@ -801,9 +801,9 @@ Insertion Sort repeats this logic for arrays:
 | 3    | Shift larger elements right               |        |
 | 4    | Insert element in correct position        |        |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -829,7 +829,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def insertion_sort(a):
@@ -846,14 +846,14 @@ insertion_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Simple, intuitive, and stable
 - Works well for small or nearly sorted arrays
 - Commonly used as a subroutine in advanced algorithms (like Timsort)
 - Demonstrates concept of incremental insertion
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 At step `i`, the first `i` elements are sorted.
 Inserting element `a[i]` keeps the prefix sorted.
@@ -870,7 +870,7 @@ Total ≈ (n²)/2 operations in the worst case.
 
 If already sorted, only one comparison per element → O(n).
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                                 |
 | ---- | ------------------------------------------- |
@@ -880,7 +880,7 @@ If already sorted, only one comparison per element → O(n).
 | 4    | Compare runtime with Bubble Sort            |
 | 5    | Insert print statements to trace insertions |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Passes | Swaps/Shifts |
 | --------------- | --------------- | ------ | ------------ |
@@ -888,7 +888,7 @@ If already sorted, only one comparison per element → O(n).
 | [1, 2, 3]       | [1, 2, 3]       | 2      | 0            |
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | 4      | 8            |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value |
 | ------------ | ----- |
@@ -904,7 +904,7 @@ Insertion Sort captures the logic of careful, incremental organization. It is sl
 
 Binary Insertion Sort improves on traditional Insertion Sort by using binary search to find the correct insertion point instead of linear scanning. This reduces the number of comparisons from linear to logarithmic per insertion, while keeping the same stable, adaptive behavior.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard Insertion Sort searches linearly through the sorted part to find where to insert the new element.
 If the sorted prefix is long, this costs O(n) comparisons per element.
@@ -922,7 +922,7 @@ This makes it a good choice when comparisons are expensive but shifting is cheap
 | 2    | [3, 4, 5]      | 1                 | 0                               | [1, 3, 4, 5, 2] |
 | 3    | [1, 3, 4, 5]   | 2                 | 1                               | [1, 2, 3, 4, 5] |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Just like Insertion Sort, we build a sorted prefix one element at a time.
 But instead of scanning backwards linearly, we use binary search to locate the correct position to insert the next element.
@@ -938,9 +938,9 @@ We still need to shift larger elements to the right, but we now know exactly whe
 | 3    | Insert element at found index          | Maintain order       |
 | 4    | Repeat until sorted                    | Fully sorted array   |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -978,7 +978,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def binary_search(a, item, low, high):
@@ -1004,14 +1004,14 @@ binary_insertion_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Fewer comparisons than standard Insertion Sort
 - Retains stability and adaptiveness
 - Great when comparisons dominate runtime (e.g., complex objects)
 - Demonstrates combining search and insertion ideas
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Binary search always finds the correct index in O(log i) comparisons for the i-th element.
 Shifting elements still takes O(i) time.
@@ -1030,7 +1030,7 @@ but with fewer comparisons than standard Insertion Sort.
 | 3    | log₂3 ≈ 2   | 3      | 5          |
 | …    | …           | …      | …          |
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                                  |
 | ---- | -------------------------------------------- |
@@ -1040,7 +1040,7 @@ but with fewer comparisons than standard Insertion Sort.
 | 4    | Modify to sort descending                    |
 | 5    | Try with already sorted list                 |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Comparisons | Shifts |
 | --------------- | --------------- | ----------- | ------ |
@@ -1048,7 +1048,7 @@ but with fewer comparisons than standard Insertion Sort.
 | [1, 2, 3]       | [1, 2, 3]       | ~2          | 0      |
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | ~7          | 8      |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value                               |
 | ------------ | ----------------------------------- |
@@ -1064,7 +1064,7 @@ Binary Insertion Sort is a thoughtful balance, smarter searches, same simple str
 
 Gnome Sort is a simple sorting algorithm that works by swapping adjacent elements, similar to Bubble Sort, but with a twist, it moves backward whenever a swap is made. Imagine a gnome tidying flower pots: each time it finds two out of order, it swaps them and steps back to recheck the previous pair.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want a simple, intuitive, and in-place sorting method that uses local swaps to restore order.
 Gnome Sort is particularly easy to implement and works like an insertion sort with adjacent swaps instead of shifting elements.
@@ -1086,7 +1086,7 @@ It's not the fastest, but it's charmingly simple, perfect for understanding loca
 | 8    | 0        | [1, 3, 4, 5, 2] | At start → move forward           |
 | 9    | ...      | ...             | Continue until sorted [1,2,3,4,5] |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 The algorithm "walks" through the list:
 
@@ -1106,9 +1106,9 @@ It's like Insertion Sort, but instead of shifting, it walks and swaps.
 | If A[i] < A[i−1] | Swap, move backward (i−−) |        |
 | If i == 0        | Move forward (i++)        |        |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -1136,7 +1136,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def gnome_sort(a):
@@ -1154,14 +1154,14 @@ gnome_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Demonstrates sorting through local correction
 - Visually intuitive (good for animation)
 - Requires no additional memory
 - Stable and adaptive on partially sorted data
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each time we swap out-of-order elements, we step back to verify order with the previous one.
 Thus, by the time we move forward again, all prior elements are guaranteed to be sorted.
@@ -1176,7 +1176,7 @@ Gnome Sort effectively performs Insertion Sort via adjacent swaps.
 Worst-case swaps: O(n²)
 Best-case (already sorted): O(n)
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                             |
 | ---- | --------------------------------------- |
@@ -1186,7 +1186,7 @@ Best-case (already sorted): O(n)
 | 4    | Animate using console output            |
 | 5    | Try reversed input to see maximum swaps |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Swaps | Notes           |
 | --------------- | --------------- | ----- | --------------- |
@@ -1194,7 +1194,7 @@ Best-case (already sorted): O(n)
 | [1, 2, 3]       | [1, 2, 3]       | 0     | Already sorted  |
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | 8     | Moderate swaps  |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value |
 | ------------ | ----- |
@@ -1210,7 +1210,7 @@ Gnome Sort is a whimsical algorithm that teaches persistence: every time somethi
 
 Odd-Even Sort, also known as Brick Sort, is a parallel-friendly variant of Bubble Sort. It alternates between comparing odd-even and even-odd indexed pairs to gradually sort the array. It's especially useful in parallel processing where pairs can be compared simultaneously.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Bubble Sort compares every adjacent pair in one sweep. Odd-Even Sort breaks this into two alternating phases:
 
@@ -1231,7 +1231,7 @@ It's ideal for parallel systems or hardware implementations since comparisons in
 | 3     | Even | [1, 3, 2, 4, 5] | Compare (0,1), (2,3), (4,5)   |
 | 4     | Odd  | [1, 2, 3, 4, 5] | Compare (1,2), (3,4) → Sorted |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Odd-Even Sort moves elements closer to their correct position with every alternating phase.
 It works like a traffic system: cars at even intersections move, then cars at odd intersections move.
@@ -1245,9 +1245,9 @@ Over time, all cars (elements) line up in order.
 | 2    | Compare all odd-even pairs  | Swap if out of order |
 | 3    | Repeat until no swaps occur | Sorted array         |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -1289,7 +1289,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def odd_even_sort(a):
@@ -1315,14 +1315,14 @@ odd_even_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Demonstrates parallel sorting principles
 - Conceptually simple, easy to visualize
 - Can be implemented on parallel processors (SIMD, GPU)
 - Stable and in-place
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Odd-Even Sort systematically removes all inversions by alternating comparisons:
 
@@ -1339,7 +1339,7 @@ It behaves like Bubble Sort but is more structured and phase-based.
 
 Total complexity remains O(n²), but parallelizable phases reduce wall-clock time.
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                                |
 | ---- | ------------------------------------------ |
@@ -1349,7 +1349,7 @@ Total complexity remains O(n²), but parallelizable phases reduce wall-clock tim
 | 4    | Compare with Bubble Sort                   |
 | 5    | Animate even and odd passes                |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Phases | Notes              |
 | --------------- | --------------- | ------ | ------------------ |
@@ -1357,7 +1357,7 @@ Total complexity remains O(n²), but parallelizable phases reduce wall-clock tim
 | [1, 2, 3]       | [1, 2, 3]       | 1      | Early stop         |
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | 4      | Moderate passes    |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value |
 | ------------ | ----- |
@@ -1373,7 +1373,7 @@ Odd-Even Sort shows that structure matters. By alternating phases, it opens the 
 
 Stooge Sort is one of the most unusual and quirky recursive sorting algorithms. It's not efficient, but it's fascinating because it sorts by recursively sorting overlapping sections of the array, a great way to study recursion and algorithmic curiosity.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Stooge Sort doesn't aim for speed. Instead, it provides an example of a recursive divide-and-conquer strategy that's neither efficient nor conventional.
 It divides the array into overlapping parts and recursively sorts them, twice on the first two-thirds, once on the last two-thirds.
@@ -1390,7 +1390,7 @@ This algorithm is often used for educational purposes to demonstrate how recursi
 | 3    | [0..3] | Sort first 2/3 again (4 elements)  | [1,3,2,4,5] |
 | 4    | Repeat | Until subarrays shrink to length 1 | [1,2,3,4,5] |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 If the first element is larger than the last, swap them.
 Then recursively:
@@ -1411,9 +1411,9 @@ It's like checking the front, then the back, then rechecking the front, until ev
 | 4    | Recursively sort first 2/3 again                |
 | 5    | Stop when subarray length ≤ 1                   |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -1441,7 +1441,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def stooge_sort(a, l, h):
@@ -1458,14 +1458,14 @@ stooge_sort(arr, 0, len(arr) - 1)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Demonstrates recursive divide-and-conquer logic
 - A fun counterexample to "more recursion = more speed"
 - Useful in theoretical discussions or algorithmic humor
 - Helps build understanding of overlapping subproblems
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 At each step, Stooge Sort ensures:
 
@@ -1493,7 +1493,7 @@ Slower than Bubble Sort (O(n²))!
 | n/2  | 3×3             | O(3)            | Larger         |
 | ...  | ...             | ...             | ...            |
 
-### Try It Yourself
+#### Try It Yourself
 
 | Task | Description                                             |
 | ---- | ------------------------------------------------------- |
@@ -1503,7 +1503,7 @@ Slower than Bubble Sort (O(n²))!
 | 4    | Compare with Merge Sort steps                           |
 | 5    | Measure runtime for n=10, 100, 1000                     |
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Recursion Depth | Notes             |
 | --------------- | --------------- | --------------- | ----------------- |
@@ -1511,7 +1511,7 @@ Slower than Bubble Sort (O(n²))!
 | [1, 2, 3]       | [1, 2, 3]       | 1               | Minimal swaps     |
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | 6               | Many overlaps     |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value                    |
 | ------------ | ------------------------ |
@@ -1529,7 +1529,7 @@ Stooge Sort is a delightful oddity, slow, redundant, but undeniably creative. It
 
 Merge Sort is one of the most famous divide-and-conquer sorting algorithms. It splits the array into halves, sorts each half recursively, and then merges the two sorted halves into a single sorted array. It guarantees O(n log n) performance, is stable, and serves as the backbone of many modern sorting libraries.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want a sorting algorithm that is:
 
@@ -1555,7 +1555,7 @@ It's ideal for:
 | 3    | Sort subarrays      | [3, 4, 5], [1, 2]     |
 | 4    | Merge sorted halves | [1, 2, 3, 4, 5]       |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 1. Divide: Split the array into two halves.
 2. Conquer: Recursively sort both halves.
@@ -1569,9 +1569,9 @@ Think of it as sorting two smaller piles, then interleaving them in order, like 
 - Recursively sort left and right halves.
 - Use a helper merge function to combine them.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -1610,7 +1610,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def merge_sort(a):
@@ -1646,14 +1646,14 @@ merge_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Stable: Keeps relative order of equal elements
 - Deterministic O(n log n): Always efficient
 - Parallelizable: Subarrays can be sorted independently
 - Foundation: For hybrid algorithms like TimSort and External Merge Sort
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Merge Sort divides the array into two halves at each level.
 There are log₂ n levels of recursion, and each merge takes O(n) time.
@@ -1672,7 +1672,7 @@ Merging is linear because each element is copied once per level.
 | 3    | O(n/4) × 4 | 4         | O(n)       |
 | ...  | ...        | ...       | O(n log n) |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Split [5, 3, 4, 1, 2] into halves step by step.
 2. Merge [3, 5] and [1, 4] manually.
@@ -1685,7 +1685,7 @@ Merging is linear because each element is copied once per level.
 9. Sort a list of strings (alphabetically).
 10. Visualize the recursion tree for n = 8.
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes           |
 | --------------- | --------------- | --------------- |
@@ -1694,7 +1694,7 @@ Merging is linear because each element is copied once per level.
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | General case    |
 | [2, 2, 1, 1]    | [1, 1, 2, 2]    | Tests stability |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -1712,7 +1712,7 @@ Merge Sort is your first taste of divide and conquer sorting, calm, reliable, an
 Iterative Merge Sort is a non-recursive version of Merge Sort that uses bottom-up merging.
 Instead of dividing recursively, it starts with subarrays of size 1 and iteratively merges them in pairs, doubling the size each round. This makes it ideal for environments where recursion is expensive or limited.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Recursive Merge Sort requires function calls and stack space.
 In some systems, recursion might be slow or infeasible (e.g. embedded systems, large arrays).
@@ -1734,7 +1734,7 @@ It's especially handy for:
 | 3    | 4             | Merge 4-element sorted block with last | [1, 2, 3, 4, 5] |
 | 4    | Done          | Fully sorted                           | [1, 2, 3, 4, 5] |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of it as sorting small groups first and then merging those into bigger groups, no recursion required.
 
@@ -1750,9 +1750,9 @@ Process:
 - Outer loop: size = 1, 2, 4, 8, ... until ≥ n
 - Inner loop: merge every two adjacent blocks of given size
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -1792,7 +1792,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def merge(a, left, mid, right):
@@ -1833,14 +1833,14 @@ iterative_merge_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Eliminates recursion (more predictable memory usage)
 - Still guarantees O(n log n) performance
 - Useful for iterative, bottom-up, or external sorting
 - Easier to parallelize since merge operations are independent
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each iteration doubles the sorted block size.
 Since each element participates in log₂ n merge levels, and each level costs O(n) work, total cost:
@@ -1860,7 +1860,7 @@ Like recursive Merge Sort, each merge step is linear, and merging subarrays is s
 
 Total = O(n log n)
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort [5, 3, 4, 1, 2] manually using bottom-up passes.
 2. Trace each pass: subarray size = 1 → 2 → 4.
@@ -1873,7 +1873,7 @@ Total = O(n log n)
 9. Visualize merging passes as a tree.
 10. Implement on external storage (file-based).
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes           |
 | --------------- | --------------- | --------------- |
@@ -1882,7 +1882,7 @@ Total = O(n log n)
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | General test    |
 | [2, 2, 1, 1]    | [1, 1, 2, 2]    | Tests stability |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value      |
 | ------------ | ---------- |
@@ -1898,7 +1898,7 @@ Iterative Merge Sort is the non-recursive twin of classic Merge Sort, efficient,
 
 Quick Sort is one of the fastest and most widely used sorting algorithms. It works by partitioning an array into two halves around a pivot element and recursively sorting the two parts. With average-case O(n log n) performance and in-place operation, it's the go-to choice in many libraries and real-world systems.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We need a sorting algorithm that's:
 
@@ -1927,7 +1927,7 @@ It's ideal for:
 | 1    | 3     | Partition left | [1, 2, 3, 4, 5] |
 | 2    | Done  | Sorted         | [1, 2, 3, 4, 5] |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 1. Choose a pivot element.
 2. Rearrange (partition) array so:
@@ -1947,7 +1947,7 @@ Think of the pivot as the "divider" that splits the unsorted array into two smal
 | 3    | Recursively sort left and right subarrays |
 | 4    | Stop when subarray size ≤ 1               |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### C (Lomuto Partition Scheme)
 
@@ -1990,7 +1990,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def partition(a, low, high):
@@ -2014,14 +2014,14 @@ quick_sort(arr, 0, len(arr) - 1)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - In-place and fast in most real-world cases
 - Divide and conquer: naturally parallelizable
 - Often used as the default sorting algorithm in libraries (C, Java, Python)
 - Introduces partitioning, a key algorithmic pattern
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each partition divides the problem into smaller subarrays.
 Average partition splits are balanced, giving O(log n) depth and O(n) work per level:
@@ -2044,7 +2044,7 @@ $$
 
 Choosing pivots wisely (randomization, median-of-three) avoids worst-case splits.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort [5, 3, 4, 1, 2] and trace partitions.
 2. Change pivot selection (first, middle, random).
@@ -2057,7 +2057,7 @@ Choosing pivots wisely (randomization, median-of-three) avoids worst-case splits
 9. Add a counter to count recursive calls.
 10. Implement tail recursion optimization.
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes                     |
 | --------------- | --------------- | ------------------------- |
@@ -2066,7 +2066,7 @@ Choosing pivots wisely (randomization, median-of-three) avoids worst-case splits
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | General                   |
 | [2, 2, 1, 1]    | [1, 1, 2, 2]    | Duplicates                |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value                |
 | -------------- | -------------------- |
@@ -2083,7 +2083,7 @@ Quick Sort is the practical workhorse of sorting, swift, elegant, and widely lov
 
 The Hoare Partition Scheme is an early and elegant version of Quick Sort's partitioning method, designed by C.A.R. Hoare himself. It's more efficient than the Lomuto scheme in many cases because it does fewer swaps and uses two pointers moving inward from both ends.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 In Quick Sort, we need a way to divide an array into two parts:
 
@@ -2109,7 +2109,7 @@ It's especially useful for:
 
 The pivot ends up near its correct position, but not necessarily in the final index.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 The algorithm picks a pivot (commonly the first element),
 then moves two pointers:
@@ -2128,9 +2128,9 @@ This continues until they cross, at that point, the array is partitioned.
 4. Decrement `j` until `a[j] <= pivot`.
 5. If `i < j`, swap `a[i]` and `a[j]`. Otherwise, return `j` (partition index).
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -2171,7 +2171,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def hoare_partition(a, low, high):
@@ -2200,14 +2200,14 @@ quick_sort_hoare(arr, 0, len(arr) - 1)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Fewer swaps than Lomuto partition
 - More efficient in practice on most datasets
 - Still in-place, divide-and-conquer, O(n log n) average
 - Introduces the idea of two-pointer partitioning
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 The loop invariants ensure that:
 
@@ -2230,7 +2230,7 @@ Average complexity O(n log n); worst-case O(n²) if pivot is poor.
 | Average | Random  | Slight imbalance | O(n log n) |
 | Worst   | Min/Max | Unbalanced       | O(n²)      |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort [5, 3, 4, 1, 2] step by step using Hoare's scheme.
 2. Print `i` and `j` at each iteration.
@@ -2243,7 +2243,7 @@ Average complexity O(n log n); worst-case O(n²) if pivot is poor.
 9. Implement hybrid pivot selection (median-of-three).
 10. Compare runtime with Merge Sort.
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes                     |
 | --------------- | --------------- | ------------------------- |
@@ -2252,7 +2252,7 @@ Average complexity O(n log n); worst-case O(n²) if pivot is poor.
 | [2, 2, 1, 1]    | [1, 1, 2, 2]    | Works with duplicates     |
 | [1, 2, 3, 4, 5] | [1, 2, 3, 4, 5] | Sorted input (worst case) |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value              |
 | -------------- | ------------------ |
@@ -2269,7 +2269,7 @@ Hoare Partition Scheme is elegant and efficient, the original genius of Quick So
 
 The Lomuto Partition Scheme is a simple and widely taught method for partitioning in Quick Sort. It's easier to understand and implement than Hoare's scheme, though it often performs slightly more swaps. It always selects a pivot (commonly the last element) and partitions the array in a single forward pass.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We need a clear and intuitive way to partition an array around a pivot, ensuring all smaller elements go to the left and all larger elements go to the right.
 
@@ -2290,7 +2290,7 @@ Lomuto's method uses one scanning pointer and one boundary pointer, making it ea
 Pivot 2 is placed in its final position at index 1.
 Elements left of 2 are smaller, right are larger.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 1. Choose a pivot (commonly last element).
 2. Initialize boundary pointer `i` before start of array.
@@ -2312,9 +2312,9 @@ It's like separating a deck of cards, you keep moving smaller cards to the front
 | 4    | Place pivot in its correct position      |
 | 5    | Return pivot index for recursive sorting |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -2355,7 +2355,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def lomuto_partition(a, low, high):
@@ -2379,14 +2379,14 @@ quick_sort_lomuto(arr, 0, len(arr) - 1)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Simple and easy to implement
 - Pivot ends in correct final position each step
 - Useful for educational demonstration of Quick Sort
 - Common in textbooks and basic Quick Sort examples
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Invariant:
 
@@ -2409,7 +2409,7 @@ Worst (already sorted): O(n²)
 | Average | Random     | O(n log n) |
 | Worst   | Unbalanced | O(n²)      |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort [5, 3, 4, 1, 2] using Lomuto step by step.
 2. Trace `i` and `j` positions at each comparison.
@@ -2422,7 +2422,7 @@ Worst (already sorted): O(n²)
 9. Visualize partition boundary after each pass.
 10. Implement a hybrid Quick Sort using Lomuto for small arrays.
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes              |
 | --------------- | --------------- | ------------------ |
@@ -2431,7 +2431,7 @@ Worst (already sorted): O(n²)
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | General            |
 | [2, 2, 1, 1]    | [1, 1, 2, 2]    | Handles duplicates |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value              |
 | -------------- | ------------------ |
@@ -2448,7 +2448,7 @@ Lomuto's scheme is the friendly teacher of Quick Sort, easy to grasp, simple to 
 
 Randomized Quick Sort enhances the classic Quick Sort by choosing the pivot randomly. This small tweak eliminates the risk of hitting the worst-case O(n²) behavior on already sorted or adversarial inputs, making it one of the most robust and practical sorting strategies in real-world use.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Regular Quick Sort can degrade badly if the pivot is chosen poorly (for example, always picking the first or last element in a sorted array).
 Randomized Quick Sort fixes this by selecting a random pivot, ensuring that, on average, partitions are balanced, regardless of input distribution.
@@ -2470,7 +2470,7 @@ This makes it ideal for:
 
 Randomization ensures the pivot is unlikely to create unbalanced partitions.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's the same Quick Sort, but before partitioning, we randomly pick one element and use it as the pivot.
 This random pivot is swapped into the last position, and the normal Lomuto or Hoare partitioning continues.
@@ -2484,7 +2484,7 @@ This small randomness makes it robust and efficient on average, even for worst-c
 3. Partition the array (e.g., Lomuto or Hoare).
 4. Recursively sort left and right partitions.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### C (Lomuto + Random Pivot)
 
@@ -2536,7 +2536,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 import random
@@ -2567,14 +2567,14 @@ randomized_quick_sort(arr, 0, len(arr) - 1)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Prevents worst-case O(n²) behavior
 - Simple yet highly effective
 - Ensures consistent average-case across all inputs
 - Foundation for Randomized Select and Randomized Algorithms
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Random pivot selection ensures the expected split size is balanced, independent of input order.
 Each pivot divides the array such that expected recursion depth is O(log n) and total comparisons O(n log n).
@@ -2591,7 +2591,7 @@ Worst-case only occurs with extremely low probability (1/n!).
 | Average | Random         | O(n log n) |
 | Worst   | Unlucky (rare) | O(n²)      |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort [5, 3, 4, 1, 2] multiple times, note pivot differences.
 2. Print pivot each recursive call.
@@ -2604,7 +2604,7 @@ Worst-case only occurs with extremely low probability (1/n!).
 9. Compare runtime vs. normal Quick Sort.
 10. Seed RNG to reproduce same run.
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes                 |
 | --------------- | --------------- | --------------------- |
@@ -2613,7 +2613,7 @@ Worst-case only occurs with extremely low probability (1/n!).
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | General               |
 | [2, 2, 1, 1]    | [1, 1, 2, 2]    | Handles duplicates    |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value        |
 | -------------- | ------------ |
@@ -2630,7 +2630,7 @@ Randomized Quick Sort shows the power of randomness, a tiny change transforms a 
 
 Heap Sort is a classic comparison-based, in-place, O(n log n) sorting algorithm built upon the heap data structure. It first turns the array into a max-heap, then repeatedly removes the largest element (the heap root) and places it at the end, shrinking the heap as it goes. It's efficient and memory-friendly but not stable.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want a sorting algorithm that:
 
@@ -2657,7 +2657,7 @@ Perfect for:
 | 4    | Heapify root              | [3, 1, 2, 4, 5] | 3         |
 | 5    | Repeat until heap shrinks | [1, 2, 3, 4, 5] | 0         |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of a heap like a tree stored in an array. The root (index 0) is the largest element.
 Heap Sort works in two main steps:
@@ -2681,9 +2681,9 @@ After each extraction, the sorted part grows at the end of the array.
 | 4    | Heapify the root                           |
 | 5    | Repeat until heap is empty                 |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -2729,7 +2729,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def heapify(a, n, i):
@@ -2759,14 +2759,14 @@ heap_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Predictable O(n log n) in all cases
 - In-place, no extra memory needed
 - Excellent when memory is tight or recursion is not preferred
 - Demonstrates tree-based sorting logic
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Building the heap: O(n)
 Extracting each element: O(log n)
@@ -2785,7 +2785,7 @@ Each element is "bubbled down" log n levels at most once.
 
 Not stable, because swapping can break equal-element order.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build max-heap from [5, 3, 4, 1, 2].
 2. Draw heap tree for each step.
@@ -2798,7 +2798,7 @@ Not stable, because swapping can break equal-element order.
 9. Test on reverse array [5,4,3,2,1].
 10. Add debug prints showing heap after each step.
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes                  |
 | --------------- | --------------- | ---------------------- |
@@ -2807,7 +2807,7 @@ Not stable, because swapping can break equal-element order.
 | [5, 3, 4, 1, 2] | [1, 2, 3, 4, 5] | General case           |
 | [2, 2, 1, 1]    | [1, 1, 2, 2]    | Not stable but correct |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -2830,7 +2830,7 @@ Heap Sort is the workhorse of guaranteed performance, steady, space-efficient, a
 
 This avoids redundant work when many elements are equal to the pivot, making it especially effective for datasets with low entropy or repeated keys.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard Quick Sort can perform unnecessary work when duplicates are present.
 For example, if all elements are the same, standard Quick Sort still recurses O(n log n) times.
@@ -2859,7 +2859,7 @@ It's ideal for:
 
 Now recursively sort left `< pivot` region [2,1], skip the middle `=3` block, and sort right `> pivot` (empty).
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 We track three zones using three pointers:
 
@@ -2887,9 +2887,9 @@ This single pass partitions array into three regions, no need to revisit equals.
 
 Then recursively sort `[low..lt-1]` and `[gt+1..high]`.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -2931,7 +2931,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def quicksort_3way(a, low, high):
@@ -2957,14 +2957,14 @@ quicksort_3way(arr, 0, len(arr) - 1)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Efficient for arrays with duplicates
 - Reduces unnecessary recursion and comparisons
 - Used in string sorting and key-heavy data
 - Generalizes the idea of "partition" to multi-way splitting
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Standard Quick Sort always divides into two regions, even if all elements equal the pivot, leading to O(n²) on identical elements.
 
@@ -2990,7 +2990,7 @@ Worst-case (no duplicates): same as Quick Sort.
 | Many      | O(n log n) | Efficient       |
 | None      | O(n log n) | Normal behavior |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort [3, 2, 3, 1, 3] step by step.
 2. Print regions (`lt`, `i`, `gt`) after each iteration.
@@ -3003,7 +3003,7 @@ Worst-case (no duplicates): same as Quick Sort.
 9. Implement descending order.
 10. Apply to random integers with duplicates (e.g. [1,2,2,2,3,3,1]).
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes                |
 | --------------- | --------------- | -------------------- |
@@ -3012,7 +3012,7 @@ Worst-case (no duplicates): same as Quick Sort.
 | [2, 2, 2, 2]    | [2, 2, 2, 2]    | All equal (O(n))     |
 | [1, 3, 1, 3, 1] | [1, 1, 1, 3, 3] | Clustered duplicates |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value                                |
 | -------------- | ------------------------------------ |
@@ -3029,7 +3029,7 @@ Worst-case (no duplicates): same as Quick Sort.
 
 External Merge Sort is a specialized sorting algorithm designed for very large datasets that don't fit entirely into main memory (RAM). It works by sorting chunks of data in memory, writing them to disk, and then merging those sorted chunks. This makes it a key tool in databases, file systems, and big data processing.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When data exceeds RAM capacity, in-memory sorts like Quick Sort or Heap Sort fail, they need random access to all elements.
 External Merge Sort solves this by processing data in blocks:
@@ -3057,7 +3057,7 @@ Let's say you have 1 GB of data and only 100 MB of RAM.
 | 3    | Merge  | Use k-way merge (e.g. 10-way) to merge sorted runs |
 | 4    | Output | Final sorted file written sequentially             |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of it like sorting pages of a giant book:
 
@@ -3080,7 +3080,7 @@ It's a multi-pass algorithm:
 | 4    | Merge all runs using k-way merging               |
 | 5    | Repeat merges until a single sorted file remains |
 
-### Tiny Code (Simplified Simulation)
+#### Tiny Code (Simplified Simulation)
 
 #### Python (Simulated External Sort)
 
@@ -3114,14 +3114,14 @@ external_merge_sort(data, chunk_size=4)
 
 This example simulates external sorting in Python, splitting input into chunks, sorting each, and merging with `heapq.merge`.
 
-### Why It Matters
+#### Why It Matters
 
 - Handles massive datasets beyond memory limits
 - Sequential disk I/O (fast and predictable)
 - Foundation of database sort-merge joins
 - Works well with distributed systems (MapReduce, Spark)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each pass performs O(n) work to read and write the entire dataset.
 If `r` is the number of runs, and `k` is merge fan-in (number of runs merged at once):
@@ -3143,7 +3143,7 @@ For `r = n/M` (chunks of memory size `M`), performance is optimized by choosing 
 | Create Runs | O(n log M)   | Sort chunks  |
 | Merge Runs  | O(n log_k r) | Merge passes |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Split [42, 17, 93, 8, 23, 4, 16, 99, 55, 12, 71, 3] into 4-element chunks.
 2. Sort each chunk individually.
@@ -3156,7 +3156,7 @@ For `r = n/M` (chunks of memory size `M`), performance is optimized by choosing 
 9. Use `heapq.merge` to merge sorted streams.
 10. Extend to merge files on disk (not just lists).
 
-### Test Cases
+#### Test Cases
 
 | Input                       | Memory Limit | Output              | Notes              |
 | --------------------------- | ------------ | ------------------- | ------------------ |
@@ -3164,7 +3164,7 @@ For `r = n/M` (chunks of memory size `M`), performance is optimized by choosing 
 | 1 GB integers               | 100 MB       | Sorted file         | 10 sorted runs     |
 | [1,1,1,1,1]                 | small        | [1,1,1,1,1]         | Handles duplicates |
 
-### Complexity
+#### Complexity
 
 | Aspect     | Value                                     |
 | ---------- | ----------------------------------------- |
@@ -3180,7 +3180,7 @@ External Merge Sort is the unsung hero behind large-scale sorting, when memory e
 
 Parallel Merge Sort takes the familiar divide-and-conquer structure of Merge Sort and spreads the work across multiple threads or processors, achieving faster sorting on multi-core CPUs or distributed systems. It's an ideal illustration of how parallelism can amplify a classic algorithm without changing its logic.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Traditional Merge Sort runs sequentially, so even though its complexity is O(n log n), it uses only one CPU core.
 On modern hardware with many cores, that's a waste.
@@ -3209,7 +3209,7 @@ Sort [5, 3, 4, 1, 2] using 2 threads:
 
 Parallelism reduces total time roughly by 1 / number of threads (with overhead).
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's still divide and conquer, just with teamwork:
 
@@ -3232,7 +3232,7 @@ Each recursive level can launch new threads until you reach a threshold or maxim
 
 This pattern fits well with thread pools, task schedulers, or fork-join frameworks.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### C (POSIX Threads Example)
 
@@ -3329,7 +3329,7 @@ arr = [5, 3, 4, 1, 2]
 print(parallel_merge_sort(arr))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Exploits multi-core architectures
 - Significantly reduces wall-clock time
@@ -3342,7 +3342,7 @@ Used in:
 - Modern standard libraries (`std::execution::par`)
 - Big data frameworks (Spark, Hadoop)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each recursive call sorts n/2 elements, but now in parallel.
 Let P = number of processors.
@@ -3368,7 +3368,7 @@ Speedup ≈ P×, limited by synchronization and merge overhead.
 | Sort subarrays | Yes            | O(n log n / P) |
 | Merge          | Partially      | O(n log P)     |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Run with 1, 2, 4, 8 threads, compare speed.
 2. Print thread IDs at each recursive call.
@@ -3381,7 +3381,7 @@ Speedup ≈ P×, limited by synchronization and merge overhead.
 9. Try OpenMP version in C.
 10. Extend to distributed nodes (MPI).
 
-### Test Cases
+#### Test Cases
 
 | Input           | Threads | Output      | Notes           |
 | --------------- | ------- | ----------- | --------------- |
@@ -3390,7 +3390,7 @@ Speedup ≈ P×, limited by synchronization and merge overhead.
 | 1e6 random ints | 8       | sorted      | Parallel boost  |
 | [1,1,1,1]       | 4       | [1,1,1,1]   | Stable behavior |
 
-### Complexity
+#### Complexity
 
 | Aspect        | Value                   |
 | ------------- | ----------------------- |
@@ -3409,7 +3409,7 @@ Parallel Merge Sort is Merge Sort reborn for the multi-core era, the same elegan
 
 Counting Sort is a non-comparison sorting algorithm that sorts integers (or items mapped to integer keys) by counting occurrences of each value. Instead of comparing elements, it directly uses their values as indices in a counting array. It's fast (O(n + k)), stable, and perfect when the input range is limited and small.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When keys are integers within a known range, comparison-based sorts (O(n log n)) are overkill.
 Counting Sort leverages that limited range to sort in linear time, without any comparisons.
@@ -3435,7 +3435,7 @@ Sort array `[4, 2, 2, 8, 3, 3, 1]`
 
 The count array tracks the position boundaries for each key.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Counting Sort doesn't compare elements. It counts how many times each value appears, then uses those counts to reconstruct the sorted list.
 
@@ -3456,9 +3456,9 @@ Think of it as filling labeled bins:
 | 5    | Traverse input in reverse (for stability), placing elements |
 | 6    | Copy sorted output back                                     |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -3497,7 +3497,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def counting_sort(arr):
@@ -3521,14 +3521,14 @@ arr = [4, 2, 2, 8, 3, 3, 1]
 print(counting_sort(arr))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Linear time when range is small (`O(n + k)`)
 - Stable, preserving input order
 - Foundation for Radix Sort
 - Great for integer, digit, or bucket sorting
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Counting Sort replaces comparison by index-based placement.
 
@@ -3548,7 +3548,7 @@ Stable because we traverse input in reverse while placing.
 | Prefix sum     | O(k) | Range pass   |
 | Place elements | O(n) | Stable write |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[4, 2, 2, 8, 3, 3, 1]` step by step.
 2. Show count array after counting.
@@ -3561,7 +3561,7 @@ Stable because we traverse input in reverse while placing.
 9. Measure runtime vs Bubble Sort.
 10. Use as subroutine in Radix Sort.
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes          |
 | --------------- | --------------- | -------------- |
@@ -3570,7 +3570,7 @@ Stable because we traverse input in reverse while placing.
 | [9,9,9,9]       | [9,9,9,9]       | Repeats        |
 | [0,1,2,3]       | [0,1,2,3]       | Already sorted |
 
-### Complexity
+#### Complexity
 
 | Aspect          | Value    |
 | --------------- | -------- |
@@ -3586,7 +3586,7 @@ Counting Sort is like sorting by bins, no comparisons, no stress, just clean cou
 
 Stable Counting Sort refines the basic Counting Sort by ensuring equal elements preserve their original order. This property, called *stability*, is crucial when sorting multi-key data, for example, sorting people by age, then by name. Stable versions are also the building blocks for Radix Sort, where each digit's sort depends on stability.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Basic Counting Sort can break order among equal elements because it places them in arbitrary order.
 When sorting records or tuples where order matters (e.g., by secondary key), we need stability, if `a` and `b` have equal keys, their order in output must match input.
@@ -3614,7 +3614,7 @@ Sort `[4a, 2b, 2a, 8a, 3b, 3a, 1a]` (letters mark order)
 
 See how `2b` (index 1) appears before `2a` (index 2), stable ordering preserved.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's Counting Sort with a twist: we fill the output from the end of the input, ensuring last-seen equal items go last.
 By traversing in reverse, earlier elements are placed later, preserving their original order.
@@ -3632,9 +3632,9 @@ This is the core idea behind stable sorting.
 | 5    | Place elements in output using count as index |
 | 6    | Decrement count[key] after placement          |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -3683,7 +3683,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def stable_counting_sort(arr):
@@ -3707,14 +3707,14 @@ arr = [4, 2, 2, 8, 3, 3, 1]
 print(stable_counting_sort(arr))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Stable sorting is essential for multi-key operations
 - Required for Radix Sort correctness
 - Guarantees consistent behavior for duplicates
 - Used in databases, language sort libraries, pipelines
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each key is assigned a position range via prefix sums.
 Traversing input from right to left ensures that earlier items occupy smaller indices, preserving order.
@@ -3730,7 +3730,7 @@ then `count[key(a)]` places `a` before `b`, stable.
 
 Total = O(n + k), same as basic Counting Sort, but stable.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[(4,'a'), (2,'b'), (2,'a'), (3,'a')]`.
 2. Show count and prefix arrays.
@@ -3743,7 +3743,7 @@ Total = O(n + k), same as basic Counting Sort, but stable.
 9. Profile runtime vs normal Counting Sort.
 10. Check stability by adding tags (letters).
 
-### Test Cases
+#### Test Cases
 
 | Input             | Output            | Notes            |
 | ----------------- | ----------------- | ---------------- |
@@ -3752,7 +3752,7 @@ Total = O(n + k), same as basic Counting Sort, but stable.
 | [1,1,1]           | [1,1,1]           | Idempotent       |
 | [0,1,2,3]         | [0,1,2,3]         | Already sorted   |
 
-### Complexity
+#### Complexity
 
 | Aspect          | Value    |
 | --------------- | -------- |
@@ -3768,7 +3768,7 @@ Stable Counting Sort is Counting Sort with memory, it not only sorts fast but al
 
 Radix Sort (Least Significant Digit first) is a non-comparison, stable sorting algorithm that processes integers (or strings) digit by digit, starting from the least significant digit (LSD). By repeatedly applying a stable sort (like Counting Sort) on each digit, it can sort numbers in linear time when digit count is small.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When sorting integers or fixed-length keys (like dates, IDs, or strings of digits), traditional comparison-based sorts spend unnecessary effort.
 Radix Sort (LSD) sidesteps comparisons by leveraging digit-wise order and stability to achieve O(d × (n + k)) performance.
@@ -3793,7 +3793,7 @@ Final sorted output: `[2, 24, 45, 66, 75, 90, 170, 802]`
 
 Each pass uses Stable Counting Sort on the current digit.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of sorting by digit positions:
 
@@ -3814,9 +3814,9 @@ It's like sorting by last name, then first name, one field at a time, stable eac
 | 3    | Use a stable counting sort based on that digit       |
 | 4    | After the last pass, the array is fully sorted           |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -3863,7 +3863,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def counting_sort_digit(arr, exp):
@@ -3898,14 +3898,14 @@ radix_sort(arr)
 print(arr)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Linear time (O(d × (n + k))) for fixed digits
 - Stable, retains order for equal keys
 - Great for large numeric datasets
 - Foundation for efficient key-based sorting (strings, dates)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 At each digit position:
 
@@ -3926,7 +3926,7 @@ $$
 
 If `d` and `k` are constants → O(n) overall.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[170, 45, 75, 90, 802, 24, 2, 66]`.
 2. Trace each pass (ones, tens, hundreds).
@@ -3939,7 +3939,7 @@ If `d` and `k` are constants → O(n) overall.
 9. Change base to 16 (hex).
 10. Compare with Merge Sort performance on large input.
 
-### Test Cases
+#### Test Cases
 
 | Input                      | Output                     | Notes             |
 | -------------------------- | -------------------------- | ----------------- |
@@ -3948,7 +3948,7 @@ If `d` and `k` are constants → O(n) overall.
 | [10,1,100,1000]            | [1,10,100,1000]            | Different lengths |
 | [22,22,11,11]              | [11,11,22,22]              | Stable            |
 
-### Complexity
+#### Complexity
 
 | Aspect          | Value          |
 | --------------- | -------------- |
@@ -3964,7 +3964,7 @@ Radix Sort (LSD) is the assembly line of sorting, each pass builds upon the last
 
 Radix Sort (Most Significant Digit first) is a recursive variant of Radix Sort that begins sorting from the most significant digit (MSD) and works downward. Unlike LSD Radix Sort, which is iterative and stable across all digits, MSD focuses on prefix-based grouping and recursively sorts subgroups. This makes it ideal for variable-length keys such as strings, IP addresses, or long integers.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 LSD Radix Sort works best for fixed-length keys, where every element has the same number of digits.
 But when keys differ in length (e.g., strings "a", "ab", "abc"), we need to respect prefix order, "a" should come before "ab".
@@ -3990,7 +3990,7 @@ Sort: `["b", "ba", "abc", "ab", "ac"]`
 
 Lexicographic order preserved, even with varying lengths.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 MSD Radix Sort organizes data by prefix trees (tries) conceptually:
 
@@ -4011,7 +4011,7 @@ If LSD is like bucket sorting digits from the back, MSD is tree-like sorting fro
 
 For strings, if one string ends early, it's considered smaller.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (String Example)
 
@@ -4098,14 +4098,14 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Handles variable-length keys
 - Natural for lexicographic ordering
 - Used in string sorting, trie-based systems, suffix array construction
 - Recursively partitions, often faster for large diverse keys
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each recursive call partitions the array by digit prefix.
 Since partitions are disjoint and ordered by digit, concatenating them yields a fully sorted sequence.
@@ -4127,7 +4127,7 @@ Stability preserved via ordered grouping.
 | Recurse   | O(d)        | Each level processes subgroups |
 | Total     | O(d(n + k)) | Linear in digits               |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `["b", "ba", "abc", "ab", "ac"]`.
 2. Draw recursion tree by character.
@@ -4140,7 +4140,7 @@ Stability preserved via ordered grouping.
 9. Visualize grouping buckets.
 10. Implement with trie-like data structure.
 
-### Test Cases
+#### Test Cases
 
 | Input                      | Output                     | Notes           |
 | -------------------------- | -------------------------- | --------------- |
@@ -4149,7 +4149,7 @@ Stability preserved via ordered grouping.
 | ["a","aa","aaa"]           | ["a","aa","aaa"]           | Prefix order    |
 | ["z","y","x"]              | ["x","y","z"]              | Reverse input   |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value                |
 | ------------ | -------------------- |
@@ -4165,7 +4165,7 @@ Radix Sort (MSD) is lexicographic sorting by recursion, it builds order from the
 
 Bucket Sort is a distribution-based sorting algorithm that divides the input into several buckets (bins), sorts each bucket individually (often with Insertion Sort), and then concatenates them. When input data is uniformly distributed, Bucket Sort achieves linear time performance (O(n)).
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Comparison-based sorts take O(n log n) time in the general case. But if we know that data values are spread evenly across a range, we can exploit this structure to sort faster by grouping similar values together.
 
@@ -4192,7 +4192,7 @@ Sort `[0.78, 0.17, 0.39, 0.26, 0.72, 0.94, 0.21, 0.12, 0.23, 0.68]`
 | 3    | Sort each bucket (Insertion Sort)       | Each bucket sorted individually                              |
 | 4    | Concatenate buckets                     | [0.12, 0.17, 0.21, 0.23, 0.26, 0.39, 0.68, 0.72, 0.78, 0.94] |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of sorting test scores:
 
@@ -4213,9 +4213,9 @@ Bucket Sort leverages range grouping, local order inside each bucket, global ord
 
 If buckets are evenly filled, each small sort is fast, almost constant time.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -4265,7 +4265,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def bucket_sort(arr):
@@ -4288,14 +4288,14 @@ arr = [0.78,0.17,0.39,0.26,0.72,0.94,0.21,0.12,0.23,0.68]
 print(bucket_sort(arr))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Linear time for uniformly distributed data
 - Great for floating-point numbers
 - Illustrates distribution-based sorting
 - Foundation for histogram, flash, and spread sort
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 If input elements are independent and uniformly distributed, expected elements per bucket = `O(1)`.
 Sorting each small bucket takes constant time → total linear time.
@@ -4316,7 +4316,7 @@ $$
 | Local Sort   | O(n) total | Expected   |
 | Concatenate  | O(n)       | Combine    |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[0.78,0.17,0.39,0.26,0.72,0.94,0.21,0.12,0.23,0.68]`.
 2. Visualize buckets as bins.
@@ -4329,7 +4329,7 @@ $$
 9. Compare with Quick Sort runtime.
 10. Plot distribution histogram before sorting.
 
-### Test Cases
+#### Test Cases
 
 | Input                 | Output                | Notes      |
 | --------------------- | --------------------- | ---------- |
@@ -4338,7 +4338,7 @@ $$
 | [0.9,0.8,0.7,0.6]     | [0.6,0.7,0.8,0.9]     | Reverse    |
 | [0.1,0.1,0.1]         | [0.1,0.1,0.1]         | Duplicates |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value                          |
 | -------------- | ------------------------------ |
@@ -4355,7 +4355,7 @@ Bucket Sort is like sorting by bins, fast, simple, and beautifully efficient whe
 
 Pigeonhole Sort is a simple distribution sorting algorithm that places each element directly into its corresponding "pigeonhole" (or bucket) based on its key value. It's ideal when elements are integers within a small known range, think of it as Counting Sort with explicit placement rather than counting.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When data values are integers and close together, we don't need comparisons, we can map each value to a slot directly.
 Pigeonhole Sort is particularly useful for dense integer ranges, such as:
@@ -4379,7 +4379,7 @@ Sort `[8, 3, 2, 7, 4, 6, 8]`
 
 Each value goes exactly to its mapped hole index.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's like assigning students to exam rooms based on ID ranges, each slot holds all matching IDs.
 You fill slots (holes), then read them back in order.
@@ -4397,9 +4397,9 @@ Unlike Counting Sort, which only counts occurrences, Pigeonhole Sort stores the 
 | 5    | Place element into that hole (append)             |
 | 6    | Read holes in order and flatten into output       |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -4445,7 +4445,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def pigeonhole_sort(arr):
@@ -4465,14 +4465,14 @@ arr = [8, 3, 2, 7, 4, 6, 8]
 print(pigeonhole_sort(arr))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Simple mapping for small integer ranges
 - Linear time if range ≈ n
 - Useful in digit, rank, or ID sorting
 - Provides stable grouping with explicit placement
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Every key is mapped uniquely to a hole (offset by min).
 All duplicates fall into the same hole, preserving multiplicity.
@@ -4490,7 +4490,7 @@ $$
 | Distribute to holes | O(n)     | One placement each |
 | Collect results     | O(n + k) | Flatten all        |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[8,3,2,7,4,6,8]` by hand.
 2. Show hole contents after distribution.
@@ -4503,7 +4503,7 @@ $$
 9. Implement in-place version.
 10. Extend for key-value pairs.
 
-### Test Cases
+#### Test Cases
 
 | Input           | Output          | Notes           |
 | --------------- | --------------- | --------------- |
@@ -4512,7 +4512,7 @@ $$
 | [9,8,7,6]       | [6,7,8,9]       | Reverse         |
 | [0,-1,-2,1]     | [-2,-1,0,1]     | Negative offset |
 
-### Complexity
+#### Complexity
 
 | Aspect          | Value    |
 | --------------- | -------- |
@@ -4534,7 +4534,7 @@ Flash Sort is a distribution-based sorting algorithm that combines ideas from bu
 It achieves O(n) average time on uniformly distributed data but can degrade to O(n²) in the worst case.
 Invented by *Karl-Dietrich Neubert* (1990s), it's known for being extremely fast in practice on large datasets.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When data is numerically distributed over a range, we can approximate where each element should go and move it close to its final position without full comparison sorting.
 
@@ -4560,7 +4560,7 @@ Sort `[9, 3, 1, 7, 4, 6, 2, 8, 5]` into `m = 5` classes.
 
 Final: `[1,2,3,4,5,6,7,8,9]`
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine flashing each element to its approximate destination class in one pass, that's the "flash" phase.
 Then, fine-tune within each class using a simpler sort (like Insertion Sort).
@@ -4578,9 +4578,9 @@ It's like placing books roughly into shelves, then tidying each shelf.
 | 5    | Move elements to approximate class positions (flash phase) |
 | 6    | Use Insertion Sort within each class to finish             |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -4648,7 +4648,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def insertion_sort(arr, start, end):
@@ -4695,14 +4695,14 @@ arr = [9,3,1,7,4,6,2,8,5]
 print(flash_sort(arr))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Extremely fast on uniformly distributed data
 - In-place (O(1) extra space)
 - Practical for large arrays
 - Combines distribution sorting and insertion finishing
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 The classification step maps each element to its expected position region, dramatically reducing disorder.
 Since each class has a small local range, insertion sort completes quickly.
@@ -4721,7 +4721,7 @@ Worst-case (skewed distribution): O(n²)
 | Flash rearrangement | O(n) | In-place moves  |
 | Final sort          | O(n) | Local sorting   |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[9,3,1,7,4,6,2,8,5]` step by step.
 2. Change number of classes (0.3n, 0.5n).
@@ -4734,7 +4734,7 @@ Worst-case (skewed distribution): O(n²)
 9. Observe stability (it's not stable).
 10. Benchmark against Merge Sort.
 
-### Test Cases
+#### Test Cases
 
 | Input               | Output              | Notes          |
 | ------------------- | ------------------- | -------------- |
@@ -4743,7 +4743,7 @@ Worst-case (skewed distribution): O(n²)
 | [1,2,3,4,5]         | [1,2,3,4,5]         | Already sorted |
 | [9,8,7,6,5]         | [5,6,7,8,9]         | Reverse        |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value           |
 | -------------- | --------------- |
@@ -4760,7 +4760,7 @@ Flash Sort is the lightning strike of sorting, it flashes elements to their expe
 
 Postman Sort is a stable, multi-key sorting algorithm that works by sorting keys digit by digit or field by field, starting from the least significant field (like LSD Radix Sort) or most significant field (like MSD Radix Sort), depending on the application. It's often used for compound keys (e.g. postal addresses, dates, strings of fields), hence the name "Postman," as it sorts data the way a postman organizes mail: by street, then house, then apartment.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When sorting complex records by multiple attributes, such as:
 
@@ -4785,7 +4785,7 @@ $$("Paris", "B"), ("London", "C"), ("Paris", "A"), ("London", "A")]
 
 Stable sorting ensures inner order is preserved from previous pass.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's like organizing mail:
 
@@ -4807,7 +4807,7 @@ If sorting from most to least, use MSD order (like bucket recursion).
 | 4    | Repeat for each key moving to most significant      |
 | 5    | Final order respects all key hierarchies            |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (LSD Approach)
 
@@ -4868,7 +4868,7 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Multi-key sorting (lexicographic order)
 - Stable, preserves order across passes
@@ -4879,7 +4879,7 @@ int main(void) {
   * Database ORDER BY multi-column
   * Lexicographic ranking
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each stable pass ensures that prior ordering (from less significant fields) remains intact.
 
@@ -4903,7 +4903,7 @@ $$
 | MSD Sort | Start from most significant  | Yes    | $O(nk)$    |
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[("Paris","B"),("London","C"),("Paris","A"),("London","A")]`
 2. Add a 3rd field (zip code), sort by zip → street → city
@@ -4916,7 +4916,7 @@ $$
 9. Test stability with repeated keys
 10. Apply to sorting student records by `(grade, class, id)`
 
-### Test Cases
+#### Test Cases
 
 | Input                                                       | Output                                                      | Notes         |
 | ----------------------------------------------------------- | ----------------------------------------------------------- | ------------- |
@@ -4924,7 +4924,7 @@ $$
 | [(2021,12,25),(2020,1,1),(2021,1,1)]                        | [(2020,1,1),(2021,1,1),(2021,12,25)]                        | Date order    |
 | [(1,2,3),(1,1,3),(1,1,2)]                                   | [(1,1,2),(1,1,3),(1,2,3)]                                   | Multi-field   |
 
-### Complexity
+#### Complexity
 
 | Aspect   | Value       |
 | -------- | ----------- |
@@ -4940,7 +4940,7 @@ Postman Sort delivers order like clockwork, field by field, pass by pass, ensuri
 
 Address Calculation Sort (sometimes called Hash Sort or Scatter Sort) is a distribution-based sorting method that uses a hash-like function (called an *address function*) to compute the final position of each element directly. Instead of comparing pairs, it computes where each element should go, much like direct addressing in hash tables.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Comparison sorts need O(n log n) time.
 If we know the range and distribution of input values, we can instead compute where each element belongs, placing it directly.
@@ -4973,7 +4973,7 @@ Result: `[0, 1, 2, 3, 4]`
 
 If multiple elements share the same address, they're stored in a small linked list or bucket, then sorted locally.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine having labeled mailboxes for every possible key —
 each element knows exactly which box it belongs in.
@@ -4993,7 +4993,7 @@ Address Calculation Sort assigns positions, it can even be in-place if collision
 | 5    | Collect or flatten buckets into sorted order                  |
 
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### C (Simple In-Range Example)
 
@@ -5030,7 +5030,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def address_calculation_sort(arr, f=None):
@@ -5063,7 +5063,7 @@ Output:
 $$0, 1, 2, 3, 4]
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Direct computation of sorted positions
 - Linear time for predictable distributions
@@ -5072,7 +5072,7 @@ $$0, 1, 2, 3, 4]
 
 It's a great way to see how functions can replace comparisons.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 If $f(x)$ maps each key uniquely to its sorted index,
 the result is already sorted by construction.
@@ -5092,7 +5092,7 @@ where $k$ = number of buckets = range size.
 | Local sort        | O(k)     | Small groups       |
 | Flatten           | O(n + k) | Read back          |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[3, 1, 4, 0, 2]` with `f(x)=x`.
 2. Change mapping to `f(x)=2*x`, note gaps.
@@ -5105,7 +5105,7 @@ where $k$ = number of buckets = range size.
 9. Test range gaps (e.g., `[10, 20, 30]`).
 10. Experiment with custom hash functions.
 
-### Test Cases
+#### Test Cases
 
 | Input         | Output        | Notes           |
 | ------------- | ------------- | --------------- |
@@ -5114,7 +5114,7 @@ where $k$ = number of buckets = range size.
 | [1,1,2,2]     | [1,1,2,2]     | Duplicates      |
 | [0.1,0.3,0.2] | [0.1,0.2,0.3] | Float mapping   |
 
-### Complexity
+#### Complexity
 
 | Aspect          | Value              |
 | --------------- | ------------------ |
@@ -5132,7 +5132,7 @@ Spread Sort is a hybrid distribution sort that blends ideas from radix sort, buc
 
 It's cache-friendly, adaptive, and often faster than Quick Sort on uniformly distributed data. In fact, it's used in some high-performance libraries such as Boost C++ Spreadsort.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Traditional comparison sorts (like Quick Sort) have $O(n \log n)$ complexity, while pure radix-based sorts can be inefficient on small or skewed datasets. Spread Sort solves this by adapting dynamically:
 
@@ -5159,7 +5159,7 @@ Sort `[43, 12, 89, 27, 55, 31, 70]`
 | 4    | Recursively sort each bucket                | [12], [27,31], [43,55], [70,89]          |
 | 5    | Merge buckets                               | [12,27,31,43,55,70,89]                   |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine sorting mail by first letter (distribution), then alphabetizing each pile (comparison).
 If a pile is still big, spread it again by the next letter.
@@ -5184,7 +5184,7 @@ This flexibility gives it strong real-world performance.
 | 6    | Apply comparison sort to small buckets          |
 | 7    | Concatenate results                             |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### C (Integer Example)
 
@@ -5247,7 +5247,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def spread_sort(arr, threshold=16):
@@ -5280,7 +5280,7 @@ arr = [43, 12, 89, 27, 55, 31, 70]
 print(spread_sort(arr))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Linear-time on uniform data
 - Adaptive to distribution and size
@@ -5289,7 +5289,7 @@ print(spread_sort(arr))
 
 Used in Boost C++, it's a real-world performant hybrid.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Spread Sort's cost depends on:
 
@@ -5314,7 +5314,7 @@ $$
 | Total         | $O(n)$ average, $O(n \log n)$ worst |                     |
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[43,12,89,27,55,31,70]`.
 2. Try `[5,4,3,2,1]` (non-uniform).
@@ -5327,7 +5327,7 @@ $$
 9. Tune bucket size formula.
 10. Sort strings by ord(char).
 
-### Test Cases
+#### Test Cases
 
 | Input                  | Output                 | Notes      |
 | ---------------------- | ---------------------- | ---------- |
@@ -5336,7 +5336,7 @@ $$
 | [100,10,1,1000]        | [1,10,100,1000]        | Wide range |
 | [5,5,5]                | [5,5,5]                | Duplicates |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value                         |
 | -------------- | ----------------------------- |
@@ -5357,7 +5357,7 @@ IntroSort (short for *Introspective Sort*) is a hybrid sorting algorithm that co
 
 It was introduced by David Musser (1997) and is the default sorting algorithm in C++ STL (`std::sort`), fast, adaptive, and safe.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Pure Quick Sort is fast on average but can degrade to $O(n^2)$ in the worst case (for example, sorted input with bad pivots).  
 Heap Sort guarantees $O(n \log n)$ but has worse constants.
@@ -5384,7 +5384,7 @@ Sort `[9, 3, 1, 7, 5, 4, 6, 2, 8]`
 
 Final sorted array: `[1,2,3,4,5,6,7,8,9]`
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's like a careful driver:
 
@@ -5404,7 +5404,7 @@ IntroSort keeps average speed high but avoids worst-case crashes.
 | 4    | Use Insertion Sort for small subarrays (size < threshold)    |
 | 5    | Combine results for final sorted array                       |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### C (Simplified Implementation)
 
@@ -5538,14 +5538,14 @@ arr = [9,3,1,7,5,4,6,2,8]
 print(introsort(arr))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Default in C++ STL, fast and reliable
 - Guaranteed worst-case $O(n \log n)$
 - Optimized for cache and small data
 - Adaptive, uses best method for current scenario
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Quick Sort dominates until recursion depth = $2 \log_2 n$.
 At that point, worst-case risk appears → switch to Heap Sort (safe fallback).
@@ -5563,7 +5563,7 @@ Always bounded by Heap Sort's worst case, but often near Quick Sort's best.
 | Deep recursion | Heap Sort      | O(n log n)              |
 | Small arrays   | Insertion Sort | O(n²) local, negligible |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[9,3,1,7,5,4,6,2,8]`.
 2. Track recursion depth, switch to Heap Sort when $> 2 \log_2 n$.
@@ -5576,7 +5576,7 @@ Always bounded by Heap Sort's worst case, but often near Quick Sort's best.
 9. Try string sorting with custom comparator.
 10. Implement generic version using templates or lambdas.
 
-### Test Cases
+#### Test Cases
 
 | Input               | Output              | Notes                             |
 | ------------------- | ------------------- | --------------------------------- |
@@ -5585,7 +5585,7 @@ Always bounded by Heap Sort's worst case, but often near Quick Sort's best.
 | [5,5,5,5]           | [5,5,5,5]           | Equal elements                    |
 | [9,8,7,6,5,4,3,2,1] | [1,2,3,4,5,6,7,8,9] | Worst-case Quick Sort avoided     |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -5604,7 +5604,7 @@ TimSort is a hybrid sorting algorithm combining Merge Sort and Insertion Sort, d
 
 TimSort's superpower is that it detects natural runs in data, sorts them with Insertion Sort if small, and merges them smartly using a stack-based strategy to ensure efficiency.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 In practice, many datasets aren't random, they already contain sorted segments (like logs, names, timestamps).
 TimSort exploits this by:
@@ -5633,7 +5633,7 @@ Sort `[5, 6, 7, 1, 2, 3, 8, 9]`
 
 TimSort leverages order already present, fewer merges, faster finish.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of TimSort as a smart librarian:
 
@@ -5655,7 +5655,7 @@ It's adaptive, stable, and real-world optimized.
 | 5    | Merge runs when stack size conditions are violated    |
 | 6    | Continue until one run remains (fully sorted)         |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (Simplified Simulation)
 
@@ -5770,7 +5770,7 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Default sort in Python & Java
 - Stable and adaptive
@@ -5780,7 +5780,7 @@ int main(void) {
 
 It's the perfect sort when you don't know the data shape, it *adapts itself*.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 If data already contains sorted runs of average length $r$:
 
@@ -5802,7 +5802,7 @@ For $r = 1$: $O(n \log n)$
 | Merge Phase   | $O(n \log n)$     | Balanced merges |
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[5,6,7,1,2,3,8,9]` step by step.
 2. Detect natural runs manually.
@@ -5815,7 +5815,7 @@ For $r = 1$: $O(n \log n)$
 9. Visualize merge order tree.
 10. Check stability with duplicate keys.
 
-### Test Cases
+#### Test Cases
 
 | Input             | Output            | Notes          |
 | ----------------- | ----------------- | -------------- |
@@ -5824,7 +5824,7 @@ For $r = 1$: $O(n \log n)$
 | [9,8,7,6]         | [6,7,8,9]         | Reverse run    |
 | [5,5,5,5]         | [5,5,5,5]         | Stability test |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -5847,7 +5847,7 @@ Dual-Pivot QuickSort is an enhanced variant of QuickSort that uses two pivots in
 
 This approach often reduces comparisons and improves cache efficiency. It was popularized by Vladimir Yaroslavskiy and became the default sorting algorithm in Java (from Java 7) for primitive types.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard QuickSort splits the array into two parts using one pivot.
 Dual-Pivot QuickSort splits into three, reducing recursion depth and overhead.
@@ -5877,7 +5877,7 @@ Recurse on each region.
 Final result: `[1, 2, 3, 4, 5, 6, 7, 8, 9]`.
 
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine sorting shoes by size with two markers:
 
@@ -5901,9 +5901,9 @@ Dual-Pivot QuickSort does exactly that: partition into three zones in one pass, 
 If $p_1 > p_2$, swap them first.
 
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -5949,7 +5949,7 @@ int main(void) {
 }
 ```
 
-#### Python
+##### Python
 
 ```python
 def dual_pivot_quicksort(arr):
@@ -5982,14 +5982,14 @@ arr = [9,3,1,7,5,4,6,2,8]
 print(dual_pivot_quicksort(arr))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Default in Java for primitives
 - Fewer comparisons than single-pivot QuickSort
 - Cache-friendly (less branching)
 - Stable recursion depth with three partitions
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each partitioning step processes all elements once, $O(n)$.
 Recursion on three smaller subarrays yields total cost:
@@ -6006,7 +6006,7 @@ On average, partitions are balanced → $T(n) = O(n \log n)$
 | Total         | $O(n \log n)$ | Average / Worst |
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[9,3,1,7,5,4,6,2,8]` step by step.
 2. Choose pivots manually: smallest and largest.
@@ -6019,7 +6019,7 @@ On average, partitions are balanced → $T(n) = O(n \log n)$
 9. Visualize three partitions recursively.
 10. Implement tail recursion optimization.
 
-### Test Cases
+#### Test Cases
 
 | Input               | Output              | Notes          |
 | ------------------- | ------------------- | -------------- |
@@ -6028,7 +6028,7 @@ On average, partitions are balanced → $T(n) = O(n \log n)$
 | [9,8,7,6,5]         | [5,6,7,8,9]         | Reverse        |
 | [5,5,5,5]           | [5,5,5,5]           | Duplicates     |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -6047,7 +6047,7 @@ SmoothSort is an adaptive comparison-based sorting algorithm invented by Edsger 
 
 The key idea is to build a special heap structure (Leonardo heap) that adapts to existing order in the data. When the array is nearly sorted, it finishes quickly. When not, it gracefully falls back to heap-like performance.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Heap Sort always works in $O(n \log n)$, even when the input is already sorted.
 SmoothSort improves on this by being adaptive, the more ordered the input, the faster it gets.
@@ -6071,7 +6071,7 @@ Sort `[1, 2, 4, 3, 5]`
 
 Result: finished early since only minor disorder existed.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine a stack of heaps, each representing a Fibonacci-like sequence (Leonardo numbers).
 You grow this structure as you read the array, maintaining order locally.
@@ -6092,7 +6092,7 @@ So SmoothSort is like a gentle gardener: it only trims where weeds grow, not the
 Leonardo numbers guide heap sizes:
 ( L(0)=1, L(1)=1, L(n)=L(n-1)+L(n-2)+1 )
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (Simplified Adaptive Sort)
 
@@ -6149,14 +6149,14 @@ int main(void) {
 
 This mimics SmoothSort's adaptiveness: fix locally, not globally.
 
-### Why It Matters
+#### Why It Matters
 
 - Adaptive: faster on nearly sorted data
 - In-place: no extra memory
 - Guaranteed bound: never worse than $O(n \log n)$
 - Historical gem: Dijkstra's innovation in sorting theory
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 For sorted input:
 
@@ -6176,7 +6176,7 @@ For random input:
 
 SmoothSort adapts between these seamlessly.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[1, 2, 4, 3, 5]` step by step.
 2. Try `[1, 2, 3, 4, 5]`, measure comparisons.
@@ -6189,7 +6189,7 @@ SmoothSort adapts between these seamlessly.
 9. Track adaptive speedup.
 10. Write Leonardo heap builder.
 
-### Test Cases
+#### Test Cases
 
 | Input       | Output      | Notes          |
 | ----------- | ----------- | -------------- |
@@ -6198,7 +6198,7 @@ SmoothSort adapts between these seamlessly.
 | [5,4,3,2,1] | [1,2,3,4,5] | Full rebuild   |
 | [2,1,3,5,4] | [1,2,3,4,5] | Mixed case     |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -6218,7 +6218,7 @@ Block Merge Sort is a cache-efficient, stable sorting algorithm that merges data
 
 It's designed to keep data cache-friendly, in-place (or nearly), and stable, making it a practical choice for systems with limited memory bandwidth or tight memory constraints.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Classic Merge Sort is stable and O(n log n), but it needs O(n) extra space.
 Block Merge Sort solves this by using blocks of fixed size (often √n) as temporary buffers for merging.
@@ -6248,7 +6248,7 @@ Sort `[8, 3, 5, 1, 6, 2, 7, 4]`
 
 Instead of full arrays, it uses small block buffers, fewer cache misses, less extra space.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of merging two sorted shelves in a library, but instead of taking all books off,
 you move a small block at a time, swapping them in place with a small temporary cart.
@@ -6267,7 +6267,7 @@ You slide the buffer along the shelves, merge gradually, efficiently, with minim
 
 Block merges rely on rotations and buffer swapping to minimize extra space.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (Simplified Version)
 
@@ -6377,14 +6377,14 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Stable like Merge Sort
 - In-place or low-space variant
 - Cache-efficient due to block locality
 - Practical for large arrays or external sorting
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each merge level processes $n$ elements: $O(n)$.  
 Number of levels = $\log_2 (n / b)$, where $b$ is the block size.
@@ -6404,7 +6404,7 @@ When $b$ is large (like $\sqrt{n}$), space and time balance nicely.
 For typical settings, it's near $O(n \log n)$ but cache-optimized.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[8,3,5,1,6,2,7,4]` with block size 2.
 2. Increase block size to 4, compare steps.
@@ -6417,7 +6417,7 @@ For typical settings, it's near $O(n \log n)$ but cache-optimized.
 9. Mix ascending and descending runs.
 10. Implement block buffer rotation manually.
 
-### Test Cases
+#### Test Cases
 
 | Input             | Output            | Notes         |
 | ----------------- | ----------------- | ------------- |
@@ -6426,7 +6426,7 @@ For typical settings, it's near $O(n \log n)$ but cache-optimized.
 | [1,2,3,4]         | [1,2,3,4]         | Sorted        |
 | [9,8,7]           | [7,8,9]           | Reverse order |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -6446,7 +6446,7 @@ Adaptive Merge Sort is a stable, comparison-based sorting algorithm that adapts 
 
 It's a family of algorithms, including Natural Merge Sort, TimSort, and GrailSort, that all share one key insight: work less when less work is needed.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard Merge Sort treats every input the same, even if it's already sorted.
 Adaptive Merge Sort improves this by:
@@ -6473,7 +6473,7 @@ Sort `[1, 2, 5, 3, 4, 6]`
 
 Only one merge needed, input was nearly sorted, so runtime is close to O(n).
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine you're sorting a shelf of books that's mostly organized —
 you don't pull all the books off; you just spot where order breaks, and fix those parts.
@@ -6495,7 +6495,7 @@ It's lazy where it can be, efficient where it must be.
 | 4    | Merge runs when stack conditions are violated (size or order) |
 | 5    | Continue until one sorted run remains                         |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (Natural Merge Sort)
 
@@ -6582,7 +6582,7 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Stable and adaptive
 - Linear time on nearly sorted data
@@ -6592,7 +6592,7 @@ int main(void) {
 
 It's the sorting algorithm that notices your data's effort and rewards it.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Let average run length = $r$.  
 Then number of runs ≈ $n / r$.  
@@ -6614,7 +6614,7 @@ If $r = 1$: $O(n \log n)$.
 | Random         | $r$ small   | $O(n \log n)$      |
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[1, 2, 5, 3, 4, 6]` step by step.
 2. Try `[1, 2, 3, 4, 5]`, should detect 1 run.
@@ -6627,7 +6627,7 @@ If $r = 1$: $O(n \log n)$.
 9. Visualize run detection.
 10. Implement descending-run reversal.
 
-### Test Cases
+#### Test Cases
 
 | Input         | Output        | Notes               |
 | ------------- | ------------- | ------------------- |
@@ -6636,7 +6636,7 @@ If $r = 1$: $O(n \log n)$.
 | [5,4,3,2,1]   | [1,2,3,4,5]   | Reverse (many runs) |
 | [2,2,1,1]     | [1,1,2,2]     | Stable              |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -6656,7 +6656,7 @@ PDQSort is a modern, adaptive, in-place sorting algorithm that extends QuickSort
 
 Invented by Orson Peters, it's used in C++'s `std::sort()` (since C++17) and often outperforms traditional QuickSort and IntroSort in real-world scenarios due to better cache behavior, branch prediction, and adaptive pivoting.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Classic QuickSort performs well *on average* but can degrade to (O(n^2)) on structured or repetitive data.
 PDQSort solves this by:
@@ -6686,7 +6686,7 @@ Sort `[1, 2, 3, 4, 5]` (already sorted)
 
 Instead of recursive QuickSort calls, PDQSort defeats the pattern by adapting.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 PDQSort is like a smart chef:
 
@@ -6707,7 +6707,7 @@ It never wastes effort, detecting when recursion or comparisons are unnecessary.
 | 5    | Recurse or switch to heap/insertion sort if needed          |
 | 6    | Use tail recursion elimination                              |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (Conceptual Simplified PDQSort)
 
@@ -6804,7 +6804,7 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Modern default for high-performance sorting
 - Pattern detection avoids worst cases
@@ -6814,7 +6814,7 @@ int main(void) {
 
 PDQSort combines speed, safety, and hardware awareness.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 PDQSort adds mechanisms to defeat QuickSort's pitfalls:
 
@@ -6834,7 +6834,7 @@ Best case (sorted): near O(n), thanks to early detection.
 | Average | Random                  | O(n log n) |
 | Worst   | Adversarial             | O(n log n) |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[1,2,3,4,5]` → detect sorted input.
 2. Try `[5,4,3,2,1]` → reversed.
@@ -6847,7 +6847,7 @@ Best case (sorted): near O(n), thanks to early detection.
 9. Visualize fallback triggers.
 10. Measure comparisons per element.
 
-### Test Cases
+#### Test Cases
 
 | Input       | Output      | Notes      |
 | ----------- | ----------- | ---------- |
@@ -6856,7 +6856,7 @@ Best case (sorted): near O(n), thanks to early detection.
 | [5,4,3,2,1] | [1,2,3,4,5] | Reversed   |
 | [5,5,5,5]   | [5,5,5,5]   | Duplicates |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -6876,7 +6876,7 @@ WikiSort is a stable, in-place merge sort created by Mike Day, designed to combi
 
 Unlike classic Merge Sort, which allocates a full-size temporary array, WikiSort performs block merges with rotation operations, merging sorted regions directly within the array.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Most stable sorting algorithms (like Merge Sort) need O(n) extra space.
 WikiSort solves this by performing stable merges in place, using:
@@ -6903,7 +6903,7 @@ Sort `[3, 5, 1, 2, 4]`
 
 Result: `[1,2,3,4,5]`, sorted, stable, and minimal extra space.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of two sorted shelves of books, instead of moving all books to a table, you rotate sections in place so the shelves merge seamlessly.
 
@@ -6919,7 +6919,7 @@ WikiSort keeps a small local buffer (like a tray), uses it to move small chunks,
 | 4    | Rotate blocks to maintain stability    |
 | 5    | Repeat until one sorted region remains |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (Simplified In-Place Stable Merge)
 
@@ -7012,7 +7012,7 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Stable and in-place (O(1) extra space)
 - Practical for memory-limited systems
@@ -7022,7 +7022,7 @@ int main(void) {
 
 It brings the best of Merge Sort (stability) and in-place algorithms (low memory).
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each merge takes $O(n)$, and there are $O(\log n)$ levels of merging:
 
@@ -7039,7 +7039,7 @@ Extra memory = small buffer ($O(\sqrt{n})$) or even constant space.
 | Space            | Fixed buffer         | $O(1)$         |
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[3,5,1,2,4]` step by step.
 2. Visualize rotations during merge.
@@ -7052,7 +7052,7 @@ Extra memory = small buffer ($O(\sqrt{n})$) or even constant space.
 9. Implement block rotation helper.
 10. Measure runtime on sorted input.
 
-### Test Cases
+#### Test Cases
 
 | Input       | Output      | Notes           |
 | ----------- | ----------- | --------------- |
@@ -7061,7 +7061,7 @@ Extra memory = small buffer ($O(\sqrt{n})$) or even constant space.
 | [1,2,3,4]   | [1,2,3,4]   | Already sorted  |
 | [2,2,3,1]   | [1,2,2,3]   | Stable behavior |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -7083,7 +7083,7 @@ Created by Michał Oryńczak, GrailSort combines the stability and adaptiveness 
 
 It's designed for practical stable sorting when memory is tight, achieving $O(n \log n)$ worst-case time.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Typical stable sorting algorithms (like Merge Sort) require O(n) extra space.
 GrailSort solves this by:
@@ -7111,7 +7111,7 @@ Sort `[4, 1, 3, 2, 5]`
 
 All merges are done in-place, with a small reusable buffer.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of GrailSort like a clever librarian with a tiny desk (the buffer).
 Instead of taking all books off the shelf, they:
@@ -7134,7 +7134,7 @@ It's stable, in-place, and adaptive, a rare combination.
 
 The algorithm's structure mirrors Merge Sort but uses block rotation to avoid copying large chunks.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (Simplified Concept)
 
@@ -7223,7 +7223,7 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Stable and in-place (only small buffer)
 - Adaptive, faster on partially sorted data
@@ -7233,7 +7233,7 @@ int main(void) {
 
 It's the gold standard for stable, low-space sorts.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each merge level processes $O(n)$ elements.  
 There are $O(\log n)$ merge levels.  
@@ -7251,7 +7251,7 @@ A small buffer ($O(\sqrt{n})$) is reused, yielding in-place stability.
 | Block merges  | Rotation-based | $O(n \log n)$    |
 | Space         | Local buffer   | $O(1)$ or $O(\sqrt{n})$ |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[4,1,3,2,5]` step by step.
 2. Try `[1,2,3,4,5]`, no merges needed.
@@ -7264,7 +7264,7 @@ A small buffer ($O(\sqrt{n})$) is reused, yielding in-place stability.
 9. Measure time vs WikiSort.
 10. Try large array (10k elements).
 
-### Test Cases
+#### Test Cases
 
 | Input       | Output      | Notes          |
 | ----------- | ----------- | -------------- |
@@ -7273,7 +7273,7 @@ A small buffer ($O(\sqrt{n})$) is reused, yielding in-place stability.
 | [5,4,3,2,1] | [1,2,3,4,5] | Reverse        |
 | [2,2,1,1]   | [1,1,2,2]   | Stable         |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value         |
 | -------------- | ------------- |
@@ -7293,7 +7293,7 @@ Adaptive Hybrid Sort is a meta-sorting algorithm that dynamically combines multi
 
 It adapts in real-time, switching between methods based on factors like array size, degree of pre-sortedness, data distribution, and recursion depth. This makes it a universal, practical sorter optimized for diverse workloads.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 No single sorting algorithm is best for all situations:
 
@@ -7323,7 +7323,7 @@ Sort `[2, 3, 5, 4, 6, 7, 8, 1]`
 
 If input were random, it would stay with QuickSort. If adversarial, it would pivot to Heap Sort.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine a skilled chef with many tools, knives, mixers, ovens.
 When slicing carrots (small data), they use a paring knife (Insertion Sort).
@@ -7343,7 +7343,7 @@ Adaptive Hybrid Sort works the same way, choosing the right tool at the right ti
 | 5    | If data partially sorted → use TimSort-like merge    |
 | 6    | Combine results for final sorted output              |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (Simplified Hybrid Sort)
 
@@ -7489,7 +7489,7 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Adaptive to input shape
 - Hybrid = flexibility + safety
@@ -7497,7 +7497,7 @@ int main(void) {
 - Real-world robust for mixed data
 - Balances speed, memory, stability, and predictability
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Let $T(n)$ be the runtime.  
 Each phase is $O(n)$, and recursion depth is $O(\log n)$.  
@@ -7517,7 +7517,7 @@ Worst case (adversarial): Heap fallback → $O(n \log n)$.
 | Adversarial  | Heap Sort      | $O(n \log n)$ |
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[2,3,5,4,6,7,8,1]`.
 2. Try `[1,2,3,4,5,6]` → insertion path.
@@ -7530,7 +7530,7 @@ Worst case (adversarial): Heap fallback → $O(n \log n)$.
 9. Benchmark on large random data.
 10. Visualize switch decisions.
 
-### Test Cases
+#### Test Cases
 
 | Input             | Output            | Notes      |
 | ----------------- | ----------------- | ---------- |
@@ -7539,7 +7539,7 @@ Worst case (adversarial): Heap fallback → $O(n \log n)$.
 | [5,4,3,2,1]       | [1,2,3,4,5]       | Reverse    |
 | [10,10,9,9,8]     | [8,9,9,10,10]     | Duplicates |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -7561,7 +7561,7 @@ Cycle Sort is a comparison-based sorting algorithm designed to minimize the numb
 
 It achieves O(n²) comparisons but performs the minimal possible number of writes, making it unique among sorting algorithms.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Most sorting algorithms (like QuickSort or Merge Sort) swap elements multiple times before they reach their final position.
 If each write is costly (e.g., embedded systems or flash memory), that's wasteful.
@@ -7582,7 +7582,7 @@ Sort `[3, 1, 2]`
 
 Each element cycles into place once.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of it like putting books on a shelf:
 
@@ -7604,9 +7604,9 @@ Each cycle ensures every element reaches its final position exactly once.
 | 5    | Continue cycling until original element returns to start     |
 | 6    | Move to next position and repeat                             |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def cycle_sort(arr):
@@ -7647,7 +7647,7 @@ Total writes: 3
 $$1, 2, 3, 4]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -7697,7 +7697,7 @@ Total writes: 3
 1 2 3 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Minimizes writes (useful for flash memory, EEPROMs)
 - In-place
@@ -7706,7 +7706,7 @@ Total writes: 3
 
 Not fast, but *frugal*, every move counts.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each element moves to its correct position once.  
 If array size is $n$, total writes $\le n$.
@@ -7720,7 +7720,7 @@ $$
 Each cycle resolves one permutation cycle of misplaced elements.
 Thus, algorithm terminates with all items placed exactly once.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[3, 1, 2]` step by step.
 2. Count how many writes you perform.
@@ -7733,7 +7733,7 @@ Thus, algorithm terminates with all items placed exactly once.
 9. Measure wear-leveling benefit for flash.
 10. Visualize cycles as arrows in permutation graph.
 
-### Test Cases
+#### Test Cases
 
 | Input     | Output    | Writes | Notes              |
 | --------- | --------- | ------ | ------------------ |
@@ -7742,7 +7742,7 @@ Thus, algorithm terminates with all items placed exactly once.
 | [4,3,2,1] | [1,2,3,4] | 4      | Max writes         |
 | [3,1,2,3] | [1,2,3,3] | 3      | Handles duplicates |
 
-### Complexity
+#### Complexity
 
 | Aspect   | Value |
 | -------- | ----- |
@@ -7761,7 +7761,7 @@ Comb Sort is an improved version of Bubble Sort that eliminates small elements (
 
 It starts with a large gap (e.g. array length) and reduces it each pass until it reaches 1, where it behaves like a regular Bubble Sort. The result is fewer comparisons and faster convergence.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Bubble Sort is simple but slow, mainly because:
 
@@ -7785,7 +7785,7 @@ Sort `[8, 4, 1, 3, 7]`
 
 Turtles (1, 3) jump forward earlier, speeding up convergence.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of it like shrinking a jump rope, at first, you make big jumps to cover ground fast, then smaller ones to fine-tune.
 
@@ -7802,9 +7802,9 @@ You start with a gap, compare and swap elements that far apart, shrink the gap e
 | 5    | Swap if out of order                    |
 | 6    | Continue until sorted                   |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def comb_sort(arr):
@@ -7834,7 +7834,7 @@ Output:
 $$1, 3, 4, 7, 8]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -7874,7 +7874,7 @@ Output:
 1 3 4 7 8
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Faster than Bubble Sort
 - Simple implementation
@@ -7883,7 +7883,7 @@ Output:
 
 A stepping stone toward more efficient algorithms like Shell Sort.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 The shrink factor ensures gap reduction converges to 1 in $O(\log n)$ steps.  
 Each pass fixes distant inversions early, reducing total swaps.
@@ -7897,7 +7897,7 @@ Hence, average complexity ≈ $O(n \log n)$ for random data, $O(n^2)$ worst case
 | Small gap passes | Final fine-tuning    | $O(n^2)$ worst    |
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[8, 4, 1, 3, 7]` step by step.
 2. Try `[1, 2, 3, 4, 5]`, minimal passes.
@@ -7910,7 +7910,7 @@ Hence, average complexity ≈ $O(n \log n)$ for random data, $O(n^2)$ worst case
 9. Track gap evolution over time.
 10. Implement early-stop optimization.
 
-### Test Cases
+#### Test Cases
 
 | Input       | Output      | Notes          |
 | ----------- | ----------- | -------------- |
@@ -7919,7 +7919,7 @@ Hence, average complexity ≈ $O(n \log n)$ for random data, $O(n^2)$ worst case
 | [5,4,3,2,1] | [1,2,3,4,5] | Reverse order  |
 | [4,1,3,2]   | [1,2,3,4]   | Short array    |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value      |
 | -------------- | ---------- |
@@ -7938,7 +7938,7 @@ Gnome Sort is a simple comparison-based sorting algorithm that works like a gard
 
 It's conceptually similar to Insertion Sort, but implemented with a single loop and no nested structure, making it elegant and intuitive for learners.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Insertion Sort requires nested loops or recursion, which can be tricky to visualize.
 Gnome Sort offers the same logic using a simple forward–backward walk:
@@ -7965,7 +7965,7 @@ Sort `[5, 3, 4, 2]`
 
 Sorted with local fixes, no explicit nested loops.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine a gnome walking down a row of flower pots:
 
@@ -7986,9 +7986,9 @@ Keep walking until you reach the end, the garden (array) is sorted.
 | 5    | If i == 0, move to i = 1                        |
 | 6    | Repeat until i reaches n                        |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def gnome_sort(arr):
@@ -8012,7 +8012,7 @@ Output:
 $$2, 3, 4, 5]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -8046,7 +8046,7 @@ Output:
 2 3 4 5
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Simple mental model, easy to understand.
 - No nested loops, clean control flow.
@@ -8055,7 +8055,7 @@ Output:
 
 It's slower than advanced algorithms but ideal for educational purposes.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each swap moves an element closer to its correct position.
 Whenever a swap happens, the gnome steps back to ensure local order.
@@ -8070,7 +8070,7 @@ Number of swaps proportional to number of inversions → $O(n^2)$.
 | Random  | Frequent swaps | O(n²)      |
 | Reverse | Max swaps      | O(n²)      |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[5,3,4,2]` manually step by step.
 2. Try `[1,2,3,4]`, minimal steps.
@@ -8083,7 +8083,7 @@ Number of swaps proportional to number of inversions → $O(n^2)$.
 9. Measure time for n = 1000.
 10. Add early-exit optimization.
 
-### Test Cases
+#### Test Cases
 
 | Input     | Output    | Notes          |
 | --------- | --------- | -------------- |
@@ -8092,7 +8092,7 @@ Number of swaps proportional to number of inversions → $O(n^2)$.
 | [4,3,2,1] | [1,2,3,4] | Reverse        |
 | [2,1,2,1] | [1,1,2,2] | Duplicates     |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value |
 | -------------- | ----- |
@@ -8111,7 +8111,7 @@ Cocktail Sort (also known as Bidirectional Bubble Sort or Shaker Sort) is a simp
 
 This bidirectional movement helps small elements ("turtles") bubble up faster from the end, fixing one of Bubble Sort's main weaknesses.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Bubble Sort only moves elements in one direction, large ones float to the end, but small ones crawl slowly to the start.
 
@@ -8135,7 +8135,7 @@ Sort `[4, 3, 1, 2]`
 
 Fewer passes than Bubble Sort.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of a bartender shaking a cocktail shaker back and forth, each shake moves ingredients (elements) closer to the right place from both sides.
 
@@ -8158,9 +8158,9 @@ Stop when no swaps occur, the array is sorted.
 |   d. Backward pass (i = end-1 → start): swap if arr[i] > arr[i+1] |                             |
 | 3                                                                 | Repeat until sorted         |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def cocktail_sort(arr):
@@ -8198,7 +8198,7 @@ Output:
 $$1, 2, 3, 4]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -8247,7 +8247,7 @@ Output:
 1 2 3 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Bidirectional improvement on Bubble Sort
 - In-place and simple
@@ -8256,7 +8256,7 @@ Output:
 
 Great educational bridge to understanding bidirectional scans and adaptive sorting.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each forward pass pushes the largest element to the right.
 Each backward pass pushes the smallest element to the left.
@@ -8275,7 +8275,7 @@ $$
 | Random  | Many swaps             | O(n²)      |
 | Reverse | Max passes             | O(n²)      |
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[4,3,1,2]` manually step by step.
 2. Try `[1,2,3,4]`, should stop early.
@@ -8288,7 +8288,7 @@ $$
 9. Measure performance on nearly sorted data.
 10. Modify shrink window size.
 
-### Test Cases
+#### Test Cases
 
 | Input       | Output      | Notes          |
 | ----------- | ----------- | -------------- |
@@ -8297,7 +8297,7 @@ $$
 | [5,4,3,2,1] | [1,2,3,4,5] | Reverse        |
 | [3,1,3,2,1] | [1,1,2,3,3] | Duplicates     |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value |
 | -------------- | ----- |
@@ -8316,7 +8316,7 @@ Pancake Sort is a whimsical and educational sorting algorithm inspired by flippi
 
 It's not practical for large datasets, but it's a brilliant way to illustrate prefix reversals, maximum selection, and in-place transformations.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard selection sort swaps elements pairwise.
 Pancake Sort instead uses prefix reversals, flipping a whole section of the array, to move the largest item into place.
@@ -8338,7 +8338,7 @@ Sort `[3, 6, 1, 5, 2, 4]`
 
 Sorted using flips only!
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine flipping a stack of pancakes:
 
@@ -8358,9 +8358,9 @@ Repeat, each time excluding the sorted top portion.
 | 4    | Reduce unsorted portion by one                  |
 | 5    | Repeat until sorted                             |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def flip(arr, k):
@@ -8385,7 +8385,7 @@ Output:
 $$1, 2, 3, 4, 5, 6]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -8434,7 +8434,7 @@ Output:
 1 2 3 4 5 6
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Fun demonstration of prefix operations
 - In-place and simple
@@ -8442,7 +8442,7 @@ Output:
 - Theoretical interest, base for pancake networks
 - Used in bioinformatics (genome rearrangements)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each iteration places the largest remaining element at its final index.
 Two flips per iteration (worst case).
@@ -8458,7 +8458,7 @@ T(n) = O(n^2)
 $$
 because each `max()` and `flip()` operation is O(n).
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[3,6,1,5,2,4]` manually.
 2. Trace each flip visually.
@@ -8471,7 +8471,7 @@ because each `max()` and `flip()` operation is O(n).
 9. Analyze flip count for random input.
 10. Challenge: implement recursive version.
 
-### Test Cases
+#### Test Cases
 
 | Input         | Output        | Flips | Notes          |
 | ------------- | ------------- | ----- | -------------- |
@@ -8480,7 +8480,7 @@ because each `max()` and `flip()` operation is O(n).
 | [4,3,2,1]     | [1,2,3,4]     | 6     | Worst case     |
 | [2,1,3]       | [1,2,3]       | 3     | Small array    |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value |
 | -------------- | ----- |
@@ -8500,7 +8500,7 @@ Bitonic Sort is a parallel sorting algorithm designed for sorting networks. It w
 
 It's especially powerful on hardware, GPUs, and parallel processors, where multiple comparisons can happen at once.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Most standard algorithms (QuickSort, MergeSort) are data-dependent, their flow changes depending on comparisons. That's a problem for hardware or parallel systems.
 
@@ -8522,7 +8522,7 @@ Sort `[3, 7, 4, 8, 6, 2, 1, 5]`
 
 Each phase doubles sorted subsequences until the full array is sorted.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine you're sorting cards but you can only compare pairs at fixed positions, no adaptive decisions.
 
@@ -8540,9 +8540,9 @@ You first build a bitonic sequence (up then down), then merge it into a sorted l
 
 Works best when n = 2^k (power of two).
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def bitonic_merge(arr, low, cnt, direction):
@@ -8574,7 +8574,7 @@ Output:
 $$1, 2, 3, 4, 5, 6, 7, 8]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -8619,7 +8619,7 @@ Output:
 1 2 3 4 5 6 7 8
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Parallel-friendly (sorting networks)
 - Deterministic structure (no branches)
@@ -8628,7 +8628,7 @@ Output:
 
 It's not about runtime on CPUs, it's about parallel depth.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 **Bitonic sequence:**  
 A sequence that increases then decreases is bitonic.
@@ -8644,7 +8644,7 @@ Recursion depth = $\log n$, each level does $O(n)$ work → $O(n \log^2 n)$.
 | Merge  | $O(n)$  | $\log n$ | $O(n \log^2 n)$ |
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[3,7,4,8,6,2,1,5]` manually.
 2. Identify bitonic sequences at each stage.
@@ -8657,7 +8657,7 @@ Recursion depth = $\log n$, each level does $O(n)$ work → $O(n \log^2 n)$.
 9. Experiment with GPU (Numba/CUDA).
 10. Visualize recursive structure.
 
-### Test Cases
+#### Test Cases
 
 | Input             | Output            | Notes      |
 | ----------------- | ----------------- | ---------- |
@@ -8666,7 +8666,7 @@ Recursion depth = $\log n$, each level does $O(n)$ work → $O(n \log^2 n)$.
 | [5,4,3,2,1,0,9,8] | [0,1,2,3,4,5,8,9] | Reverse    |
 | [8,4,2,1,3,6,5,7] | [1,2,3,4,5,6,7,8] | Random     |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value       |
 | -------------- | ----------- |
@@ -8685,7 +8685,7 @@ Odd-Even Merge Sort is a parallel sorting algorithm and a sorting network that m
 
 It was introduced by Ken Batcher, and like Bitonic Sort, it's designed for parallel hardware or SIMD processors, where predictable comparison patterns matter more than data-dependent branching.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Traditional merge algorithms rely on conditional branching, they decide at runtime which element to pick next.
 This is problematic in parallel or hardware implementations, where you need fixed, predictable sequences of comparisons.
@@ -8709,7 +8709,7 @@ Merge two sorted halves: `[1, 4, 7, 8]` and `[2, 3, 5, 6]`
 
 Fixed pattern, no branching, merges completed in parallel.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine two zipper chains, one odd, one even.
 You weave them together in a fixed, interlocking pattern, comparing and swapping along the way.
@@ -8729,9 +8729,9 @@ There's no guessing, every element knows which neighbor to check.
 
 Works best when ( n = 2^k ).
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def odd_even_merge(arr, lo, n, direction):
@@ -8763,7 +8763,7 @@ Output:
 $$1, 2, 3, 4, 5, 6, 7, 8]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -8808,7 +8808,7 @@ Output:
 1 2 3 4 5 6 7 8
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Fixed sequence, perfect for parallelism
 - No data-dependent branching
@@ -8817,7 +8817,7 @@ Output:
 
 When you need determinism and concurrency, this algorithm shines.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each odd-even merge merges two sorted sequences using fixed compare-swap operations.
 At each stage:
@@ -8831,7 +8831,7 @@ $$
 T(n) = O(n \log^2 n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[8,3,2,7,4,6,5,1]` step by step.
 2. Trace odd-index and even-index merges.
@@ -8844,7 +8844,7 @@ $$
 9. Visualize parallel depth.
 10. Experiment with ascending/descending flags.
 
-### Test Cases
+#### Test Cases
 
 | Input             | Output            | Notes        |
 | ----------------- | ----------------- | ------------ |
@@ -8853,7 +8853,7 @@ $$
 | [9,7,5,3,1,2,4,6] | [1,2,3,4,5,6,7,9] | Mixed        |
 | [5,4,3,2]         | [2,3,4,5]         | Reverse half |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value       |
 | -------------- | ----------- |
@@ -8872,7 +8872,7 @@ Sleep Sort is one of the most playful and unconventional algorithms ever invente
 
 In effect, time itself becomes the sorting mechanism.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 While not practical, Sleep Sort offers a fun demonstration of parallelism and asynchronous timing, showing that even sorting can be expressed through temporal order rather than comparisons.
 
@@ -8894,7 +8894,7 @@ Output (over time):
 
 Sorted by time of completion!
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Each number is given a timer equal to its value.
 All timers start simultaneously, and when a timer finishes, that number is output.
@@ -8912,7 +8912,7 @@ It's like a race where each runner's speed is inversely proportional to its size
 | 4    | Numbers appear in sorted order                     |
 | 5    | Optionally collect outputs into a list             |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
 #### Python (Using Threads)
 
@@ -8980,7 +8980,7 @@ Output (timed):
 1 2 3 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Creative demonstration of parallelism
 - Fun teaching tool for concurrency
@@ -8989,7 +8989,7 @@ Output (timed):
 
 It's impractical, but delightfully educational.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 If all threads start simultaneously and sleep proportionally to their values, then:
 
@@ -9005,7 +9005,7 @@ Limitations:
 - Depends on accurate timers
 - Sensitive to scheduler latency
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[3,1,4,2]`, observe timing.
 2. Try `[10,5,1,2]`, slower but clearer pattern.
@@ -9018,7 +9018,7 @@ Limitations:
 9. Visualize time vs value graph.
 10. Try fractional delays for floats.
 
-### Test Cases
+#### Test Cases
 
 | Input     | Output    | Notes              |
 | --------- | --------- | ------------------ |
@@ -9027,7 +9027,7 @@ Limitations:
 | [4,3,2,1] | [1,2,3,4] | Reversed           |
 | [2,2,1]   | [1,2,2]   | Handles duplicates |
 
-### Complexity
+#### Complexity
 
 | Aspect             | Value                       |
 | ------------------ | --------------------------- |
@@ -9046,7 +9046,7 @@ Bead Sort, also known as Gravity Sort, is a natural sorting algorithm inspired b
 
 It's visual, parallel, and analog in spirit, more of a conceptual model than a practical tool, but brilliant for intuition.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Sorting algorithms usually rely on comparisons.
 Bead Sort instead uses physical simulation, items fall until they settle into order.
@@ -9069,7 +9069,7 @@ Sort `[5, 3, 1, 7, 4]`:
 
 The smallest number rises to top, largest sinks to bottom, sorted.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Each number is a pile of beads.
 Beads "fall" downward until no empty space below.
@@ -9089,9 +9089,9 @@ It's sorting by simulated gravity, no comparisons at all.
 
 Works only for non-negative integers.
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def bead_sort(arr):
@@ -9115,7 +9115,7 @@ Output:
 $$1, 3, 4, 5, 7]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -9159,7 +9159,7 @@ Output:
 1 3 4 5 7
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Demonstrates non-comparison-based sorting
 - Shows physical analogies for computation
@@ -9168,7 +9168,7 @@ Output:
 
 Though impractical, it inspires biological and physics-inspired algorithm design.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each column acts like a gravity channel:
 
@@ -9185,7 +9185,7 @@ where $S = \sum a_i$, total bead count.
 
 Efficient only when numbers are small.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Sort `[5,3,1,7,4]` by hand using dots.
 2. Draw rods and let beads fall.
@@ -9198,7 +9198,7 @@ Efficient only when numbers are small.
 9. Scale with numbers ≤ 10.
 10. Reflect: what if gravity was sideways?
 
-### Test Cases
+#### Test Cases
 
 | Input       | Output      | Notes                 |
 | ----------- | ----------- | --------------------- |
@@ -9207,7 +9207,7 @@ Efficient only when numbers are small.
 | [2,2,3]     | [2,2,3]     | Works with duplicates |
 | [1]         | [1]         | Single element        |
 
-### Complexity
+#### Complexity
 
 | Aspect   | Value                           |
 | -------- | ------------------------------- |
@@ -9225,7 +9225,7 @@ Bogo Sort (also called Permutation Sort or Stupid Sort) is a deliberately absurd
 
 It's the poster child of inefficiency, often used in classrooms as a comic counterexample, sorting by pure luck.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We're not solving a problem so much as demonstrating futility.
 Bogo Sort asks, *"What if we just kept trying random orders until we got lucky?"*
@@ -9248,7 +9248,7 @@ Sort `[3, 1, 2]`
 Stop when lucky!
 (You could get lucky early... or never.)
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 The idea is painfully simple:
 
@@ -9268,9 +9268,9 @@ Each attempt has a tiny probability of being sorted, but given infinite time, it
 | 3    | Else, shuffle randomly   |
 | 4    | Go back to step 1        |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 import random
@@ -9297,7 +9297,7 @@ Sorted in 7 attempts
 $$1, 2, 3]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -9345,7 +9345,7 @@ Sorted in 12 attempts
 1 2 3
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Humorous cautionary tale, what *not* to do
 - Demonstrates expected runtime analysis
@@ -9354,7 +9354,7 @@ Sorted in 12 attempts
 
 It's the algorithmic equivalent of *throwing dice until sorted*, mathematically silly, but conceptually rich.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 With $n$ elements, there are $n!$ permutations.  
 Only one is sorted.
@@ -9374,7 +9374,7 @@ $$
 Guaranteed termination (eventually), since the probability of not sorting forever $\to 0$.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Run on `[3,1,2]` and count attempts.
 2. Try `[1,2,3]`, instant success.
@@ -9387,7 +9387,7 @@ Guaranteed termination (eventually), since the probability of not sorting foreve
 9. Try "Bogobogosort" (recursive Bogo!).
 10. Reflect: what's the expected runtime for `n=5`?
 
-### Test Cases
+#### Test Cases
 
 | Input     | Output    | Notes                     |
 | --------- | --------- | ------------------------- |
@@ -9396,7 +9396,7 @@ Guaranteed termination (eventually), since the probability of not sorting foreve
 | [2,1]     | [1,2]     | Fast                      |
 | [4,3,2,1] | [1,2,3,4] | Possibly never terminates |
 
-### Complexity
+#### Complexity
 
 | Aspect          | Value                   |
 | --------------- | ----------------------- |
@@ -9418,7 +9418,7 @@ Linear Search (also known as Sequential Search) is the simplest and most intuiti
 
 It's easy to understand, easy to implement, and works on both sorted and unsorted data.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Given a list and a target value, how can we check if the target is present, and if so, at which index?
 
@@ -9441,7 +9441,7 @@ Find `7` in `[3, 5, 7, 2, 9]`:
 | 3    | 2     | 7     | ✅ Yes            |
 | 4    | Stop  |,     | Found at index 2 |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's like flipping through pages one by one looking for a word.
 No skipping, no guessing, just check everything in order.
@@ -9465,9 +9465,9 @@ If the list is `[a₀, a₁, a₂, ..., aₙ₋₁]`:
 | 5    | Repeat until end                    |
 | 6    | If not found, return -1             |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def linear_search(arr, target):
@@ -9488,7 +9488,7 @@ Output:
 Found at index: 2
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -9518,7 +9518,7 @@ Output:
 Found at index: 2
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Works on any list, sorted or unsorted
 - No preprocessing needed
@@ -9526,7 +9526,7 @@ Found at index: 2
 - Great introduction to time complexity
 - Foundation for better search algorithms
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 If the element exists, scanning each element ensures it will eventually be found.
 
@@ -9538,7 +9538,7 @@ For ( n ) elements:
 
 Because there's no faster way without structure.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `7` in `[3,5,7,2,9]`
 2. Search `10` (not in list)
@@ -9551,7 +9551,7 @@ Because there's no faster way without structure.
 9. Implement recursive version
 10. Extend for string search in list of words
 
-### Test Cases
+#### Test Cases
 
 | Input       | Target | Output | Notes      |
 | ----------- | ------ | ------ | ---------- |
@@ -9560,7 +9560,7 @@ Because there's no faster way without structure.
 | [1,2,3]     | 1      | 0      | Best case  |
 | [1,2,3]     | 3      | 2      | Worst case |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value |
 | -------------- | ----- |
@@ -9581,7 +9581,7 @@ Instead of checking array bounds each time, we place a sentinel (a guard value) 
 
 This eliminates the need for explicit boundary checks inside the loop, making the search slightly faster and cleaner, especially in low-level languages like C.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 In a standard linear search, each iteration checks both:
 
@@ -9610,7 +9610,7 @@ Find `7` in `[3, 5, 7, 2, 9]`:
 | 3    | 2                | 7          | ✅ Yes  |
 | 4    | Stop, index < n | Found at 2 |        |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of the sentinel as a stop sign placed beyond the last element.
 You don't have to look over your shoulder to check if you've gone too far, the sentinel will catch you.
@@ -9627,9 +9627,9 @@ It ensures you'll always hit a match, but then you check whether it was a real m
 | 4    | Restore last element                   |
 | 5    | If index < n → found, else → not found |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -9683,7 +9683,7 @@ arr = [3, 5, 7, 2, 9]
 print(sentinel_linear_search(arr, 7))  # Output: 2
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Removes boundary check overhead
 - Slightly faster for large arrays
@@ -9692,7 +9692,7 @@ print(sentinel_linear_search(arr, 7))  # Output: 2
 
 This is how you make a simple algorithm tight and elegant.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 By placing the target as the last element:
 
@@ -9706,7 +9706,7 @@ $$
 T(n) = O(n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `7` in `[3,5,7,2,9]`
 2. Search `10` (not in list)
@@ -9719,7 +9719,7 @@ $$
 9. Search last element, check sentinel restore
 10. Discuss when this optimization helps most
 
-### Test Cases
+#### Test Cases
 
 | Input       | Target | Output | Notes                  |
 | ----------- | ------ | ------ | ---------------------- |
@@ -9728,7 +9728,7 @@ $$
 | [1,2,3]     | 1      | 0      | Best case              |
 | [1,2,3]     | 3      | 2      | Sentinel replaced last |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value |
 | -------------- | ----- |
@@ -9748,7 +9748,7 @@ It repeatedly divides the search interval in half, eliminating half the remainin
 
 This version uses a loop, avoiding recursion and keeping memory usage minimal.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When working with sorted data, a linear scan is wasteful.
 If you always know the list is ordered, you can use binary search to find your target in O(log n) time instead of O(n).
@@ -9765,7 +9765,7 @@ Find `7` in `[1, 3, 5, 7, 9, 11]`:
 
 Found at index 3.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Binary Search is like guessing a number between 1 and 100:
 
@@ -9787,9 +9787,9 @@ Each guess cuts the space in half, that's why it's so fast.
 | 5    | Else → search left half (`high = mid - 1`)                   |
 | 6    | If not found, return -1                                      |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def binary_search(arr, target):
@@ -9814,7 +9814,7 @@ Output:
 3
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -9850,7 +9850,7 @@ Output:
 Found at index: 3
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Fundamental divide-and-conquer algorithm
 - O(log n) time complexity
@@ -9859,7 +9859,7 @@ Found at index: 3
 
 This is the first truly efficient search most programmers learn.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 At each step, the search interval halves.  
 After $k$ steps, remaining elements = $\frac{n}{2^k}$.
@@ -9875,7 +9875,7 @@ $$
 Works only on sorted arrays.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `7` in `[1,3,5,7,9,11]`
 2. Search `2` (not found)
@@ -9888,7 +9888,7 @@ Works only on sorted arrays.
 9. Add counter to measure steps
 10. Explain why sorting is required
 
-### Test Cases
+#### Test Cases
 
 | Input          | Target | Output | Notes         |
 | -------------- | ------ | ------ | ------------- |
@@ -9897,7 +9897,7 @@ Works only on sorted arrays.
 | [1,2,3,4,5]    | 1      | 0      | First element |
 | [1,2,3,4,5]    | 5      | 4      | Last element  |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value        |
 | -------------- | ------------ |
@@ -9918,7 +9918,7 @@ Instead of looping, it calls itself on smaller subarrays, each time halving the 
 
 It's a perfect demonstration of recursion in action, each call tackles a smaller slice of the problem.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Given a sorted array, we want to find a target value efficiently.
 Rather than scanning linearly, we repeatedly split the array in half, focusing only on the half that could contain the target.
@@ -9937,7 +9937,7 @@ Find `7` in `[1, 3, 5, 7, 9, 11]`
 
 Recursive calls shrink the interval each time until match is found.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Binary search says:
 
@@ -9963,9 +9963,9 @@ Each call reduces the search space by half, logarithmic depth recursion.
 | 4    | If `arr[mid] > target`, recurse left half   |
 | 5    | Else, recurse right half                    |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def binary_search_recursive(arr, target, low, high):
@@ -9989,7 +9989,7 @@ Output:
 3
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -10023,7 +10023,7 @@ Output:
 Found at index: 3
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Elegant divide-and-conquer demonstration
 - Shows recursion depth = log₂(n)
@@ -10032,7 +10032,7 @@ Found at index: 3
 
 Recursion mirrors the mathematical idea of halving the interval, clean and intuitive.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 At each recursive call:
 
@@ -10050,7 +10050,7 @@ Correctness follows from:
 - Base case ensures termination
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `7` in `[1,3,5,7,9,11]`
 2. Search `2` (not present)
@@ -10063,7 +10063,7 @@ Correctness follows from:
 9. Implement tail-recursive variant
 10. Reflect on stack vs loop tradeoffs
 
-### Test Cases
+#### Test Cases
 
 | Input          | Target | Output | Notes         |
 | -------------- | ------ | ------ | ------------- |
@@ -10072,7 +10072,7 @@ Correctness follows from:
 | [1,2,3,4,5]    | 1      | 0      | First element |
 | [1,2,3,4,5]    | 5      | 4      | Last element  |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value                      |
 | -------------- | -------------------------- |
@@ -10093,7 +10093,7 @@ In other words, it returns the index of the first element greater than or equal 
 
 It's used extensively in search engines, databases, range queries, and C++ STL (`std::lower_bound`).
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 In many cases, you don't just want to know if an element exists —
 you want to know where it would go in a sorted structure.
@@ -10116,7 +10116,7 @@ Find lower bound of `7` in `[1, 3, 5, 7, 7, 9, 11]`:
 
 Result: Index 3 (first `7`)
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Lower bound finds the leftmost slot where the target fits.
 It slides the search window until `low == high`, with `low` marking the first candidate ≥ target.
@@ -10136,9 +10136,9 @@ You can think of it as:
 |  c. Else, move `high = mid`                      |                                                       |
 | 3                                                | When loop ends, `low` is the lower bound index        |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def lower_bound(arr, target):
@@ -10161,7 +10161,7 @@ Output:
 3
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -10192,7 +10192,7 @@ Output:
 Lower bound index: 3
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Finds insertion position for sorted arrays
 - Useful in binary search trees, maps, intervals
@@ -10201,7 +10201,7 @@ Lower bound index: 3
 
 When you need more than yes/no, you need where, use lower bound.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Invariant:
 
@@ -10218,7 +10218,7 @@ $$
 T(n) = O(\log n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. `arr = [1,3,5,7,7,9]`, `target = 7` → 3
 2. `target = 6` → 3 (would insert before first 7)
@@ -10231,7 +10231,7 @@ $$
 9. Visualize range [lower, upper) for duplicates
 10. Benchmark vs linear scan for large n
 
-### Test Cases
+#### Test Cases
 
 | Input            | Target | Output | Meaning         |
 | ---------------- | ------ | ------ | --------------- |
@@ -10240,7 +10240,7 @@ $$
 | [1,3,5,7,7,9,11] | 12     | 7      | End position    |
 | [1,3,5,7,7,9,11] | 0      | 0      | Front           |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value        |
 | ------------ | ------------ |
@@ -10262,7 +10262,7 @@ In simpler words:
 
 > It finds "the spot just after the last occurrence" of the target.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Sometimes you need to know where to insert a value after existing duplicates.
 For example, in frequency counting or range queries, you might want the end of a block of identical elements.
@@ -10285,7 +10285,7 @@ Find upper bound of `7` in `[1, 3, 5, 7, 7, 9, 11]`:
 
 Result: Index 5 → position after last `7`.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 If Lower Bound finds "the first ≥ target,"
 then Upper Bound finds "the first > target."
@@ -10307,9 +10307,9 @@ $$
 |  c. Else, move `high = mid`                       |                                                |
 | 3                                                 | When loop ends, `low` is the upper bound index |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def upper_bound(arr, target):
@@ -10332,7 +10332,7 @@ Output:
 5
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -10363,7 +10363,7 @@ Output:
 Upper bound index: 5
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Locates end of duplicate block
 - Enables range counting:
@@ -10373,7 +10373,7 @@ Upper bound index: 5
 
 It's the *right-hand anchor* of sorted intervals.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Invariant:
 
@@ -10389,7 +10389,7 @@ T(n) = O(\log n)
 $$
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. `arr = [1,3,5,7,7,9]`, `target=7` → 5
 2. `target=6` → 3 (insert after 5)
@@ -10402,7 +10402,7 @@ $$
 9. Visualize [lower, upper) range
 10. Apply to floating point sorted list
 
-### Test Cases
+#### Test Cases
 
 | Input            | Target | Output | Meaning        |
 | ---------------- | ------ | ------ | -------------- |
@@ -10411,7 +10411,7 @@ $$
 | [1,3,5,7,7,9,11] | 12     | 7      | End position   |
 | [1,3,5,7,7,9,11] | 0      | 0      | Front          |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value        |
 | ------------ | ------------ |
@@ -10429,7 +10429,7 @@ Exponential Search is a hybrid search algorithm that quickly locates the range w
 
 It's ideal when searching unbounded or very large sorted arrays, especially when the size is unknown or dynamic (like data streams or infinite arrays).
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 In a standard binary search, you need the array size.
 But what if the size is unknown, or huge?
@@ -10459,7 +10459,7 @@ Find `15` in `[1, 2, 4, 8, 16, 32, 64, 128]`
 
 We doubled the bound each time (1, 2, 4, 8...) until we passed the target.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of it like zooming in:
 
@@ -10478,9 +10478,9 @@ This avoids scanning linearly when the array could be massive.
 | 4    | Apply binary search in that subrange            |
 | 5    | Return found index or -1                        |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def binary_search(arr, target, low, high):
@@ -10513,7 +10513,7 @@ Output:
 4
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -10556,7 +10556,7 @@ Output:
 Found at index: 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Works with unknown or infinite size arrays
 - Faster than linear scan for large `n`
@@ -10565,7 +10565,7 @@ Found at index: 4
 
 It's the searcher's flashlight, shine brighter until you see your target.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Doubling creates at most $\log_2 p$ expansions,  
 where $p$ is the position of the target.
@@ -10580,7 +10580,7 @@ $$
 Asymptotically equal to binary search when $p \ll n$.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `16` in `[1,2,4,8,16,32,64,128]`
 2. Search `3` → not found
@@ -10593,7 +10593,7 @@ Asymptotically equal to binary search when $p \ll n$.
 9. Measure expansion count
 10. Visualize ranges on number line
 
-### Test Cases
+#### Test Cases
 
 | Input              | Target | Output | Notes         |
 | ------------------ | ------ | ------ | ------------- |
@@ -10602,7 +10602,7 @@ Asymptotically equal to binary search when $p \ll n$.
 | [2,4,6,8]          | 2      | 0      | First element |
 | [2,4,6,8]          | 10     | -1     | Out of range  |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value                                  |
 | ------------ | -------------------------------------- |
@@ -10621,7 +10621,7 @@ It works by jumping ahead in fixed-size steps instead of checking every element,
 
 It trades a bit of extra logic for a big win in speed, especially when data is sorted and random access is cheap.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Linear search checks each element one by one, slow for large arrays.
 Jump Search improves on this by "skipping ahead" in fixed jumps, so it makes fewer comparisons overall.
@@ -10646,7 +10646,7 @@ Array size = 8 → Jump size = √8 = 2 or 3
 
 Found at index 4.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine you're reading a sorted list of numbers.
 Instead of reading one number at a time, you skip ahead every few steps, like jumping stairs.
@@ -10663,9 +10663,9 @@ Jump size ≈ √n gives a good balance between jumps and scans.
 | 3    | Once overshoot, do linear search in the previous block |
 | 4    | If found, return index, else -1                            |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 import math
@@ -10698,7 +10698,7 @@ Output:
 4
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -10734,7 +10734,7 @@ Output:
 Found at index: 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Faster than Linear Search for sorted arrays
 - Simpler to implement than Binary Search
@@ -10743,7 +10743,7 @@ Found at index: 4
 
 Best of both worlds: quick leaps and gentle steps.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Let jump size = $m$.
 
@@ -10761,7 +10761,7 @@ T(n) = O(\sqrt{n})
 $$
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `11` in `[1,3,5,7,9,11,13,15]`
 2. Search `2` (not found)
@@ -10774,7 +10774,7 @@ $$
 9. Combine with exponential jump
 10. Compare with binary search for timing
 
-### Test Cases
+#### Test Cases
 
 | Input                | Target | Output | Notes         |
 | -------------------- | ------ | ------ | ------------- |
@@ -10783,7 +10783,7 @@ $$
 | [2,4,6,8,10]         | 10     | 4      | Last element  |
 | [2,4,6,8,10]         | 2      | 0      | First element |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value        |
 | ------------ | ------------ |
@@ -10802,7 +10802,7 @@ It's especially efficient for sorted arrays stored in sequential memory, where e
 
 It's a clever twist on binary search, using Fibonacci numbers instead of powers of two.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 In Binary Search, the midpoint splits the array evenly.
 In Fibonacci Search, we split using Fibonacci ratios, which keeps indices aligned to integer arithmetic, no division needed, and better cache locality in some hardware.
@@ -10826,7 +10826,7 @@ Find `8` in `[1, 3, 5, 8, 13, 21, 34]`
 Fibonacci numbers: 1, 2, 3, 5, 8, 13, …
 We reduce the search space using previous Fibonacci values, like Fibonacci decomposition.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of Fibonacci Search as binary search guided by Fibonacci jumps.
 At each step:
@@ -10848,9 +10848,9 @@ You "walk down" the Fibonacci sequence until the range collapses.
 | 6    | Continue until Fib(k) = 1                                   |
 | 7    | Check last element if needed                                |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def fibonacci_search(arr, target):
@@ -10896,7 +10896,7 @@ Output:
 3
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -10953,7 +10953,7 @@ Output:
 Found at index: 3
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Uses only addition and subtraction, no division
 - Great for sequential access memory
@@ -10962,7 +10962,7 @@ Found at index: 3
 
 It's the search strategy built from nature's own numbers.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each iteration reduces the search space by a Fibonacci ratio:
 $$
@@ -10978,7 +10978,7 @@ T(n) = O(\log n)
 $$
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `8` in `[1,3,5,8,13,21,34]`
 2. Search `21`
@@ -10991,7 +10991,7 @@ $$
 9. Replace Fibonacci with powers of 2 (binary search)
 10. Experiment with non-uniform arrays
 
-### Test Cases
+#### Test Cases
 
 | Input              | Target | Output | Notes         |
 | ------------------ | ------ | ------ | ------------- |
@@ -11000,7 +11000,7 @@ $$
 | [1,3,5,8,13,21,34] | 34     | 6      | Last element  |
 | [1,3,5,8,13,21,34] | 1      | 0      | First element |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value        |
 | ------------ | ------------ |
@@ -11019,7 +11019,7 @@ Instead of recalculating the midpoint at each step, it uses a lookup table of of
 
 It's all about removing repetitive midpoint arithmetic and branching for consistent, uniform steps.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard binary search repeatedly computes:
 
@@ -11047,7 +11047,7 @@ Search `25` in `[5, 10, 15, 20, 25, 30, 35, 40]`
 
 Instead of recalculating midpoints, UBS uses offset table `[3, 1, 0]`.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's binary search with a preplanned route.
 At each level:
@@ -11068,9 +11068,9 @@ No divisions, no mid calculations, just jump and compare.
 | 4    | Move left/right using next offset           |
 | 5    | Stop when offset = 0 or found               |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def uniform_binary_search(arr, target):
@@ -11109,7 +11109,7 @@ Output:
 4
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -11149,7 +11149,7 @@ Output:
 Found at index: 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Avoids recomputing midpoints
 - Ideal for hardware, firmware, microcontrollers
@@ -11158,7 +11158,7 @@ Found at index: 4
 
 Uniformity = predictability = performance.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Precomputed offsets correspond to halving the search space.
 At each step, offset = floor(remaining_size / 2).
@@ -11172,7 +11172,7 @@ $$
 T(n) = O(\log n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `25` in `[5,10,15,20,25,30,35,40]`
 2. Search `35`
@@ -11185,7 +11185,7 @@ $$
 9. Measure comparisons
 10. Implement recursive version
 
-### Test Cases
+#### Test Cases
 
 | Input                    | Target | Output | Notes         |
 | ------------------------ | ------ | ------ | ------------- |
@@ -11194,7 +11194,7 @@ $$
 | [5,10,15,20,25,30,35,40] | 50     | -1     | Not found     |
 | [5,10,15,20,25,30,35,40] | 40     | 7      | Last element  |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value        |
 | ------------ | ------------ |
@@ -11215,7 +11215,7 @@ Unlike Binary Search, which always probes the middle, Interpolation Search estim
 
 If Binary Search is "divide by index," Interpolation Search is "divide by value."
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Binary Search assumes no relationship between index and value.
 But if the array values are uniformly spaced, we can do better by guessing where the target should be, not just the middle.
@@ -11241,7 +11241,7 @@ $$
 | 1    | 0   | 8    | 7   | 80    | 80 > 70 | move left |
 | 2    | 0   | 6    | 6   | 70    | 70 = 70 | ✅ found   |
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine the array as a number line.
 If your target is closer to the high end, start searching closer to the right.
@@ -11262,9 +11262,9 @@ So rather than halving blindly, you jump to the likely spot.
 | 6                                               | If larger → move `high = pos - 1`             |
 | 7                                               | Repeat until found or `low > high`            |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def interpolation_search(arr, target):
@@ -11297,7 +11297,7 @@ Output:
 6
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -11338,7 +11338,7 @@ Output:
 Found at index: 6
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Faster than Binary Search for uniformly distributed data
 - Ideal for dense key spaces (like hash slots, ID ranges)
@@ -11347,7 +11347,7 @@ Found at index: 6
 
 It's the value-aware cousin of Binary Search.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 If data is uniformly distributed, each probe halves value range logarithmically.
 Expected probes:
@@ -11361,7 +11361,7 @@ $$
 
 So it outperforms binary search only under uniform value distribution.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `70` in `[10,20,30,40,50,60,70,80,90]`
 2. Search `25` (not found)
@@ -11374,7 +11374,7 @@ So it outperforms binary search only under uniform value distribution.
 9. Search `90` (last element)
 10. Measure iterations on uniform vs non-uniform data
 
-### Test Cases
+#### Test Cases
 
 | Input                        | Target | Output | Notes     |
 | ---------------------------- | ------ | ------ | --------- |
@@ -11383,7 +11383,7 @@ So it outperforms binary search only under uniform value distribution.
 | [10,20,30,40,50,60,70,80,90] | 10     | 0      | First     |
 | [10,20,30,40,50,60,70,80,90] | 90     | 8      | Last      |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value                  |
 | ------------ | ---------------------- |
@@ -11403,7 +11403,7 @@ Instead of looping, it calls itself on smaller subranges, estimating the likely 
 
 It's a natural way to express the algorithm for learners who think recursively, same logic, cleaner flow.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We're taking the iterative interpolation search and expressing it recursively, to highlight the divide-and-conquer nature.
 The recursive form is often more intuitive and mathematically aligned with its interpolation logic.
@@ -11425,7 +11425,7 @@ arr[4] = 50 → ✅ found
 
 Recursion stops immediately, one call, one success.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Instead of looping, each recursive call zooms in to the subrange where the target might be.
 Each call computes an estimated index `pos` proportional to the target's distance between `arr[low]` and `arr[high]`.
@@ -11444,9 +11444,9 @@ If equal → return index
 | 4    | If `arr[pos] < target` → recurse on right half                |
 | 5    | Else recurse on left half                                     |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def interpolation_search_recursive(arr, low, high, target):
@@ -11475,7 +11475,7 @@ Output:
 4
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -11511,7 +11511,7 @@ Output:
 Found at index: 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Shows the recursive nature of interpolation-based estimation
 - Clean, mathematical form for teaching and analysis
@@ -11520,7 +11520,7 @@ Found at index: 4
 
 Think of it as binary search's artistic cousin, elegant and value-aware.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 In uniform distributions, each recursive step shrinks the search space multiplicatively, not just by half.
 
@@ -11537,7 +11537,7 @@ $$
 
 Recursion depth = number of interpolation refinements ≈ log log n.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `70` in `[10,20,30,40,50,60,70,80,90]`
 2. Search `25` (not found)
@@ -11550,7 +11550,7 @@ Recursion depth = number of interpolation refinements ≈ log log n.
 9. Test base cases (first, last, single element)
 10. Time comparison: iterative vs recursive
 
-### Test Cases
+#### Test Cases
 
 | Input                        | Target | Output | Notes     |
 | ---------------------------- | ------ | ------ | --------- |
@@ -11559,7 +11559,7 @@ Recursion depth = number of interpolation refinements ≈ log log n.
 | [10,20,30,40,50,60,70,80,90] | 10     | 0      | First     |
 | [10,20,30,40,50,60,70,80,90] | 90     | 8      | Last      |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value                    |
 | ------------ | ------------------------ |
@@ -11579,7 +11579,7 @@ It's perfect when the array size is unknown or infinite, it first finds the rang
 
 It's the "zoom out, then zoom in" strategy for searching sorted data.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 If you don't know the length of your sorted array, you can't directly apply binary search.
 You need to first bound the search space, so you know where to look.
@@ -11607,7 +11607,7 @@ Find `19` in `[2, 4, 8, 16, 19, 23, 42, 64, 128]`
 
 If it had overshot (say, target 23), we'd binary search between 4 and 8.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Think of searching an endless bookshelf.
 You take steps of size 1, 2, 4, 8... until you pass the book number you want.
@@ -11624,9 +11624,9 @@ Fast to expand, precise to finish.
 | 3    | When overshoot → binary search between `i/2` and `min(i, n-1)` |
 | 4    | Return index if found, else -1                                 |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def binary_search(arr, low, high, target):
@@ -11661,7 +11661,7 @@ Output:
 4
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -11706,7 +11706,7 @@ Output:
 Found at index: 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Handles unknown size arrays
 - Logarithmic search after expansion
@@ -11715,7 +11715,7 @@ Found at index: 4
 
 It's the search that grows as needed, like zooming your scope until the target appears.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each iteration reduces the search space by a Fibonacci ratio:
 $$
@@ -11731,7 +11731,7 @@ T(n) = O(\log n)
 $$
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `19` in `[2,4,8,16,19,23,42,64,128]`
 2. Search `42`
@@ -11744,7 +11744,7 @@ $$
 9. Measure expansions vs comparisons
 10. Combine with galloping search in TimSort
 
-### Test Cases
+#### Test Cases
 
 | Input                      | Target | Output | Notes        |
 | -------------------------- | ------ | ------ | ------------ |
@@ -11753,7 +11753,7 @@ $$
 | [2,4,8,16,19,23,42,64,128] | 1      | -1     | Not found    |
 | [2,4,8,16,19,23,42,64,128] | 128    | 8      | Last element |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value        |
 | ------------ | ------------ |
@@ -11772,7 +11772,7 @@ It's used when the data size or range is unknown, and you need to quickly discov
 
 Think of it as *"search by doubling until you find your bracket."*
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 In many real-world scenarios, you don't know the array's length or the bounds of your search domain.
 You can't jump straight into binary search, you need an upper bound first.
@@ -11800,7 +11800,7 @@ Range found: `[4, 8]`
 Now run binary search within `[16, 19, 23, 42, 64, 128]`
 ✅ Found at index 5
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Start small, test the first few steps.
 Every time you don't find your target and the value is still less, double your index (1, 2, 4, 8, 16...).
@@ -11818,9 +11818,9 @@ It's like walking in the dark and doubling your stride each time until you see t
 | 4    | Apply binary search within range                  |
 | 5    | Return index or -1 if not found                   |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def doubling_search(arr, target):
@@ -11859,7 +11859,7 @@ Output:
 5
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -11905,7 +11905,7 @@ Output:
 Found at index: 5
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Allows binary search when size is unknown
 - Only O(log p) probes, where `p` is target index
@@ -11914,7 +11914,7 @@ Found at index: 5
 
 It's the blueprint for all "expand then search" algorithms.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each doubling step multiplies range by 2,
 so number of expansions ≈ log₂(p)
@@ -11927,7 +11927,7 @@ $$
 
 Still logarithmic in target position, not array size, efficient even for unbounded data.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `23` in `[2,4,8,16,19,23,42,64,128]`
 2. Search `42` (more jumps)
@@ -11940,7 +11940,7 @@ Still logarithmic in target position, not array size, efficient even for unbound
 9. Simulate unknown-length array with a safe check
 10. Measure steps for small vs large targets
 
-### Test Cases
+#### Test Cases
 
 | Input                      | Target | Output | Notes        |
 | -------------------------- | ------ | ------ | ------------ |
@@ -11949,7 +11949,7 @@ Still logarithmic in target position, not array size, efficient even for unbound
 | [2,4,8,16,19,23,42,64,128] | 1      | -1     | Not found    |
 | [2,4,8,16,19,23,42,64,128] | 128    | 8      | Last element |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value        |
 | ------------ | ------------ |
@@ -11967,7 +11967,7 @@ Galloping Search (also called Exponential Gallop or Search by Doubling) is a hyb
 
 It's heavily used inside TimSort's merge step, where it helps merge sorted runs efficiently by skipping over large stretches that don't need detailed comparison.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When merging two sorted arrays (or searching in a sorted list), repeatedly comparing one by one is wasteful if elements differ by a large margin.
 Galloping Search "jumps ahead" quickly to find the region of interest, then finishes with a binary search to locate the exact boundary.
@@ -11991,7 +11991,7 @@ Find `25` in `[5, 10, 15, 20, 25, 30, 35, 40, 45]`
 
 If we overshoot (say, search for `22`), we'd gallop past it (index 4), then perform binary search between the previous bound and current one.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 You start by leaping, checking 1, 2, 4, 8 steps away, until you pass the target or reach the end.
 Once you overshoot, you gallop back (binary search) in the last valid interval.
@@ -12008,9 +12008,9 @@ It's like sprinting ahead to find the neighborhood, then walking house-to-house 
 | 4    | Apply binary search in that range                                                  |
 | 5    | Return index if found                                                              |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def binary_search(arr, low, high, target):
@@ -12049,7 +12049,7 @@ Output:
 4
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -12095,7 +12095,7 @@ Output:
 Found at index: 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Accelerates merging in TimSort
 - Minimizes comparisons when merging large sorted runs
@@ -12104,7 +12104,7 @@ Found at index: 4
 
 It's a dynamic balance, gallop when far, tiptoe when close.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Galloping phase:  
 Takes $O(\log p)$ steps to reach the target vicinity (where $p$ is the distance from the start).
@@ -12120,7 +12120,7 @@ $$
 Faster than linear merging when runs differ greatly in length.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `25` in `[5,10,15,20,25,30,35,40,45]`
 2. Search `40` (larger gallop)
@@ -12133,7 +12133,7 @@ Faster than linear merging when runs differ greatly in length.
 9. Count comparisons per search
 10. Test on long list with early/late targets
 
-### Test Cases
+#### Test Cases
 
 | Input                       | Target | Output | Notes         |
 | --------------------------- | ------ | ------ | ------------- |
@@ -12142,7 +12142,7 @@ Faster than linear merging when runs differ greatly in length.
 | [5,10,15,20,25,30,35,40,45] | 3      | -1     | Not found     |
 | [5,10,15,20,25,30,35,40,45] | 5      | 0      | First element |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value        |
 | ------------ | ------------ |
@@ -12161,7 +12161,7 @@ You don't know where the data ends, or even how large it is, but you know it's s
 
 It's a direct application of doubling search followed by binary search, especially suited for monotonic functions or streams.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 If you're working with data that:
 
@@ -12195,7 +12195,7 @@ Now you know target lies between x = 8 and x = 16.
 Step 2: Perform binary search in [8, 16].
 ✅ Found f(9) = 20
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 You start with a small step and double your reach each time until you go beyond the target.
 Once you've overshot, you know the search interval, and you can binary search inside it for precision.
@@ -12211,9 +12211,9 @@ It's the go-to strategy when the array (or domain) has no clear end.
 | 3    | Once `f(high) >= target`, binary search between `[low, high]` |
 | 4    | Return index (or value)                                       |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def unbounded_binary_search(f, target):
@@ -12246,7 +12246,7 @@ Output:
 9
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -12290,7 +12290,7 @@ Output:
 Found at x = 9
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Handles infinite sequences or unbounded domains
 - Perfect for monotonic functions (e.g. f(x) increasing)
@@ -12299,7 +12299,7 @@ Found at x = 9
 
 It's the "expand, then refine" pattern, the explorer's search.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Expanding step: doubles index each time → $O(\log p)$, where `p` is the position of the target.  
 Binary search step: searches within a range of size ≤ p → another $O(\log p)$.
@@ -12312,7 +12312,7 @@ $$
 Independent of total domain size.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. `f(x) = 2x + 2`, target = 20 → 9
 2. `f(x) = x²`, target = 64 → 8
@@ -12325,7 +12325,7 @@ Independent of total domain size.
 9. Compare with linear probing
 10. Use to find smallest x where f(x) ≥ target
 
-### Test Cases
+#### Test Cases
 
 | Function | Target | Output | Notes     |
 | -------- | ------ | ------ | --------- |
@@ -12334,7 +12334,7 @@ Independent of total domain size.
 | 2x+2     | 7      | -1     | Not found |
 | 3x+1     | 31     | 10     | f(10)=31  |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value                             |
 | ------------ | --------------------------------- |
@@ -12353,7 +12353,7 @@ It repeatedly halves an interval where the sign of the function changes, guarant
 
 It's the simplest, most reliable method for solving equations like f(x) = 0 when you only know that a solution exists somewhere between `a` and `b`.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When you have a function $f(x)$ and want to solve $f(x) = 0$,  
 but you can't solve it algebraically, you can use the **Bisection Method**.
@@ -12369,7 +12369,7 @@ Find the root of $f(x) = x^3 - x - 2$ in $[1, 2]$.
   Signs differ → there's a root in $[1, 2]$.
 
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 You start with an interval $[a, b]$ where $f(a)$ and $f(b)$ have opposite signs.  
 Then, at each step:
@@ -12393,9 +12393,9 @@ You're squeezing the interval tighter and tighter until it hugs the root.
 | 5    | Repeat until `                                               | f(m) | `or` | b - a | ` < tolerance |
 | 6    | Return `m` as root                                           |      |      |       |               |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def f(x):
@@ -12424,7 +12424,7 @@ Output:
 Approx root: 1.52138
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -12465,7 +12465,7 @@ Output:
 Approx root: 1.521380
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Guaranteed convergence if ( f ) is continuous and signs differ
 - Simple and robust
@@ -12473,7 +12473,7 @@ Approx root: 1.521380
 - Great starting point before more advanced methods (Newton, Secant)
 - Used in physics, finance, engineering for precise solving
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 By the Intermediate Value Theorem:  
 If $f(a) \cdot f(b) < 0$, then there exists $c \in [a, b]$ such that $f(c) = 0$.
@@ -12493,7 +12493,7 @@ $$
 
 Thus, convergence is linear, but guaranteed.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. $f(x) = x^2 - 2$, interval $[1, 2]$ → $\sqrt{2}$  
 2. $f(x) = \cos x - x$, interval $[0, 1]$  
@@ -12506,7 +12506,7 @@ Thus, convergence is linear, but guaranteed.
 9. Modify to return both root and iterations
 10. Test on function with multiple roots
 
-### Test Cases
+#### Test Cases
 
 | Function        | Interval | Root (Approx) | Notes            |
 | ---------------- | -------- | ------------- | ---------------- |
@@ -12516,7 +12516,7 @@ Thus, convergence is linear, but guaranteed.
 | $x^3 - 7$        | $[1, 3]$ | 1.913         | Cube root of 7   |
 
 
-### Complexity
+#### Complexity
 
 | Aspect              | Value             |
 | ------------------- | ----------------- |
@@ -12533,7 +12533,7 @@ Bisection Method is your steady compass in numerical analysis, it never fails wh
 Golden Section Search is a clever optimization algorithm for finding the minimum (or maximum) of a unimodal function on a closed interval ([a, b])—without derivatives.
 It's a close cousin of binary search, but instead of splitting in half, it uses the golden ratio to minimize function evaluations.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 You want to find the x that minimizes f(x) on an interval ([a, b]),
 but you can't or don't want to take derivatives (maybe f is noisy or discontinuous).
@@ -12552,7 +12552,7 @@ on ([0, 5])
 Since (f(x)) is quadratic, its minimum is at (x = 2).
 The algorithm will zoom in around (2) by evaluating at golden-ratio points.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine slicing your search interval using the golden ratio (( \phi \approx 1.618 )).
 By placing test points at those ratios, you can reuse past evaluations
@@ -12575,9 +12575,9 @@ like a mathematically perfect zoom.
 | 8    | Return midpoint as best estimate                                 |                        |                        |
 
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 import math
@@ -12612,7 +12612,7 @@ Output:
 Minimum near x = 2.0000
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -12658,7 +12658,7 @@ Output:
 Minimum near x = 2.00000
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - No derivatives required
 - Fewer evaluations than simple binary search
@@ -12666,7 +12666,7 @@ Minimum near x = 2.00000
 - Used in numerical optimization, tuning, engineering design, hyperparameter search
 - The golden ratio ensures optimal reuse of computed points
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 At each step, the interval length is multiplied by $\phi \approx 0.618$.
 
@@ -12683,7 +12683,7 @@ $$
 Thus, convergence is linear but efficient, and each iteration needs only one new evaluation.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. $f(x) = (x - 3)^2$, interval $[0, 6]$  
 2. $f(x) = x^4 - 10x^2 + 9$, interval $[-5, 5]$  
@@ -12696,7 +12696,7 @@ Thus, convergence is linear but efficient, and each iteration needs only one new
 9. Modify to return f(x*) as well
 10. Compare with ternary search
 
-### Test Cases
+#### Test Cases
 
 | Function      | Interval | Minimum $x$ | $f(x)$  |
 | -------------- | -------- | ------------ | -------- |
@@ -12705,7 +12705,7 @@ Thus, convergence is linear but efficient, and each iteration needs only one new
 | $x^2$           | $[-3, 2]$ | 0.0000       | 0.0000   |
 
 
-### Complexity
+#### Complexity
 
 | Aspect               | Value             |
 | -------------------- | ----------------- |
@@ -12724,7 +12724,7 @@ It's similar to binary search but uses Fibonacci numbers instead of halving inte
 
 It shines where comparison count matters or when random access is expensive.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 You want to search for an element in a sorted array efficiently,
 but instead of halving the interval (as in binary search),
@@ -12744,7 +12744,7 @@ arr = [10, 22, 35, 40, 45, 50, 80, 82, 85, 90, 100]
 3. Check mid using fibM2 = 5 (F(5)=5 → index 4): arr[4] = 45 < 55
 4. Move window and repeat until found or narrowed.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Instead of splitting in half like binary search,
 it splits using ratios of Fibonacci numbers, keeping subarray sizes close to golden ratio.
@@ -12766,9 +12766,9 @@ Think of it as a mathematically balanced jump search guided by Fibonacci spacing
 | 6    | If equal, return index                                           |
 | 7    | Continue until Fm1 = 1                                           |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def fibonacci_search(arr, x):
@@ -12819,7 +12819,7 @@ Found at index: -1
 Found at index: 8
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -12880,7 +12880,7 @@ Output:
 Found at index: 8
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Uses Fibonacci numbers to reduce comparisons
 - Efficient for sorted arrays with sequential access
@@ -12888,7 +12888,7 @@ Found at index: 8
 - Inspired by golden ratio search (optimal probing)
 - Excellent teaching tool for divide-and-conquer logic
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 The Fibonacci split maintains nearly golden ratio balance.  
 At each step, one subproblem has size ≈ $\frac{1}{\phi}$ of the previous.
@@ -12900,7 +12900,7 @@ Thus, the time complexity is the same as binary search,
 but with fewer comparisons and more efficient arithmetic.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search 45 in `[10, 22, 35, 40, 45, 50, 80, 82, 85, 90, 100]`
 2. Search 100 (last element)
@@ -12913,7 +12913,7 @@ but with fewer comparisons and more efficient arithmetic.
 9. Modify to print intervals
 10. Apply to sorted strings (lex order)
 
-### Test Cases
+#### Test Cases
 
 | Array                               | Target | Output | Notes     |
 | ----------------------------------- | ------ | ------ | --------- |
@@ -12922,7 +12922,7 @@ but with fewer comparisons and more efficient arithmetic.
 | [1,2,3,5,8,13,21]                   | 21     | 6      | Found     |
 | [2,4,6,8,10]                        | 7      | -1     | Not found |
 
-### Complexity
+#### Complexity
 
 | Aspect                | Value               |
 | --------------------- | ------------------- |
@@ -12939,7 +12939,7 @@ Fibonacci Search, a golden search for discrete worlds, where each step follows n
 Jump + Binary Hybrid Search blends the best of two worlds, Jump Search for fast skipping and Binary Search for precise refinement.
 It's perfect when your data is sorted, and you want a balance between linear jumps and logarithmic probing within small subranges.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Binary search is powerful but needs random access (you can jump anywhere).
 Jump search works well for sequential data (like linked blocks or caches) but may overshoot.
@@ -12966,7 +12966,7 @@ Step 2: Binary search within block [3..5)
 
 - Mid = 4 → arr[4] = 45 ✅ Found!
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 1. Choose block size $m = \sqrt{n}$.  
 2. Jump ahead by $m$ until you pass or reach the target.  
@@ -12987,9 +12987,9 @@ Binary search finishes it cleanly, fewer comparisons than either alone.
 | 5    | Return index or -1 if not found                     |
 
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 import math
@@ -13029,7 +13029,7 @@ Output:
 Found at index: 4
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -13081,7 +13081,7 @@ Output:
 Found at index: 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Combines fast skipping (jump) and efficient narrowing (binary)
 - Works well on sorted lists with slow access
@@ -13089,7 +13089,7 @@ Found at index: 4
 - Great for block-based storage and database indexing
 - Demonstrates hybrid thinking in algorithm design
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Jump phase: $O(\sqrt{n})$ steps  
 Binary phase: $O(\log \sqrt{n}) = O(\log n)$  
@@ -13102,7 +13102,7 @@ $$
 For large $n$, dominated by $O(\sqrt{n})$, but faster in practice.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `80` in `[10,22,35,40,45,50,80,82,85,90,100]`
 2. Try `10` (first element)
@@ -13115,7 +13115,7 @@ For large $n$, dominated by $O(\sqrt{n})$, but faster in practice.
 9. Combine with exponential block discovery
 10. Extend for descending arrays
 
-### Test Cases
+#### Test Cases
 
 | Array                               | Target | Output | Notes           |
 | ----------------------------------- | ------ | ------ | --------------- |
@@ -13124,7 +13124,7 @@ For large $n$, dominated by $O(\sqrt{n})$, but faster in practice.
 | [10,22,35,40,45]                    | 100    | -1     | Not found       |
 | [1,3,5,7,9,11,13]                   | 7      | 3      | Found in middle |
 
-### Complexity
+#### Complexity
 
 | Aspect          | Value         |
 | --------------- | ------------- |
@@ -13136,7 +13136,7 @@ For large $n$, dominated by $O(\sqrt{n})$, but faster in practice.
 
 Jump + Binary Hybrid, leap with purpose, then zero in. It's how explorers search with both speed and focus.
 
-# Section 18. Selection Algorithms 
+## Section 18. Selection Algorithms 
 
 ### 171 Quickselect
 
@@ -13149,7 +13149,7 @@ but only recurses into the side that contains the desired element.
 Average time complexity: O(n)
 Worst-case (rare): O(n²)
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Suppose you have an unsorted list and you want:
 
@@ -13174,7 +13174,7 @@ Find 4th smallest element in:
 
 No need to sort the rest!
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Quickselect picks a pivot, partitions the list into less-than and greater-than parts,
 and decides which side to recurse into based on the pivot's index vs. target `k`.
@@ -13192,9 +13192,9 @@ It's a divide and conquer search on positions, not order.
 | 5    | If `p > k`, search left             |
 | 6    | If `p < k`, search right (adjust k) |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 import random
@@ -13231,7 +13231,7 @@ Output:
 4th smallest: 4
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -13282,7 +13282,7 @@ Output:
 4th smallest: 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Find median in linear time (expected)
 - Avoid sorting when you only need one element
@@ -13290,7 +13290,7 @@ Output:
 - Common in order statistics, quantiles, top-k problems
 - Used in libraries (e.g. `nth_element` in C++)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each partition reduces problem size by eliminating one side.
 Average split ≈ half → O(n) expected comparisons.
@@ -13302,7 +13302,7 @@ $$
 T(n) = T(n/2) + O(n) \Rightarrow O(n)
 $$
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Find 1st smallest (min)
 2. Find last (max)
@@ -13315,7 +13315,7 @@ $$
 9. Test on repeated elements
 10. Combine with deterministic pivot
 
-### Test Cases
+#### Test Cases
 
 | Array                  | k (0-based) | Output | Notes          |
 | ---------------------- | ----------- | ------ | -------------- |
@@ -13324,7 +13324,7 @@ $$
 | [10,80,30,90,40,50,70] | 4           | 70     | middle element |
 | [5,5,5,5]              | 2           | 5      | duplicates     |
 
-### Complexity
+#### Complexity
 
 | Aspect         | Value       |
 | -------------- | ----------- |
@@ -13344,7 +13344,7 @@ It improves on Quickselect, which can degrade to (O(n^2)) in unlucky cases, by c
 
 It's a cornerstone of theoretical computer science, balancing speed and worst-case safety.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 In Quickselect, a bad pivot can lead to unbalanced partitions (like always picking smallest/largest).
 Median of Medians fixes this by ensuring the pivot is "good enough" —
@@ -13368,7 +13368,7 @@ Find 5th smallest in `[12, 3, 5, 7, 4, 19, 26, 23, 8, 15]`
 
 Pivot `19` ensures balanced split, leading to linear runtime.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 1. Break array into groups of 5
 2. Sort each small group (cheap)
@@ -13390,9 +13390,9 @@ Each level discards a constant fraction → (O(n)) total work.
 | 5    | Partition using this pivot           |
 | 6    | Recurse into correct side based on k |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def partition(arr, pivot):
@@ -13499,7 +13499,7 @@ Output:
 5th smallest: 8
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Guaranteed O(n) even in worst case
 - No bad pivots → stable performance
@@ -13507,7 +13507,7 @@ Output:
 - Used in theoretical guarantees for real systems
 - Key for deterministic selection, safe quantile computations
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each pivot ensures at least 30% of elements are discarded each recursion (proof via grouping).
 
@@ -13518,7 +13518,7 @@ $$
 
 Thus, always linear time, even worst case.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Find median of `[5, 2, 1, 3, 4]`
 2. Test with duplicates
@@ -13531,7 +13531,7 @@ Thus, always linear time, even worst case.
 9. Benchmark vs sorting
 10. Implement as pivot strategy for Quickselect
 
-### Test Cases
+#### Test Cases
 
 | Array                      | k | Output | Notes        |
 | -------------------------- | - | ------ | ------------ |
@@ -13540,7 +13540,7 @@ Thus, always linear time, even worst case.
 | [7,7,7,7]                  | 2 | 7      | Duplicates   |
 | [10,9,8,7,6,5]             | 0 | 5      | Min          |
 
-### Complexity
+#### Complexity
 
 | Aspect        | Value |
 | ------------- | ----- |
@@ -13558,7 +13558,7 @@ Randomized Select is a probabilistic version of Quickselect, where the pivot is 
 This small twist makes the algorithm's expected time O(n), even though the worst case remains (O(n^2)).
 In practice, it's fast, simple, and robust, a true workhorse for order statistics.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 You need the k-th smallest element in an unsorted list.
 Quickselect works well, but choosing the first or last element as pivot can cause bad splits.
@@ -13576,7 +13576,7 @@ Find 4th smallest in `[7, 2, 1, 6, 8, 5, 3, 4]`
 5. Partition → `[2,1] [3] [4]`
 6. Index 2 = k=3 → found 4th smallest = 4 ✅
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's Quickselect with random pivoting.
 At each step:
@@ -13598,9 +13598,9 @@ This randomness ensures average-case balance, even on adversarial inputs.
 | 5    | If `p > k`, recurse left             |
 | 6    | If `p < k`, recurse right (adjust k) |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 import random
@@ -13642,7 +13642,7 @@ Output:
 4th smallest: 4
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -13693,7 +13693,7 @@ Output:
 4th smallest: 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Expected O(n) time, simple, and practical
 - Avoids worst-case trap of fixed-pivot Quickselect
@@ -13701,7 +13701,7 @@ Output:
 - Combines simplicity + randomness = robust performance
 - Commonly used in competitive programming and real-world systems
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Expected recurrence:
 $$
@@ -13714,7 +13714,7 @@ Worst case still $O(n^2)$, but rare.
 Expected comparisons $\approx 2n$.
 
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Run multiple times and observe pivot randomness
 2. Compare with deterministic Quickselect
@@ -13727,7 +13727,7 @@ Expected comparisons $\approx 2n$.
 9. Log pivot indices
 10. Measure runtime on 10⁶ elements
 
-### Test Cases
+#### Test Cases
 
 | Array                  | k | Output | Notes              |
 | ---------------------- | - | ------ | ------------------ |
@@ -13736,7 +13736,7 @@ Expected comparisons $\approx 2n$.
 | [1,2,3,4,5]            | 0 | 1      | Sorted input safe  |
 | [5,5,5,5]              | 2 | 5      | Duplicates fine    |
 
-### Complexity
+#### Complexity
 
 | Aspect          | Value |
 | --------------- | ----- |
@@ -13753,7 +13753,7 @@ Randomized Select, a game of chance that almost always wins: fast, fair, and bea
 
 Binary Search on Answer (also called Parametric Search) is a powerful optimization trick used when the search space is monotonic—meaning once a condition becomes true, it stays true (or vice versa). Instead of searching a sorted array, we're searching for the smallest or largest value that satisfies a condition.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Sometimes you don't have an array to search, but you need to minimize or maximize a numeric answer.
 Examples:
@@ -13778,7 +13778,7 @@ We can't directly find it, but if we can check whether a candidate value `mid` i
 
 ✅ Result = 9
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 You don't search elements, you search values.
 You define a function `can(mid)` that checks if a solution is possible with `mid`.
@@ -13795,9 +13795,9 @@ Then use binary search to narrow down the range until you find the optimal value
 |      |  Else: lo = mid + 1                  |
 | 3    | Return lo as the optimal answer      |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def can_split(nums, k, mid):
@@ -13831,7 +13831,7 @@ Output:
 Minimum largest sum: 9
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -13880,14 +13880,14 @@ Output:
 Minimum largest sum: 9
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Solves optimization problems without brute force
 - Turns decision problems into search problems
 - A universal pattern: works for capacity, distance, time, etc.
 - Common in LeetCode, interviews, and competitive programming
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 If a function `f(x)` is monotonic (true after a point or false after a point), binary search can find the threshold.
 Formally:
@@ -13896,7 +13896,7 @@ If `f(lo) = false`, `f(hi) = true`,
 and `f(x)` is monotonic,
 then binary search converges to smallest x such that f(x) = true.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Find smallest capacity to ship packages in `d` days
 2. Find smallest max page load per student (book allocation)
@@ -13909,7 +13909,7 @@ then binary search converges to smallest x such that f(x) = true.
 9. Count binary search steps for each case
 10. Compare with brute force
 
-### Test Cases
+#### Test Cases
 
 | Problem          | Input              | Output | Explanation     |
 | ---------------- | ------------------ | ------ | --------------- |
@@ -13917,7 +13917,7 @@ then binary search converges to smallest x such that f(x) = true.
 | Book allocation  | [10,20,30,40], k=2 | 60     | [10,20,30],[40] |
 | Router placement | [1,2,8,12], k=3    | 5      | Place at 1,6,12 |
 
-### Complexity
+#### Complexity
 
 | Aspect                | Value                        |
 | --------------------- | ---------------------------- |
@@ -13937,7 +13937,7 @@ An Order Statistics Tree is a special kind of augmented binary search tree (BST)
 
 It's a classic data structure where each node stores subtree size, allowing order-based queries in O(log n) time.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Sometimes you don't just want to search by key, you want to search by order.
 For example:
@@ -13965,7 +13965,7 @@ Each node stores `size` (the number of nodes in its subtree).
 Select(4) → 20 (the 4th smallest)
 Rank(22) → 6 (22 is the 6th smallest)
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Every node tracks how many nodes exist in its subtree (left + right + itself).
 When you traverse:
@@ -13993,9 +13993,9 @@ rank(node, x):
     else: return size(node.left) + 1 + rank(node.right, x)
 ```
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 class Node:
@@ -14085,7 +14085,7 @@ int select_k(Node* root, int k) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Useful in rank-based queries, median finding, and order-statistics problems
 - Core to balanced trees (AVL, Red-Black, Treaps) with order augmentation
@@ -14093,13 +14093,13 @@ int select_k(Node* root, int k) {
 
 You can imagine it as a self-updating leaderboard, always knowing who's in position `k`.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Because subtree sizes are updated correctly on insertions/deletions,
 each traversal can compute ranks or k-th values in O(log n) time (in balanced trees).
 If balanced (like in an AVL or RB-tree), operations remain logarithmic.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build an Order Statistics Tree for `[10,20,30,40,50]`.
 2. Find `Select(3)` and `Rank(40)`.
@@ -14112,7 +14112,7 @@ If balanced (like in an AVL or RB-tree), operations remain logarithmic.
 9. Explore dynamic segment trees for same queries.
 10. Implement `countLessThan(x)` using rank.
 
-### Test Cases
+#### Test Cases
 
 | Query     | Expected Result |
 | --------- | --------------- |
@@ -14122,7 +14122,7 @@ If balanced (like in an AVL or RB-tree), operations remain logarithmic.
 | Rank(22)  | 6               |
 | Rank(30)  | 7               |
 
-### Complexity
+#### Complexity
 
 | Operation       | Complexity |
 | --------------- | ---------- |
@@ -14137,7 +14137,7 @@ An Order Statistics Tree blends search and ranking, perfect for problems that ne
 
 A Tournament Tree is a binary tree structure that simulates a knockout tournament among elements. Each match compares two elements, and the winner moves up. It's an elegant way to find minimum, maximum, or even k-th smallest elements with structured comparisons.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Finding the minimum or maximum in a list takes O(n).
 But if you also want the second smallest, third smallest, or k-th, you'd like to reuse earlier comparisons.
@@ -14156,7 +14156,7 @@ The root of the tree = minimum element (1).
 
 If you store the losing element from each match, you can trace back the second smallest, it must have lost directly to 1.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Imagine a sports tournament:
 
@@ -14177,9 +14177,9 @@ To find second min, check log n losers.
 | 3    | Store "losers" in each node.                                      |
 | 4    | The root = min. The second min = min(losers along winner's path). |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def tournament_min(arr):
@@ -14233,7 +14233,7 @@ Min: 1
 Second Min: 2
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -14257,13 +14257,13 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Finds minimum in O(n), second minimum in O(n + log n) comparisons
 - Reusable for k-th selection if you store all match info
 - Forms the backbone of selection networks, parallel sorting, and merge tournaments
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Each element except the minimum loses exactly once.
 The minimum element competes in log₂n matches (height of tree).
@@ -14271,7 +14271,7 @@ So second minimum must be the smallest of log₂n losers, requiring log₂n extr
 
 Total = n - 1 + log₂n comparisons, asymptotically optimal.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a tournament for `[5,3,8,2,9,4]`.
 2. Find minimum and second minimum manually.
@@ -14284,7 +14284,7 @@ Total = n - 1 + log₂n comparisons, asymptotically optimal.
 9. Simulate sports bracket winner path.
 10. Count comparisons for each step.
 
-### Test Cases
+#### Test Cases
 
 | Input             | Min | Second Min |
 | ----------------- | --- | ---------- |
@@ -14292,7 +14292,7 @@ Total = n - 1 + log₂n comparisons, asymptotically optimal.
 | [10,3,6,2]        | 2   | 3          |
 | [5,4,3,2,1]       | 1   | 2          |
 
-### Complexity
+#### Complexity
 
 | Operation           | Complexity |
 | ------------------- | ---------- |
@@ -14307,7 +14307,7 @@ A Tournament Tree turns comparisons into matches, where every element plays once
 
 Heap Select is a simple, powerful technique for finding the k smallest (or largest) elements in a collection using a heap. It's one of the most practical selection algorithms, trading minimal code for strong efficiency.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 You often don't need a full sort, just the k smallest or k largest items.
 Examples:
@@ -14331,7 +14331,7 @@ Find 3 smallest elements in `[7, 2, 9, 1, 5, 4]`.
 
 Result → `[1, 2, 4]` (the 3 smallest)
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 You keep a heap of size k:
 
@@ -14351,9 +14351,9 @@ This keeps only the top-k interesting values at all times.
 | 4    | Result is heap contents (unsorted)              |
 | 5    | Sort heap if needed for final output            |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 import heapq
@@ -14377,7 +14377,7 @@ Output:
 3 smallest: [1, 2, 4]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -14427,7 +14427,7 @@ Output:
 1 2 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Avoids full sorting (O(n log n))
 - Great for streaming data, sliding windows, top-k problems
@@ -14436,7 +14436,7 @@ Output:
 
 If you only need *some* order, don't sort it all.
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 - Building heap: O(k)
 - For each new element: compare + heapify = O(log k)
@@ -14444,7 +14444,7 @@ If you only need *some* order, don't sort it all.
 
 For small `k`, this is much faster than sorting.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Find 3 largest elements using min-heap
 2. Stream numbers from input, maintain smallest 5
@@ -14457,7 +14457,7 @@ For small `k`, this is much faster than sorting.
 9. Visualize heap evolution per step
 10. Combine with binary search to tune thresholds
 
-### Test Cases
+#### Test Cases
 
 | Input         | k | Output  |
 | ------------- | - | ------- |
@@ -14465,7 +14465,7 @@ For small `k`, this is much faster than sorting.
 | [10,8,6,4,2]  | 2 | [2,4]   |
 | [1,1,1,1]     | 2 | [1,1]   |
 
-### Complexity
+#### Complexity
 
 | Operation     | Complexity     |
 | ------------- | -------------- |
@@ -14482,7 +14482,7 @@ Partial QuickSort is a twist on classic QuickSort, it stops sorting once it has 
 
 Think of it as QuickSort with early stopping, a hybrid between QuickSort and Quickselect.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Sometimes you need only part of the sorted order:
 
@@ -14507,7 +14507,7 @@ Pivot = 6
 Now we know all elements left of pivot (4, 2, 1) are smaller.
 Since `left_size == k`, we can stop, `[1,2,4]` are our smallest 3.
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Just like QuickSort, but after partition:
 
@@ -14527,9 +14527,9 @@ You never sort beyond what's needed.
 | 4    | If pivot index > k → recurse left       |
 | 5    | Else recurse right on remaining portion |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def partial_quicksort(arr, low, high, k):
@@ -14563,7 +14563,7 @@ Output:
 Smallest 3 elements: [1, 2, 4]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -14609,7 +14609,7 @@ Smallest 3 elements:
 1 2 4
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Efficient top-k selection when order matters
 - Avoids sorting unnecessary portions
@@ -14618,13 +14618,13 @@ Smallest 3 elements:
 
 Great for partial sorting like "leaderboards", "top results", or "bounded priority lists".
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 QuickSort partitions data into two halves;
 Only parts that could contain the first `k` elements are explored.
 Average time complexity becomes O(n) for selection, O(n log k) for partial order.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Find smallest 5 numbers in `[10,9,8,7,6,5,4,3,2,1]`
 2. Modify to find largest k instead
@@ -14637,7 +14637,7 @@ Average time complexity becomes O(n) for selection, O(n log k) for partial order
 9. Try with duplicates
 10. Combine with heap for hybrid version
 
-### Test Cases
+#### Test Cases
 
 | Input         | k | Output  |
 | ------------- | - | ------- |
@@ -14645,7 +14645,7 @@ Average time complexity becomes O(n) for selection, O(n log k) for partial order
 | [5,4,3,2,1]   | 2 | [1,2]   |
 | [7,7,7,7]     | 2 | [7,7]   |
 
-### Complexity
+#### Complexity
 
 | Aspect       | Value |
 | ------------ | ----- |
@@ -14660,7 +14660,7 @@ Partial QuickSort, fast, focused, and frugal, because sometimes, you only need *
 
 The BFPRT algorithm (named after Blum, Floyd, Pratt, Rivest, and Tarjan) is a deterministic linear-time selection algorithm. It finds the k-th smallest element in an unsorted array, guaranteeing O(n) worst-case time, a mathematically elegant and exact alternative to randomized quickselect.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 You want to find the k-th smallest element, like the median, but you don't want to gamble on random pivots (which could hit worst-case O(n²)).
 BFPRT chooses pivots so well that it always guarantees O(n).
@@ -14683,7 +14683,7 @@ Find the median (k=5) of `[9, 4, 7, 3, 6, 1, 8, 2, 5, 10]`
 
 ✅ The 5th smallest = 5
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 It's Quickselect with a smarter pivot:
 
@@ -14704,9 +14704,9 @@ This ensures the pivot is *always good enough* to split the array reasonably, ke
 | 4    | Partition around pivot                   |
 | 5    | Recurse on side containing k-th smallest |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def partition(arr, pivot):
@@ -14799,14 +14799,14 @@ int median_of_medians(int arr[], int n) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Deterministic O(n), no randomness or bad pivots
 - Used in theoretical CS, worst-case analysis, exact solvers
 - Foundation for deterministic selection, median-finding, linear-time sorting bounds
 - Core to intro algorithms theory (CLRS Chapter 9)
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 - Each group of 5 → median is ≥ 3 elements in group (2 below, 2 above)
 - At least half of medians ≥ pivot → pivot ≥ 30% of elements
@@ -14815,7 +14815,7 @@ int median_of_medians(int arr[], int n) {
 
 No chance of quadratic blowup.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Find median of `[5,3,2,8,1,9,7,6,4]`
 2. Trace pivot selection tree
@@ -14828,7 +14828,7 @@ No chance of quadratic blowup.
 9. Use for percentile queries
 10. Implement streaming median with repeated selection
 
-### Test Cases
+#### Test Cases
 
 | Input                  | k | Output | Meaning      |
 | ---------------------- | - | ------ | ------------ |
@@ -14836,7 +14836,7 @@ No chance of quadratic blowup.
 | [1,2,3,4,5]            | 2 | 3      | middle       |
 | [10,9,8,7,6]           | 0 | 6      | smallest     |
 
-### Complexity
+#### Complexity
 
 | Aspect        | Value                           |
 | ------------- | ------------------------------- |
@@ -14854,7 +14854,7 @@ Instead of sorting everything every time, we can use a min-heap of size k to alw
 
 This is the foundation for real-time leaderboards, streaming analytics, and online ranking systems.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Given a stream of numbers (arriving one by one), we want to:
 
@@ -14880,7 +14880,7 @@ Add new number `10`:
 
 ✅ Each new element processed in O(log k)
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 Keep a min-heap of size `k`:
 
@@ -14901,9 +14901,9 @@ Keep a min-heap of size `k`:
 |      | Else if `x` > heap[0] → pop, push `x` |
 | 3    | kth largest = heap[0]                 |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 import heapq
@@ -14942,7 +14942,7 @@ Output:
 8
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -14996,7 +14996,7 @@ int main(void) {
 }
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Real-time streaming top-k tracking
 - Constant-time query (O(1)), fast update (O(log k))
@@ -15007,7 +15007,7 @@ int main(void) {
   * Continuous analytics
   * Online medians & percentiles
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Min-heap stores only top `k` values.
 Whenever new value > heap[0], it must belong in top `k`.
@@ -15017,7 +15017,7 @@ kth largest = heap[0].
 Each update → O(log k).
 Total after n elements → O(n log k).
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Initialize with `[4,5,8,2]`, k=3, stream = [3,5,10,9,4]
 2. Try decreasing sequence
@@ -15030,7 +15030,7 @@ Total after n elements → O(n log k).
 9. Build real-time median tracker using two heaps
 10. Extend to stream of objects (track by score field)
 
-### Test Cases
+#### Test Cases
 
 | Initial     | k | Stream       | Output Sequence |
 | ----------- | - | ------------ | --------------- |
@@ -15038,7 +15038,7 @@ Total after n elements → O(n log k).
 | [10,7,11,5] | 2 | [8,12,4]     | [10,11,11]      |
 | [1]         | 1 | [2,3]        | [2,3]           |
 
-### Complexity
+#### Complexity
 
 | Operation         | Complexity |
 | ----------------- | ---------- |
@@ -15048,7 +15048,7 @@ Total after n elements → O(n log k).
 
 Kth Largest Stream, stay calm in the flow; the heap remembers what matters most.
 
-# Section 19. Range Search and Nearest Neighbor 
+## Section 19. Range Search and Nearest Neighbor 
 
 ### 181 Binary Search Range
 
@@ -15056,7 +15056,7 @@ Binary Search Range extends the basic binary search to find not just one occurre
 
 It's the backbone for problems that require counting occurrences, range queries, and insertion positions in ordered data.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard binary search returns *one* match. But what if the target appears multiple times, or we want where it *should* go?
 
@@ -15080,7 +15080,7 @@ Array: `[1, 2, 2, 2, 3, 4, 5]`, target = `2`
 
 Occurrences = `upper - lower = 3`
 
-### How Does It Work (Plain Language)?
+#### How Does It Work (Plain Language)?
 
 We use binary search twice:
 
@@ -15098,9 +15098,9 @@ Subtract them to get the count, or slice the range.
 | 3    | Range = `[i, j - 1]` if `i < j` and `arr[i] == target`     |
 | 4    | Count = `j - i`                                            |
 
-### Tiny Code (Easy Versions)
+#### Tiny Code (Easy Versions)
 
-#### Python
+##### Python
 
 ```python
 def lower_bound(arr, target):
@@ -15143,7 +15143,7 @@ Range: (1, 3)
 Count: 3
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -15184,14 +15184,14 @@ Output:
 Range: [1, 3], Count: 3
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Extends binary search beyond "found or not"
 - Essential in frequency counting, range queries, histograms
 - Powers data structures like Segment Trees, Fenwick Trees, and Range Indexes
 - Used in competitive programming and database indexing
 
-### A Gentle Proof (Why It Works)
+#### A Gentle Proof (Why It Works)
 
 Because binary search maintains sorted invariants (`lo < hi` and mid conditions),
 
@@ -15200,7 +15200,7 @@ Because binary search maintains sorted invariants (`lo < hi` and mid conditions)
 
 Both run in O(log n), giving exact range boundaries.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Test with no occurrences (e.g. `[1,3,5]`, target=2)
 2. Test with all equal (e.g. `[2,2,2,2]`, target=2)
@@ -15213,7 +15213,7 @@ Both run in O(log n), giving exact range boundaries.
 9. Compare iterative vs recursive
 10. Use as primitive for frequency table
 
-### Test Cases
+#### Test Cases
 
 | Array           | Target | Range   | Count |
 | --------------- | ------ | ------- | ----- |
@@ -15222,7 +15222,7 @@ Both run in O(log n), giving exact range boundaries.
 | [2,2,2,2]       | 2      | [0,3]   | 4     |
 | [1,2,3,4]       | 4      | [3,3]   | 1     |
 
-### Complexity
+#### Complexity
 
 | Operation   | Complexity |
 | ----------- | ---------- |
@@ -15241,7 +15241,7 @@ It preprocesses the array into a binary tree structure, where each node stores a
 
 Once built, you can answer queries and updates in O(log n) time.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Given an array, we often want to query over ranges:
 
@@ -15261,7 +15261,7 @@ Array: `[2, 4, 5, 7, 8, 9]`
 | Sum(1,3) | 4+5+7 = 16       |
 | Min(2,5) | min(5,7,8,9) = 5 |
 
-### How It Works (Intuitive View)
+#### How It Works (Intuitive View)
 
 A Segment Tree is like a binary hierarchy:
 
@@ -15280,9 +15280,9 @@ To query a range, you traverse only relevant branches.
 | Query     | Traverse overlapping nodes         | O(log n) |
 | Update    | Recompute along path               | O(log n) |
 
-### Tiny Code (Sum Query Example)
+#### Tiny Code (Sum Query Example)
 
-#### Python
+##### Python
 
 ```python
 class SegmentTree:
@@ -15322,7 +15322,7 @@ Output:
 16
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -15361,14 +15361,14 @@ Output:
 Sum [1,3] = 16
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Handles dynamic range queries and updates efficiently
 - Core of competitive programming and data analytics
 - Forms base for Range Minimum Query, 2D queries, and lazy propagation
 - Useful in databases, financial systems, and game engines
 
-### Intuition (Associativity Rule)
+#### Intuition (Associativity Rule)
 
 Segment Trees only work when the operation is associative:
 
@@ -15381,7 +15381,7 @@ Examples:
 - Sum, Min, Max, GCD, XOR
 - Not Median, Not Mode (non-associative)
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Implement for min or max instead of sum
 2. Add update() for point changes
@@ -15394,7 +15394,7 @@ Examples:
 9. Handle custom operations (GCD, XOR)
 10. Benchmark O(n log n) vs naive O(nq)
 
-### Test Cases
+#### Test Cases
 
 | Array         | Query    | Expected |
 | ------------- | -------- | -------- |
@@ -15403,7 +15403,7 @@ Examples:
 | [5,5,5,5]     | Sum(1,2) | 10       |
 | [3,2,1,4]     | Min(1,3) | 1        |
 
-### Complexity
+#### Complexity
 
 | Operation | Complexity |
 | --------- | ---------- |
@@ -15419,7 +15419,7 @@ Segment Tree Query, build once, query many, fast forever.
 A Fenwick Tree (or Binary Indexed Tree) is a data structure designed for prefix queries and point updates in O(log n) time.
 It's a more space-efficient, iterative cousin of the Segment Tree, perfect when operations are cumulative (sum, XOR, etc.) and updates are frequent.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want to:
 
@@ -15438,7 +15438,7 @@ Array: `[2, 4, 5, 7, 8]`
 | PrefixSum(3)   | 2 + 4 + 5 + 7 = 18                  |
 | RangeSum(1, 3) | Prefix(3) - Prefix(0) = 18 - 2 = 16 |
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 A Fenwick Tree stores cumulative information in indexed chunks.
 Each index covers a range determined by its least significant bit (LSB).
@@ -15466,9 +15466,9 @@ For array `[2, 4, 5, 7, 8]` (1-based index):
 | 4     | 100    | 4   | [1–4] | 18    |
 | 5     | 101    | 1   | [5]   | 8     |
 
-### Tiny Code (Sum Example)
+#### Tiny Code (Sum Example)
 
-#### Python
+##### Python
 
 ```python
 class FenwickTree:
@@ -15506,7 +15506,7 @@ Output:
 16
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -15548,7 +15548,7 @@ Output:
 Sum [2,4] = 16
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Elegant bit manipulation for efficient queries
 - Simpler and smaller than Segment Trees
@@ -15556,12 +15556,12 @@ Sum [2,4] = 16
 - Extends to 2D Fenwick Trees for grid-based data
 - Core in competitive programming, streaming, finance
 
-### Intuition (Least Significant Bit)
+#### Intuition (Least Significant Bit)
 
 The LSB trick (i & -i) finds the rightmost set bit, controlling how far we jump.
 This ensures logarithmic traversal through relevant nodes.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Implement a prefix XOR version
 2. Add range updates with two trees
@@ -15574,7 +15574,7 @@ This ensures logarithmic traversal through relevant nodes.
 9. Handle point updates interactively
 10. Practice bit math: draw index cover ranges
 
-### Test Cases
+#### Test Cases
 
 | Array       | Query                  | Expected |
 | ----------- | ---------------------- | -------- |
@@ -15583,7 +15583,7 @@ This ensures logarithmic traversal through relevant nodes.
 | [5,5,5,5]   | Sum(1,3)               | 15       |
 | [3,1,4,2]   | Update(2,+3), Sum(1,2) | 7        |
 
-### Complexity
+#### Complexity
 
 | Operation | Complexity |
 | --------- | ---------- |
@@ -15599,7 +15599,7 @@ A Fenwick Tree turns prefix operations into lightning-fast bit magic, simple, sm
 An Interval Tree is a data structure built to efficiently store intervals (ranges like [l, r]) and query all intervals that overlap with a given interval or point.
 It's like a BST with range-awareness, enabling fast queries such as "which tasks overlap with time t?" or "which rectangles overlap this region?"
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want to efficiently find overlapping intervals.
 A naive search checks all intervals, O(n) per query.
@@ -15617,7 +15617,7 @@ Query: `[14, 16]`
 
 Overlaps: `[10, 30]`, `[12, 15]`
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 1. Build a BST using the midpoint or start of intervals as keys.
 2. Each node stores:
@@ -15643,9 +15643,9 @@ This pruning makes it logarithmic for most cases.
 
 Each node stores `max` endpoint of its subtree.
 
-### Tiny Code (Query Example)
+#### Tiny Code (Query Example)
 
-#### Python
+##### Python
 
 ```python
 class IntervalNode:
@@ -15696,7 +15696,7 @@ Output:
 $$(10, 30), (12, 15)]
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -15761,7 +15761,7 @@ $$10, 30] overlaps
 $$12, 15] overlaps
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Efficient for overlap queries (e.g. events, tasks, ranges)
 - Used in:
@@ -15779,7 +15779,7 @@ This helps prune non-overlapping branches early.
 
 Think of it as a "range-aware BST".
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build tree for intervals: [1,5], [2,6], [7,9], [10,15]
 2. Query [4,8], which overlap?
@@ -15792,7 +15792,7 @@ Think of it as a "range-aware BST".
 9. Try dynamic updates
 10. Use to detect meeting conflicts
 
-### Test Cases
+#### Test Cases
 
 | Intervals                                  | Query   | Expected Overlaps |
 | ------------------------------------------ | ------- | ----------------- |
@@ -15800,7 +15800,7 @@ Think of it as a "range-aware BST".
 | [1,3], [5,8], [6,10]                       | [7,9]   | [5,8], [6,10]     |
 | [2,5], [6,8]                               | [1,1]   | none              |
 
-### Complexity
+#### Complexity
 
 | Operation | Complexity   |
 | --------- | ------------ |
@@ -15815,7 +15815,7 @@ An Interval Tree is your go-to for range overlap queries, BST elegance meets int
 A KD-Tree (k-dimensional tree) is a space-partitioning data structure that organizes points in *k*-dimensional space for efficient nearest neighbor, range, and radius searches.
 It's like a binary search tree, but it splits space along alternating dimensions.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want to:
 
@@ -15836,7 +15836,7 @@ Points in 2D:
 Query: Nearest neighbor of (9,2)
 Result: (8,1)
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 1. Build Tree
 
@@ -15862,9 +15862,9 @@ This pruning makes nearest-neighbor search efficient.
  (2,3)  (4,7)       (8,1)
 ```
 
-### Tiny Code (2D Example)
+#### Tiny Code (2D Example)
 
-#### Python
+##### Python
 
 ```python
 from math import sqrt
@@ -15948,7 +15948,7 @@ double dist2(double a[2], double b[2]) {
 // Simplified build & search omitted for brevity (tree construction similar to Python)
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Efficient for spatial queries in 2D, 3D, etc.
 - Used in:
@@ -15958,12 +15958,12 @@ double dist2(double a[2], double b[2]) {
   * Robotics (path planning, SLAM)
   * Databases (multi-dimensional indexing)
 
-### Intuition
+#### Intuition
 
 A KD-Tree is like playing "binary search" in multiple dimensions.
 Each split narrows down the search region.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a KD-Tree for points in 2D
 2. Search nearest neighbor of (3,5)
@@ -15976,7 +15976,7 @@ Each split narrows down the search region.
 9. Try non-uniform data
 10. Implement deletion (bonus)
 
-### Test Cases
+#### Test Cases
 
 | Points                              | Query | Expected Nearest |
 | ----------------------------------- | ----- | ---------------- |
@@ -15984,7 +15984,7 @@ Each split narrows down the search region.
 | (1,1),(3,3),(5,5)                   | (4,4) | (3,3)            |
 | (0,0),(10,10)                       | (7,8) | (10,10)          |
 
-### Complexity
+#### Complexity
 
 | Operation     | Complexity       |
 | ------------- | ---------------- |
@@ -16000,7 +16000,7 @@ A KD-Tree slices space along dimensions, your go-to for fast nearest neighbor se
 An R-Tree is a hierarchical spatial index built for efficiently querying geometric objects (rectangles, polygons, circles) in 2D or higher dimensions.
 It's like a B-Tree for rectangles, grouping nearby objects into bounding boxes and organizing them in a tree for fast spatial lookups.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We need to query spatial data efficiently:
 
@@ -16024,7 +16024,7 @@ C: [4,1,6,3]
 Query: `[2.5,2.5,4,4]`
 Overlaps: A, B
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 1. Store rectangles (or bounding boxes) as leaves.
 2. Group nearby rectangles into Minimum Bounding Rectangles (MBRs).
@@ -16047,9 +16047,9 @@ Query `[2.5,2.5,4,4]`:
 - Intersects left node → check A, B
 - Intersects right node partially → check C (no overlap)
 
-### Tiny Code (2D Rectangles)
+#### Tiny Code (2D Rectangles)
 
-#### Python
+##### Python
 
 ```python
 def overlap(a, b):
@@ -16109,19 +16109,19 @@ int overlap(Box a, Box b) {
 // Example: Manual tree simulation omitted for brevity
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Ideal for geospatial databases, mapping, collision detection, and GIS.
 - Powers PostGIS, SQLite R*Tree module, spatial indexes.
 - Handles overlaps, containment, and range queries.
 
-### Intuition
+#### Intuition
 
 R-Trees work by bounding and grouping.
 Each node is a "container box", if it doesn't overlap the query, skip it entirely.
 This saves massive time in spatial datasets.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Represent 2D rectangles with `[x1,y1,x2,y2]`.
 2. Build a 2-level tree (group nearby).
@@ -16134,7 +16134,7 @@ This saves massive time in spatial datasets.
 9. Implement nearest neighbor search.
 10. Try dataset with 10k rectangles, measure speedup.
 
-### Test Cases
+#### Test Cases
 
 | Rectangles                         | Query         | Expected Overlaps |
 | ---------------------------------- | ------------- | ----------------- |
@@ -16142,7 +16142,7 @@ This saves massive time in spatial datasets.
 | A[0,0,2,2], B[3,3,4,4]             | [1,1,3,3]     | A                 |
 | A[1,1,5,5], B[6,6,8,8]             | [7,7,9,9]     | B                 |
 
-### Complexity
+#### Complexity
 
 | Operation | Complexity   |
 | --------- | ------------ |
@@ -16161,7 +16161,7 @@ A Range Minimum Query (RMQ) answers questions like:
 It's a core subroutine in many algorithms, from LCA (Lowest Common Ancestor) to scheduling, histograms, and segment analysis.
 The Sparse Table method precomputes answers so each query is O(1) after O(n log n) preprocessing.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Given an array `arr[0..n-1]`, we want to answer:
 
@@ -16183,7 +16183,7 @@ Array: `[2, 5, 1, 4, 9, 3]`
 | RMQ(1, 3) | min(5,1,4) = 1   |
 | RMQ(2, 5) | min(1,4,9,3) = 1 |
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 1. Precompute answers for all intervals of length 2^k.
 2. To answer RMQ(L,R):
@@ -16209,9 +16209,9 @@ No updates, so data stays static and queries stay O(1).
 | 4 | 9      | 9        | min(9,3)=3 |,          |
 | 5 | 3      | 3        |,          |,          |
 
-### Tiny Code
+#### Tiny Code
 
-#### Python
+##### Python
 
 ```python
 import math
@@ -16251,7 +16251,7 @@ Output:
 1
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -16300,7 +16300,7 @@ RMQ(1,3) = 1
 RMQ(2,5) = 1
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Instant queries after precomputation
 
@@ -16313,12 +16313,12 @@ RMQ(2,5) = 1
 
 - Perfect when array does not change frequently.
 
-### Intuition
+#### Intuition
 
 Each table entry `st[i][k]` stores the minimum of range `[i, i + 2^k - 1]`.
 Queries merge two overlapping intervals that cover `[L,R]`.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build table for `[1,3,2,7,9,11,3,5,6]`
 2. Query RMQ(2,6) and RMQ(4,8)
@@ -16331,7 +16331,7 @@ Queries merge two overlapping intervals that cover `[L,R]`.
 9. Compare preprocessing time with naive
 10. Use to solve LCA using Euler Tour
 
-### Test Cases
+#### Test Cases
 
 | Array         | Query    | Expected |
 | ------------- | -------- | -------- |
@@ -16340,7 +16340,7 @@ Queries merge two overlapping intervals that cover `[L,R]`.
 | [1,2,3,4]     | RMQ(0,3) | 1        |
 | [7,6,5,4,3]   | RMQ(1,4) | 3        |
 
-### Complexity
+#### Complexity
 
 | Operation  | Complexity |
 | ---------- | ---------- |
@@ -16356,7 +16356,7 @@ Mo's Algorithm is a clever offline technique for answering range queries on stat
 It's ideal when you have many queries like sum, distinct count, frequency, etc., but no updates.
 Instead of recomputing each query, Mo's algorithm reuses results smartly by moving the range endpoints efficiently.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want to answer multiple range queries efficiently:
 
@@ -16375,7 +16375,7 @@ Queries:
 2. `[1, 3]` → distinct = 3
 3. `[2, 4]` → distinct = 3
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 1. Divide array into blocks of size `√n`.
 2. Sort queries by:
@@ -16404,9 +16404,9 @@ You move pointers minimally:
 - From [0,4] → [1,3] → [2,4]
 - Reusing much of previous computation.
 
-### Tiny Code (Distinct Count Example)
+#### Tiny Code (Distinct Count Example)
 
-#### Python
+##### Python
 
 ```python
 import math
@@ -16518,7 +16518,7 @@ Output:
 4 3 3
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Converts many range queries into near-linear total time
 - Ideal for:
@@ -16528,13 +16528,13 @@ Output:
   * GCD, XOR, etc. with associative properties
 - Works on static arrays (no updates)
 
-### Intuition
+#### Intuition
 
 Mo's Algorithm is like sorting your errands by location.
 By visiting nearby "blocks" first, you minimize travel time.
 Here, "travel" = pointer movement.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Run on `[1,2,3,4,5]` with queries `(0,2),(1,4),(2,4)`
 2. Change to sum instead of distinct count
@@ -16547,7 +16547,7 @@ Here, "travel" = pointer movement.
 9. Add precomputed sqrt(n) block grouping
 10. Use in competitive programming problems
 
-### Test Cases
+#### Test Cases
 
 | Array           | Queries           | Output  |
 | --------------- | ----------------- | ------- |
@@ -16555,7 +16555,7 @@ Here, "travel" = pointer movement.
 | [1,1,1,1]       | (0,3),(1,2)       | [1,1]   |
 | [1,2,3,4,5]     | (0,2),(2,4)       | [3,3]   |
 
-### Complexity
+#### Complexity
 
 | Operation        | Complexity   |
 | ---------------- | ------------ |
@@ -16570,7 +16570,7 @@ Mo's Algorithm is your range-query workhorse, smartly ordered, block-based, and 
 A Sweep Line Algorithm is a geometric technique that processes events in a sorted order along one dimension, typically the x-axis, to solve range, interval, and overlap problems efficiently.
 Think of it like dragging a vertical line across a 2D plane and updating active intervals as you go.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want to efficiently find:
 
@@ -16602,7 +16602,7 @@ x = 6: R3 ends
 
 The active set changes as the line sweeps → track overlaps dynamically.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 1. Convert objects into events
 
@@ -16635,9 +16635,9 @@ Step-by-step:
 
 Result: 2 overlapping pairs
 
-### Tiny Code (Interval Overlaps)
+#### Tiny Code (Interval Overlaps)
 
-#### Python
+##### Python
 
 ```python
 def sweep_line_intervals(intervals):
@@ -16667,7 +16667,7 @@ Output:
 2
 ```
 
-#### C
+##### C
 
 ```c
 #include <stdio.h>
@@ -16713,7 +16713,7 @@ Output:
 Total overlaps: 2
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Universal pattern in computational geometry:
 
@@ -16729,13 +16729,13 @@ Used in:
 - Scheduling (conflict detection)
 - Event simulation
 
-### Intuition
+#### Intuition
 
 Imagine sliding a vertical line across your data:
 You only "see" the intervals currently active.
 No need to look back, everything behind is already resolved.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Count overlaps in `[1,4],[2,3],[5,6]`
 2. Modify to compute max active intervals (peak concurrency)
@@ -16748,7 +16748,7 @@ No need to look back, everything behind is already resolved.
 9. Count overlaps per interval
 10. Compare runtime to brute force
 
-### Test Cases
+#### Test Cases
 
 | Intervals         | Overlaps |
 | ----------------- | -------- |
@@ -16757,7 +16757,7 @@ No need to look back, everything behind is already resolved.
 | [1,4],[2,3],[3,5] | 3        |
 | [1,5],[2,4],[3,6] | 3        |
 
-### Complexity
+#### Complexity
 
 | Operation   | Complexity |
 | ----------- | ---------- |
@@ -16775,7 +16775,7 @@ It organizes points into clusters based on distance, enabling efficient nearest 
 
 While KD-Trees split by axis, Ball Trees split by distance, making them robust when dimensions increase or when the distance metric isn't axis-aligned.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 We want to efficiently:
 
@@ -16798,7 +16798,7 @@ Query: `(9,2)` → Nearest: `(8,1)`
 
 Instead of splitting by x/y axis, the Ball Tree groups nearby points by distance from a center point (centroid or median).
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 1. Build Tree recursively:
 
@@ -16829,9 +16829,9 @@ Query `(9,2)`:
 - Prune `(3,5)` (too far)
 - Search `(8,3)` cluster → nearest `(8,1)`
 
-### Tiny Code (2D Example)
+#### Tiny Code (2D Example)
 
-#### Python
+##### Python
 
 ```python
 from math import sqrt
@@ -16900,7 +16900,7 @@ typedef struct Node {
 
 Ball Trees are rarely implemented manually in C due to complexity; usually built into libraries (like scikit-learn).
 
-### Why It Matters
+#### Why It Matters
 
 - Works well for non-axis-aligned data
 - Handles high-dimensional and non-Euclidean metrics (e.g. cosine)
@@ -16911,13 +16911,13 @@ Ball Trees are rarely implemented manually in C due to complexity; usually built
   * Spatial databases
   * Machine learning (scikit-learn NearestNeighbors)
 
-### Intuition
+#### Intuition
 
 Imagine wrapping your dataset in nested bubbles.
 Each bubble encloses a cluster.
 To find the nearest neighbor, you only open bubbles that could possibly contain closer points.
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a Ball Tree for `(1,1),(2,2),(3,3),(10,10)`
 2. Query `(2.5,2.5)`
@@ -16930,7 +16930,7 @@ To find the nearest neighbor, you only open bubbles that could possibly contain 
 9. Add radius search (within distance `r`)
 10. Handle duplicate points
 
-### Test Cases
+#### Test Cases
 
 | Points                              | Query     | Nearest |
 | ----------------------------------- | --------- | ------- |
@@ -16938,7 +16938,7 @@ To find the nearest neighbor, you only open bubbles that could possibly contain 
 | (1,1),(2,2),(3,3)                   | (2.5,2.5) | (3,3)   |
 | (0,0),(10,10)                       | (7,8)     | (10,10) |
 
-### Complexity
+#### Complexity
 
 | Operation     | Complexity |
 | ------------- | ---------- |
@@ -16949,7 +16949,7 @@ To find the nearest neighbor, you only open bubbles that could possibly contain 
 
 A Ball Tree is your spherical guide in high-dimensional space, splitting by proximity, not axes, to find neighbors fast and flexibly.
 
-# Section 20. Search Optimizations and variants 
+## Section 20. Search Optimizations and variants 
 
 ### 191 Binary Search with Tolerance
 
@@ -16957,7 +16957,7 @@ A Binary Search with Tolerance is a variant of binary search designed for real n
 
 Instead of checking for strict equality (`==`), we accept a range of closeness, defined by a tolerance `ε` (epsilon).
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 For integers, equality is exact.
 For floating-point numbers, tiny rounding errors make equality unreliable:
@@ -16992,7 +16992,7 @@ Searching for `0.3` with `epsilon = 1e-6`:
 
 - `fabs(0.3000000001 - 0.3) < 1e-6` → found!
 
-### Tiny Code
+#### Tiny Code
 
 #### C Implementation
 
@@ -17052,7 +17052,7 @@ arr = [0.1, 0.2, 0.3000000001, 0.4, 0.5]
 print(binary_search_tolerance(arr, 0.3))  # 2
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Avoids false negatives when comparing floats
 - Handles round-off errors gracefully
@@ -17063,7 +17063,7 @@ print(binary_search_tolerance(arr, 0.3))  # 2
   * Physics simulations
   * Numerical optimization
 
-### Intuition
+#### Intuition
 
 Binary search assumes exact comparison.
 With floating-point numbers, "equal" often means "close enough."
@@ -17073,7 +17073,7 @@ Think of it as:
 
 > "If the difference is less than ε, consider it found."
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Use an array `[0.1, 0.2, 0.3, 0.4, 0.5]`
    Search for `0.3000001` with `ε = 1e-5`
@@ -17087,7 +17087,7 @@ Think of it as:
 9. Adjust ε dynamically based on scale
 10. Measure precision loss with large floats
 
-### Test Cases
+#### Test Cases
 
 | Array                    | Target   | Epsilon | Expected  |
 | ------------------------ | -------- | ------- | --------- |
@@ -17095,7 +17095,7 @@ Think of it as:
 | [1.0, 2.0, 3.0]          | 2.000001 | 1e-5    | Found     |
 | [1.0, 2.0, 3.0]          | 2.1      | 1e-5    | Not found |
 
-### Complexity
+#### Complexity
 
 | Step   | Complexity |
 | ------ | ---------- |
@@ -17109,7 +17109,7 @@ A Binary Search with Tolerance is a small but essential upgrade when dealing wit
 A Ternary Search is an algorithm for finding the maximum or minimum of a unimodal function—a function that increases up to a point and then decreases (or vice versa).
 It is a divide-and-conquer method similar to binary search but splits the range into three parts each time.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 You have a function `f(x)` defined on an interval `[l, r]`, and you know it has one peak (or valley).
 You want to find the x where `f(x)` is maximized (or minimized).
@@ -17133,7 +17133,7 @@ Ternary search gradually narrows the interval around the maximum:
 3. Keep the side that contains the peak
 4. Repeat until small enough
 
-### How It Works (Step-by-Step)
+#### How It Works (Step-by-Step)
 
 | Step | Action                                                             |
 | ---- | ------------------------------------------------------------------ |
@@ -17143,7 +17143,7 @@ Ternary search gradually narrows the interval around the maximum:
 | 4    | Else → maximum is in `[l, m2]`                                     |
 | 5    | Repeat until `r - l` < ε                                           |
 
-### Tiny Code
+#### Tiny Code
 
 #### C Implementation (Maximization)
 
@@ -17200,7 +17200,7 @@ res = ternary_search(0, 4)
 print(f"Max at x = {res:.6f}, f(x) = {f(res):.6f}")
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Finds extrema (max/min) in continuous functions
 - No derivative required (unlike calculus-based optimization)
@@ -17217,7 +17217,7 @@ Used in:
 - Geometry problems (e.g., closest distance)
 - Physics simulations
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Try `f(x) = (x - 5)^2 + 1` (minimization)
 2. Use interval `[0, 10]` and `eps = 1e-6`
@@ -17230,7 +17230,7 @@ Used in:
 9. Use integer search version for discrete arrays
 10. Combine with golden section search for efficiency
 
-### Test Cases
+#### Test Cases
 
 | Function            | Interval  | Expected | Type    |
 | ------------------- | --------- | -------- | ------- |
@@ -17238,7 +17238,7 @@ Used in:
 | f(x) = (x-5)^2 + 1  | [0, 10]   | x ≈ 5    | Minimum |
 | f(x) = sin(x)       | [0, 3.14] | x ≈ 1.57 | Maximum |
 
-### Complexity
+#### Complexity
 
 | Metric | Value             |
 | ------ | ----------------- |
@@ -17252,7 +17252,7 @@ A Ternary Search slices the search space into thirds—zooming in on the peak or
 A Hash-Based Search uses a hash function to map keys directly to indices in a table, giving constant-time expected lookups.
 Instead of scanning or comparing elements, it jumps straight to the bucket where the data should be.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When searching in a large dataset, linear search is too slow (O(n)) and binary search needs sorted data (O(log n)).
 Hash-based search lets you find, insert, or delete an item in O(1) average time, regardless of ordering.
@@ -17281,7 +17281,7 @@ You place each name in its corresponding slot. Searching becomes instant:
 hash("Bob") = 5 → found!
 ```
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 | Step | Action                                                                                                    |
 | ---- | --------------------------------------------------------------------------------------------------------- |
@@ -17291,7 +17291,7 @@ hash("Bob") = 5 → found!
 | 4    | Compare keys if necessary                                                                                 |
 | 5    | Return result                                                                                             |
 
-### Tiny Code
+#### Tiny Code
 
 #### C Implementation (with Linear Probing)
 
@@ -17362,14 +17362,14 @@ print(people["Carol"])       # 30
 
 Python's `dict` uses an optimized open addressing hash table.
 
-### Why It Matters
+#### Why It Matters
 
 - O(1) average lookup, insertion, and deletion
 - No need for sorting
 - Core to symbol tables, caches, dictionaries, compilers, and databases
 - Can scale with resizing (rehashing)
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Implement hash table with chaining using linked lists
 2. Replace linear probing with quadratic probing
@@ -17382,7 +17382,7 @@ Python's `dict` uses an optimized open addressing hash table.
 9. Try a poor hash function (like `h=1`) and measure slowdown
 10. Compare with Python's built-in dict
 
-### Test Cases
+#### Test Cases
 
 | Operation | Input         | Expected Output |
 | --------- | ------------- | --------------- |
@@ -17393,7 +17393,7 @@ Python's `dict` uses an optimized open addressing hash table.
 | Delete    | "Bob"         | Removed         |
 | Search    | "Bob"         | Not found       |
 
-### Complexity
+#### Complexity
 
 | Metric | Average | Worst Case |
 | ------ | ------- | ---------- |
@@ -17408,7 +17408,7 @@ A Hash-Based Search is like a magic index, it jumps straight to the data you nee
 A Bloom Filter is a probabilistic data structure that tells you if an element is definitely not in a set or possibly is.
 It's super fast and memory efficient, but allows false positives (never false negatives).
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When working with huge datasets (like URLs, cache keys, or IDs), you may not want to store every element just to check membership.
 Bloom Filters give you a fast O(1) check:
@@ -17427,7 +17427,7 @@ You have a cache of 1 million items. Before hitting the database, you want to kn
 Use a Bloom Filter to quickly tell if the key *could be* in cache.
 If filter says "no," skip lookup entirely.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 | Step | Action                                                                  |
 | ---- | ----------------------------------------------------------------------- |
@@ -17438,7 +17438,7 @@ If filter says "no," skip lookup entirely.
 | 5    | If any bit = 0 → definitely not in set                                  |
 | 6    | If all bits = 1 → possibly in set (false positive possible)             |
 
-### Tiny Code
+#### Tiny Code
 
 #### Python (Simple Bloom Filter)
 
@@ -17477,14 +17477,14 @@ True
 False
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Memory efficient for large sets
 - No false negatives, if it says "no," you can trust it
 - Used in caches, databases, distributed systems
 - Reduces I/O by skipping non-existent entries
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build a Bloom Filter with 1000 bits and 3 hash functions
 2. Insert 100 random elements
@@ -17497,7 +17497,7 @@ False
 9. Add support for merging filters (bitwise OR)
 10. Try a Counting Bloom Filter (to support deletions)
 
-### Test Cases
+#### Test Cases
 
 | Input             | Expected Output        |
 | ----------------- | ---------------------- |
@@ -17507,7 +17507,7 @@ False
 | add("Bob")        | Bits updated           |
 | contains("Bob")   | True (maybe)           |
 
-### Complexity
+#### Complexity
 
 | Operation | Time | Space |
 | --------- | ---- | ----- |
@@ -17524,7 +17524,7 @@ A Bloom Filter is like a polite doorman, it'll never wrongly turn you away, but 
 A Cuckoo Hash Table is a clever hash-based structure that guarantees O(1) lookup while avoiding long probe chains.
 It uses two hash functions and relocates existing keys when a collision occurs, just like a cuckoo bird kicking eggs out of a nest.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Traditional hash tables can degrade to O(n) when collisions pile up.
 Cuckoo hashing ensures constant-time lookups by guaranteeing every key has at most two possible positions.
@@ -17552,7 +17552,7 @@ Insert keys: 5, 8, 11
 When inserting 11, slot `2` is full, so we kick out 5 to its alternate position.
 This continues until every key finds a home.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 | Step | Action                                                 |
 | ---- | ------------------------------------------------------ |
@@ -17564,7 +17564,7 @@ This continues until every key finds a home.
 
 Each key lives in either position `h1(key)` or `h2(key)`.
 
-### Tiny Code
+#### Tiny Code
 
 #### C Implementation (Simplified)
 
@@ -17643,14 +17643,14 @@ insert(10); insert(20); insert(30)
 print("Search 20:", search(20))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - O(1) worst-case lookup (always two probes)
 - Eliminates long collision chains
 - Great for high-performance systems
 - Deterministic position = easy debugging
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Insert numbers 1–10 and trace movements
 2. Add detection for cycles → trigger rehash
@@ -17663,7 +17663,7 @@ print("Search 20:", search(20))
 9. Benchmark against chaining
 10. Visualize movement paths during insertion
 
-### Test Cases
+#### Test Cases
 
 | Operation | Input | Expected              |
 | --------- | ----- | --------------------- |
@@ -17674,7 +17674,7 @@ print("Search 20:", search(20))
 | Delete    | 8     | Removed               |
 | Search    | 8     | Not Found             |
 
-### Complexity
+#### Complexity
 
 | Operation | Time         | Space |
 | --------- | ------------ | ----- |
@@ -17689,7 +17689,7 @@ Cuckoo hashing is like musical chairs for keys, when one can't sit, it makes ano
 Robin Hood Hashing is an open addressing strategy that balances fairness in hash table lookups.
 When two keys collide, the one that's traveled farther from its "home" index gets to stay, stealing the slot like Robin Hood, who took from the rich and gave to the poor.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Standard linear probing can cause clusters, long runs of occupied slots that slow searches.
 Robin Hood Hashing reduces variance in probe lengths, so every key has roughly equal access time.
@@ -17712,7 +17712,7 @@ Since `21`'s distance (1) is less, it keeps probing.
 Robin Hood rule: if newcomer has greater or equal distance → swap.
 This keeps distribution even.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 | Step | Action                                                                        |
 | ---- | ----------------------------------------------------------------------------- |
@@ -17722,7 +17722,7 @@ This keeps distribution even.
 | 4    | If new item's distance ≥ current's → swap and continue probing displaced item |
 | 5    | Repeat until inserted                                                         |
 
-### Tiny Code
+#### Tiny Code
 
 #### C Implementation (Simplified)
 
@@ -17823,14 +17823,14 @@ insert(10); insert(20); insert(30)
 print("Search 20:", search(20))
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Predictable lookup times, probe lengths nearly uniform
 - Outperforms linear probing at high load
 - Fewer long clusters, more stable table behavior
 - Great for performance-critical systems
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Insert `[10, 20, 30, 21]` and trace swaps
 2. Measure probe length variance vs. linear probing
@@ -17843,7 +17843,7 @@ print("Search 20:", search(20))
 9. Add key-value pair storage
 10. Benchmark search time at 70%, 80%, 90% load
 
-### Test Cases
+#### Test Cases
 
 | Operation | Input          | Expected                   |
 | --------- | -------------- | -------------------------- |
@@ -17853,7 +17853,7 @@ print("Search 20:", search(20))
 | Delete    | 10             | Removed                    |
 | Insert    | 50             | Placed at optimal position |
 
-### Complexity
+#### Complexity
 
 | Operation | Time     | Space |
 | --------- | -------- | ----- |
@@ -17869,7 +17869,7 @@ Jump Consistent Hashing is a lightweight, fast, and deterministic way to assign 
 
 It's designed for load balancing in distributed systems, like database shards or cache clusters.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 When scaling systems horizontally, you often need to assign keys (like user IDs) to buckets (like servers).
 Naive methods (e.g. `key % N`) cause massive remapping when `N` changes.
@@ -17893,7 +17893,7 @@ Suppose we have keys 1 to 6 and 3 buckets:
 When we add a new bucket (4 total), only a few keys change buckets, most stay where they are.
 That's the magic of *consistency*.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 | Step | Action                                                 |
 | ---- | ------------------------------------------------------ |
@@ -17906,7 +17906,7 @@ That's the magic of *consistency*.
 
 It uses integer arithmetic only, no tables, no storage, just math.
 
-### Tiny Code
+#### Tiny Code
 
 #### C Implementation
 
@@ -17956,14 +17956,14 @@ for k in range(1, 7):
     print(f"Key {k} → Bucket {jump_hash(k, 3)}")
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Stable distribution: minimal remapping on resize
 - O(1) time, O(1) space
 - Works great for sharding, load balancing, partitioning
 - No need for external storage or ring structures (unlike consistent hashing rings)
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Assign 10 keys across 3 buckets
 2. Add a 4th bucket and see which keys move
@@ -17976,7 +17976,7 @@ for k in range(1, 7):
 9. Visualize redistribution pattern
 10. Compare with Rendezvous Hashing
 
-### Test Cases
+#### Test Cases
 
 | Input      | Buckets | Output                   |
 | ---------- | ------- | ------------------------ |
@@ -17987,7 +17987,7 @@ for k in range(1, 7):
 
 Only a fraction of keys remap when N changes.
 
-### Complexity
+#### Complexity
 
 | Operation | Time | Space |
 | --------- | ---- | ----- |
@@ -18002,7 +18002,7 @@ A Trie (prefix tree) is a specialized tree structure that stores strings by thei
 
 With a trie, searching for "app" instantly finds "apple", "apply", "appetite", etc.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Traditional data structures like arrays or hash tables can't efficiently answer questions like:
 
@@ -18030,7 +18030,7 @@ The trie looks like this:
 Stars (*) mark word endings.
 Search "app" → found; list all completions → "app", "apple".
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 | Step | Action                                                       |
 | ---- | ------------------------------------------------------------ |
@@ -18041,7 +18041,7 @@ Search "app" → found; list all completions → "app", "apple".
 | 5    | To search prefix: traverse nodes character by character      |
 | 6    | If all exist → prefix found; else → not found                |
 
-### Tiny Code
+#### Tiny Code
 
 #### C Implementation (Simplified)
 
@@ -18129,14 +18129,14 @@ trie.insert("app")
 print(trie.starts_with("ap"))  # True
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - O(k) prefix lookup (k = prefix length)
 - Perfect for autocomplete, spell checkers, search engines
 - Stores shared prefixes efficiently
 - Can be extended for frequency, weights, or wildcard matching
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Insert ["app", "apple", "apply", "apt"]
 2. Search prefix "ap" → expect True
@@ -18149,7 +18149,7 @@ print(trie.starts_with("ap"))  # True
 9. Compare memory use vs hash table
 10. Extend to autocomplete feature returning top-N completions
 
-### Test Cases
+#### Test Cases
 
 | Operation  | Input   | Output |
 | ---------- | ------- | ------ |
@@ -18159,7 +18159,7 @@ print(trie.starts_with("ap"))  # True
 | startsWith | "ba"    | False  |
 | startsWith | "app"   | True   |
 
-### Complexity
+#### Complexity
 
 | Operation       | Time                     | Space |
 | --------------- | ------------------------ | ----- |
@@ -18176,7 +18176,7 @@ It enables fast substring searches, perfect for pattern matching in text editors
 
 By combining it with binary search, you can find whether a pattern appears in a string in O(m log n) time.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 Given a large text `T` (like `"banana"`) and a pattern `P` (like `"ana"`), we want to quickly check if `P` exists in `T`.
 Naive search takes O(nm) (compare every position).
@@ -18208,7 +18208,7 @@ Sorted suffixes:
 
 Now search `"ana"` using binary search over these sorted suffixes.
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 | Step | Action                                                       |
 | ---- | ------------------------------------------------------------ |
@@ -18218,7 +18218,7 @@ Now search `"ana"` using binary search over these sorted suffixes.
 | 4    | If found → pattern occurs at suffix index                    |
 | 5    | Otherwise → not in text                                      |
 
-### Tiny Code
+#### Tiny Code
 
 #### C Implementation (Simplified)
 
@@ -18298,14 +18298,14 @@ Suffix Array: [5, 3, 1, 0, 4, 2]
 Search 'ana': 1
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Substring search in O(m log n)
 - Space-efficient alternative to suffix trees
 - Great for full-text search, DNA sequencing, plagiarism detection
 - Can be extended with LCP array for longest common prefix queries
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Build suffix array for `"banana"`
 2. Search `"na"`, `"ban"`, `"apple"`
@@ -18318,7 +18318,7 @@ Search 'ana': 1
 9. Implement in-place quicksort for SA
 10. Benchmark vs. naive substring search
 
-### Test Cases
+#### Test Cases
 
 | Text     | Pattern | Expected Result |
 | -------- | ------- | --------------- |
@@ -18327,7 +18327,7 @@ Search 'ana': 1
 | "banana" | "na"    | Found at 2 or 4 |
 | "banana" | "cat"   | Not Found       |
 
-### Complexity
+#### Complexity
 
 | Operation | Time       | Space |
 | --------- | ---------- | ----- |
@@ -18343,7 +18343,7 @@ You can't directly use binary search because you don't know `n`, so you must fir
 
 This idea is crucial for systems where data is streamed or dynamically sized, like logs, unrolled lists, or file scans.
 
-### What Problem Are We Solving?
+#### What Problem Are We Solving??
 
 If you're given an array-like interface (like `get(i)`), but no size `n`, how do you find `target` efficiently?
 You can't do linear search, it could be infinite.
@@ -18369,7 +18369,7 @@ Search for `31`:
 4. Perform binary search in `[4, 8]`
 5. Found at index 6
 
-### How It Works (Plain Language)
+#### How It Works (Plain Language)
 
 | Step | Action                                                    |
 | ---- | --------------------------------------------------------- |
@@ -18379,7 +18379,7 @@ Search for `31`:
 | 4    | Perform standard binary search in `[low, high]`       |
 | 5    | Return index if found, else -1                            |
 
-### Tiny Code
+#### Tiny Code
 
 #### C Implementation (Simulated Infinite Array)
 
@@ -18460,14 +18460,14 @@ Output:
 Found at index: 6
 ```
 
-### Why It Matters
+#### Why It Matters
 
 - Works with streams, linked storage, APIs, or infinite generators
 - Avoids full traversal, logarithmic growth
 - Combines exploration (finding bounds) with binary search (exact match)
 - Ideal for search engines, log readers, cloud data paging
 
-### Try It Yourself
+#### Try It Yourself
 
 1. Search `[1, 3, 5, 9, 12, 20]` for `9`
 2. Search `[2, 4, 8, 16, 32, 64]` for `33` (not found)
@@ -18480,7 +18480,7 @@ Found at index: 6
 9. Generalize to descending arrays
 10. Compare performance vs naive scan
 
-### Test Cases
+#### Test Cases
 
 | Input Array                   | Target | Output |
 | ----------------------------- | ------ | ------ |
@@ -18489,7 +18489,7 @@ Found at index: 6
 | [1, 2, 4, 8, 16]              | 8      | 3      |
 | [10, 20, 30]                  | 40     | -1     |
 
-### Complexity
+#### Complexity
 
 | Operation | Time     | Space |
 | --------- | -------- | ----- |
