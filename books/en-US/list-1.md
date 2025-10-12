@@ -1,4 +1,4 @@
-# Chapter 1. Foundatmemtions of Algorithms
+# Chapter 1. Foundations of Algorithms
 
 ## Section 1. What is an algorithms?
 
@@ -3392,7 +3392,7 @@ Identify their Big-O class and interpret feasibility.
 
 The Complexity Class Identifier is your map of the algorithmic universe, helping you locate where your code stands, from calm constant time to the roaring infinity of factorial growth.
 
-# Section 4. Algorithm Paradigms 
+## Section 4. Algorithm Paradigms 
 
 ### 31 Greedy Coin Example
 
@@ -4550,7 +4550,7 @@ $$
 The Amortized Merge Demo reveals the calm beneath algorithmic chaos, even when some steps are costly, the long-run rhythm stays smooth, predictable, and efficient.
 
 
-# Section 5. Recurrence Relations 
+## Section 5. Recurrence Relations 
 
 ### 41 Linear Recurrence Solver
 
@@ -6134,7 +6134,7 @@ By linearity, the sum of independent solutions is also a solution.
 
 The Characteristic Polynomial Solver is the algebraic heart of recurrence solving, turning repeated patterns into exact formulas through the power of roots and symmetry.
 
-# Section 6. Searching basics 
+## Section 6. Searching basics 
 
 ### 51 Search Space Visualizer
 
@@ -7287,7 +7287,7 @@ Let's measure sorting cost for different input sizes:
 
 Plot these points. The curve shape suggests $O(n \log n)$ behavior.
 
-### Tiny Code (Python + Matplotlib)
+#### Tiny Code (Python + Matplotlib)
 
 ```python
 import time, random, matplotlib.pyplot as plt
@@ -7356,7 +7356,7 @@ The plotted curve visually approximates $g(n)$; comparing its shape to $f(n)$ re
 
 The Cost Curve Plotter turns theory into shape, a simple graph that makes scaling behavior and trade-offs instantly clear.
 
-# Section 7. Sorting basics
+## Section 7. Sorting basics
 
 ### 61 Swap Counter
 
@@ -7492,7 +7492,7 @@ Total inversions: 2
 
 A perfect diagnostic: small count → nearly sorted.
 
-### Tiny Code (Brute Force)
+#### Tiny Code (Brute Force)
 
 ```python
 def count_inversions_bruteforce(arr):
@@ -7508,7 +7508,7 @@ def count_inversions_bruteforce(arr):
 Output:
 `count_inversions_bruteforce([3, 1, 2])` → `2`
 
-### Optimized Approach (Merge Sort)
+#### Optimized Approach (Merge Sort)
 
 Counting inversions can be done in $O(n \log n)$ by modifying merge sort.
 
@@ -8446,7 +8446,7 @@ This follows from formal definitions of asymptotic notation, ensuring consistenc
 
 The Complexity Comparator is your lens for asymptotic insight, showing not just which algorithm is faster, but *why* it scales better.
 
-# Section 8. Data Structure Overview 
+## Section 8. Data Structure Overview 
 
 ### 71 Stack Simulation
 
@@ -9737,7 +9737,7 @@ Prefix query cost = $O(p)$, where $p$ = prefix length.
 
 A Trie Structure Visualizer shows structure born from language, every word a path, every prefix a meeting point, every branch a shared memory.
 
-# Section 9. Graphs and Trees overview 
+## Section 9. Graphs and Trees overview 
 
 ### 81 Graph Model Constructor
 
@@ -9774,7 +9774,7 @@ You can build graphs in multiple ways:
 2. Adjacency List – dictionary of node → neighbor list
 3. Adjacency Matrix – 2D table of connections (1 = edge, 0 = none)
 
-### Example
+#### Example
 
 Input relationships
 
@@ -9914,7 +9914,7 @@ $$
 - For directed graphs, symmetry may not hold
 - For weighted graphs, store weights instead of 1s
 
-### Example
+#### Example
 
 Vertices: $V = {A, B, C, D}$
 Edges: ${(A,B), (A,C), (B,C), (C,D)}$
@@ -10030,7 +10030,7 @@ $$
 
 You can think of it as a dictionary (or map) where each key is a vertex, and its value is a list of neighbors.
 
-### Example
+#### Example
 
 Vertices: $V = {A, B, C, D}$
 Edges: ${(A,B), (A,C), (B,C), (C,D)}$
@@ -10141,7 +10141,7 @@ For each edge $(u, v)$:
 
 When done, every vertex has its connection count.
 
-### Example
+#### Example
 
 Undirected graph:
 $$
@@ -10268,7 +10268,7 @@ Steps:
 4. Traverse neighbors recursively (DFS) or level by level (BFS)
 5. If destination `t` is visited, a path exists
 
-### Example
+#### Example
 
 Graph:
 $$
@@ -10396,7 +10396,7 @@ Method 2: Edge–Vertex Property
 1. Check if graph has exactly $|V| - 1$ edges.
 2. Run DFS/BFS to ensure graph is connected.
 
-### Example
+#### Example
 
 Graph 1:
 $$
@@ -10541,7 +10541,7 @@ Method 2: Edge–Vertex Property
 1. Check if graph has exactly $|V| - 1$ edges.
 2. Run DFS or BFS to ensure graph is connected.
 
-### Example
+#### Example
 
 Graph 1:
 $$
@@ -10681,7 +10681,7 @@ Steps:
 
 This gives a tree with parent–child relationships.
 
-### Example
+#### Example
 
 Parent array:
 
@@ -11000,7 +11000,7 @@ Each edge $(u, v)$ is then classified as:
 
 In undirected graphs, only tree and back edges occur.
 
-### Example
+#### Example
 
 Graph (directed):
 
@@ -11139,7 +11139,7 @@ Directed Graph:
 
 Alternatively, detect strongly connected components (SCCs) via Kosaraju's or Tarjan's algorithm.
 
-### Example (Undirected)
+#### Example (Undirected)
 
 Graph 1:
 
@@ -11159,7 +11159,7 @@ Graph 2:
 
 Two separate parts → Not connected.
 
-### Example (Directed)
+#### Example (Directed)
 
 Graph:
 
@@ -11263,7 +11263,7 @@ Therefore, DFS/BFS reachability partitioning defines connected components unique
 
 A Connectivity Checker ensures your graph is a single story, not a collection of isolated tales, a foundation before every journey through the graph.
 
-# Section 10. Algorithm Design Patterns 
+## Section 10. Algorithm Design Patterns 
 
 ### 91 Brute Force Pattern
 
@@ -11289,7 +11289,7 @@ A brute force algorithm generally follows this structure:
 
 This is conceptually simple, though often expensive in time.
 
-### Example: Traveling Salesman Problem (TSP)
+#### Example: Traveling Salesman Problem (TSP)
 
 Given $n$ cities and distances between them, find the shortest tour visiting all.
 
@@ -11399,7 +11399,7 @@ General shape:
 2. Repeatedly choose the best local move (by some rule).
 3. Stop when no more moves are possible or desired.
 
-### Example: Coin Change (Canonical Coins)
+#### Example: Coin Change (Canonical Coins)
 
 Given coins ${25, 10, 5, 1}$, make change for 63 cents.
 
@@ -11496,7 +11496,7 @@ Think of divide and conquer as a recursive three-step dance:
 
 Each recursive call tackles a fraction of the work until reaching a base case.
 
-### Example: Merge Sort
+#### Example: Merge Sort
 
 Sort an array $A[1..n]$.
 
@@ -11612,7 +11612,7 @@ Two main flavors:
 1. Top-down (Memoization) – recursion with caching.
 2. Bottom-up (Tabulation) – fill a table iteratively.
 
-### Example: Fibonacci Numbers
+#### Example: Fibonacci Numbers
 
 Naive recursion:
 $$F(n) = F(n-1) + F(n-2)$$
@@ -11729,7 +11729,7 @@ Imagine exploring a maze:
 
 Each level of recursion corresponds to a decision point.
 
-### Example: N-Queens Problem
+#### Example: N-Queens Problem
 
 We need to place $n$ queens on an $n \times n$ board
 so no two attack each other.
@@ -11849,7 +11849,7 @@ We use:
 
 Prune when upper bound ≤ lower bound.
 
-### Example: 0/1 Knapsack
+#### Example: 0/1 Knapsack
 
 Given items with weights and values, choose subset with max value ≤ capacity.
 
@@ -11975,7 +11975,7 @@ Randomization can appear in two forms:
 
 By picking random paths or samples, we smooth out bad cases and often simplify logic.
 
-### Example: Randomized QuickSort
+#### Example: Randomized QuickSort
 
 Choose a pivot randomly to avoid worst-case splits.
 
@@ -12080,7 +12080,7 @@ $$\frac{\text{ALG}}{\text{OPT}} \le \alpha$$
 
 where $\alpha$ is the approximation factor (e.g., 2, 1.5, or $(1 + \epsilon)$).
 
-### Example: Vertex Cover (2-Approximation)
+#### Example: Vertex Cover (2-Approximation)
 
 Problem: find smallest set of vertices touching all edges.
 
@@ -12192,7 +12192,7 @@ $$
 
 If $\text{ALG}$'s cost is at most $k$ times optimal, the algorithm is k-competitive.
 
-### Example: Paging / Cache Replacement
+#### Example: Paging / Cache Replacement
 
 You have cache of size $k$.
 Sequence of page requests arrives.
@@ -12306,7 +12306,7 @@ Common patterns:
 3. Conditional strategy:
    Choose algorithm based on data distribution (e.g., QuickSort vs HeapSort).
 
-### Example: Introsort
+#### Example: Introsort
 
 Introsort starts like QuickSort for average speed, but if recursion depth grows too large (bad pivot splits), it switches to HeapSort to guarantee $O(n \log n)$ worst-case time.
 
