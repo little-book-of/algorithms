@@ -22,6 +22,7 @@ book:
     - books/en-us/list-7.md
     - books/en-us/list-8.md
     - books/en-us/list-9.qmd
+    - books/en-us/list-10.md
 
 website:
   title: *book_title
